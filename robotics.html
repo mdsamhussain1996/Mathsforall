@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics for Robotics | Maths for All</title>
+  <meta name="description" content="Kinematics, coordinate transformations, differential equations, and control basics — the mathematics behind intelligent robotic systems." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html" class="active">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search topics…" />
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="page-hero">
+    <div class="page-hero-tag">🦾 Mathematics for Robotics</div>
+    <h1>The Math That Makes <span style="background:linear-gradient(135deg,#fff,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Robots Move</span></h1>
+    <p>From positioning a robot arm to planning trajectories in 3D space — kinematics, coordinate transforms, and differential equations give robots their intelligence.</p>
+    <div style="display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap;">
+      <a href="#kinematics" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;background:linear-gradient(135deg,#00c9b8,#0097a7);">Kinematics</a>
+      <a href="#transforms" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Transforms</a>
+      <a href="#odes" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">ODEs</a>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+
+<!-- ── KINEMATICS ── -->
+<div class="topic-section" id="kinematics">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(0,201,184,0.15);">🦾</div>
+    <div class="topic-title-group">
+      <h2>Kinematics</h2>
+      <p>Forward and inverse kinematics — mapping joint angles to positions</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Forward Kinematics</h3>
+        <p><strong style="color:var(--text-primary)">Given:</strong> Joint angles θ₁, θ₂, …, θₙ — <strong style="color:var(--text-primary)">Find:</strong> End-effector position and orientation. We chain together rotation matrices — each joint's frame relative to the previous one — to get the full transform.</p>
+        <div class="formula-box">
+T₀ⁿ = T₀¹ · T₁² · … · Tₙ₋₁ⁿ
+
+x = L₁cos(θ₁) + L₂cos(θ₁+θ₂)
+y = L₁sin(θ₁) + L₂sin(θ₁+θ₂)
+        </div>
+        <h3>Inverse Kinematics</h3>
+        <p><strong style="color:var(--text-primary)">Given:</strong> Desired end-effector position — <strong style="color:var(--text-primary)">Find:</strong> The joint angles. IK is generally much harder than FK — multiple solutions may exist (or none). Solved analytically for simple arms, or numerically using the Jacobian.</p>
+        <div class="formula-box">
+θ₂ = arccos((x²+y²−L₁²−L₂²)/(2L₁L₂))
+θ₁ = atan2(y,x) − atan2(L₂sin(θ₂), L₁+L₂cos(θ₂))
+        </div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Denavit-Hartenberg (DH) parameters</li>
+        <li>Forward kinematics for n-DOF arms</li>
+        <li>Inverse kinematics — analytical methods</li>
+        <li>Jacobian matrix & pseudo-inverse</li>
+        <li>Singularities & workspace analysis</li>
+        <li>Velocity kinematics</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">2-Link Robot Arm Simulator</div>
+        <canvas id="robot-canvas" class="viz-canvas" width="400" height="320" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">θ₁ (joint 1):</span>
+            <input type="range" id="theta1" min="-180" max="180" value="45" oninput="updateRobot()" />
+            <span class="slider-val" id="theta1-v">45°</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">θ₂ (joint 2):</span>
+            <input type="range" id="theta2" min="-180" max="180" value="-30" oninput="updateRobot()" />
+            <span class="slider-val" id="theta2-v">-30°</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">L₁ (link 1):</span>
+            <input type="range" id="l1" min="30" max="100" value="70" oninput="updateRobot()" />
+            <span class="slider-val" id="l1-v">70</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">L₂ (link 2):</span>
+            <input type="range" id="l2" min="30" max="100" value="55" oninput="updateRobot()" />
+            <span class="slider-val" id="l2-v">55</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Drag sliders to control joint angles and link lengths.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COORDINATE TRANSFORMS ── -->
+<div class="topic-section" id="transforms">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(124,58,237,0.15);">🔄</div>
+    <div class="topic-title-group">
+      <h2>Coordinate Transformations</h2>
+      <p>Rotation matrices, homogeneous transforms, and quaternions</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Rotation Matrices</h3>
+        <p>A rotation matrix R maps vectors from one coordinate frame to another while preserving lengths and angles. In 2D, rotating by angle θ gives a 2×2 matrix. In 3D, we have rotations about x, y, and z axes that can be composed.</p>
+        <div class="formula-box">
+R(θ) = [[cos θ, -sin θ],
+         [sin θ,  cos θ]]   (2D)
+
+Properties: Rᵀ = R⁻¹, det(R) = 1
+        </div>
+        <h3>Homogeneous Transforms</h3>
+        <p>We combine rotation and translation into a single 4×4 matrix. This elegantly handles the full rigid-body motion: rotation + position. The DH convention uses these to describe robot kinematics systematically.</p>
+        <div class="formula-box">
+T = [[R  | p],   R: 3×3 rotation
+     [0  | 1]]   p: 3×1 position
+        </div>
+        <h3>Quaternions</h3>
+        <p>A more compact and numerically stable representation of 3D rotations. Avoids gimbal lock, interpolates smoothly (SLERP), and is used in virtually all modern robotics and game engines.</p>
+        <div class="formula-box">q = w + xi + yj + zk,  |q| = 1
+v' = q v q*   (rotation formula)</div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>SO(2) and SO(3) rotation groups</li>
+        <li>Euler angles & gimbal lock</li>
+        <li>Quaternion algebra & SLERP</li>
+        <li>Homogeneous transform composition</li>
+        <li>Frame-to-frame transformations</li>
+        <li>Adjoint representation</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">2D Rotation Visualization</div>
+        <canvas id="rot-canvas" class="viz-canvas" width="400" height="280" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Angle θ:</span>
+            <input type="range" id="rot-angle" min="0" max="360" value="45" oninput="updateRot()" />
+            <span class="slider-val" id="rot-angle-v">45°</span>
+          </div>
+        </div>
+        <button onclick="animateRot()" class="btn btn-primary" style="margin-top:1rem;padding:0.5rem 1.1rem;font-size:0.8rem;">▶ Animate Rotation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ODEs ── -->
+<div class="topic-section" id="odes">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(245,158,11,0.15);">〰️</div>
+    <div class="topic-title-group">
+      <h2>Differential Equations</h2>
+      <p>ODEs, trajectory modeling, and motion equations</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Why ODEs in Robotics?</h3>
+        <p>Robot dynamics are governed by differential equations. Newton's second law F = ma, Euler's equations for rigid body rotation, and Lagrangian mechanics all lead to systems of ODEs that describe how a robot evolves in time.</p>
+        <div class="formula-box">
+M(q)q̈ + C(q,q̇)q̇ + g(q) = τ
+
+M: inertia matrix
+C: Coriolis/centripetal terms
+g: gravity vector
+τ: joint torques
+        </div>
+        <h3>Numerical Integration</h3>
+        <p>Euler's method, Runge-Kutta 4th order (RK4) — these let us simulate continuous dynamics on a digital computer. Choose step size carefully: too large causes instability, too small wastes computation.</p>
+        <div class="formula-box">
+Euler:  y_{n+1} = y_n + h·f(t_n, y_n)
+RK4:    k₁ = f(t, y),   k₂ = f(t+h/2, y+h·k₁/2)
+        </div>
+        <h3>Trajectory Planning</h3>
+        <p>Given start and end states, find a smooth trajectory. Cubic or quintic polynomials in joint space, or splines in task space. Constraints: velocity = 0 at endpoints, within actuator limits.</p>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>First and second order ODEs</li>
+        <li>Euler & Runge-Kutta integration</li>
+        <li>Lagrangian & Newtonian dynamics</li>
+        <li>Trajectory polynomials</li>
+        <li>Path vs trajectory planning</li>
+        <li>Pontryagin minimum principle</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">Spring-Mass Trajectory (ODE Simulation)</div>
+        <canvas id="ode-canvas" class="viz-canvas" width="400" height="280" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Spring k:</span>
+            <input type="range" id="spring-k" min="1" max="50" value="20" oninput="updateODE()" />
+            <span class="slider-val" id="spring-k-v">2.0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Damping b:</span>
+            <input type="range" id="damping-b" min="0" max="30" value="5" oninput="updateODE()" />
+            <span class="slider-val" id="damping-b-v">0.5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="insight-section animate-on-scroll" style="margin:3rem 0;">
+  <div class="insight-badge">💡 Key Insight</div>
+  <div class="insight-quote">"Robotics math is geometry in motion. Every movement of a robot arm is a composition of rotations and translations — and every trajectory is a differential equation waiting to be solved."</div>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+    <li><a href="robotics.html">Robotics</a></li>
+    <li><a href="control.html">Control Theory</a></li>
+    <li><a href="more.html">More Branches</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/robotics-viz.js"></script>
+</body>
+</html>

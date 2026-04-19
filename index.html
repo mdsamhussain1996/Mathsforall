@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maths for All – Making Mathematics Accessible Across Disciplines</title>
+  <meta name="description" content="Explore mathematics across Computer Science, Robotics, Control Theory, Physics, Economics and more. Visualize, understand and master mathematical concepts." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:#0d2145;border:1px solid rgba(30,111,255,0.3);border-radius:12px;padding:0.75rem;width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content" style="width:100%">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Open Educational Platform
+      </div>
+
+      <h1 class="hero-title">
+        Making Mathematics<br/>
+        <span class="gradient-text">Accessible Across</span><br/>
+        Disciplines
+      </h1>
+
+      <p class="hero-subtitle">
+        From AI and robotics to control theory and beyond — explore the mathematical 
+        foundations that power modern science and engineering through interactive 
+        visualizations and intuitive explanations.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#domains" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Explore Topics
+        </a>
+        <a href="cs-aiml.html" class="btn btn-outline">
+          Start Learning →
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">4+</div>
+          <div class="stat-label">Core Domains</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">50+</div>
+          <div class="stat-label">Topics Covered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">20+</div>
+          <div class="stat-label">Visualizations</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <canvas id="hero-canvas" width="520" height="380"></canvas>
+      <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <span class="tag">Linear Algebra</span>
+        <span class="tag">Probability</span>
+        <span class="tag">Optimization</span>
+        <span class="tag">Kinematics</span>
+        <span class="tag">Dynamical Systems</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DAILY INSIGHT ── -->
+<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+  <div class="insight-section animate-on-scroll" id="insight-box">
+    <div class="insight-badge">⭐ Daily Math Insight</div>
+    <div class="insight-quote" id="insight-quote">Loading insight…</div>
+    <div class="insight-attr" id="insight-attr"></div>
+    <button onclick="nextInsight()" class="btn btn-outline" style="margin-top:1.25rem;padding:0.5rem 1.25rem;font-size:0.85rem;">Next Insight →</button>
+  </div>
+</div>
+
+<!-- ── DOMAINS ── -->
+<section class="section" id="domains">
+  <div class="section-header animate-on-scroll">
+    <div class="section-tag">Core Domains</div>
+    <h2 class="section-title">Mathematics Across Fields</h2>
+    <p class="section-desc">Each domain unlocks a new dimension of mathematical thinking — from machine learning to physical systems.</p>
+  </div>
+
+  <div class="cards-grid">
+
+    <div class="card animate-on-scroll" style="--delay:0.1s">
+      <div class="card-icon" style="background:rgba(30,111,255,0.15);">🤖</div>
+      <div class="card-title">Mathematics for CS & AI/ML</div>
+      <p class="card-desc">Linear algebra, probability, optimization — the mathematical backbone of machine learning and data science algorithms.</p>
+      <ul class="subtopics-list" style="margin-top:1rem;">
+        <li>Linear Algebra & Matrix Calculus</li>
+        <li>Probability & Statistics</li>
+        <li>Optimization & Gradient Descent</li>
+      </ul>
+      <a href="cs-aiml.html" class="card-link">Explore CS Math →</a>
+    </div>
+
+    <div class="card animate-on-scroll" style="--delay:0.2s">
+      <div class="card-icon" style="background:rgba(0,201,184,0.15);">🦾</div>
+      <div class="card-title">Mathematics for Robotics</div>
+      <p class="card-desc">Kinematics, coordinate transforms and differential equations — the math that makes robots move intelligently.</p>
+      <ul class="subtopics-list" style="margin-top:1rem;">
+        <li>Forward & Inverse Kinematics</li>
+        <li>Rotation Matrices & Quaternions</li>
+        <li>Trajectory Planning & ODEs</li>
+      </ul>
+      <a href="robotics.html" class="card-link">Explore Robotics Math →</a>
+    </div>
+
+    <div class="card animate-on-scroll" style="--delay:0.3s">
+      <div class="card-icon" style="background:rgba(124,58,237,0.15);">⚙️</div>
+      <div class="card-title">Mathematics for Control Theory</div>
+      <p class="card-desc">State-space models, stability analysis and Lyapunov methods — the math behind feedback control systems.</p>
+      <ul class="subtopics-list" style="margin-top:1rem;">
+        <li>Dynamical Systems & State Space</li>
+        <li>Stability & Lyapunov Analysis</li>
+        <li>Controllability & Observability</li>
+      </ul>
+      <a href="control.html" class="card-link">Explore Control Math →</a>
+    </div>
+
+    <div class="card animate-on-scroll" style="--delay:0.4s">
+      <div class="card-icon" style="background:rgba(245,158,11,0.15);">📚</div>
+      <div class="card-title">More Mathematical Branches</div>
+      <p class="card-desc">Mathematics for Physics, Economics, Data Science and Biology — explore the universal language across sciences.</p>
+      <ul class="subtopics-list" style="margin-top:1rem;">
+        <li>Physics: PDEs & Fourier Analysis</li>
+        <li>Economics: Game Theory & Calculus</li>
+        <li>Biology: Population Dynamics</li>
+      </ul>
+      <a href="more.html" class="card-link">Explore More →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── WHY MATHS ── -->
+<section style="background:linear-gradient(180deg,transparent,rgba(30,111,255,0.04),transparent);padding:5rem 0;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="section-header animate-on-scroll">
+      <div class="section-tag">Why Mathematics?</div>
+      <h2 class="section-title">The Universal Language</h2>
+      <p class="section-desc">Mathematics is not just a subject — it is the foundation of all modern technology and scientific discovery.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+      <div class="card animate-on-scroll" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🧠</div>
+        <div class="card-title">Builds Rigorous Thinking</div>
+        <p class="card-desc">Mathematical reasoning develops problem-solving skills transferable to any field.</p>
+      </div>
+      <div class="card animate-on-scroll" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🔗</div>
+        <div class="card-title">Connects Disciplines</div>
+        <p class="card-desc">The same equations appear in physics, economics, biology, and engineering.</p>
+      </div>
+      <div class="card animate-on-scroll" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">💡</div>
+        <div class="card-title">Powers Innovation</div>
+        <p class="card-desc">Every breakthrough in AI, medicine, or space exploration is built on mathematics.</p>
+      </div>
+      <div class="card animate-on-scroll" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">📈</div>
+        <div class="card-title">Quantifies the World</div>
+        <p class="card-desc">From stock markets to quantum mechanics, math gives us tools to describe reality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTERACTIVE PREVIEW ── -->
+<section class="section animate-on-scroll">
+  <div class="section-header">
+    <div class="section-tag">Interactive Demo</div>
+    <h2 class="section-title">Visualize Mathematics</h2>
+    <p class="section-desc">Explore a gradient descent animation — one of the core algorithms in machine learning.</p>
+  </div>
+
+  <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:2rem;backdrop-filter:blur(12px);">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
+      <div>
+        <h3 style="color:var(--accent-light);font-size:1rem;margin-bottom:0.5rem;">Gradient Descent</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.7;margin-bottom:1rem;">
+          Gradient descent finds the minimum of a function by iteratively moving in the direction of the negative gradient. It's the backbone of training neural networks.
+        </p>
+        <div class="formula-box">w ← w − α · ∇L(w)</div>
+        <p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem;">where α is the learning rate and ∇L is the gradient of the loss function.</p>
+        <div class="slider-group" style="margin-top:1.5rem;">
+          <div class="slider-row">
+            <span class="slider-label">Learning rate α:</span>
+            <input type="range" id="lr-slider" min="1" max="50" value="15" oninput="updateGD()" />
+            <span class="slider-val" id="lr-val">0.15</span>
+          </div>
+        </div>
+        <button onclick="restartGD()" class="btn btn-primary" style="margin-top:1.25rem;padding:0.6rem 1.25rem;font-size:0.85rem;">↺ Restart</button>
+      </div>
+      <div>
+        <canvas id="gd-canvas" width="400" height="300" style="width:100%;border-radius:var(--radius-sm);background:#060f1e;"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <p style="font-size:0.9rem;margin-top:0.25rem;">Making Mathematics Accessible Across Disciplines</p>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+    <li><a href="robotics.html">Robotics</a></li>
+    <li><a href="control.html">Control Theory</a></li>
+    <li><a href="more.html">More Branches</a></li>
+  </ul>
+  <div class="divider" style="max-width:400px;margin:0 auto;"></div>
+  <p class="footer-copy" style="margin-top:1rem;">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/visualizations.js"></script>
+</body>
+</html>

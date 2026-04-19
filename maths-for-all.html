@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths for All — Making Mathematics Accessible Across Disciplines</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --navy: #0a1628;
+  --navy-mid: #0e2040;
+  --navy-light: #152a52;
+  --blue: #1a4ab0;
+  --blue-bright: #2563eb;
+  --accent: #4facfe;
+  --accent2: #a78bfa;
+  --accent3: #34d399;
+  --accent4: #fb923c;
+  --gold: #f59e0b;
+  --white: #ffffff;
+  --off-white: #f0f4ff;
+  --text-muted: #94a3b8;
+  --text-body: #cbd5e1;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --card-hover: rgba(255,255,255,0.07);
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--navy);color:var(--text-body);font-family:var(--font-body);font-weight:400;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(10,22,40,0.85);border-bottom:1px solid var(--card-border)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:2rem;height:64px}
+.nav-logo{font-family:var(--font-display);font-size:1.3rem;color:var(--white);text-decoration:none;white-space:nowrap;letter-spacing:-0.01em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:0;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.03em;text-transform:uppercase;padding:0.4rem 0.9rem;border-radius:6px;white-space:nowrap;transition:color 0.2s,background 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--white);background:rgba(255,255,255,0.07)}
+.nav-search{display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.06);border:1px solid var(--card-border);border-radius:8px;padding:0.4rem 0.8rem;cursor:pointer;transition:border-color 0.2s}
+.nav-search:hover{border-color:rgba(79,172,254,0.4)}
+.nav-search input{background:none;border:none;outline:none;color:var(--white);font-family:var(--font-body);font-size:0.82rem;width:140px}
+.nav-search input::placeholder{color:var(--text-muted)}
+.search-icon{color:var(--text-muted);font-size:0.9rem}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 2rem 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(37,99,235,0.15) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(167,139,250,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 10% 60%,rgba(52,211,153,0.07) 0%,transparent 60%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;mask-image:radial-gradient(ellipse at center,black 40%,transparent 80%)}
+.hero-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(79,172,254,0.1);border:1px solid rgba(79,172,254,0.25);border-radius:100px;padding:0.35rem 1rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.4rem,5vw,4rem);color:var(--white);line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-desc{font-size:1.05rem;color:var(--text-muted);max-width:480px;margin-bottom:2.2rem;line-height:1.8}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--blue-bright),var(--accent));border:none;color:var(--white);font-family:var(--font-body);font-size:0.9rem;font-weight:600;padding:0.75rem 1.8rem;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:opacity 0.2s,transform 0.15s;letter-spacing:0.01em}
+.btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-secondary{background:transparent;border:1px solid var(--card-border);color:var(--text-body);font-family:var(--font-body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.8rem;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:border-color 0.2s,background 0.2s,transform 0.15s}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.25);background:var(--card-bg);transform:translateY(-1px)}
+.hero-visual{position:relative;height:480px}
+
+/* CANVAS CONTAINER */
+.canvas-wrapper{position:absolute;inset:0;border-radius:20px;overflow:hidden;border:1px solid var(--card-border);background:rgba(255,255,255,0.02)}
+canvas#heroCanvas{width:100%;height:100%}
+
+/* SECTIONS COMMON */
+section{padding:80px 2rem}
+.section-inner{max-width:1280px;margin:0 auto}
+.section-label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.8rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--white);line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem}
+.section-desc{font-size:1rem;color:var(--text-muted);max-width:600px;line-height:1.8;margin-bottom:3rem}
+
+/* TOPIC CARDS GRID */
+.topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:4rem}
+.topic-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.8rem;cursor:pointer;text-decoration:none;transition:border-color 0.2s,background 0.2s,transform 0.2s;display:block}
+.topic-card:hover{background:var(--card-hover);border-color:rgba(255,255,255,0.15);transform:translateY(-3px)}
+.topic-card .tc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+.topic-card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--white);margin-bottom:0.5rem;letter-spacing:-0.01em}
+.topic-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.7}
+.tc-blue .tc-icon{background:rgba(37,99,235,0.15)}
+.tc-purple .tc-icon{background:rgba(167,139,250,0.15)}
+.tc-green .tc-icon{background:rgba(52,211,153,0.15)}
+.tc-orange .tc-icon{background:rgba(251,146,60,0.15)}
+
+/* DAILY INSIGHT */
+.insight-card{background:linear-gradient(135deg,rgba(37,99,235,0.12),rgba(167,139,250,0.08));border:1px solid rgba(79,172,254,0.2);border-radius:20px;padding:2.5rem;display:flex;gap:2rem;align-items:flex-start;margin-bottom:4rem}
+.insight-badge{background:rgba(79,172,254,0.15);border:1px solid rgba(79,172,254,0.3);border-radius:10px;padding:0.5rem 1rem;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;color:var(--accent);white-space:nowrap;text-transform:uppercase}
+.insight-formula{font-family:var(--font-mono);font-size:1.05rem;color:var(--accent2);line-height:1.6}
+.insight-text{color:var(--text-muted);font-size:0.92rem;line-height:1.8;margin-top:0.5rem}
+
+/* CONTENT SECTIONS */
+.content-section{border-top:1px solid var(--card-border);padding:80px 2rem}
+.cs-inner{max-width:1280px;margin:0 auto}
+.cs-header{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
+.cs-tag{display:inline-flex;align-items:center;gap:0.4rem;border-radius:100px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.7rem}
+.cs-tag.blue{background:rgba(37,99,235,0.15);color:#60a5fa;border:1px solid rgba(96,165,250,0.2)}
+.cs-tag.purple{background:rgba(167,139,250,0.15);color:var(--accent2);border:1px solid rgba(167,139,250,0.2)}
+.cs-tag.green{background:rgba(52,211,153,0.12);color:var(--accent3);border:1px solid rgba(52,211,153,0.2)}
+.cs-tag.orange{background:rgba(251,146,60,0.12);color:var(--accent4);border:1px solid rgba(251,146,60,0.2)}
+
+/* SUBTOPICS */
+.subtopic-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.subtab{background:transparent;border:1px solid var(--card-border);color:var(--text-muted);font-family:var(--font-body);font-size:0.82rem;font-weight:500;padding:0.45rem 1rem;border-radius:8px;cursor:pointer;transition:all 0.15s}
+.subtab:hover,.subtab.active{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);color:var(--white)}
+.subtab.active{background:rgba(37,99,235,0.2);border-color:rgba(96,165,250,0.4);color:#93c5fd}
+
+/* TOPIC CONTENT */
+.topic-content{display:none;animation:fadeIn 0.3s ease}
+.topic-content.active{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.topic-explain{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.8rem}
+.topic-explain h4{font-family:var(--font-display);font-size:1.15rem;color:var(--white);margin-bottom:0.8rem}
+.topic-explain .intuition{background:rgba(255,255,255,0.03);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin:1rem 0;font-size:0.88rem;color:var(--text-muted);line-height:1.7}
+.topic-explain .formula{font-family:var(--font-mono);background:rgba(0,0,0,0.3);border:1px solid var(--card-border);border-radius:8px;padding:0.8rem 1rem;font-size:0.88rem;color:var(--accent2);margin:1rem 0;line-height:1.7}
+.topic-explain .applications{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem}
+.app-tag{background:rgba(255,255,255,0.05);border:1px solid var(--card-border);border-radius:6px;padding:0.25rem 0.6rem;font-size:0.75rem;color:var(--text-muted)}
+.viz-container{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.5rem;min-height:320px;position:relative}
+.viz-container h4{font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem}
+.viz-controls{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.viz-label{font-size:0.8rem;color:var(--text-muted);min-width:80px}
+.viz-slider{flex:1;accent-color:var(--accent);min-width:80px}
+.viz-val{font-family:var(--font-mono);font-size:0.82rem;color:var(--accent);min-width:40px;text-align:right}
+
+/* EXPANDABLE BRANCHES */
+.branches-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+.branch-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;overflow:hidden}
+.branch-header{padding:1.4rem 1.6rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background 0.2s}
+.branch-header:hover{background:var(--card-hover)}
+.branch-header-left{display:flex;align-items:center;gap:0.8rem}
+.branch-icon{font-size:1.3rem}
+.branch-title{font-family:var(--font-display);font-size:1.05rem;color:var(--white)}
+.branch-chevron{color:var(--text-muted);font-size:0.8rem;transition:transform 0.2s}
+.branch-card.open .branch-chevron{transform:rotate(180deg)}
+.branch-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.branch-card.open .branch-body{max-height:400px}
+.branch-body-inner{padding:0 1.6rem 1.4rem;border-top:1px solid var(--card-border)}
+.branch-topics{display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem}
+.branch-topic{display:flex;gap:0.6rem;align-items:flex-start;font-size:0.85rem;color:var(--text-muted);line-height:1.5}
+.branch-topic::before{content:"→";color:var(--accent);flex-shrink:0;margin-top:0.05rem}
+.branch-app{margin-top:1rem;background:rgba(255,255,255,0.03);border-radius:8px;padding:0.7rem 0.9rem;font-size:0.8rem;color:var(--text-muted);border-left:2px solid var(--accent3)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--card-border);padding:3rem 2rem;background:rgba(0,0,0,0.2)}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.footer-brand{font-family:var(--font-display);color:var(--white);font-size:1.1rem}
+.footer-brand span{color:var(--accent)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+.footer-note{color:var(--text-muted);font-size:0.8rem}
+
+/* SEARCH OVERLAY */
+.search-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,22,40,0.92);backdrop-filter:blur(20px);display:flex;align-items:flex-start;justify-content:center;padding:120px 2rem 2rem;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.search-overlay.open{opacity:1;pointer-events:all}
+.search-box{width:100%;max-width:600px}
+.search-input-wrap{display:flex;align-items:center;gap:0.8rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem}
+.search-input-wrap input{flex:1;background:none;border:none;outline:none;color:var(--white);font-family:var(--font-body);font-size:1.1rem}
+.search-results{display:flex;flex-direction:column;gap:0.5rem}
+.search-result{background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:1rem 1.2rem;cursor:pointer;transition:background 0.15s}
+.search-result:hover{background:var(--card-hover)}
+.sr-title{color:var(--white);font-size:0.92rem;font-weight:500;margin-bottom:0.2rem}
+.sr-tag{font-size:0.75rem;color:var(--text-muted)}
+kbd{display:inline-block;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:5px;padding:0.1rem 0.4rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted)}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;padding:2.5rem;background:rgba(255,255,255,0.02);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border);margin:0 -2rem}
+.stat{text-align:center}
+.stat-val{font-family:var(--font-display);font-size:2rem;color:var(--white);letter-spacing:-0.02em}
+.stat-val span{color:var(--accent);font-style:italic}
+.stat-label{font-size:0.78rem;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:0.2rem}
+
+/* PHASE PORTRAIT */
+#phaseCanvas{width:100%;border-radius:8px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{height:300px}
+  .topic-content.active{grid-template-columns:1fr}
+  .cs-header{flex-direction:column}
+  .insight-card{flex-direction:column}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  section,.content-section{padding:60px 1rem}
+}
+/* PDF Download simulation */
+.dl-btn{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);border-radius:8px;padding:0.5rem 1rem;font-size:0.82rem;color:var(--text-muted);cursor:pointer;text-decoration:none;transition:all 0.15s}
+.dl-btn:hover{border-color:rgba(255,255,255,0.2);color:var(--white);background:rgba(255,255,255,0.08)}
+</style>
+</head>
+<body>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+  <div class="search-box" onclick="event.stopPropagation()">
+    <div class="search-input-wrap">
+      <span style="color:var(--text-muted)">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search topics, concepts, formulas..." oninput="doSearch(this.value)">
+      <kbd>ESC</kbd>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home"><span>∑</span> Maths for All</a>
+    <div class="nav-links">
+      <a href="#home" class="active">Main</a>
+      <a href="#cs-section">CS & AI/ML</a>
+      <a href="#robotics-section">Robotics</a>
+      <a href="#control-section">Control Theory</a>
+      <a href="#branches-section">More Branches</a>
+    </div>
+    <div class="nav-search" onclick="openSearch()">
+      <span class="search-icon">⌕</span>
+      <input type="text" placeholder="Search topics..." readonly onclick="openSearch()">
+      <kbd>⌘K</kbd>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner" style="position:relative;z-index:1">
+    <div>
+      <div class="hero-tag">✦ Open Academic Platform</div>
+      <h1>Making <em>Mathematics</em> Accessible Across Disciplines</h1>
+      <p class="hero-desc">Explore the mathematical foundations powering AI, robotics, control systems, physics, and beyond — through intuitive explanations, interactive visualizations, and real-world applications.</p>
+      <div class="hero-ctas">
+        <a href="#cs-section" class="btn-primary">Explore Topics →</a>
+        <a href="#branches-section" class="btn-secondary">Start Learning</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="canvas-wrapper">
+        <canvas id="heroCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT STRIP -->
+<div style="padding:0 2rem">
+  <div class="stat-strip">
+    <div class="stat"><div class="stat-val">4<span>+</span></div><div class="stat-label">Disciplines</div></div>
+    <div class="stat"><div class="stat-val">30<span>+</span></div><div class="stat-label">Core Topics</div></div>
+    <div class="stat"><div class="stat-val">∞</div><div class="stat-label">Interactive Demos</div></div>
+    <div class="stat"><div class="stat-val">100<span>%</span></div><div class="stat-label">Free Access</div></div>
+  </div>
+</div>
+
+<!-- OVERVIEW / HOME SECTION -->
+<section style="padding:80px 2rem" id="overview">
+  <div class="section-inner">
+    <div class="section-label">Why Mathematics</div>
+    <h2 class="section-title">The Language of the Universe</h2>
+    <p class="section-desc">From neural networks to spacecraft trajectories, mathematics is the common foundation. This platform bridges the gap between abstract theory and practical understanding.</p>
+
+    <!-- DAILY INSIGHT -->
+    <div class="insight-card">
+      <div>
+        <div class="insight-badge">✦ Daily Insight</div>
+        <div style="margin-top:0.8rem;font-family:'DM Serif Display',serif;font-size:1rem;color:var(--white);margin-bottom:0.5rem">Euler's Identity</div>
+        <div class="insight-formula">e<sup>iπ</sup> + 1 = 0</div>
+        <div class="insight-text">Considered the most beautiful equation in mathematics, it elegantly unites five fundamental constants: e (Euler's number), i (imaginary unit), π (pi), 1 (multiplicative identity), and 0 (additive identity). It arises from Euler's formula e<sup>iθ</sup> = cos θ + i sin θ evaluated at θ = π.</div>
+      </div>
+      <div style="flex-shrink:0">
+        <a href="#" class="dl-btn" onclick="alert('PDF notes would download here in a full deployment.')">⬇ Notes PDF</a>
+      </div>
+    </div>
+
+    <!-- TOPIC OVERVIEW CARDS -->
+    <div class="topics-grid">
+      <a href="#cs-section" class="topic-card tc-blue">
+        <div class="tc-icon">🤖</div>
+        <h3>Mathematics for CS & AI/ML</h3>
+        <p>Linear algebra, probability theory, optimization — the mathematical toolkit behind machine learning and artificial intelligence.</p>
+      </a>
+      <a href="#robotics-section" class="topic-card tc-purple">
+        <div class="tc-icon">🦾</div>
+        <h3>Mathematics for Robotics</h3>
+        <p>Kinematics, coordinate transformations, differential equations — the geometry and dynamics of intelligent machines.</p>
+      </a>
+      <a href="#control-section" class="topic-card tc-green">
+        <div class="tc-icon">⚙️</div>
+        <h3>Mathematics for Control Theory</h3>
+        <p>Dynamical systems, Lyapunov stability, state-space models — the mathematics of designing stable, controllable systems.</p>
+      </a>
+      <a href="#branches-section" class="topic-card tc-orange">
+        <div class="tc-icon">📚</div>
+        <h3>Additional Branches</h3>
+        <p>Physics, economics, biology, data science — mathematics unifies every discipline with elegant structure.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CS / AI/ML SECTION ─── -->
+<div class="content-section" id="cs-section">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div>
+        <div class="cs-tag blue">🤖 Mathematics for CS & AI/ML</div>
+        <h2 class="section-title" style="margin-bottom:0.5rem">The Math Behind Intelligence</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem;max-width:500px">Linear algebra forms the backbone of neural networks; probability drives uncertainty; optimization finds the best solution.</p>
+      </div>
+      <a href="#" class="dl-btn" onclick="alert('PDF notes for CS/ML Mathematics would download here.')">⬇ Download CS Notes</a>
+    </div>
+
+    <div class="subtopic-tabs">
+      <button class="subtab active" onclick="showTopic('cs','linear-algebra',this)">Linear Algebra</button>
+      <button class="subtab" onclick="showTopic('cs','probability',this)">Probability & Stats</button>
+      <button class="subtab" onclick="showTopic('cs','optimization',this)">Optimization</button>
+    </div>
+
+    <!-- LINEAR ALGEBRA -->
+    <div class="topic-content active" id="cs-linear-algebra">
+      <div class="topic-explain">
+        <h4>Vectors, Matrices & Transformations</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Linear algebra is the language of data. Every image, audio clip, or text document is a vector. Neural networks are compositions of linear transformations with non-linear activations.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> A matrix is a machine that takes a vector and outputs a transformed vector — stretching, rotating, projecting it into a new space.</div>
+        <div class="formula">A·x = λx &nbsp;(eigenvalue equation)<br>A = UΣV<sup>T</sup> &nbsp;(SVD decomposition)<br>‖x‖₂ = √(x₁² + x₂² + ... + xₙ²)</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem">Key concepts:</p>
+        <div class="applications">
+          <span class="app-tag">Dot product</span><span class="app-tag">Eigenvalues</span><span class="app-tag">SVD</span>
+          <span class="app-tag">PCA</span><span class="app-tag">Matrix rank</span><span class="app-tag">Null space</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Image compression, PageRank, Neural network layers, Recommender systems</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>Interactive: 2D Linear Transformation</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Scale X</span>
+          <input type="range" class="viz-slider" id="scaleX" min="-2" max="2" step="0.1" value="1" oninput="updateLinear()">
+          <span class="viz-val" id="scaleXVal">1.0</span>
+        </div>
+        <div class="viz-controls">
+          <span class="viz-label">Shear</span>
+          <input type="range" class="viz-slider" id="shear" min="-1.5" max="1.5" step="0.1" value="0" oninput="updateLinear()">
+          <span class="viz-val" id="shearVal">0.0</span>
+        </div>
+        <div class="viz-controls">
+          <span class="viz-label">Rotation</span>
+          <input type="range" class="viz-slider" id="rotation" min="0" max="360" step="1" value="0" oninput="updateLinear()">
+          <span class="viz-val" id="rotationVal">0°</span>
+        </div>
+        <canvas id="linearCanvas" width="400" height="200" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+
+    <!-- PROBABILITY -->
+    <div class="topic-content" id="cs-probability">
+      <div class="topic-explain">
+        <h4>Probability & Statistics</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Probability provides a rigorous framework for reasoning under uncertainty. Bayesian methods allow us to update beliefs with new evidence — the foundation of modern ML.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> Bayes' theorem tells you how to update your beliefs when you see new data. Prior knowledge + evidence = posterior belief.</div>
+        <div class="formula">P(A|B) = P(B|A)·P(A) / P(B) &nbsp;(Bayes)<br>E[X] = Σ x·P(X=x)<br>N(μ,σ²): f(x) = (1/σ√2π)·e^(-(x-μ)²/2σ²)</div>
+        <div class="applications">
+          <span class="app-tag">Bayes' Theorem</span><span class="app-tag">Gaussian</span><span class="app-tag">MLE</span>
+          <span class="app-tag">Central Limit Theorem</span><span class="app-tag">KL Divergence</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Spam filters, Medical diagnosis, Generative models, A/B testing</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>Gaussian Distribution</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Mean μ</span>
+          <input type="range" class="viz-slider" id="distMean" min="-3" max="3" step="0.1" value="0" oninput="updateDist()">
+          <span class="viz-val" id="distMeanVal">0.0</span>
+        </div>
+        <div class="viz-controls">
+          <span class="viz-label">Std dev σ</span>
+          <input type="range" class="viz-slider" id="distStd" min="0.3" max="3" step="0.1" value="1" oninput="updateDist()">
+          <span class="viz-val" id="distStdVal">1.0</span>
+        </div>
+        <div style="position:relative;height:200px;margin-top:0.5rem">
+          <canvas id="distCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZATION -->
+    <div class="topic-content" id="cs-optimization">
+      <div class="topic-explain">
+        <h4>Optimization & Gradient Descent</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Training a neural network is an optimization problem: minimize a loss function over millions of parameters. Gradient descent is the engine of modern AI.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> Imagine rolling a ball down a hilly landscape. Gradient descent follows the steepest slope downward, step by step, until reaching a valley (minimum).</div>
+        <div class="formula">θ ← θ - α·∇L(θ)<br>∇L(θ) = ∂L/∂θ &nbsp;(gradient)<br>Adam: m_t = β₁m_{t-1} + (1-β₁)g_t</div>
+        <div class="applications">
+          <span class="app-tag">SGD</span><span class="app-tag">Adam</span><span class="app-tag">Convex optimization</span>
+          <span class="app-tag">Lagrange multipliers</span><span class="app-tag">Learning rate</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Neural network training, Portfolio optimization, Operations research</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>Gradient Descent on a 1D Loss</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Learning Rate</span>
+          <input type="range" class="viz-slider" id="lr" min="0.01" max="0.5" step="0.01" value="0.1" oninput="resetGD()">
+          <span class="viz-val" id="lrVal">0.10</span>
+        </div>
+        <canvas id="gdCanvas" width="400" height="200" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+        <div style="display:flex;gap:0.8rem;margin-top:0.8rem">
+          <button class="subtab" onclick="stepGD()" style="padding:0.4rem 0.9rem;font-size:0.8rem">Step →</button>
+          <button class="subtab" onclick="resetGD()" style="padding:0.4rem 0.9rem;font-size:0.8rem">Reset</button>
+          <button class="subtab" onclick="runGD()" id="runBtn" style="padding:0.4rem 0.9rem;font-size:0.8rem">▶ Run</button>
+          <span style="font-size:0.8rem;color:var(--text-muted);align-self:center">Step: <span id="gdStep" style="color:var(--accent)">0</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ROBOTICS SECTION ─── -->
+<div class="content-section" id="robotics-section">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div>
+        <div class="cs-tag purple">🦾 Mathematics for Robotics</div>
+        <h2 class="section-title" style="margin-bottom:0.5rem">Geometry in Motion</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem;max-width:500px">From robot arm kinematics to spacecraft attitude control, robotics mathematics is pure applied geometry.</p>
+      </div>
+      <a href="#" class="dl-btn" onclick="alert('PDF notes for Robotics Mathematics would download here.')">⬇ Download Robotics Notes</a>
+    </div>
+
+    <div class="subtopic-tabs">
+      <button class="subtab active" onclick="showTopic('rob','kinematics',this)">Kinematics</button>
+      <button class="subtab" onclick="showTopic('rob','transforms',this)">Coordinate Transforms</button>
+      <button class="subtab" onclick="showTopic('rob','diffeq',this)">Differential Equations</button>
+    </div>
+
+    <!-- KINEMATICS -->
+    <div class="topic-content active" id="rob-kinematics">
+      <div class="topic-explain">
+        <h4>Forward & Inverse Kinematics</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Kinematics studies the geometry of motion without considering forces. Given joint angles, where is the end-effector? (forward) — or given a target position, what joint angles are needed? (inverse)</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> Forward kinematics is like computing where your finger is given your arm posture. Inverse kinematics is figuring out how to bend your arm to touch a specific point.</div>
+        <div class="formula">FK: p = T₁(θ₁)·T₂(θ₂)·...·Tₙ(θₙ)·p₀<br>DH: T = Rot_z(θ)·Trans_z(d)·Trans_x(a)·Rot_x(α)<br>IK: θ = J⁺(q)·Δp &nbsp;(Jacobian pseudoinverse)</div>
+        <div class="applications">
+          <span class="app-tag">DH Parameters</span><span class="app-tag">Jacobian</span><span class="app-tag">Workspace</span>
+          <span class="app-tag">Singularities</span><span class="app-tag">Path planning</span>
+        </div>
+      </div>
+      <div class="viz-container">
+        <h4>2-Link Robot Arm Simulation</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Joint 1 θ₁</span>
+          <input type="range" class="viz-slider" id="j1" min="0" max="180" step="1" value="45" oninput="drawArm()">
+          <span class="viz-val" id="j1Val">45°</span>
+        </div>
+        <div class="viz-controls">
+          <span class="viz-label">Joint 2 θ₂</span>
+          <input type="range" class="viz-slider" id="j2" min="-150" max="150" step="1" value="60" oninput="drawArm()">
+          <span class="viz-val" id="j2Val">60°</span>
+        </div>
+        <canvas id="armCanvas" width="400" height="220" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+
+    <!-- COORDINATE TRANSFORMS -->
+    <div class="topic-content" id="rob-transforms">
+      <div class="topic-explain">
+        <h4>Coordinate Transformations</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Robots operate in 3D space and must transform coordinates between frames: world, robot base, tool. Homogeneous matrices encode both rotation and translation in a single 4×4 matrix.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> A rotation matrix spins the coordinate axes. A translation shifts the origin. Combined in homogeneous form, they describe any rigid body motion.</div>
+        <div class="formula">R_z(θ) = [[cos θ, -sin θ, 0],[sin θ, cos θ, 0],[0, 0, 1]]<br>T = [[R, t],[0 0 0, 1]] &nbsp;(4×4 homogeneous)<br>p_world = T_base^world · p_base</div>
+        <div class="applications">
+          <span class="app-tag">SO(3)</span><span class="app-tag">SE(3)</span><span class="app-tag">Quaternions</span>
+          <span class="app-tag">Euler angles</span><span class="app-tag">Lie groups</span>
+        </div>
+      </div>
+      <div class="viz-container">
+        <h4>2D Rotation Matrix</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Angle θ</span>
+          <input type="range" class="viz-slider" id="rotAngle" min="0" max="360" step="1" value="0" oninput="drawRotation()">
+          <span class="viz-val" id="rotAngleVal">0°</span>
+        </div>
+        <canvas id="rotCanvas" width="400" height="220" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+
+    <!-- DIFFERENTIAL EQUATIONS -->
+    <div class="topic-content" id="rob-diffeq">
+      <div class="topic-explain">
+        <h4>Differential Equations in Robotics</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Robot dynamics are governed by differential equations relating forces, torques, inertia, and motion. The Newton-Euler and Lagrangian formulations are the two main approaches.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> F=ma is a differential equation (a = ẍ). For robots with many joints, this becomes a system of coupled ODEs that must be solved in real time.</div>
+        <div class="formula">M(q)q̈ + C(q,q̇)q̇ + G(q) = τ<br>d/dt(∂L/∂q̇ᵢ) - ∂L/∂qᵢ = τᵢ &nbsp;(Lagrange)<br>ẋ = f(x,u) &nbsp;(state-space ODE)</div>
+        <div class="applications">
+          <span class="app-tag">Newton-Euler</span><span class="app-tag">Lagrangian</span><span class="app-tag">Runge-Kutta</span>
+          <span class="app-tag">Mass-spring</span><span class="app-tag">Pendulum</span>
+        </div>
+      </div>
+      <div class="viz-container">
+        <h4>Pendulum Trajectory</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Initial angle</span>
+          <input type="range" class="viz-slider" id="pendAngle" min="5" max="170" step="1" value="60" oninput="drawPendulum()">
+          <span class="viz-val" id="pendAngleVal">60°</span>
+        </div>
+        <div class="viz-controls">
+          <span class="viz-label">Damping</span>
+          <input type="range" class="viz-slider" id="pendDamp" min="0" max="0.5" step="0.01" value="0.1" oninput="drawPendulum()">
+          <span class="viz-val" id="pendDampVal">0.10</span>
+        </div>
+        <canvas id="pendCanvas" width="400" height="180" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTROL THEORY SECTION ─── -->
+<div class="content-section" id="control-section">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div>
+        <div class="cs-tag green">⚙️ Mathematics for Control Theory</div>
+        <h2 class="section-title" style="margin-bottom:0.5rem">Stability, Controllability & Dynamics</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem;max-width:500px">Control theory answers: how do we design systems that behave as desired, remain stable, and recover from disturbances?</p>
+      </div>
+      <a href="#" class="dl-btn" onclick="alert('PDF notes for Control Theory would download here.')">⬇ Download Control Notes</a>
+    </div>
+
+    <div class="subtopic-tabs">
+      <button class="subtab active" onclick="showTopic('ctrl','dynamics',this)">Dynamical Systems</button>
+      <button class="subtab" onclick="showTopic('ctrl','stability',this)">Stability Analysis</button>
+      <button class="subtab" onclick="showTopic('ctrl','statespace',this)">State-Space Models</button>
+    </div>
+
+    <!-- DYNAMICS -->
+    <div class="topic-content active" id="ctrl-dynamics">
+      <div class="topic-explain">
+        <h4>Dynamical Systems</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">A dynamical system describes how a state evolves over time according to a rule (differential or difference equation). The state captures all information needed to predict future behavior.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> The state of a pendulum is its angle and angular velocity. Given these two numbers, the entire future motion is determined (for a deterministic system).</div>
+        <div class="formula">ẋ(t) = f(x(t), u(t)) &nbsp;(continuous)<br>x[k+1] = f(x[k], u[k]) &nbsp;(discrete)<br>Linear: ẋ = Ax + Bu, y = Cx + Du</div>
+        <div class="applications">
+          <span class="app-tag">Equilibria</span><span class="app-tag">Phase portraits</span><span class="app-tag">Bifurcations</span>
+          <span class="app-tag">Chaos</span><span class="app-tag">Limit cycles</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Climate models, Population dynamics, Electrical circuits, Epidemiology</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>Phase Portrait of a 2D System</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Parameter a</span>
+          <input type="range" class="viz-slider" id="phaseA" min="-2" max="2" step="0.1" value="-0.5" oninput="drawPhase()">
+          <span class="viz-val" id="phaseAVal">-0.5</span>
+        </div>
+        <canvas id="phaseCanvas" width="400" height="220" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+
+    <!-- STABILITY -->
+    <div class="topic-content" id="ctrl-stability">
+      <div class="topic-explain">
+        <h4>Lyapunov Stability Analysis</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Lyapunov's method proves stability without solving the differential equation. A Lyapunov function is an energy-like function that decreases along trajectories — if it exists, the system is stable.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> Think of a ball in a bowl. If we can show that the system's "energy" always decreases (like friction dissipating kinetic energy), the ball will settle at the bottom — the equilibrium.</div>
+        <div class="formula">V(x) > 0, V(0) = 0 &nbsp;(positive definite)<br>V̇(x) = ∇V · f(x) ≤ 0 &nbsp;(stability)<br>V̇(x) < 0 &nbsp;(asymptotic stability)</div>
+        <div class="applications">
+          <span class="app-tag">LaSalle's principle</span><span class="app-tag">Lyapunov function</span>
+          <span class="app-tag">BIBO stability</span><span class="app-tag">Hurwitz matrix</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Flight control, Power grids, Chemical reactors, Autonomous vehicles</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>Lyapunov Level Sets (V = x₁² + x₂²)</h4>
+        <canvas id="lyapCanvas" width="400" height="240" style="width:100%;border-radius:8px;margin-top:0.5rem"></canvas>
+      </div>
+    </div>
+
+    <!-- STATE-SPACE -->
+    <div class="topic-content" id="ctrl-statespace">
+      <div class="topic-explain">
+        <h4>Controllability & Observability</h4>
+        <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7">Can we drive the system to any state? (controllability) Can we infer the full state from outputs? (observability) These properties determine whether a control design is even possible.</p>
+        <div class="intuition">💡 <strong style="color:var(--white)">Intuition:</strong> A car is controllable — you can reach any location from any starting point. If the speedometer is broken, you might lack observability of the full vehicle state.</div>
+        <div class="formula">𝒞 = [B, AB, A²B, ..., Aⁿ⁻¹B] &nbsp;(controllability)<br>rank(𝒞) = n ↔ fully controllable<br>𝒪 = [C; CA; CA²; ...; CAⁿ⁻¹] &nbsp;(observability)</div>
+        <div class="applications">
+          <span class="app-tag">Pole placement</span><span class="app-tag">LQR</span><span class="app-tag">Kalman filter</span>
+          <span class="app-tag">Observer design</span><span class="app-tag">Minimal realization</span>
+        </div>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-top:1rem">Applications: <span style="color:var(--accent3)">Rocket guidance, Autonomous navigation, Multi-agent systems, Switched systems</span></p>
+      </div>
+      <div class="viz-container">
+        <h4>State Trajectory under LQR Control</h4>
+        <div class="viz-controls">
+          <span class="viz-label">Initial x₁</span>
+          <input type="range" class="viz-slider" id="initX1" min="-3" max="3" step="0.1" value="2" oninput="drawStateTraj()">
+          <span class="viz-val" id="initX1Val">2.0</span>
+        </div>
+        <div style="position:relative;height:200px;margin-top:0.5rem">
+          <canvas id="stateCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ADDITIONAL BRANCHES ─── -->
+<div class="content-section" id="branches-section">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div>
+        <div class="cs-tag orange">📚 Additional Branches</div>
+        <h2 class="section-title" style="margin-bottom:0.5rem">Mathematics Everywhere</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem;max-width:500px">Mathematics transcends disciplines. Explore how the same mathematical structures appear across physics, biology, economics, and data science.</p>
+      </div>
+    </div>
+
+    <div class="branches-grid">
+      <div class="branch-card" id="branch-physics">
+        <div class="branch-header" onclick="toggleBranch('physics')">
+          <div class="branch-header-left">
+            <span class="branch-icon">⚛️</span>
+            <span class="branch-title">Mathematics for Physics</span>
+          </div>
+          <span class="branch-chevron">▼</span>
+        </div>
+        <div class="branch-body">
+          <div class="branch-body-inner">
+            <div class="branch-topics">
+              <div class="branch-topic">Differential equations: Newton's, Schrödinger's, Maxwell's equations</div>
+              <div class="branch-topic">Tensor calculus and differential geometry for General Relativity</div>
+              <div class="branch-topic">Fourier analysis: wave decomposition and signal processing</div>
+              <div class="branch-topic">Variational methods: principle of least action</div>
+              <div class="branch-topic">Group theory: symmetries and conservation laws</div>
+            </div>
+            <div class="branch-app">🔬 <strong style="color:var(--accent3)">Real-world:</strong> Quantum computing, MRI imaging, GPS corrections via GR, Photonics</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card" id="branch-econ">
+        <div class="branch-header" onclick="toggleBranch('econ')">
+          <div class="branch-header-left">
+            <span class="branch-icon">📈</span>
+            <span class="branch-title">Mathematics for Economics</span>
+          </div>
+          <span class="branch-chevron">▼</span>
+        </div>
+        <div class="branch-body">
+          <div class="branch-body-inner">
+            <div class="branch-topics">
+              <div class="branch-topic">Calculus: marginal analysis, utility maximization</div>
+              <div class="branch-topic">Linear programming and convex optimization for resource allocation</div>
+              <div class="branch-topic">Game theory: Nash equilibria, mechanism design</div>
+              <div class="branch-topic">Stochastic processes: Black-Scholes, Brownian motion for finance</div>
+              <div class="branch-topic">Econometrics: regression, time series, causal inference</div>
+            </div>
+            <div class="branch-app">💹 <strong style="color:var(--accent3)">Real-world:</strong> Algorithmic trading, Auction design, Supply chain optimization</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card" id="branch-data">
+        <div class="branch-header" onclick="toggleBranch('data')">
+          <div class="branch-header-left">
+            <span class="branch-icon">📊</span>
+            <span class="branch-title">Mathematics for Data Science</span>
+          </div>
+          <span class="branch-chevron">▼</span>
+        </div>
+        <div class="branch-body">
+          <div class="branch-body-inner">
+            <div class="branch-topics">
+              <div class="branch-topic">Information theory: entropy, mutual information, KL divergence</div>
+              <div class="branch-topic">Statistical learning theory: VC dimension, PAC learning</div>
+              <div class="branch-topic">Graph theory: social networks, knowledge graphs</div>
+              <div class="branch-topic">Dimensionality reduction: PCA, t-SNE, UMAP (topology)</div>
+              <div class="branch-topic">Hypothesis testing, confidence intervals, p-values</div>
+            </div>
+            <div class="branch-app">🧮 <strong style="color:var(--accent3)">Real-world:</strong> Search engines, Recommendation systems, Fraud detection</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card" id="branch-bio">
+        <div class="branch-header" onclick="toggleBranch('bio')">
+          <div class="branch-header-left">
+            <span class="branch-icon">🧬</span>
+            <span class="branch-title">Mathematics for Biology</span>
+          </div>
+          <span class="branch-chevron">▼</span>
+        </div>
+        <div class="branch-body">
+          <div class="branch-body-inner">
+            <div class="branch-topics">
+              <div class="branch-topic">Lotka-Volterra equations: predator-prey population dynamics</div>
+              <div class="branch-topic">Reaction-diffusion systems: pattern formation (Turing patterns)</div>
+              <div class="branch-topic">Epidemiology: SIR model, R₀, herd immunity threshold</div>
+              <div class="branch-topic">Bioinformatics: sequence alignment, phylogenetic trees, HMMs</div>
+              <div class="branch-topic">Computational neuroscience: Hodgkin-Huxley, neural field theory</div>
+            </div>
+            <div class="branch-app">🦠 <strong style="color:var(--accent3)">Real-world:</strong> Pandemic modeling, Drug design, Protein folding (AlphaFold)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand"><span>∑</span> Maths for All</div>
+      <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.3rem">Making mathematics accessible across disciplines</div>
+    </div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#cs-section">CS & AI/ML</a>
+      <a href="#robotics-section">Robotics</a>
+      <a href="#control-section">Control Theory</a>
+      <a href="#branches-section">More Branches</a>
+    </div>
+    <div class="footer-note">Built for students, researchers & learners worldwide</div>
+  </div>
+</footer>
+
+<script>
+/* ────────────── SEARCH ────────────── */
+const searchData = [
+  {title:'Linear Algebra — Vectors & Matrices',tag:'CS / AI/ML',link:'#cs-section'},
+  {title:'Eigenvalues & Eigenvectors',tag:'CS / AI/ML',link:'#cs-section'},
+  {title:'Singular Value Decomposition (SVD)',tag:'CS / AI/ML',link:'#cs-section'},
+  {title:"Bayes' Theorem & Probability",tag:'CS / AI/ML',link:'#cs-section'},
+  {title:'Gradient Descent & Optimization',tag:'CS / AI/ML',link:'#cs-section'},
+  {title:'Forward & Inverse Kinematics',tag:'Robotics',link:'#robotics-section'},
+  {title:'Homogeneous Transformations',tag:'Robotics',link:'#robotics-section'},
+  {title:'Lagrangian Mechanics',tag:'Robotics',link:'#robotics-section'},
+  {title:'Lyapunov Stability',tag:'Control Theory',link:'#control-section'},
+  {title:'Controllability & Observability',tag:'Control Theory',link:'#control-section'},
+  {title:'State-Space Models',tag:'Control Theory',link:'#control-section'},
+  {title:'Phase Portraits',tag:'Control Theory',link:'#control-section'},
+  {title:'Dynamical Systems',tag:'Control Theory',link:'#control-section'},
+  {title:'Fourier Analysis',tag:'Physics',link:'#branches-section'},
+  {title:"Schrödinger's Equation",tag:'Physics',link:'#branches-section'},
+  {title:'Game Theory & Nash Equilibria',tag:'Economics',link:'#branches-section'},
+  {title:'Black-Scholes Model',tag:'Economics',link:'#branches-section'},
+  {title:'SIR Epidemic Model',tag:'Biology',link:'#branches-section'},
+  {title:'Information Theory & Entropy',tag:'Data Science',link:'#branches-section'},
+];
+
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('searchInput').focus(),100);
+  doSearch('');
+}
+function closeSearch(e){
+  if(e.target===document.getElementById('searchOverlay')){
+    document.getElementById('searchOverlay').classList.remove('open');
+  }
+}
+document.addEventListener('keydown',e=>{
+  if((e.key==='k'&&(e.metaKey||e.ctrlKey))){e.preventDefault();openSearch();}
+  if(e.key==='Escape')document.getElementById('searchOverlay').classList.remove('open');
+});
+function doSearch(q){
+  const res=document.getElementById('searchResults');
+  const filtered=q?searchData.filter(d=>d.title.toLowerCase().includes(q.toLowerCase())||d.tag.toLowerCase().includes(q.toLowerCase())):searchData.slice(0,8);
+  res.innerHTML=filtered.map(d=>`<div class="search-result" onclick="location.href='${d.link}';document.getElementById('searchOverlay').classList.remove('open')">
+    <div class="sr-title">${d.title}</div><div class="sr-tag">${d.tag}</div>
+  </div>`).join('');
+}
+
+/* ────────────── TAB SWITCHING ────────────── */
+function showTopic(section,topic,btn){
+  document.querySelectorAll(`#${section}-section .topic-content, #${section}-section .subtab, #${section}s-section .topic-content, #${section}s-section .subtab`).forEach(el=>el.classList.remove('active'));
+  const allContents=btn.closest('.cs-inner')||btn.closest('.content-section');
+  allContents.querySelectorAll('.topic-content').forEach(el=>el.classList.remove('active'));
+  allContents.querySelectorAll('.subtab').forEach(el=>el.classList.remove('active'));
+  document.getElementById(`${section}-${topic}`).classList.add('active');
+  btn.classList.add('active');
+  // trigger any canvas redraws
+  const renders={
+    'cs-probability':()=>updateDist(),
+    'cs-optimization':()=>{resetGD();},
+    'rob-transforms':()=>drawRotation(),
+    'rob-diffeq':()=>drawPendulum(),
+    'ctrl-stability':()=>drawLyapunov(),
+    'ctrl-statespace':()=>drawStateTraj(),
+  };
+  const key=`${section}-${topic}`;
+  if(renders[key])setTimeout(renders[key],50);
+}
+
+/* ────────────── BRANCHES ────────────── */
+function toggleBranch(id){
+  const card=document.getElementById('branch-'+id);
+  card.classList.toggle('open');
+}
+
+/* ────────────── HERO CANVAS ────────────── */
+(function(){
+  const canvas=document.getElementById('heroCanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,t=0;
+  const nodes=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  for(let i=0;i<40;i++)nodes.push({x:Math.random()*800,y:Math.random()*500,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*2+1});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    t+=0.008;
+    // Sine wave
+    ctx.beginPath();
+    for(let x=0;x<W;x++){
+      const y=H*0.4+Math.sin(x*0.015+t)*40+Math.sin(x*0.03+t*1.3)*20;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(79,172,254,0.3)';ctx.lineWidth=1.5;ctx.stroke();
+    // Second wave
+    ctx.beginPath();
+    for(let x=0;x<W;x++){
+      const y=H*0.6+Math.sin(x*0.012+t*0.7+1)*30+Math.cos(x*0.025+t)*15;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='rgba(167,139,250,0.2)';ctx.lineWidth=1;ctx.stroke();
+    // Moving nodes + connections
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+    });
+    nodes.forEach((a,i)=>{
+      nodes.slice(i+1).forEach(b=>{
+        const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(79,172,254,${0.12*(1-d/120)})`;ctx.lineWidth=0.5;ctx.stroke();
+        }
+      });
+      ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(79,172,254,0.5)';ctx.fill();
+    });
+    // Matrix rain-like symbols at corners
+    const syms=['∑','∫','∂','∇','λ','π','∞','θ','φ','Δ'];
+    syms.forEach((s,i)=>{
+      const x=30+i*60+Math.sin(t+i)*10,y=20+Math.cos(t*0.7+i)*8;
+      if(x<W-20){
+        ctx.font='12px serif';ctx.fillStyle=`rgba(167,139,250,${0.2+0.1*Math.sin(t+i)})`;
+        ctx.fillText(s,x,y);
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ────────────── LINEAR ALGEBRA VIZ ────────────── */
+function updateLinear(){
+  const sx=parseFloat(document.getElementById('scaleX').value);
+  const sh=parseFloat(document.getElementById('shear').value);
+  const deg=parseFloat(document.getElementById('rotation').value);
+  document.getElementById('scaleXVal').textContent=sx.toFixed(1);
+  document.getElementById('shearVal').textContent=sh.toFixed(1);
+  document.getElementById('rotationVal').textContent=deg+'°';
+  const canvas=document.getElementById('linearCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,scale=70;
+  // Grid original
+  function applyMatrix(px,py){
+    const r=deg*Math.PI/180;
+    const cos=Math.cos(r),sin=Math.sin(r);
+    const rx=cos*px-sin*py,ry=sin*px+cos*py;
+    return [sx*rx+sh*ry,ry];
+  }
+  // Draw transformed grid
+  for(let i=-3;i<=3;i++){
+    // Horizontal lines
+    ctx.beginPath();
+    for(let j=-3;j<=3;j+=0.5){
+      const [x,y]=applyMatrix(j,i);
+      j===-3?ctx.moveTo(cx+x*scale,cy-y*scale):ctx.lineTo(cx+x*scale,cy-y*scale);
+    }
+    ctx.strokeStyle='rgba(79,172,254,0.15)';ctx.lineWidth=1;ctx.stroke();
+    // Vertical lines
+    ctx.beginPath();
+    for(let j=-3;j<=3;j+=0.5){
+      const [x,y]=applyMatrix(i,j);
+      j===-3?ctx.moveTo(cx+x*scale,cy-y*scale):ctx.lineTo(cx+x*scale,cy-y*scale);
+    }
+    ctx.stroke();
+  }
+  // Transformed basis vectors
+  const [ex,ey]=applyMatrix(1,0);
+  const [fx,fy]=applyMatrix(0,1);
+  ctx.strokeStyle='#4facfe';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+ex*scale,cy-ey*scale);
+  ctx.stroke();
+  ctx.strokeStyle='#a78bfa';
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+fx*scale,cy-fy*scale);
+  ctx.stroke();
+  // Origin
+  ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+}
+updateLinear();
+
+/* ────────────── DISTRIBUTION VIZ ────────────── */
+let distChart=null;
+function updateDist(){
+  const mu=parseFloat(document.getElementById('distMean').value);
+  const sigma=parseFloat(document.getElementById('distStd').value);
+  document.getElementById('distMeanVal').textContent=mu.toFixed(1);
+  document.getElementById('distStdVal').textContent=sigma.toFixed(1);
+  const labels=[],data=[];
+  for(let x=-6;x<=6;x+=0.1){
+    labels.push(x.toFixed(1));
+    data.push((1/(sigma*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*((x-mu)/sigma)**2));
+  }
+  const ctx=document.getElementById('distCanvas').getContext('2d');
+  if(distChart){distChart.destroy();}
+  distChart=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{data,borderColor:'#4facfe',backgroundColor:'rgba(79,172,254,0.1)',fill:true,tension:0.4,pointRadius:0,borderWidth:2}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:{duration:200},
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{maxTicksLimit:7,color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'}},
+        y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'}}
+      }
+    }
+  });
+}
+
+/* ────────────── GRADIENT DESCENT VIZ ────────────── */
+let gdPos=2.5,gdRunning=false,gdTimer=null,gdStepCount=0;
+function loss(x){return x*x*0.5+Math.sin(x*2)*0.3;}
+function dloss(x){return x+Math.cos(x*2)*0.6;}
+function drawGD(){
+  const canvas=document.getElementById('gdCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const toX=x=>(x+4)/(8)*W;
+  const toY=y=>H-20-y/(3)*（H-40);
+  const tY=y=>H-20-(y/(4))*(H-40);
+  // Draw loss curve
+  ctx.beginPath();
+  for(let x=-4;x<=4;x+=0.05){
+    const px=toX(x),py=tY(loss(x));
+    x===-4?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.strokeStyle='#4facfe';ctx.lineWidth=2;ctx.stroke();
+  // Draw current position
+  const lv=loss(gdPos);
+  ctx.beginPath();ctx.arc(toX(gdPos),tY(lv),7,0,Math.PI*2);
+  ctx.fillStyle='#a78bfa';ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+  // Gradient arrow
+  const grad=dloss(gdPos);
+  const lr=parseFloat(document.getElementById('lr').value);
+  const arrowEnd=gdPos-lr*grad;
+  if(Math.abs(arrowEnd-gdPos)>0.01){
+    ctx.beginPath();ctx.moveTo(toX(gdPos),tY(lv));ctx.lineTo(toX(arrowEnd),tY(lv));
+    ctx.strokeStyle='rgba(251,146,60,0.6)';ctx.lineWidth=2;ctx.stroke();
+  }
+}
+function stepGD(){
+  const lr=parseFloat(document.getElementById('lr').value);
+  gdPos-=lr*dloss(gdPos);
+  gdPos=Math.max(-3.9,Math.min(3.9,gdPos));
+  gdStepCount++;
+  document.getElementById('gdStep').textContent=gdStepCount;
+  drawGD();
+}
+function resetGD(){
+  const lr=parseFloat(document.getElementById('lr').value);
+  document.getElementById('lrVal').textContent=lr.toFixed(2);
+  gdPos=2.5;gdStepCount=0;
+  document.getElementById('gdStep').textContent='0';
+  if(gdTimer){clearInterval(gdTimer);gdTimer=null;gdRunning=false;document.getElementById('runBtn').textContent='▶ Run';}
+  drawGD();
+}
+function runGD(){
+  if(gdRunning){clearInterval(gdTimer);gdTimer=null;gdRunning=false;document.getElementById('runBtn').textContent='▶ Run';}
+  else{gdRunning=true;document.getElementById('runBtn').textContent='⏹ Stop';gdTimer=setInterval(()=>{stepGD();if(Math.abs(dloss(gdPos))<0.001){clearInterval(gdTimer);gdRunning=false;document.getElementById('runBtn').textContent='▶ Run';}},120);}
+}
+// fix the toY function to not use ）
+function fixGDDraw(){
+  const canvas=document.getElementById('gdCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const tY=y=>H-20-(y/4)*(H-40);
+  const toX=x=>(x+4)/8*W;
+  ctx.beginPath();
+  for(let x=-4;x<=4;x+=0.05){
+    const px=toX(x),py=tY(loss(x));
+    x===-4?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.strokeStyle='#4facfe';ctx.lineWidth=2;ctx.stroke();
+  const lv=loss(gdPos);
+  ctx.beginPath();ctx.arc(toX(gdPos),tY(lv),7,0,Math.PI*2);
+  ctx.fillStyle='#a78bfa';ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+  const grad=dloss(gdPos);
+  const lr=parseFloat(document.getElementById('lr').value);
+  const arrowEnd=gdPos-lr*grad;
+  if(Math.abs(arrowEnd-gdPos)>0.01){
+    ctx.beginPath();ctx.moveTo(toX(gdPos),tY(lv));ctx.lineTo(toX(arrowEnd),tY(lv));
+    ctx.strokeStyle='rgba(251,146,60,0.7)';ctx.lineWidth=2;ctx.stroke();
+  }
+  // axis labels
+  ctx.fillStyle='#94a3b8';ctx.font='10px monospace';
+  ctx.fillText('x →',W-30,H-5);
+  ctx.fillText('L(x)',5,15);
+}
+// override drawGD
+drawGD=fixGDDraw;
+drawGD();
+
+/* ────────────── ROBOT ARM ────────────── */
+function drawArm(){
+  const theta1=parseFloat(document.getElementById('j1').value)*Math.PI/180;
+  const theta2=parseFloat(document.getElementById('j2').value)*Math.PI/180;
+  document.getElementById('j1Val').textContent=document.getElementById('j1').value+'°';
+  document.getElementById('j2Val').textContent=document.getElementById('j2').value+'°';
+  const canvas=document.getElementById('armCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const L1=100,L2=80;
+  const bx=W/2,by=H-20;
+  // Ground
+  ctx.fillStyle='rgba(255,255,255,0.05)';ctx.fillRect(bx-30,by,60,10);
+  // Link 1
+  const x1=bx+L1*Math.cos(theta1-(Math.PI/2));
+  const y1=by-L1*Math.sin(theta1-(Math.PI/2));
+  // Draw trajectory arc (workspace hint)
+  ctx.beginPath();
+  for(let a=0;a<=180;a+=5){
+    const r=a*Math.PI/180;
+    const tx=bx+L1*Math.cos(r-(Math.PI/2));
+    const ty=by-L1*Math.sin(r-(Math.PI/2));
+    a===0?ctx.moveTo(tx,ty):ctx.lineTo(tx,ty);
+  }
+  ctx.strokeStyle='rgba(79,172,254,0.08)';ctx.lineWidth=1;ctx.stroke();
+  // Link 1 line
+  ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(x1,y1);
+  ctx.strokeStyle='#4facfe';ctx.lineWidth=6;ctx.lineCap='round';ctx.stroke();
+  // Link 2
+  const angle2=theta1+theta2-(Math.PI/2);
+  const x2=x1+L2*Math.cos(angle2);
+  const y2=y1-L2*Math.sin(angle2);
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+  ctx.strokeStyle='#a78bfa';ctx.lineWidth=5;ctx.stroke();
+  // Joints
+  [[bx,by],[x1,y1]].forEach(([jx,jy])=>{
+    ctx.beginPath();ctx.arc(jx,jy,7,0,Math.PI*2);
+    ctx.fillStyle='#0e2040';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+  });
+  // End-effector
+  ctx.beginPath();ctx.arc(x2,y2,9,0,Math.PI*2);
+  ctx.fillStyle='#34d399';ctx.fill();
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+  // Coordinates label
+  ctx.fillStyle='rgba(148,163,184,0.8)';ctx.font='11px monospace';
+  ctx.fillText(`End: (${Math.round(x2-bx)}, ${Math.round(-(y2-by))})`,10,20);
+  ctx.fillText('Joint 1','','');
+}
+drawArm();
+
+/* ────────────── ROTATION VIZ ────────────── */
+function drawRotation(){
+  const deg=parseFloat(document.getElementById('rotAngle').value);
+  document.getElementById('rotAngleVal').textContent=deg+'°';
+  const r=deg*Math.PI/180;
+  const canvas=document.getElementById('rotCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,s=80;
+  // Grid
+  for(let i=-2;i<=2;i++){
+    ctx.beginPath();ctx.moveTo(cx+i*s/2,0);ctx.lineTo(cx+i*s/2,H);
+    ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,cy+i*s/2);ctx.lineTo(W,cy+i*s/2);ctx.stroke();
+  }
+  // Original basis (faint)
+  ctx.strokeStyle='rgba(79,172,254,0.2)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+s,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-s);ctx.stroke();
+  // Rotated basis
+  const ex=Math.cos(r)*s,ey=Math.sin(r)*s;
+  const fx=-Math.sin(r)*s,fy=Math.cos(r)*s;
+  ctx.strokeStyle='#4facfe';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+ex,cy-ey);ctx.stroke();
+  ctx.fillStyle='#4facfe';ctx.font='12px monospace';ctx.fillText('ê₁',cx+ex+4,cy-ey);
+  ctx.strokeStyle='#a78bfa';
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+fx,cy-fy);ctx.stroke();
+  ctx.fillStyle='#a78bfa';ctx.fillText('ê₂',cx+fx+4,cy-fy);
+  // Angle arc
+  ctx.beginPath();ctx.arc(cx,cy,30,0,-r,r<0);
+  ctx.strokeStyle='rgba(245,158,11,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle='rgba(245,158,11,0.8)';ctx.font='11px sans-serif';
+  ctx.fillText(`${deg}°`,cx+35*Math.cos(-r/2)+5,cy-35*Math.sin(-r/2));
+  // Matrix display
+  const cos=Math.cos(r).toFixed(2),sin=Math.sin(r).toFixed(2);
+  ctx.fillStyle='rgba(148,163,184,0.7)';ctx.font='10px monospace';
+  ctx.fillText(`R = [${cos}, ${(-parseFloat(sin)).toFixed(2)}]`,10,H-35);
+  ctx.fillText(`    [${sin}, ${cos}]`,10,H-20);
+}
+drawRotation();
+
+/* ────────────── PENDULUM TRAJECTORY ────────────── */
+function drawPendulum(){
+  const theta0=parseFloat(document.getElementById('pendAngle').value)*Math.PI/180;
+  const b=parseFloat(document.getElementById('pendDamp').value);
+  document.getElementById('pendAngleVal').textContent=document.getElementById('pendAngle').value+'°';
+  document.getElementById('pendDampVal').textContent=b.toFixed(2);
+  const canvas=document.getElementById('pendCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  // Simulate pendulum ODE: theta'' + b*theta' + sin(theta) = 0
+  const dt=0.05,g=9.8,L=1,n=200;
+  let th=theta0,dth=0;
+  const pts=[];
+  for(let i=0;i<n;i++){
+    const ddth=-b*dth-(g/L)*Math.sin(th);
+    dth+=ddth*dt;th+=dth*dt;
+    pts.push(th);
+  }
+  // Draw trajectory
+  const tY=th=>H/2-th*(H/2-10)/Math.max(...pts.map(Math.abs),0.1);
+  const tX=i=>i/n*W;
+  ctx.beginPath();
+  pts.forEach((th,i)=>{i===0?ctx.moveTo(tX(i),tY(th)):ctx.lineTo(tX(i),tY(th));});
+  ctx.strokeStyle='#a78bfa';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.1)';
+  ctx.beginPath();
+  pts.forEach((th,i)=>{
+    const t2=i===0?H/2:tY(0);
+    i===0?ctx.moveTo(tX(i),tY(th)):ctx.lineTo(tX(i),tY(th));
+  });
+  // Equilibrium line
+  ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);
+  ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='#94a3b8';ctx.font='10px monospace';
+  ctx.fillText('θ(t)',5,15);
+  ctx.fillText('equilibrium (θ=0)',W/2-50,H/2-5);
+}
+drawPendulum();
+
+/* ────────────── PHASE PORTRAIT ────────────── */
+function drawPhase(){
+  const a=parseFloat(document.getElementById('phaseA').value);
+  document.getElementById('phaseAVal').textContent=a.toFixed(1);
+  const canvas=document.getElementById('phaseCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,s=50;
+  // Draw vector field
+  for(let gx=-4;gx<=4;gx+=1){
+    for(let gy=-4;gy<=4;gy+=1){
+      const dx=gy, dy=a*gx-gy; // System: x'=y, y'=ax-y
+      const mag=Math.sqrt(dx*dx+dy*dy);
+      if(mag<0.001)continue;
+      const nx=dx/mag*0.6,ny=dy/mag*0.6;
+      const px=cx+gx*s,py=cy-gy*s;
+      ctx.beginPath();ctx.moveTo(px-nx*s*0.35,py+ny*s*0.35);ctx.lineTo(px+nx*s*0.35,py-ny*s*0.35);
+      ctx.strokeStyle=`rgba(79,172,254,${Math.min(1,mag/3)*0.5})`;ctx.lineWidth=1;ctx.stroke();
+    }
+  }
+  // Trajectories
+  const starts=[[2,0],[-2,0],[0,2],[0,-2],[1.5,1.5],[-1.5,-1.5]];
+  starts.forEach(([x0,y0],ci)=>{
+    let x=x0,y=y0;
+    const colors=['#4facfe','#a78bfa','#34d399','#fb923c','#f59e0b','#f87171'];
+    ctx.beginPath();ctx.moveTo(cx+x*s,cy-y*s);
+    for(let i=0;i<300;i++){
+      const dx=y,dy=a*x-y;
+      x+=dx*0.05;y+=dy*0.05;
+      if(Math.abs(x)>5||Math.abs(y)>5)break;
+      ctx.lineTo(cx+x*s,cy-y*s);
+    }
+    ctx.strokeStyle=colors[ci];ctx.lineWidth=1.5;ctx.stroke();
+  });
+  // Axes
+  ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,cy);ctx.lineTo(W,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,0);ctx.lineTo(cx,H);ctx.stroke();
+  ctx.fillStyle='#94a3b8';ctx.font='11px monospace';
+  ctx.fillText('x₁ →',W-35,cy-8);ctx.fillText('↑ x₂',cx+8,15);
+  // Stability label
+  const stable=a<0;
+  ctx.fillStyle=stable?'#34d399':'#f87171';
+  ctx.fillText(stable?'Stable equilibrium':'Unstable equilibrium',10,20);
+}
+drawPhase();
+
+/* ────────────── LYAPUNOV VIZ ────────────── */
+function drawLyapunov(){
+  const canvas=document.getElementById('lyapCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  // Concentric ellipses (level sets V=c)
+  const levels=[0.5,1,2,3.5,5.5,8];
+  levels.forEach((c,i)=>{
+    const rx=Math.sqrt(c)*55,ry=Math.sqrt(c)*45;
+    ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+    const alpha=0.6-i*0.07;
+    ctx.strokeStyle=`rgba(79,172,254,${Math.max(0.1,alpha)})`;
+    ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle=`rgba(79,172,254,0.03)`;ctx.fill();
+    if(i<4)ctx.fillStyle='rgba(148,163,184,0.6)',ctx.font='10px monospace',ctx.fillText(`V=${c}`,cx+rx+4,cy);
+  });
+  // Trajectory spiraling inward
+  ctx.beginPath();
+  let r=5,theta=0;
+  ctx.moveTo(cx+r*Math.cos(0)*50,cy-r*Math.sin(0)*40);
+  for(let i=0;i<300;i++){
+    theta+=0.08;r*=0.985;
+    ctx.lineTo(cx+r*Math.cos(theta)*50,cy-r*Math.sin(theta)*40);
+  }
+  ctx.strokeStyle='#34d399';ctx.lineWidth=2;ctx.stroke();
+  // Equilibrium
+  ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fillStyle='#f59e0b';ctx.fill();
+  ctx.fillStyle='#f59e0b';ctx.font='11px monospace';ctx.fillText('x*=0',cx+8,cy-8);
+  ctx.fillStyle='#34d399';ctx.font='10px sans-serif';ctx.fillText('← trajectory',cx+30,cy-80);
+  ctx.fillStyle='#94a3b8';ctx.font='10px monospace';ctx.fillText('V(x)=x₁²+x₂²',10,H-10);
+}
+drawLyapunov();
+
+/* ────────────── STATE TRAJECTORY ────────────── */
+let stateTrajChart=null;
+function drawStateTraj(){
+  const x0=parseFloat(document.getElementById('initX1').value);
+  document.getElementById('initX1Val').textContent=x0.toFixed(1);
+  // Simple closed-loop: ẋ = (A-BK)x, with A=[[0,1],[-1,-0.5]], K chosen for stability
+  const A=[[0,1],[-2,-1.5]]; // closed-loop A
+  let x=[x0,0];
+  const dt=0.05,steps=80;
+  const t=[],x1=[],x2=[];
+  for(let i=0;i<steps;i++){
+    t.push((i*dt).toFixed(1));
+    x1.push(parseFloat(x[0].toFixed(3)));
+    x2.push(parseFloat(x[1].toFixed(3)));
+    const dx0=A[0][0]*x[0]+A[0][1]*x[1];
+    const dx1=A[1][0]*x[0]+A[1][1]*x[1];
+    x=[x[0]+dx0*dt,x[1]+dx1*dt];
+  }
+  const ctx=document.getElementById('stateCanvas').getContext('2d');
+  if(stateTrajChart)stateTrajChart.destroy();
+  stateTrajChart=new Chart(ctx,{
+    type:'line',
+    data:{labels:t,datasets:[
+      {label:'x₁(t)',data:x1,borderColor:'#4facfe',borderWidth:2,pointRadius:0,fill:false},
+      {label:'x₂(t)',data:x2,borderColor:'#a78bfa',borderWidth:2,pointRadius:0,fill:false},
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:{duration:200},
+      plugins:{legend:{labels:{color:'#94a3b8',font:{size:11}}}},
+      scales:{
+        x:{ticks:{maxTicksLimit:6,color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'}},
+        y:{ticks:{color:'#94a3b8',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'}}
+      }
+    }
+  });
+}
+drawStateTraj();
+
+/* ────────────── NAV ACTIVE STATE ────────────── */
+const sections=document.querySelectorAll('[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{if(s.offsetTop-100<=scrollY)current=s.id;});
+  navLinks.forEach(a=>{
+    a.classList.remove('active');
+    if(a.getAttribute('href')==='#'+current)a.classList.add('active');
+  });
+},{passive:true});
+</script>
+</body>
+</html>

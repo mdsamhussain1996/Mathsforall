@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More Mathematical Branches | Maths for All</title>
+  <meta name="description" content="Mathematics for Physics, Economics, Data Science, and Biology — explore the universal language of science across disciplines." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html" class="active">More ▾</a></li>
+    </ul>
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search topics…" />
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="page-hero">
+    <div class="page-hero-tag">📚 More Mathematical Branches</div>
+    <h1>Mathematics Is <span style="background:linear-gradient(135deg,#fff,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Everywhere</span></h1>
+    <p>From quantum mechanics to evolutionary biology, from market equilibria to neural coding — mathematics underpins every modern scientific discipline. Explore the breadth of its reach.</p>
+  </div>
+</div>
+
+<div style="max-width:1400px;margin:0 auto;padding:2rem 2rem 5rem;">
+
+  <!-- Tab Navigation -->
+  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2.5rem;">
+    <button class="tab-btn active" onclick="showTab('physics')" id="tab-physics">⚛️ Physics</button>
+    <button class="tab-btn" onclick="showTab('economics')" id="tab-economics">💰 Economics</button>
+    <button class="tab-btn" onclick="showTab('data')" id="tab-data">📊 Data Science</button>
+    <button class="tab-btn" onclick="showTab('biology')" id="tab-biology">🧬 Biology</button>
+  </div>
+
+  <!-- PHYSICS -->
+  <div id="tab-content-physics" class="tab-content">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(30,111,255,0.15);">⚛️</div>
+      <div class="topic-title-group">
+        <h2>Mathematics for Physics</h2>
+        <p>PDEs, Fourier analysis, tensors, and complex analysis</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="topic-content">
+          <h3>Partial Differential Equations</h3>
+          <p>Physical laws are expressed as PDEs. The heat equation describes diffusion. The wave equation governs sound and light. Schrödinger's equation is the PDE of quantum mechanics. Mastering PDEs is essential for theoretical physics.</p>
+          <div class="formula-box">
+Heat: ∂u/∂t = α∇²u
+Wave: ∂²u/∂t² = c²∇²u
+Laplace: ∇²φ = 0
+Schrödinger: iℏ∂ψ/∂t = Ĥψ
+          </div>
+          <h3>Fourier Analysis</h3>
+          <p>Any periodic function can be decomposed into sines and cosines. The Fourier transform extends this to aperiodic signals. It converts problems in the time/space domain to frequency domain — often making intractable equations solvable.</p>
+          <div class="formula-box">
+f(x) = Σ [aₙcos(nπx/L) + bₙsin(nπx/L)]
+F(ω) = ∫ f(t) e^{-iωt} dt
+          </div>
+        </div>
+        <ul class="subtopics-list" style="margin-top:1.5rem;">
+          <li>Vector calculus & Maxwell's equations</li>
+          <li>Fourier series & transforms</li>
+          <li>PDEs: heat, wave, Laplace</li>
+          <li>Tensor calculus & general relativity</li>
+          <li>Complex analysis & conformal maps</li>
+          <li>Group theory in quantum mechanics</li>
+        </ul>
+      </div>
+      <div>
+        <div class="viz-container">
+          <div class="viz-title">Fourier Series Approximation</div>
+          <canvas id="fourier-canvas" class="viz-canvas" width="400" height="260" style="background:#060f1e;border-radius:8px;"></canvas>
+          <div class="slider-group">
+            <div class="slider-row">
+              <span class="slider-label">Harmonics N:</span>
+              <input type="range" id="fourier-n" min="1" max="25" value="5" oninput="updateFourier()" />
+              <span class="slider-val" id="fourier-n-v">5</span>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Approximating a square wave with N Fourier harmonics.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cards-grid" style="margin-top:2rem;">
+      <div class="card"><div class="card-icon" style="background:rgba(30,111,255,0.12)">🌊</div><div class="card-title">Wave Mechanics</div><p class="card-desc">Superposition, interference, diffraction — all explained by the mathematics of wave equations and complex amplitudes.</p></div>
+      <div class="card"><div class="card-icon" style="background:rgba(0,201,184,0.12)">🔭</div><div class="card-title">Tensor Calculus</div><p class="card-desc">Einstein's general relativity is written entirely in tensor notation. Curved spacetime is described by the Riemann curvature tensor.</p></div>
+      <div class="card"><div class="card-icon" style="background:rgba(124,58,237,0.12)">🔬</div><div class="card-title">Quantum Math</div><p class="card-desc">Hilbert spaces, operators, eigenvalues — quantum mechanics is fundamentally linear algebra in infinite dimensions.</p></div>
+    </div>
+  </div>
+
+  <!-- ECONOMICS -->
+  <div id="tab-content-economics" class="tab-content" style="display:none;">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(245,158,11,0.15);">💰</div>
+      <div class="topic-title-group">
+        <h2>Mathematics for Economics</h2>
+        <p>Game theory, optimization, stochastic processes, and dynamic programming</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="topic-content">
+          <h3>Calculus in Economics</h3>
+          <p>Marginal analysis — derivatives — is the core tool of microeconomics. The profit-maximizing firm sets marginal revenue equal to marginal cost. Consumer surplus, elasticity, and optimization are all calculus in disguise.</p>
+          <div class="formula-box">
+max π(q) = R(q) − C(q)
+FOC: R'(q) = C'(q)  →  MR = MC
+          </div>
+          <h3>Game Theory</h3>
+          <p>How do rational agents make decisions when outcomes depend on others' choices? Nash equilibrium — where no player can unilaterally improve their outcome — is a fixed point of a best-response mapping. This is pure mathematics!</p>
+          <div class="formula-box">
+Nash Equilibrium: uᵢ(sᵢ*, s₋ᵢ*) ≥ uᵢ(sᵢ, s₋ᵢ*)
+                  ∀sᵢ ∈ Sᵢ, ∀i
+          </div>
+          <h3>Stochastic Processes</h3>
+          <p>Financial markets are modeled as stochastic differential equations. The Black-Scholes option pricing formula — worth a Nobel Prize — comes from solving a specific PDE derived from a geometric Brownian motion model.</p>
+          <div class="formula-box">
+dS = μS dt + σS dW   (geometric Brownian motion)
+Black-Scholes PDE: ∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S = rV
+          </div>
+        </div>
+        <ul class="subtopics-list" style="margin-top:1.5rem;">
+          <li>Constrained optimization (Lagrangians)</li>
+          <li>Game theory & Nash equilibria</li>
+          <li>Dynamic programming (Bellman)</li>
+          <li>Stochastic calculus (Itô)</li>
+          <li>Linear programming & duality</li>
+          <li>Input-output matrices (Leontief)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="viz-container">
+          <div class="viz-title">Supply & Demand — Equilibrium</div>
+          <canvas id="econ-canvas" class="viz-canvas" width="400" height="280" style="background:#060f1e;border-radius:8px;"></canvas>
+          <div class="slider-group">
+            <div class="slider-row">
+              <span class="slider-label">Demand shift:</span>
+              <input type="range" id="econ-demand" min="-30" max="30" value="0" oninput="updateEcon()" />
+              <span class="slider-val" id="econ-demand-v">0</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Supply slope:</span>
+              <input type="range" id="econ-supply" min="5" max="40" value="15" oninput="updateEcon()" />
+              <span class="slider-val" id="econ-supply-v">1.5</span>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Market equilibrium where supply meets demand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA SCIENCE -->
+  <div id="tab-content-data" class="tab-content" style="display:none;">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(124,58,237,0.15);">📊</div>
+      <div class="topic-title-group">
+        <h2>Mathematics for Data Science</h2>
+        <p>Statistics, information theory, dimensionality reduction</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="topic-content">
+          <h3>Statistical Inference</h3>
+          <p>Data science is applied statistics. Hypothesis testing, confidence intervals, p-values — these are rigorous mathematical frameworks for drawing conclusions from data while quantifying uncertainty.</p>
+          <div class="formula-box">
+Confidence Interval: x̄ ± z_{α/2} · σ/√n
+t-statistic: t = (x̄ − μ₀) / (s/√n)
+          </div>
+          <h3>Information Theory</h3>
+          <p>Shannon entropy measures information content. Mutual information measures statistical dependence. KL divergence measures "distance" between distributions. These concepts underlie compression, communication, and modern ML.</p>
+          <div class="formula-box">
+H(X) = −Σ p(x) log p(x)   (entropy)
+I(X;Y) = H(X) − H(X|Y)    (mutual info)
+KL(P||Q) = Σ P(x) log(P(x)/Q(x))
+          </div>
+          <h3>Dimensionality Reduction</h3>
+          <p>High-dimensional data is hard to visualize and analyze. PCA (linear) and t-SNE / UMAP (nonlinear) project data to lower dimensions while preserving structure. Both rely on linear algebra and optimization.</p>
+        </div>
+        <ul class="subtopics-list" style="margin-top:1.5rem;">
+          <li>Descriptive & inferential statistics</li>
+          <li>Regression (linear, logistic)</li>
+          <li>Entropy & information theory</li>
+          <li>PCA, t-SNE, UMAP</li>
+          <li>Clustering (k-means, GMMs)</li>
+          <li>Bayesian inference & MCMC</li>
+        </ul>
+      </div>
+      <div>
+        <div class="viz-container">
+          <div class="viz-title">Correlation & Regression</div>
+          <canvas id="data-canvas" class="viz-canvas" width="400" height="280" style="background:#060f1e;border-radius:8px;"></canvas>
+          <div class="slider-group">
+            <div class="slider-row">
+              <span class="slider-label">Correlation r:</span>
+              <input type="range" id="data-corr" min="-99" max="99" value="70" oninput="updateDataViz()" />
+              <span class="slider-val" id="data-corr-v">0.70</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Noise σ:</span>
+              <input type="range" id="data-noise" min="5" max="50" value="20" oninput="updateDataViz()" />
+              <span class="slider-val" id="data-noise-v">2.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIOLOGY -->
+  <div id="tab-content-biology" class="tab-content" style="display:none;">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(0,201,184,0.15);">🧬</div>
+      <div class="topic-title-group">
+        <h2>Mathematics for Biology</h2>
+        <p>Population dynamics, reaction kinetics, and epidemiological models</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="topic-content">
+          <h3>Population Dynamics</h3>
+          <p>The logistic growth model captures how a population grows rapidly when small but slows as it approaches carrying capacity K. The Lotka-Volterra equations model predator-prey oscillations — a beautiful nonlinear system.</p>
+          <div class="formula-box">
+Logistic: dN/dt = rN(1 − N/K)
+Predator-prey:
+  dN/dt = αN − βNP
+  dP/dt = δNP − γP
+          </div>
+          <h3>Epidemiological Models</h3>
+          <p>The SIR model divides a population into Susceptible, Infected, and Recovered compartments. Differential equations govern the transitions. The basic reproduction number R₀ determines whether an epidemic spreads.</p>
+          <div class="formula-box">
+dS/dt = -βSI/N
+dI/dt = βSI/N − γI
+dR/dt = γI
+R₀ = β/γ
+          </div>
+          <h3>Reaction-Diffusion Systems</h3>
+          <p>Turing's 1952 paper showed how reaction-diffusion PDEs can spontaneously generate spatial patterns — explaining animal coat patterns, zebra stripes, and leopard spots through pure mathematics!</p>
+        </div>
+        <ul class="subtopics-list" style="margin-top:1.5rem;">
+          <li>Logistic growth & carrying capacity</li>
+          <li>Lotka-Volterra predator-prey</li>
+          <li>SIR/SEIR epidemic models</li>
+          <li>Turing pattern formation</li>
+          <li>Phylogenetics & evolutionary trees</li>
+          <li>Neural coding & Hodgkin-Huxley</li>
+        </ul>
+      </div>
+      <div>
+        <div class="viz-container">
+          <div class="viz-title">SIR Epidemic Model</div>
+          <canvas id="sir-canvas" class="viz-canvas" width="400" height="280" style="background:#060f1e;border-radius:8px;"></canvas>
+          <div class="slider-group">
+            <div class="slider-row">
+              <span class="slider-label">β (spread):</span>
+              <input type="range" id="sir-beta" min="5" max="50" value="25" oninput="updateSIR()" />
+              <span class="slider-val" id="sir-beta-v">0.25</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">γ (recovery):</span>
+              <input type="range" id="sir-gamma" min="3" max="30" value="10" oninput="updateSIR()" />
+              <span class="slider-val" id="sir-gamma-v">0.10</span>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.5rem;">
+            <span style="color:#f87171">■</span> Infected &nbsp;
+            <span style="color:#1e6fff">■</span> Susceptible &nbsp;
+            <span style="color:#00c9b8">■</span> Recovered
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+    <li><a href="robotics.html">Robotics</a></li>
+    <li><a href="control.html">Control Theory</a></li>
+    <li><a href="more.html">More Branches</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<style>
+.tab-btn {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  color: var(--text-secondary); padding: 0.6rem 1.25rem;
+  border-radius: 50px; font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif;
+}
+.tab-btn:hover { color: var(--text-primary); border-color: var(--accent); }
+.tab-btn.active {
+  background: rgba(30,111,255,0.15); border-color: var(--accent);
+  color: var(--accent-light);
+}
+</style>
+
+<script src="js/main.js"></script>
+<script src="js/more-viz.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-content-' + name).style.display = 'block';
+  document.getElementById('tab-' + name).classList.add('active');
+}
+</script>
+</body>
+</html>

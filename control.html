@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics for Control Theory | Maths for All</title>
+  <meta name="description" content="Dynamical systems, Lyapunov stability, state-space models, controllability and observability — the mathematics of feedback control." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html" class="active">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search topics…" />
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="page-hero">
+    <div class="page-hero-tag">⚙️ Mathematics for Control Theory</div>
+    <h1>Stability, Feedback &amp; <span style="background:linear-gradient(135deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Dynamical Systems</span></h1>
+    <p>State-space models, Lyapunov stability theory, and controllability — the mathematical framework for designing systems that behave exactly as intended.</p>
+    <div style="display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap;">
+      <a href="#state-space" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;background:linear-gradient(135deg,#7c3aed,#5b21b6);">State Space</a>
+      <a href="#stability" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Stability</a>
+      <a href="#phase" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Phase Portraits</a>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+
+<!-- ── STATE SPACE ── -->
+<div class="topic-section" id="state-space">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(124,58,237,0.15);">📊</div>
+    <div class="topic-title-group">
+      <h2>State-Space Models</h2>
+      <p>A unified mathematical framework for dynamical systems</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>The State-Space Representation</h3>
+        <p>Any finite-dimensional linear dynamical system can be written in state-space form. The <strong style="color:var(--text-primary)">state</strong> x(t) contains all information needed to predict future behavior. The matrices A, B, C, D fully characterize the system.</p>
+        <div class="formula-box">
+ẋ(t) = Ax(t) + Bu(t)   [State equation]
+y(t) = Cx(t) + Du(t)   [Output equation]
+
+x ∈ ℝⁿ: state vector
+u ∈ ℝᵐ: input, y ∈ ℝᵖ: output
+        </div>
+        <h3>Transfer Functions vs State Space</h3>
+        <p>Transfer functions G(s) = C(sI−A)⁻¹B + D describe SISO systems in the frequency domain. State-space handles MIMO systems, nonlinear extensions, and gives direct access to internal states — essential for modern control design.</p>
+        <h3>Solution of Linear Systems</h3>
+        <p>The solution is x(t) = e^{At}x₀ + ∫₀ᵗ e^{A(t-τ)}Bu(τ)dτ. The matrix exponential e^{At} — the "system transition matrix" — encodes how states evolve from initial conditions. Its eigenvalues determine stability.</p>
+        <div class="formula-box">
+e^{At} = I + At + (At)²/2! + (At)³/3! + …
+Eigenvalues of A → poles of the system
+        </div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>State variables & state equation</li>
+        <li>Transfer function derivation</li>
+        <li>Matrix exponential e^{At}</li>
+        <li>Impulse response & convolution</li>
+        <li>Discretization (ZOH, Euler)</li>
+        <li>Minimal realizations</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">State Trajectory Animation</div>
+        <canvas id="state-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">System pole σ:</span>
+            <input type="range" id="pole-sigma" min="-30" max="5" value="-10" oninput="updateStateViz()" />
+            <span class="slider-val" id="pole-sigma-v">-1.0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Frequency ω:</span>
+            <input type="range" id="pole-omega" min="0" max="50" value="20" oninput="updateStateViz()" />
+            <span class="slider-val" id="pole-omega-v">2.0</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Poles: s = σ ± jω. Drag σ to see stable vs unstable behavior.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STABILITY ── -->
+<div class="topic-section" id="stability">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(30,111,255,0.15);">🛡️</div>
+    <div class="topic-title-group">
+      <h2>Stability Analysis</h2>
+      <p>Lyapunov methods, eigenvalue analysis, and stability regions</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Lyapunov Stability</h3>
+        <p>Lyapunov's direct method proves stability without solving the ODE. Find a <strong style="color:var(--text-primary)">Lyapunov function</strong> V(x) — a "generalized energy" that is positive definite and whose time-derivative is negative definite along system trajectories.</p>
+        <div class="formula-box">
+V(x) > 0  ∀x ≠ 0     (positive definite)
+V̇(x) ≤ 0  ∀x         (non-increasing)
+
+If V̇(x) < 0: asymptotically stable
+If V̇(x) ≤ 0: stable (Lyapunov sense)
+        </div>
+        <h3>Linear Systems: Eigenvalue Criterion</h3>
+        <p>For linear systems ẋ = Ax, stability is determined entirely by eigenvalues of A. All eigenvalues must have negative real parts for asymptotic stability. This connects directly to pole placement in control design.</p>
+        <div class="formula-box">
+Stable:    Re(λᵢ(A)) < 0  ∀i
+Unstable:  ∃i: Re(λᵢ(A)) > 0
+Marginal:  max Re(λᵢ(A)) = 0
+        </div>
+        <h3>Controllability & Observability</h3>
+        <p>A system is <strong style="color:var(--text-primary)">controllable</strong> if we can drive it from any state to any other. It is <strong style="color:var(--text-primary)">observable</strong> if we can determine the full state from outputs alone. These concepts are dual to each other.</p>
+        <div class="formula-box">
+𝒞 = [B  AB  A²B … Aⁿ⁻¹B]   rank(𝒞) = n
+𝒪 = [C; CA; CA²; …; CAⁿ⁻¹] rank(𝒪) = n
+        </div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Lyapunov stability theorem</li>
+        <li>LaSalle invariance principle</li>
+        <li>Eigenvalue placement & Routh criterion</li>
+        <li>Bode & Nyquist stability margins</li>
+        <li>Controllability & observability matrices</li>
+        <li>Linear Quadratic Regulator (LQR)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">Lyapunov Function Visualization</div>
+        <canvas id="lyap-canvas" class="viz-canvas" width="400" height="290" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Decay rate α:</span>
+            <input type="range" id="lyap-alpha" min="1" max="30" value="10" oninput="updateLyap()" />
+            <span class="slider-val" id="lyap-alpha-v">1.0</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Level sets of V(x)=xᵀPx — ellipsoids of constant "energy".</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHASE PORTRAITS ── -->
+<div class="topic-section" id="phase">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(0,201,184,0.15);">🌀</div>
+    <div class="topic-title-group">
+      <h2>Phase Portraits</h2>
+      <p>Geometric view of dynamical system trajectories</p>
+    </div>
+  </div>
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>What is a Phase Portrait?</h3>
+        <p>A phase portrait shows the trajectories of a dynamical system in the state space (x₁, x₂). Each point shows the velocity vector (ẋ₁, ẋ₂) — the direction the system will evolve from that state. Equilibria appear as fixed points.</p>
+        <h3>Types of Equilibria</h3>
+        <p>The character of an equilibrium is determined by the eigenvalues of the Jacobian matrix at that point:</p>
+        <ul style="margin:0.75rem 0 0.75rem 1.5rem;color:var(--text-secondary);font-size:0.9rem;line-height:1.8;">
+          <li><strong style="color:var(--teal)">Stable node:</strong> real negative eigenvalues</li>
+          <li><strong style="color:var(--accent-light)">Stable spiral:</strong> complex with negative real part</li>
+          <li><strong style="color:var(--gold)">Center:</strong> purely imaginary eigenvalues</li>
+          <li><strong style="color:#f87171)">Unstable node/spiral:</strong> positive real parts</li>
+          <li><strong style="color:#f59e0b">Saddle:</strong> eigenvalues of opposite signs</li>
+        </ul>
+        <div class="formula-box">
+Pendulum: [ẋ₁] = [     x₂      ]
+          [ẋ₂]   [-ω²sin(x₁)-bx₂]
+        </div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Vector fields & flow maps</li>
+        <li>Equilibrium point classification</li>
+        <li>Limit cycles & Poincaré-Bendixson</li>
+        <li>Bifurcation theory</li>
+        <li>Nonlinear pendulum analysis</li>
+        <li>Chaos & strange attractors</li>
+      </ul>
+    </div>
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">Nonlinear Phase Portrait</div>
+        <canvas id="phase-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Damping b:</span>
+            <input type="range" id="phase-damp" min="0" max="30" value="8" oninput="updatePhase()" />
+            <span class="slider-val" id="phase-damp-v">0.8</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">ω² (freq²):</span>
+            <input type="range" id="phase-omega" min="5" max="40" value="15" oninput="updatePhase()" />
+            <span class="slider-val" id="phase-omega-v">1.5</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Nonlinear pendulum: ẍ + bẋ + ω²sin(x) = 0</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="insight-section animate-on-scroll" style="margin:3rem 0;">
+  <div class="insight-badge">💡 Key Insight</div>
+  <div class="insight-quote">"Stability is not just about staying in place — it's about whether small perturbations grow or shrink. Lyapunov's genius was finding energy-like functions that answer this question without solving the equations."</div>
+</div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+    <li><a href="robotics.html">Robotics</a></li>
+    <li><a href="control.html">Control Theory</a></li>
+    <li><a href="more.html">More Branches</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/control-viz.js"></script>
+</body>
+</html>

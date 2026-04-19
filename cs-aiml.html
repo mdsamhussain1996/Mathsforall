@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathematics for CS & AI/ML | Maths for All</title>
+  <meta name="description" content="Explore the mathematical foundations of Computer Science and AI/ML: Linear Algebra, Probability & Statistics, and Optimization." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cs-aiml.html" class="active">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search topics…" />
+    </div>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="page-hero">
+    <div class="page-hero-tag">🤖 Mathematics for CS / AI·ML</div>
+    <h1>The Math Behind <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Artificial Intelligence</span></h1>
+    <p>Linear algebra, probability, and optimization form the mathematical trinity of modern machine learning. Master these foundations to truly understand AI systems — not just use them.</p>
+    <div style="display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap;">
+      <a href="#linear-algebra" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Linear Algebra</a>
+      <a href="#probability" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Probability & Stats</a>
+      <a href="#optimization" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Optimization</a>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+
+<!-- ── LINEAR ALGEBRA ── -->
+<div class="topic-section" id="linear-algebra">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(30,111,255,0.15);">📐</div>
+    <div class="topic-title-group">
+      <h2>Linear Algebra</h2>
+      <p>Vectors, matrices, eigenvalues, and SVD — the language of data</p>
+    </div>
+  </div>
+
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Vectors & Matrices</h3>
+        <p>A <strong style="color:var(--text-primary)">vector</strong> is a list of numbers encoding magnitude and direction. In ML, your data is a vector in high-dimensional space. A <strong style="color:var(--text-primary)">matrix</strong> is a 2D array representing linear transformations — it maps one vector space to another.</p>
+        <div class="formula-box">
+Av = λv   (Eigenvalue equation)
+
+A = UΣVᵀ  (SVD decomposition)
+        </div>
+        <h3>Eigenvalues & Eigenvectors</h3>
+        <p>When a matrix A acts on a special vector v, it only scales it by λ — the eigenvalue. These reveal the "principal directions" of a transformation. PCA (Principal Component Analysis) directly uses this!</p>
+        <h3>Singular Value Decomposition (SVD)</h3>
+        <p>SVD decomposes any matrix into three matrices. Used in image compression, recommendation systems, and dimensionality reduction. It's the workhorse of numerical linear algebra.</p>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Vector spaces, bases, and span</li>
+        <li>Matrix multiplication & transpose</li>
+        <li>Determinants & invertibility</li>
+        <li>Eigendecomposition & diagonalization</li>
+        <li>SVD & pseudoinverse</li>
+        <li>PCA for dimensionality reduction</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">Interactive Vector Transformation</div>
+        <canvas id="vec-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Matrix a₁₁:</span>
+            <input type="range" id="m11" min="-20" max="20" value="10" oninput="updateMatrix()" />
+            <span class="slider-val" id="m11v">1.0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Matrix a₁₂:</span>
+            <input type="range" id="m12" min="-20" max="20" value="5" oninput="updateMatrix()" />
+            <span class="slider-val" id="m12v">0.5</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Matrix a₂₁:</span>
+            <input type="range" id="m21" min="-20" max="20" value="-5" oninput="updateMatrix()" />
+            <span class="slider-val" id="m21v">-0.5</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Matrix a₂₂:</span>
+            <input type="range" id="m22" min="-20" max="20" value="10" oninput="updateMatrix()" />
+            <span class="slider-val" id="m22v">1.0</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Blue = original basis vectors. Orange/Teal = transformed vectors.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROBABILITY ── -->
+<div class="topic-section" id="probability">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(0,201,184,0.15);">🎲</div>
+    <div class="topic-title-group">
+      <h2>Probability & Statistics</h2>
+      <p>Bayes theorem, distributions, and statistical inference</p>
+    </div>
+  </div>
+
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Bayes' Theorem</h3>
+        <p>The most important theorem in probabilistic reasoning. It tells us how to update our beliefs when we receive new evidence. Every Bayesian neural network, spam filter, and medical diagnosis tool is built on this foundation.</p>
+        <div class="formula-box">P(A|B) = P(B|A) · P(A) / P(B)
+
+posterior = likelihood × prior / evidence</div>
+        <h3>Probability Distributions</h3>
+        <p>Distributions describe how probability is spread over values. The Gaussian (Normal) distribution appears everywhere due to the Central Limit Theorem. In ML, we model latent variables, noise, and predictions as distributions.</p>
+        <div class="formula-box">N(x; μ, σ²) = (1/√(2πσ²)) · exp(-(x-μ)²/2σ²)</div>
+        <h3>Maximum Likelihood Estimation</h3>
+        <p>We find model parameters that maximize the probability of observing our training data. This directly connects probability theory to how we train neural networks (cross-entropy loss = negative log-likelihood).</p>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Random variables & expectation</li>
+        <li>Bayes' theorem & conditional probability</li>
+        <li>Normal, Bernoulli, Poisson distributions</li>
+        <li>MLE & MAP estimation</li>
+        <li>Central Limit Theorem</li>
+        <li>Information theory & entropy</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">Normal Distribution Explorer</div>
+        <canvas id="prob-canvas" class="viz-canvas" width="400" height="260" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Mean μ:</span>
+            <input type="range" id="prob-mu" min="-30" max="30" value="0" oninput="updateProb()" />
+            <span class="slider-val" id="prob-mu-v">0.0</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-label">Std σ:</span>
+            <input type="range" id="prob-sigma" min="5" max="50" value="15" oninput="updateProb()" />
+            <span class="slider-val" id="prob-sigma-v">1.5</span>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Drag sliders to reshape the Gaussian distribution.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OPTIMIZATION ── -->
+<div class="topic-section" id="optimization">
+  <div class="topic-header">
+    <div class="topic-icon-lg" style="background:rgba(124,58,237,0.15);">📉</div>
+    <div class="topic-title-group">
+      <h2>Optimization</h2>
+      <p>Gradient descent, convex optimization, and learning algorithms</p>
+    </div>
+  </div>
+
+  <div class="topic-grid">
+    <div>
+      <div class="topic-content">
+        <h3>Gradient Descent</h3>
+        <p>The algorithm that trains virtually every neural network. We compute the gradient of the loss function with respect to our parameters, then take a small step in the opposite direction — downhill on the loss landscape.</p>
+        <div class="formula-box">θ ← θ − α · ∇_θ L(θ)
+Stochastic: θ ← θ − α · ∇_θ L(θ; xᵢ, yᵢ)</div>
+        <h3>Convex Optimization</h3>
+        <p>When the loss landscape has a single bowl shape (convex), gradient descent guarantees finding the global minimum. Support Vector Machines (SVMs) solve a convex optimization problem. Understanding convexity helps explain why some ML problems are easier than others.</p>
+        <h3>Adam Optimizer</h3>
+        <p>Adaptive Moment Estimation combines momentum (remembering past gradients) with per-parameter learning rates. It's the most widely used optimizer in deep learning — automatically adapting the learning rate for each weight.</p>
+        <div class="formula-box">mₜ = β₁mₜ₋₁ + (1-β₁)∇θ
+vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
+θ ← θ − α · m̂ₜ/√(v̂ₜ+ε)</div>
+      </div>
+      <ul class="subtopics-list" style="margin-top:1.5rem;">
+        <li>Gradient descent & variants (SGD, Mini-batch)</li>
+        <li>Momentum, RMSprop, Adam</li>
+        <li>Convexity & global optima</li>
+        <li>Lagrange multipliers & constraints</li>
+        <li>Learning rate scheduling</li>
+        <li>Saddle points & local minima</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="viz-container">
+        <div class="viz-title">2D Loss Surface — Gradient Descent</div>
+        <canvas id="opt-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
+        <div class="slider-group">
+          <div class="slider-row">
+            <span class="slider-label">Learning rate:</span>
+            <input type="range" id="opt-lr" min="1" max="30" value="10" oninput="updateOptViz()" />
+            <span class="slider-val" id="opt-lr-v">0.10</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:0.75rem;margin-top:1rem;">
+          <button onclick="restartOpt()" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.8rem;">↺ Restart</button>
+          <button onclick="toggleOpt()" id="opt-toggle-btn" class="btn btn-outline" style="padding:0.5rem 1rem;font-size:0.8rem;">⏸ Pause</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHT -->
+<div class="insight-section animate-on-scroll" style="margin:3rem 0;">
+  <div class="insight-badge">💡 Key Intuition</div>
+  <div class="insight-quote">"Linear algebra tells you where you are. Probability tells you how certain you are. Optimization tells you where to go next. Together, they are the complete language of machine learning."</div>
+</div>
+
+</div><!-- /max-width -->
+
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+    <li><a href="robotics.html">Robotics</a></li>
+    <li><a href="control.html">Control Theory</a></li>
+    <li><a href="more.html">More Branches</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cs-viz.js"></script>
+</body>
+</html>
