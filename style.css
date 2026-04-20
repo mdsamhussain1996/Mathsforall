@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700;800&display=swap');
 
 :root {
-  --primary: #0f1715;
-  --primary-mid: #1a2a26;
-  --accent: #2ecc71;
-  --accent-light: #a9dfbf;
-  --accent-glow: rgba(46, 204, 113, 0.25);
-  --teal: #1abc9c;
-  --purple: #9b59b6;
-  --gold: #f1c40f;
-  --text-primary: #ecf0f1;
-  --text-secondary: #a3b8b0;
-  --text-muted: #5d6d6a;
-  --card-bg: rgba(26, 42, 38, 0.7);
-  --card-border: rgba(46, 204, 113, 0.15);
+  --primary: #1c1917;
+  --primary-mid: #292524;
+  --accent: #d97706;
+  --accent-light: #fbbf24;
+  --accent-glow: rgba(217, 119, 6, 0.25);
+  --teal: #10b981;
+  --purple: #8b5cf6;
+  --gold: #f59e0b;
+  --text-primary: #f5f5f4;
+  --text-secondary: #a8a29e;
+  --text-muted: #57534e;
+  --card-bg: rgba(41, 37, 36, 0.7);
+  --card-border: rgba(217, 119, 6, 0.15);
   --glass: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
   --navbar-h: 70px;
@@ -141,16 +141,16 @@ body {
 
 .hero-bg {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(46,204,113,0.12) 0%, transparent 70%),
-              radial-gradient(ellipse 50% 40% at 80% 80%, rgba(26,188,156,0.08) 0%, transparent 60%),
-              linear-gradient(180deg, var(--primary) 0%, #0a0f0e 100%);
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(217,119,6,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 80% 80%, rgba(16,185,129,0.08) 0%, transparent 60%),
+              linear-gradient(180deg, var(--primary) 0%, #171717 100%);
 }
 
 .hero-grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(46,204,113,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(46,204,113,0.05) 1px, transparent 1px);
+    linear-gradient(rgba(217,119,6,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217,119,6,0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 20%, black, transparent);
 }
@@ -165,7 +165,7 @@ body {
 
 .hero-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3);
+  background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.3);
   border-radius: 50px; padding: 0.4rem 1rem;
   font-size: 0.8rem; color: var(--accent-light);
   font-weight: 500; margin-bottom: 1.5rem;
@@ -212,13 +212,13 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), #27ae60);
+  background: linear-gradient(135deg, var(--accent), #92400e);
   color: #fff;
   box-shadow: var(--shadow-accent);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(46,204,113,0.4);
+  box-shadow: 0 12px 40px rgba(217,119,6,0.4);
 }
 
 .btn-outline {
@@ -312,7 +312,7 @@ body {
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(46,204,113,0.35);
+  border-color: rgba(217,119,6,0.35);
   box-shadow: var(--shadow-accent);
 }
 
@@ -519,8 +519,8 @@ input[type=range] {
 
 /* ── DAILY INSIGHT ── */
 .insight-section {
-  background: linear-gradient(135deg, rgba(46,204,113,0.08), rgba(26,188,156,0.05));
-  border: 1px solid rgba(46,204,113,0.2);
+  background: linear-gradient(135deg, rgba(217,119,6,0.08), rgba(16,185,129,0.05));
+  border: 1px solid rgba(217,119,6,0.2);
   border-radius: var(--radius);
   padding: 2.5rem; margin: 3rem 0;
   position: relative; overflow: hidden;
@@ -530,7 +530,7 @@ input[type=range] {
   content: '"';
   position: absolute; top: -20px; left: 20px;
   font-size: 8rem; font-family: 'Playfair Display', serif;
-  color: rgba(46,204,113,0.1); line-height: 1;
+  color: rgba(217,119,6,0.1); line-height: 1;
 }
 
 .insight-badge {
@@ -554,7 +554,7 @@ input[type=range] {
 
 /* ── FOOTER ── */
 footer {
-  background: #0a0f0e;
+  background: #171717;
   border-top: 1px solid var(--glass-border);
   padding: 3rem 2rem;
   text-align: center;
@@ -587,7 +587,7 @@ footer {
 /* ── PAGE HERO (inner pages) ── */
 .page-hero {
   padding: calc(var(--navbar-h) + 3rem) 2rem 3rem;
-  background: linear-gradient(180deg, rgba(46,204,113,0.08) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(217,119,6,0.08) 0%, transparent 100%);
   border-bottom: 1px solid var(--glass-border);
   max-width: 1400px; margin: 0 auto;
 }
@@ -629,7 +629,9 @@ footer {
 .course-tabs {
   display: flex; gap: 0.5rem; margin-bottom: 2rem;
   border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
+.course-tabs::-webkit-scrollbar { display: none; }
 .tab-btn {
   background: var(--glass); border: 1px solid var(--glass-border);
   color: var(--text-secondary); padding: 0.6rem 1.25rem;
@@ -638,7 +640,7 @@ footer {
 }
 .tab-btn:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
 .tab-btn.active {
-  background: var(--accent); color: #000; border-color: var(--accent);
+  background: var(--accent); color: #fff; border-color: var(--accent);
   box-shadow: var(--shadow-accent);
 }
 
@@ -697,6 +699,9 @@ footer {
   }
   .cards-grid { grid-template-columns: 1fr; }
   .hero-stats { gap: 1.25rem; }
+  .theory-grid { grid-template-columns: 1fr; }
+  .viz-container { position: relative !important; top: 0 !important; margin-top: 2rem; }
+  canvas { width: 100% !important; height: auto !important; }
 }
 
 /* ── UTILITY ── */
