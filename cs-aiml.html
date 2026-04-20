@@ -54,9 +54,9 @@
   </div>
 
   <div class="course-tabs">
-    <button class="tab-btn active" onclick="switchTab('theory')">📘 Theory</button>
-    <button class="tab-btn" onclick="switchTab('examples')">💡 Examples</button>
-    <button class="tab-btn" onclick="switchTab('practice')">📝 Practice</button>
+    <button class="tab-btn active" onclick="switchTab(event, 'theory')">📘 Theory</button>
+    <button class="tab-btn" onclick="switchTab(event, 'examples')">💡 Examples</button>
+    <button class="tab-btn" onclick="switchTab(event, 'practice')">📝 Practice</button>
   </div>
 
   <!-- THEORY TAB -->
@@ -256,8 +256,14 @@
         </div>
         
         <div class="insight-section" style="padding:1.5rem; margin-top:1.5rem;">
-          <div class="insight-badge" style="background:rgba(124,58,237,0.2); color:var(--accent-light);">💡 AI Application</div>
-          <p style="font-size:0.85rem; line-height:1.6; color:var(--text-secondary);">In **Machine Learning**, "Embeddings" are vectors in a high-dimensional vector space. "Basis transformation" (like PCA) helps us find the most important directions in our data.</p>
+          <div class="insight-badge" style="background:rgba(46,204,113,0.2); color:var(--accent-light);">💡 AI Application</div>
+          <p style="font-size:0.85rem; line-height:1.6; color:var(--text-secondary);">In **Machine Learning**, "Embeddings" (like Word2Vec) are vectors in a high-dimensional vector space. **Basis transformation** (like PCA) helps us find the most important "latent" directions in our data, reducing noise and complexity.</p>
+        </div>
+
+        <div class="viz-container" style="margin-top:1.5rem;">
+          <div class="viz-title">Basis Transformation Visualizer</div>
+          <canvas id="basis-canvas" class="viz-canvas" width="400" height="280" style="background:#0a0f0e;border-radius:8px;"></canvas>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">See how the same vector is represented in different coordinate systems.</p>
         </div>
       </div>
     </div>
@@ -280,6 +286,22 @@
         <button class="btn btn-outline" style="font-size:0.75rem; padding:0.4rem 0.8rem;" onclick="this.nextElementSibling.classList.toggle('visible')">Show Solution</button>
         <div class="solution-box">
           <p>\((a, b, a+b) = a(1,0,1) + b(0,1,1)\). The vectors \((1,0,1)\) and \((0,1,1)\) span \(W\) and are independent. Basis found!</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="axiom-title">Example 3: Polynomial Space</div>
+        <p class="card-desc">Check if \(1, x, x^2\) form a basis for \(P_2\).</p>
+        <button class="btn btn-outline" style="font-size:0.75rem; padding:0.4rem 0.8rem;" onclick="this.nextElementSibling.classList.toggle('visible')">Show Solution</button>
+        <div class="solution-box">
+          <p>Yes. They are linearly independent (no power of \(x\) can be formed by others) and they span all quadratic polynomials. This is the **standard basis** for \(P_2\).</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="axiom-title">AI Application: VAEs</div>
+        <p class="card-desc">How are vector spaces used in Generative Models?</p>
+        <button class="btn btn-outline" style="font-size:0.75rem; padding:0.4rem 0.8rem;" onclick="this.nextElementSibling.classList.toggle('visible')">Show Details</button>
+        <div class="solution-box">
+          <p>Variational Autoencoders (VAEs) compress images into a low-dimensional **latent vector space**. Moving along a "basis vector" in this space might change an attribute like "smile" or "glasses" on a generated face!</p>
         </div>
       </div>
     </div>
@@ -436,7 +458,7 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
   <script src="js/main.js"></script>
   <script src="js/cs-viz.js"></script>
   <script>
-    function switchTab(tabId) {
+    function switchTab(event, tabId) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');

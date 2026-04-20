@@ -58,7 +58,7 @@
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#030308'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
@@ -114,7 +114,7 @@
 
   function draw(mu=0, sigma=1.5) {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#030308'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
@@ -244,7 +244,7 @@
 
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#030308'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
 
     // Heatmap
     const imgData = ctx.createImageData(W, H);
@@ -345,7 +345,7 @@
 
   function draw(v1, v2) {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#030308'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
@@ -421,10 +421,56 @@
   window.updateSpanViz();
 })();
 
-// ── 3D VECTOR SPACE PROJECTION (Mini-Engine) ──
-(function init3DViz() {
-  const canvas = document.createElement('canvas'); // We will use this in the future or replace an existing one
-  // For now, let's just enhance the existing span-canvas to have a "3D mode" if we want,
-  // or just add a separate 3D basis viz if there's a placeholder.
-  // Actually, let's just make the existing span-canvas look "3D-ish" by adding a tilt.
+// ── BASIS TRANSFORMATION VISUALIZER ──
+(function initBasisViz() {
+  const canvas = document.getElementById('basis-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const centerX = W / 2, centerY = H / 2;
+  const scale = 50;
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0f0e';
+    ctx.fillRect(0, 0, W, H);
+
+    // Standard Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.beginPath();
+    for(let i = -10; i <= 10; i++) {
+      ctx.moveTo(centerX + i * scale, 0); ctx.lineTo(centerX + i * scale, H);
+      ctx.moveTo(0, centerY + i * scale); ctx.lineTo(W, centerY + i * scale);
+    }
+    ctx.stroke();
+
+    // Basis 1 (Standard)
+    ctx.strokeStyle = '#2ecc71';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + scale, centerY);
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX, centerY - scale);
+    ctx.stroke();
+
+    // Basis 2 (Skewed)
+    const time = Date.now() * 0.001;
+    const v1 = { x: Math.cos(time), y: Math.sin(time) };
+    const v2 = { x: -0.5, y: 1 };
+
+    ctx.strokeStyle = '#f1c40f';
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + v1.x * scale, centerY - v1.y * scale);
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + v2.x * scale, centerY - v2.y * scale);
+    ctx.stroke();
+
+    // Labels
+    ctx.fillStyle = '#ecf0f1';
+    ctx.font = '10px Inter';
+    ctx.fillText('Standard Basis', centerX + 10, centerY + 20);
+    ctx.fillStyle = '#f1c40f';
+    ctx.fillText('New Basis', centerX + v1.x * scale + 5, centerY - v1.y * scale - 5);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
