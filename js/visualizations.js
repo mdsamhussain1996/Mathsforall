@@ -46,11 +46,11 @@
     ctx.clearRect(0, 0, W, H);
 
     // BG
-    ctx.fillStyle = '#060f1e';
+    ctx.fillStyle = '#1c1917';
     ctx.fillRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = 'rgba(30,111,255,0.07)';
+    ctx.strokeStyle = 'rgba(46,204,113,0.07)';
     ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
     for (let y = 0; y < H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
@@ -65,7 +65,7 @@
     }
     const curveGrad = ctx.createLinearGradient(0, 0, W, 0);
     curveGrad.addColorStop(0, '#7c3aed');
-    curveGrad.addColorStop(0.5, '#1e6fff');
+    curveGrad.addColorStop(0.5, '#2ecc71');
     curveGrad.addColorStop(1, '#00c9b8');
     ctx.strokeStyle = curveGrad;
     ctx.lineWidth = 2.5;
@@ -84,7 +84,7 @@
     const endP = toScreen(1, loss(1));
     ctx.lineTo(endP.sx, H);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(30,111,255,0.05)';
+    ctx.fillStyle = 'rgba(46,204,113,0.05)';
     ctx.fill();
 
     // Path history

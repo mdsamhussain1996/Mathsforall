@@ -119,13 +119,13 @@ showInsight();
 
     // Background gradient
     const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W/1.2);
-    grad.addColorStop(0, 'rgba(13,33,69,0.95)');
-    grad.addColorStop(1, 'rgba(6,15,30,0.98)');
+    grad.addColorStop(0, 'rgba(41,37,36,0.95)');
+    grad.addColorStop(1, 'rgba(28,25,23,0.98)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
     // Grid lines
-    ctx.strokeStyle = 'rgba(30,111,255,0.06)';
+    ctx.strokeStyle = 'rgba(217,119,6,0.06)';
     ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
     for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
@@ -141,9 +141,9 @@ showInsight();
       i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
     }
     const lissGrad = ctx.createLinearGradient(cx - 120, cy - 100, cx + 120, cy + 100);
-    lissGrad.addColorStop(0, 'rgba(30,111,255,0.8)');
-    lissGrad.addColorStop(0.5, 'rgba(0,201,184,0.7)');
-    lissGrad.addColorStop(1, 'rgba(124,58,237,0.6)');
+    lissGrad.addColorStop(0, 'rgba(217,119,6,0.8)');
+    lissGrad.addColorStop(0.5, 'rgba(16,185,129,0.7)');
+    lissGrad.addColorStop(1, 'rgba(217,119,6,0.6)');
     ctx.strokeStyle = lissGrad;
     ctx.lineWidth = 2;
     ctx.stroke();
@@ -165,7 +165,7 @@ showInsight();
       if (p.y < 0 || p.y > H) p.vy *= -1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(30,111,255,${p.alpha})`;
+      ctx.fillStyle = `rgba(217,119,6,${p.alpha})`;
       ctx.fill();
     });
 
@@ -181,7 +181,7 @@ showInsight();
       i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
     }
     ctx.closePath();
-    ctx.strokeStyle = 'rgba(0,201,184,0.7)';
+    ctx.strokeStyle = 'rgba(16,185,129,0.7)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
     ctx.restore();

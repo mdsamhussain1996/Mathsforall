@@ -46,7 +46,7 @@
 
   <!-- ── COMPREHENSIVE COURSE MODULE: VECTOR SPACES ── -->
   <div class="topic-header" style="margin-top:4rem;">
-    <div class="topic-icon-lg" style="background:rgba(124,58,237,0.2);">📐</div>
+    <div class="topic-icon-lg" style="background:rgba(217,119,6,0.2);">📐</div>
     <div class="topic-title-group">
       <h2 id="vector-spaces-title">Vector Spaces, Bases, and Span</h2>
       <p>A complete module on the fundamental architecture of linear algebra</p>
@@ -286,7 +286,7 @@
       <div style="position:sticky; top:100px; height:fit-content;">
         <div class="viz-container">
           <div class="viz-title" id="course-viz-title">Interactive Span Explorer</div>
-          <canvas id="span-canvas" class="viz-canvas" width="400" height="340" style="background:#030308;border-radius:8px;"></canvas>
+          <canvas id="span-canvas" class="viz-canvas" width="400" height="340" style="background:#1c1917;border-radius:8px;"></canvas>
           <div class="slider-group" id="span-controls">
             <div class="slider-row">
               <span class="slider-label">Vector v₁:</span>
@@ -299,18 +299,18 @@
           </div>
           <p id="span-info" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Linear Independence: YES. Span: Full 2D Plane.</p>
         </div>
+
+        <div class="viz-container" style="margin-top:2rem;">
+          <div class="viz-title">Basis Transformation Visualizer</div>
+          <canvas id="basis-canvas" class="viz-canvas" width="400" height="280" style="background:#1c1917;border-radius:8px;"></canvas>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">See how the same vector is represented in different coordinate systems.</p>
+        </div>
+      </div>
         
         <div class="insight-section" style="padding:1.5rem; margin-top:1.5rem;">
           <div class="insight-badge" style="background:rgba(46,204,113,0.2); color:var(--accent-light);">💡 AI Application</div>
           <p style="font-size:0.85rem; line-height:1.6; color:var(--text-secondary);">In **Machine Learning**, "Embeddings" (like Word2Vec) are vectors in a high-dimensional vector space. **Basis transformation** (like PCA) helps us find the most important "latent" directions in our data, reducing noise and complexity.</p>
         </div>
-
-        <div class="viz-container" style="margin-top:1.5rem;">
-          <div class="viz-title">Basis Transformation Visualizer</div>
-          <canvas id="basis-canvas" class="viz-canvas" width="400" height="280" style="background:#0a0f0e;border-radius:8px;"></canvas>
-          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem;">See how the same vector is represented in different coordinate systems.</p>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -406,7 +406,7 @@ posterior = likelihood × prior / evidence</div>
     <div>
       <div class="viz-container">
         <div class="viz-title">Normal Distribution Explorer</div>
-        <canvas id="prob-canvas" class="viz-canvas" width="400" height="260" style="background:#030308;border-radius:8px;"></canvas>
+        <canvas id="prob-canvas" class="viz-canvas" width="400" height="260" style="background:#1c1917;border-radius:8px;"></canvas>
         <div class="slider-group">
           <div class="slider-row">
             <span class="slider-label">Mean μ:</span>
@@ -463,7 +463,7 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
     <div>
       <div class="viz-container">
         <div class="viz-title">2D Loss Surface — Gradient Descent</div>
-        <canvas id="opt-canvas" class="viz-canvas" width="400" height="300" style="background:#030308;border-radius:8px;"></canvas>
+        <canvas id="opt-canvas" class="viz-canvas" width="400" height="320" style="background:#1c1917;border-radius:8px;"></canvas>
         <div class="slider-group">
           <div class="slider-row">
             <span class="slider-label">Learning rate:</span>

@@ -10,7 +10,7 @@
   let matrix = [[1, 0.5], [-0.5, 1]];
 
   const originalVecs = [
-    { x: 1, y: 0, color: '#1e6fff', label: 'e₁' },
+    { x: 1, y: 0, color: '#d97706', label: 'e₁' },
     { x: 0, y: 1, color: '#00c9b8', label: 'e₂' },
     { x: 1, y: 1, color: '#f59e0b', label: 'v' },
   ];
@@ -58,10 +58,10 @@
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#060f1e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = 'rgba(30,111,255,0.07)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
     for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
@@ -114,10 +114,10 @@
 
   function draw(mu=0, sigma=1.5) {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#060f1e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = 'rgba(30,111,255,0.07)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
     for (let y = 0; y < H; y += 30) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
@@ -136,8 +136,8 @@
     ctx.lineTo(toScreenX(mu + xRange), H - 30);
     ctx.closePath();
     const fillGrad = ctx.createLinearGradient(0, 0, 0, H);
-    fillGrad.addColorStop(0, 'rgba(30,111,255,0.3)');
-    fillGrad.addColorStop(1, 'rgba(30,111,255,0.02)');
+    fillGrad.addColorStop(0, 'rgba(217,119,6,0.3)');
+    fillGrad.addColorStop(1, 'rgba(217,119,6,0.02)');
     ctx.fillStyle = fillGrad;
     ctx.fill();
 
@@ -148,7 +148,7 @@
       const sy = toScreenY(gaussian(x, mu, sigma));
       i === 0 ? ctx.moveTo(toScreenX(x), sy) : ctx.lineTo(toScreenX(x), sy);
     }
-    ctx.strokeStyle = '#1e6fff'; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.strokeStyle = '#d97706'; ctx.lineWidth = 2.5; ctx.stroke();
 
     // Mean line
     ctx.beginPath();
@@ -161,7 +161,7 @@
     ctx.font = '11px "JetBrains Mono", monospace';
     ctx.fillStyle = '#f59e0b';
     ctx.fillText('μ = ' + mu.toFixed(1), toScreenX(mu) + 5, 20);
-    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.fillStyle = 'rgba(217,119,6,0.1)';
     ctx.fillText('σ = ' + sigma.toFixed(1), 10, 20);
 
     // X-axis labels
@@ -229,7 +229,7 @@
 
   function drawContours() {
     const levels = [0.02, 0.08, 0.18, 0.32, 0.5, 0.72, 1.0];
-    const colors = ['#00c9b8','#1e6fff','#3a82ff','#5a94ff','#7aa6ff','#9ab8ff','#b0c8ff'];
+    const colors = ['#10b981','#d97706','#f59e0b','#fbbf24','#fef3c7','#fff7ed','#fffaf0'];
     levels.forEach((lv, li) => {
       // Simple contour approximation by drawing ellipses
       const rx = Math.sqrt(lv / 0.6) * (W / 2);
@@ -244,7 +244,7 @@
 
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#060f1e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Heatmap
     const imgData = ctx.createImageData(W, H);
@@ -303,4 +303,177 @@
 
   window.restartOpt();
   window.updateOptViz();
+})();
+
+// ── SPAN AND BASIS VISUALIZATION ──
+(function initSpanViz() {
+  const canvas = document.getElementById('span-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const scale = 80;
+
+  window.updateSpanViz = function() {
+    const el1 = document.getElementById('v1-angle');
+    const el2 = document.getElementById('v2-angle');
+    if (!el1 || !el2) return;
+    const a1 = parseInt(el1.value) * Math.PI / 180;
+    const a2 = parseInt(el2.value) * Math.PI / 180;
+    
+    const v1 = { x: Math.cos(a1), y: Math.sin(a1) };
+    const v2 = { x: Math.cos(a2), y: Math.sin(a2) };
+    
+    draw(v1, v2);
+  };
+
+  function drawArrow(x1, y1, x2, y2, color, label) {
+    ctx.save();
+    ctx.strokeStyle = color; ctx.fillStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    const ang = Math.atan2(y2 - y1, x2 - x1);
+    const len = 12;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - len * Math.cos(ang - 0.4), y2 - len * Math.sin(ang - 0.4));
+    ctx.lineTo(x2 - len * Math.cos(ang + 0.4), y2 - len * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fill();
+    if (label) {
+      ctx.font = 'bold 14px "Inter", sans-serif';
+      ctx.fillText(label, x2 + 8, y2 - 8);
+    }
+    ctx.restore();
+  }
+
+  function draw(v1, v2) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+    // Check Linear Independence
+    const crossProduct = Math.abs(v1.x * v2.y - v1.y * v2.x);
+    const isIndependent = crossProduct > 0.05;
+    
+    const infoEl = document.getElementById('span-info');
+    if (infoEl) {
+      infoEl.textContent = isIndependent 
+        ? "Linear Independence: YES. Span: Full 2D Plane." 
+        : "Linear Independence: NO (Collinear). Span: A single line.";
+      infoEl.style.color = isIndependent ? "var(--teal)" : "var(--gold)";
+    }
+
+    // Draw Span (shaded area or line)
+    if (isIndependent) {
+      ctx.fillStyle = 'rgba(217,119,6,0.05)';
+      ctx.fillRect(0, 0, W, H);
+    } else {
+      ctx.strokeStyle = 'rgba(245,158,11,0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx - v1.x * 1000, cy + v1.y * 1000);
+      ctx.lineTo(cx + v1.x * 1000, cy - v1.y * 1000);
+      ctx.stroke();
+    }
+
+    // Axes
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+
+    // Draw Vectors
+    drawArrow(cx, cy, cx + v1.x * scale, cy - v1.y * scale, '#d97706', 'v₁');
+    drawArrow(cx, cy, cx + v2.x * scale, cy - v2.y * scale, '#10b981', 'v₂');
+    
+    // Linear Combination Example
+    if (isIndependent) {
+      const target = { x: 1.5, y: 1.2 };
+      // Solve: c1*v1 + c2*v2 = target
+      // c1*v1.x + c2*v2.x = target.x
+      // c1*v1.y + c2*v2.y = target.y
+      const det = v1.x * v2.y - v1.y * v2.x;
+      const c1 = (target.x * v2.y - target.y * v2.x) / det;
+      const c2 = (v1.x * target.y - v1.y * target.x) / det;
+      
+      const p1 = { x: c1 * v1.x, y: c1 * v1.y };
+      const p2 = { x: target.x, y: target.y };
+      
+      // Draw parallelogram
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+      ctx.beginPath();
+      ctx.moveTo(cx + p1.x * scale, cy - p1.y * scale);
+      ctx.lineTo(cx + p2.x * scale, cy - p2.y * scale);
+      ctx.lineTo(cx + (p2.x - p1.x) * scale, cy - (p2.y - p1.y) * scale);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      ctx.beginPath();
+      ctx.arc(cx + target.x * scale, cy - target.y * scale, 4, 0, Math.PI*2);
+      ctx.fillStyle = '#fff';
+      ctx.fill();
+      ctx.font = '11px "JetBrains Mono", monospace';
+      ctx.fillText(`Target = ${c1.toFixed(1)}v₁ + ${c2.toFixed(1)}v₂`, cx + target.x * scale + 5, cy - target.y * scale - 5);
+    }
+  }
+
+  window.updateSpanViz();
+})();
+
+// ── BASIS TRANSFORMATION VISUALIZER ──
+(function initBasisViz() {
+  const canvas = document.getElementById('basis-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const centerX = W / 2, centerY = H / 2;
+  const scale = 50;
+
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
+
+    // Standard Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.beginPath();
+    for(let i = -10; i <= 10; i++) {
+      ctx.moveTo(centerX + i * scale, 0); ctx.lineTo(centerX + i * scale, H);
+      ctx.moveTo(0, centerY + i * scale); ctx.lineTo(W, centerY + i * scale);
+    }
+    ctx.stroke();
+
+    // Basis 1 (Standard)
+    ctx.strokeStyle = '#2ecc71';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + scale, centerY);
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX, centerY - scale);
+    ctx.stroke();
+
+    // Basis 2 (Skewed)
+    const time = Date.now() * 0.001;
+    const v1 = { x: Math.cos(time), y: Math.sin(time) };
+    const v2 = { x: -0.5, y: 1 };
+
+    ctx.strokeStyle = '#f1c40f';
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + v1.x * scale, centerY - v1.y * scale);
+    ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + v2.x * scale, centerY - v2.y * scale);
+    ctx.stroke();
+
+    // Labels
+    ctx.fillStyle = '#ecf0f1';
+    ctx.font = '10px Inter';
+    ctx.fillText('Standard Basis', centerX + 10, centerY + 20);
+    ctx.fillStyle = '#f1c40f';
+    ctx.fillText('New Basis', centerX + v1.x * scale + 5, centerY - v1.y * scale - 5);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
