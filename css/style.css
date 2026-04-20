@@ -806,6 +806,16 @@ footer {
 .math-table tr:last-child td { border-bottom: none; }
 .math-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 
+@media (max-width: 768px) {
+  .math-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .matrix-container { flex-direction: column; gap: 1.5rem; justify-content: flex-start; align-items: center; }
+  .matrix-arrow { transform: rotate(90deg); margin: 0.5rem 0; }
+  .algorithm-box { padding: 1rem; font-size: 0.8rem; overflow-x: auto; }
+  .theorem-box, .warning-box { padding: 1.25rem; overflow-x: auto; }
+  .concept-box, .example-box { padding: 1.25rem; margin: 1.5rem 0; }
+  .step-box { padding: 1rem 0.5rem; }
+}
+
 .practice-details {
   margin-bottom: 1rem;
 }
@@ -842,8 +852,13 @@ footer {
   gap: 1rem;
   justify-content: center;
   margin-bottom: 3rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
 }
+.anchor-nav::-webkit-scrollbar { height: 4px; }
+.anchor-nav::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 2px; }
 .anchor-nav a {
   padding: 0.5rem 1rem;
   background: var(--glass);
@@ -854,11 +869,18 @@ footer {
   text-decoration: none;
   color: var(--text-secondary);
   transition: var(--transition);
+  flex-shrink: 0;
 }
 .anchor-nav a:hover {
   background: var(--accent-glow);
   border-color: var(--accent);
   color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .anchor-nav {
+    justify-content: flex-start;
+  }
 }
 
 .algorithm-box {
@@ -915,9 +937,21 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+  width: 100%;
+}
+.matrix-container mjx-container {
+  margin: 0 !important;
 }
 .matrix-arrow {
   color: var(--gold);
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+/* Global MathJax Responsiveness */
+mjx-container[jax="CHTML"][display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 1rem 0;
 }
