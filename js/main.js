@@ -37,6 +37,7 @@ const searchData = [
   { title: 'Fourier Transform', desc: 'Signal decomposition', url: 'more.html#physics' },
   { title: 'Game Theory', desc: 'Strategic decision making', url: 'more.html#economics' },
   { title: 'Population Dynamics', desc: 'Logistic growth models', url: 'more.html#biology' },
+  { title: 'Systems of Linear Equations', desc: 'Graphing, substitution, and elimination', url: 'systems-of-equations.html' },
 ];
 
 function handleSearch(q) {

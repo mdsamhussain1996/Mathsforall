@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mathematics for CS & AI/ML | Maths for All</title>
   <meta name="description" content="Explore the mathematical foundations of Computer Science and AI/ML: Linear Algebra, Probability & Statistics, and Optimization." />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=1.1" />
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
 <body>
@@ -43,6 +43,16 @@
 </div>
 
 <div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+
+  <!-- ── FOUNDATIONS ── -->
+  <div class="insight-section animate-on-scroll" style="margin-top:4rem; padding:1.5rem; display:flex; align-items:center; justify-content:space-between; gap:2rem;">
+    <div>
+      <div class="insight-badge" style="background:var(--accent-glow); color:var(--accent-light);">📚 Prerequisites</div>
+      <h3 style="font-family:'Playfair Display', serif; font-size:1.5rem; margin-bottom:0.5rem;">Systems of Linear Equations</h3>
+      <p style="font-size:0.9rem; color:var(--text-secondary); max-width:600px;">Before diving into abstract vector spaces, ensure you master the fundamental techniques of solving systems through graphing, substitution, and elimination.</p>
+    </div>
+    <a href="systems-of-equations.html" class="btn btn-outline" style="white-space:nowrap;">Explore Foundations →</a>
+  </div>
 
   <!-- ── COMPREHENSIVE COURSE MODULE: VECTOR SPACES ── -->
   <div class="topic-header" style="margin-top:4rem;">
@@ -369,6 +379,59 @@
   </div>
 </div>
 
+  <!-- ── SYSTEMS OF LINEAR EQUATIONS ── -->
+  <div class="topic-section" id="linear-systems">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(59,130,246,0.15);">✖️</div>
+      <div class="topic-title-group">
+        <h2>Systems of Linear Equations</h2>
+        <p>Foundational techniques for solving simultaneous constraints</p>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div>
+        <div class="topic-content">
+          <h3>The Core Concept</h3>
+          <p>A system of linear equations is a set of two or more equations with the same variables. The solution is the ordered pair \((x, y)\) that satisfies all equations. In AI, systems of equations are the basis for understanding how multiple features interact and how weights are optimized.</p>
+          
+          <div class="concept-box">
+            <h3 style="font-size:0.9rem;">Methods for Solving</h3>
+            <ul class="subtopics-list" style="border:none; background:none; padding:0;">
+              <li><strong>5.1 Graphing:</strong> Visualizing the intersection of two lines.</li>
+              <li><strong>5.2 Substitution:</strong> Isolating one variable and plugging it into the other.</li>
+              <li><strong>5.3 Elimination:</strong> Adding or subtracting equations to remove a variable.</li>
+              <li><strong>5.4 Special Cases:</strong> Identifying No Solution (parallel) vs. Infinitely Many (same line).</li>
+            </ul>
+          </div>
+          
+          <p>Mastering these foundational steps is essential before moving to higher-dimensional <strong>Vector Spaces</strong> and <strong>Matrix Operations</strong>.</p>
+        </div>
+        
+        <a href="systems-of-equations.html" class="btn btn-primary" style="margin-top:1rem; font-size:0.85rem;">View Full Module →</a>
+      </div>
+
+      <div>
+        <div class="viz-container">
+          <div class="viz-title">Intersection Visualizer</div>
+          <div class="graph-placeholder" style="height:220px;">
+             <svg width="240" height="180" viewBox="0 0 240 180">
+                <path d="M0 90 H240 M120 0 V180" stroke="var(--text-muted)" stroke-width="1"/>
+                <line x1="20" y1="20" x2="220" y2="160" stroke="#3b82f6" stroke-width="2" />
+                <line x1="20" y1="160" x2="220" y2="20" stroke="#ef4444" stroke-width="2" />
+                <circle cx="120" cy="90" r="4" fill="var(--accent-light)" />
+             </svg>
+          </div>
+          <div class="tip-box" style="margin-top:1rem; padding:0.75rem;">
+            <div class="tip-content" style="font-size:0.8rem;">
+              <b>Consistent System:</b> The lines intersect at (0,0), providing a unique solution for the system.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <!-- ── PROBABILITY ── -->
 <div class="topic-section" id="probability">
   <div class="topic-header">
@@ -500,8 +563,8 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
   <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
 </footer>
 
-  <script src="js/main.js"></script>
-  <script src="js/cs-viz.js"></script>
+  <script src="js/main.js?v=1.1"></script>
+  <script src="js/cs-viz.js?v=1.1"></script>
   <script>
     function switchTab(event, tabId) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
