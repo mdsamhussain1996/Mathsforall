@@ -64,6 +64,10 @@
     <a href="#5.5">5.5 Solving by Graphing</a>
     <a href="#5.6">5.6 Inequalities</a>
     <a href="#5.7">5.7 Systems of Inequalities</a>
+    <a href="#bridge">Matrix Foundations</a>
+    <a href="#5.8">5.8 REF</a>
+    <a href="#5.9">5.9 RREF</a>
+    <a href="#5.10">5.10 Gaussian Elimination</a>
     <a href="#summary">Summary</a>
   </nav>
 
@@ -369,6 +373,284 @@
         <p>Test (0,0): \(2.5(0) + 0 \leq 10 \rightarrow 0 \leq 10\) ✓. Shade toward the origin. Solutions must be in Quadrant I (positive weights).</p>
       </div>
     </div>
+  </section>
+
+  <div class="divider" id="bridge"></div>
+
+  <!-- Prerequisite Bridge -->
+  <section class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(139,92,246,0.15);">🏗️</div>
+      <div class="topic-title-group">
+        <h2>From Equations to Matrices: Why We Need a New Approach</h2>
+        <p>Scaling up to higher dimensions</p>
+      </div>
+    </div>
+    <div class="topic-content">
+      <p>The graphical and substitution/elimination methods we've covered work beautifully for \(2 \times 2\) systems. However, as we move into the real world—modeling complex systems like global logistics, weather patterns, or neural networks—we often encounter systems with hundreds or even thousands of variables. Solving a system of 10 equations with 10 unknowns algebraically would be extremely tedious and prone to human error.</p>
+      <p>This is where <strong>Matrices</strong> come in. By representing a system compactly as a matrix, we can organize the elimination process systematically. The <strong>Augmented Matrix</strong> is a natural extension of the elimination method you've already learned. Gaussian Elimination is essentially the same process of "canceling out" variables, but handled with the structural rigor of matrix algebra.</p>
+
+      <div class="theorem-box">
+        <h3>Definition: Augmented Matrix</h3>
+        <p>Given the system:</p>
+        \[\begin{cases} a_1x + b_1y + c_1z = d_1 \\ a_2x + b_2y + c_2z = d_2 \\ a_3x + b_3y + c_3z = d_3 \end{cases}\]
+        <p>The <strong>augmented matrix</strong> is represented as:</p>
+        \[\left[ \begin{array}{ccc|c} a_1 & b_1 & c_1 & d_1 \\ a_2 & b_2 & c_2 & d_2 \\ a_3 & b_3 & c_3 & d_3 \end{array} \right]\]
+        <p>The vertical bar separates the <strong>coefficient matrix</strong> (\(A\)) from the <strong>constants vector</strong> (\(b\)). We write this compactly as \([A | b]\).</p>
+      </div>
+
+      <div class="concept-box">
+        <h3><span class="expand-icon">📖</span> Core Matrix Vocabulary</h3>
+        <ul style="list-style: none; padding-left: 0; font-size: 0.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <li><strong>Matrix:</strong> A rectangular array of numbers.</li>
+          <li><strong>Entry:</strong> An individual number inside a matrix.</li>
+          <li><strong>Dimensions:</strong> \(m \times n\) (rows by columns).</li>
+          <li><strong>Square Matrix:</strong> A matrix where \(m = n\).</li>
+          <li><strong>Leading Entry:</strong> The leftmost nonzero entry in a row.</li>
+          <li><strong>Zero Row:</strong> A row consisting entirely of zeros.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" id="5.8"></div>
+
+  <!-- 5.8 Row Echelon Form (REF) -->
+  <section class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(59,130,246,0.15);">📊</div>
+      <div class="topic-title-group">
+        <h2>5.8 Row Echelon Form (REF)</h2>
+        <p>The standard "staircase" structure for matrix reduction</p>
+      </div>
+    </div>
+
+    <div class="theorem-box">
+      <h3>Formal Definition: Row Echelon Form</h3>
+      <p>A matrix is in <strong>Row Echelon Form (REF)</strong> if and only if:</p>
+      <ol style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.5rem;">
+        <li>All zero rows are at the <strong>bottom</strong> of the matrix.</li>
+        <li>The leading entry (pivot) of each nonzero row is strictly to the <strong>right</strong> of the leading entry of the row above it.</li>
+        <li>All entries <strong>below</strong> each leading entry are zero.</li>
+      </ol>
+      <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--gold);">Note: In REF, leading entries can be any nonzero value. If they are all 1, it is a step closer to RREF.</p>
+    </div>
+
+    <div class="matrix-container">
+      <div style="text-align: center;">
+        <div class="viz-title">REF Visual Pattern</div>
+        \[ \begin{bmatrix} \color{#3b82f6}{\text{★}} & * & * & * & * \\ 0 & \color{#3b82f6}{\text{★}} & * & * & * \\ 0 & 0 & 0 & \color{#3b82f6}{\text{★}} & * \\ 0 & 0 & 0 & 0 & 0 \end{bmatrix} \]
+        <p style="font-size: 0.75rem; color: var(--text-muted);">\(\text{★} = \text{Pivot (nonzero)}\), \(* = \text{Any value}\)</p>
+      </div>
+    </div>
+
+    <div class="concept-box" style="border-left-color: var(--purple);">
+      <h3 style="color: var(--purple);">Elementary Row Operations</h3>
+      <p>These are the only three allowed operations that keep the solution set unchanged:</p>
+      <table class="math-table">
+        <thead>
+          <tr><th>Operation</th><th>Notation</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Row Swap</strong></td><td>\(R_i \leftrightarrow R_j\)</td><td>Interchange two rows</td></tr>
+          <tr><td><strong>Row Scaling</strong></td><td>\(kR_i \rightarrow R_i\)</td><td>Multiply a row by a nonzero constant \(k\)</td></tr>
+          <tr><td><strong>Row Replacement</strong></td><td>\(R_i + kR_j \rightarrow R_i\)</td><td>Replace a row by sum of itself and a multiple of another</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="topic-grid">
+      <div class="axiom-card">
+        <div class="axiom-title">Pivot vs Free Variables</div>
+        <p style="font-size: 0.85rem;"><strong>Pivot Variables:</strong> Columns containing a leading entry. These are determined by back-substitution.</p>
+        <p style="font-size: 0.85rem;"><strong>Free Variables:</strong> Columns with no leading entry. These generate infinitely many solutions.</p>
+      </div>
+      <div class="axiom-card">
+        <div class="axiom-title">Rank of a Matrix</div>
+        <p style="font-size: 0.85rem;">The <strong>rank</strong> of matrix \(A\) is the number of nonzero rows in its REF. It indicates the number of independent constraints in the system.</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h3>Worked Example: 3×3 System (Unique Solution)</h3>
+      <p>Solve using REF and back-substitution:<br>
+        \(x + 2y - z = 3\) | \(2x + 7y + z = 16\) | \(x + 3y + 2z = 10\)
+      </p>
+      <div class="step-box">
+        <span class="op-label">AUGMENTED MATRIX</span>
+        \[\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 3 \\ 2 & 7 & 1 & 16 \\ 1 & 3 & 2 & 10 \end{array} \right]\]
+      </div>
+      <div class="step-box">
+        <span class="op-label">R₂ → R₂ - 2R₁ | R₃ → R₃ - R₁</span>
+        \[\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 3 \\ 0 & 3 & 3 & 10 \\ 0 & 1 & 3 & 7 \end{array} \right]\]
+      </div>
+      <div class="step-box">
+        <span class="op-label">R₃ → R₃ - (1/3)R₂</span>
+        \[\left[ \begin{array}{ccc|c} 1 & 2 & -1 & 3 \\ 0 & 3 & 3 & 10 \\ 0 & 0 & 2 & 11/3 \end{array} \right] \text{ (REF Achieved)}\]
+      </div>
+      <div class="example-step">
+        <p><b>Back-Substitution:</b></p>
+        <ol style="font-size: 0.9rem;">
+          <li>From Row 3: \(2z = 11/3 \rightarrow z = 11/6\)</li>
+          <li>From Row 2: \(3y + 3(11/6) = 10 \rightarrow 3y = 9/2 \rightarrow y = 3/2\)</li>
+          <li>From Row 1: \(x + 2(3/2) - 11/6 = 3 \rightarrow x = 11/6\)</li>
+        </ol>
+        <p><b>Solution:</b> \((11/6, 3/2, 11/6)\).</p>
+      </div>
+    </div>
+
+    <details class="practice-details">
+      <summary>Practice Problems (5.8)</summary>
+      <div class="axiom-card">
+        <p>1. Is this matrix in REF? \(\begin{bmatrix} 1 & 2 \\ 0 & 0 \\ 0 & 1 \end{bmatrix}\)</p>
+        <p style="color:var(--teal); font-size: 0.85rem;">Solution: No. Zero row is not at the bottom.</p>
+      </div>
+      <div class="axiom-card">
+        <p>2. Find the rank of: \(\begin{bmatrix} 1 & 0 & 5 \\ 0 & 1 & 2 \\ 0 & 0 & 0 \end{bmatrix}\)</p>
+        <p style="color:var(--teal); font-size: 0.85rem;">Solution: Rank = 2 (two nonzero rows).</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="divider" id="5.9"></div>
+
+  <!-- 5.9 Reduced Row Echelon Form (RREF) -->
+  <section class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(16,185,129,0.15);">💎</div>
+      <div class="topic-title-group">
+        <h2>5.9 Reduced Row Echelon Form (RREF)</h2>
+        <p>The unique, canonical form for direct solution reading</p>
+      </div>
+    </div>
+
+    <div class="theorem-box">
+      <h3>Formal Definition: RREF</h3>
+      <p>A matrix is in <strong>Reduced Row Echelon Form (RREF)</strong> if it satisfies all REF conditions PLUS:</p>
+      <ol style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.5rem;">
+        <li>Each leading entry (pivot) is exactly <strong>1</strong>.</li>
+        <li>Each leading 1 is the <strong>only</strong> nonzero entry in its column (zeros above and below).</li>
+      </ol>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">✨</div>
+      <div class="tip-content"><b>The Uniqueness Theorem:</b> Unlike REF, every matrix has a <strong>unique</strong> RREF. No matter which row operations you use, everyone will arrive at the exact same RREF for a given matrix.</div>
+    </div>
+
+    <div class="example-box">
+      <h3>Worked Example: 2×2 System to RREF</h3>
+      <p>Solve: \(3x + y = 7\) and \(x - 2y = 4\)</p>
+      <div class="step-box">
+        <span class="op-label">R₁ ↔ R₂ (Swap for easy pivot)</span>
+        \[\left[ \begin{array}{cc|c} 1 & -2 & 4 \\ 3 & 1 & 7 \end{array} \right]\]
+      </div>
+      <div class="step-box">
+        <span class="op-label">R₂ → R₂ - 3R₁</span>
+        \[\left[ \begin{array}{cc|c} 1 & -2 & 4 \\ 0 & 7 & -5 \end{array} \right]\]
+      </div>
+      <div class="step-box">
+        <span class="op-label">(1/7)R₂ → R₂ (Normalization)</span>
+        \[\left[ \begin{array}{cc|c} 1 & -2 & 4 \\ 0 & 1 & -5/7 \end{array} \right] \text{ (REF)}\]
+      </div>
+      <div class="step-box" style="border-left: 2px solid var(--teal); padding-left: 1rem;">
+        <span class="op-label">R₁ → R₁ + 2R₂ (Backward Elimination)</span>
+        \[\left[ \begin{array}{cc|c} 1 & 0 & 18/7 \\ 0 & 1 & -5/7 \end{array} \right] \text{ (RREF)}\]
+      </div>
+      <div class="example-step">
+        <p><b>Read directly:</b> \(x = 18/7, y = -5/7\). No back-substitution required!</p>
+      </div>
+    </div>
+
+    <details class="practice-details">
+      <summary>Practice Problems (5.9)</summary>
+      <div class="axiom-card">
+        <p>1. Convert REF \(\begin{bmatrix} 1 & 2 & | & 5 \\ 0 & 1 & | & 2 \end{bmatrix}\) to RREF.</p>
+        <p style="color:var(--teal); font-size: 0.85rem;">Solution: \(R_1 \to R_1 - 2R_2 \implies \begin{bmatrix} 1 & 0 & | & 1 \\ 0 & 1 & | & 2 \end{bmatrix}\).</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="divider" id="5.10"></div>
+
+  <!-- 5.10 Gaussian and Gauss-Jordan Elimination -->
+  <section class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(139,92,246,0.15);">🛠️</div>
+      <div class="topic-title-group">
+        <h2>5.10 Gaussian and Gauss-Jordan Elimination</h2>
+        <p>The computational algorithms behind the forms</p>
+      </div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="concept-box">
+        <h3>Gaussian Elimination</h3>
+        <p style="font-size:0.85rem;"><strong>Process:</strong> Reduce to REF + Back-Substitution.</p>
+        <p style="font-size:0.85rem;"><strong>Phase 1:</strong> Forward Elimination (clear below pivots).</p>
+        <p style="font-size:0.85rem;"><strong>Phase 2:</strong> Solve from bottom to top.</p>
+      </div>
+      <div class="concept-box" style="border-left-color: var(--gold);">
+        <h3 style="color:var(--gold);">Gauss-Jordan Elimination</h3>
+        <p style="font-size:0.85rem;"><strong>Process:</strong> Reduce all the way to RREF.</p>
+        <p style="font-size:0.85rem;"><strong>Phase 1:</strong> Forward Elimination (reach REF).</p>
+        <p style="font-size:0.85rem;"><strong>Phase 2:</strong> Backward Elimination (reach RREF).</p>
+      </div>
+    </div>
+
+    <div class="algorithm-box">
+      <h3>Algorithm: Partial Pivoting</h3>
+      <ol>
+        <li>At each step, look at the current column.</li>
+        <li>Find the row with the <strong>largest absolute value</strong> in that column (at or below current row).</li>
+        <li>Swap that row to the pivot position.</li>
+        <li><b>Why?</b> This reduces round-off errors and ensures numerical stability in computer implementations.</li>
+      </ol>
+    </div>
+
+    <div class="example-box">
+      <h3>Real-Life Application: Traffic Flow Network</h3>
+      <p>A city intersection has flow rates satisfying conservation (In = Out):</p>
+      <ul style="font-size: 0.85rem; color: var(--text-secondary);">
+        <li>Node A: \(x_1 + x_4 = 300\)</li>
+        <li>Node B: \(x_1 + x_2 = 250\)</li>
+        <li>Node C: \(x_2 + x_3 = 150\)</li>
+        <li>Node D: \(x_3 + x_4 = 200\)</li>
+      </ul>
+      <div class="step-box">
+        <span class="op-label">RREF RESULT</span>
+        \[\left[ \begin{array}{cccc|c} 1 & 0 & 0 & 1 & 300 \\ 0 & 1 & 0 & -1 & -50 \\ 0 & 0 & 1 & 1 & 200 \\ 0 & 0 & 0 & 0 & 0 \end{array} \right]\]
+        <p style="font-size:0.8rem; margin-top:1rem;">Column 4 has no pivot → \(x_4\) is a <strong>free variable</strong>. We can express the entire flow in terms of \(x_4\): \(x_1 = 300 - x_4, x_2 = x_4 - 50, x_3 = 200 - x_4\).</p>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <h3>Real-Life Application: Chemical Balancing</h3>
+      <p>Balance: \(aC_3H_8 + bO_2 \to cCO_2 + dH_2O\)</p>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">Conservation: Carbon (3a=c), Hydrogen (8a=2d), Oxygen (2b=2c+d).</p>
+      <p style="font-size:0.85rem; color:var(--teal);">Smallest integer solution via RREF: (1, 5, 3, 4).<br>Result: \(C_3H_8 + 5O_2 \to 3CO_2 + 4H_2O\)</p>
+    </div>
+
+    <div class="warning-box">
+      <h3>Common Errors in Elimination</h3>
+      <ul style="font-size: 0.85rem; color: var(--text-secondary); padding-left: 1.5rem;">
+        <li><strong>Arithmetic Mistakes:</strong> Adding when you should subtract, or missing a sign change.</li>
+        <li><strong>Stopping Too Early:</strong> Thinking you are in REF when there are still nonzero entries below a pivot.</li>
+        <li><strong>Forgetting Consistency:</strong> Trying to solve a system that has a row like \([0 \; 0 \; 0 \; | \; 5]\) (Contradiction).</li>
+      </ul>
+    </div>
+
+    <details class="practice-details">
+      <summary>Comprehensive Problem Set (5.10)</summary>
+      <div class="axiom-card">
+        <p>1. Use Gauss-Jordan to solve: \(x+y=6, 2x-y=3\).</p>
+        <p style="color:var(--teal); font-size: 0.85rem;">Solution: RREF is Identity with [3, 3] constants. \(x=3, y=3\).</p>
+      </div>
+      <div class="axiom-card">
+        <p>2. Identify an inconsistent system from its reduced matrix.</p>
+        <p style="color:var(--teal); font-size: 0.85rem;">Solution: Any row of the form [0 0 ... 0 | k] where k ≠ 0.</p>
+      </div>
+    </details>
   </section>
 
   <div class="divider"></div>
