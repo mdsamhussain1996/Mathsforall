@@ -44,68 +44,259 @@
 
 <div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
 
-<!-- ── LINEAR ALGEBRA ── -->
-<div class="topic-section" id="linear-algebra">
-  <div class="topic-header">
-    <div class="topic-icon-lg" style="background:rgba(30,111,255,0.15);">📐</div>
+  <!-- ── COMPREHENSIVE COURSE MODULE: VECTOR SPACES ── -->
+  <div class="topic-header" style="margin-top:4rem;">
+    <div class="topic-icon-lg" style="background:rgba(124,58,237,0.2);">📐</div>
     <div class="topic-title-group">
-      <h2>Linear Algebra</h2>
-      <p>Vectors, matrices, eigenvalues, and SVD — the language of data</p>
+      <h2 id="vector-spaces-title">Vector Spaces, Bases, and Span</h2>
+      <p>A complete module on the fundamental architecture of linear algebra</p>
     </div>
   </div>
 
-  <div class="topic-grid">
-    <div>
-      <div class="topic-content">
-        <h3>Vectors & Matrices</h3>
-        <p>A <strong style="color:var(--text-primary)">vector</strong> is a list of numbers encoding magnitude and direction. In ML, your data is a vector in high-dimensional space. A <strong style="color:var(--text-primary)">matrix</strong> is a 2D array representing linear transformations — it maps one vector space to another.</p>
-        <div class="formula-box">
-Av = λv   (Eigenvalue equation)
+  <div class="course-tabs">
+    <button class="tab-btn active" onclick="switchTab('theory')">📘 Theory</button>
+    <button class="tab-btn" onclick="switchTab('examples')">💡 Examples</button>
+    <button class="tab-btn" onclick="switchTab('practice')">📝 Practice</button>
+  </div>
 
-A = UΣVᵀ  (SVD decomposition)
+  <!-- THEORY TAB -->
+  <div id="theory" class="tab-content active">
+    <div class="theory-grid">
+      <div class="theory-content">
+        
+        <div class="expand-item open">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">🔢</span>
+              <div>
+                <div class="expand-name">1. Vectors in \(\mathbb{R}^n\)</div>
+                <div class="expand-sub">The building blocks of space</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body" style="max-height:1000px">
+            <div class="expand-body-inner">
+              <p>A vector in \(\mathbb{R}^n\) is an ordered n-tuple: \(\mathbf{x} = (x_1, x_2, \dots, x_n)\). This can be interpreted as a **point** in space or an **arrow** from the origin.</p>
+              <div class="axiom-card">
+                <div class="axiom-title">Common Spaces:</div>
+                <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem;">
+                  <li>\(\mathbb{R}^1\): Real line</li>
+                  <li>\(\mathbb{R}^2\): 2D Plane (pairs)</li>
+                  <li>\(\mathbb{R}^3\): 3D Space (triples)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <h3>Eigenvalues & Eigenvectors</h3>
-        <p>When a matrix A acts on a special vector v, it only scales it by λ — the eigenvalue. These reveal the "principal directions" of a transformation. PCA (Principal Component Analysis) directly uses this!</p>
-        <h3>Singular Value Decomposition (SVD)</h3>
-        <p>SVD decomposes any matrix into three matrices. Used in image compression, recommendation systems, and dimensionality reduction. It's the workhorse of numerical linear algebra.</p>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">🏗️</span>
+              <div>
+                <div class="expand-name">2. Vector Spaces & Axioms</div>
+                <div class="expand-sub">Formal mathematical definition</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p>A set \(V\) with addition and scalar multiplication is a <strong>vector space</strong> if it satisfies 10 axioms:</p>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                <div class="axiom-card">
+                  <div class="axiom-title">1. Closure (Add)</div>
+                  <div class="axiom-math">\(\mathbf{u}+\mathbf{v} \in V\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">2. Commutativity</div>
+                  <div class="axiom-math">\(\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">3. Associativity (Add)</div>
+                  <div class="axiom-math">\((\mathbf{u}+\mathbf{v})+\mathbf{w} = \mathbf{u}+(\mathbf{v}+\mathbf{w})\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">4. Zero Vector</div>
+                  <div class="axiom-math">\(\mathbf{u}+\mathbf{0} = \mathbf{u}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">5. Additive Inverse</div>
+                  <div class="axiom-math">\(\mathbf{u}+(-\mathbf{u}) = \mathbf{0}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">6. Closure (Scalar)</div>
+                  <div class="axiom-math">\(c\mathbf{u} \in V\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">7. Distributivity (Vec)</div>
+                  <div class="axiom-math">\(c(\mathbf{u}+\mathbf{v}) = c\mathbf{u} + c\mathbf{v}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">8. Distributivity (Scl)</div>
+                  <div class="axiom-math">\((c+d)\mathbf{u} = c\mathbf{u} + d\mathbf{u}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">9. Associativity (Scl)</div>
+                  <div class="axiom-math">\(c(d\mathbf{u}) = (cd)\mathbf{u}\)</div>
+                </div>
+                <div class="axiom-card">
+                  <div class="axiom-title">10. Scalar Identity</div>
+                  <div class="axiom-math">\(1\mathbf{u} = \mathbf{u}\)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">🧱</span>
+              <div>
+                <div class="expand-name">3. Subspaces</div>
+                <div class="expand-sub">Spaces within spaces</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p>A subset \(W \subseteq V\) is a <strong>subspace</strong> if it is closed under addition and scalar multiplication. Geometrically, this means it must pass through the origin.</p>
+              <div class="formula-box">
+                \text{If } \mathbf{u, v} \in W, \text{ then } (\mathbf{u}+\mathbf{v}) \in W \text{ and } c\mathbf{u} \in W
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">🔗</span>
+              <div>
+                <div class="expand-name">4-5. Linear Combination & Span</div>
+                <div class="expand-sub">The reach of vectors</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p>A **linear combination** is a sum of vectors scaled by constants: \(\mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots + c_k\mathbf{v}_k\).</p>
+              <p>The **Span** of a set of vectors is the set of <em>all possible</em> linear combinations.</p>
+              <div class="formula-box">
+                \text{span}(S) = \{ c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k \mid c_i \in \mathbb{R} \}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">💎</span>
+              <div>
+                <div class="expand-name">6-8. Independence, Basis & Dimension</div>
+                <div class="expand-sub">The core of representation</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p><strong>Linear Independence:</strong> A set is independent if no vector can be written as a combination of others. Formally: \(\sum c_i \mathbf{v}_i = \mathbf{0} \implies c_i = 0\) for all \(i\).</p>
+              <p><strong>Basis:</strong> A set that is both linearly independent and spans the space.</p>
+              <p><strong>Dimension:</strong> The number of vectors in any basis for the space.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">📜</span>
+              <div>
+                <div class="expand-name">9. Important Theorems</div>
+                <div class="expand-sub">Key theoretical results</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; display:flex; flex-direction:column; gap:0.75rem;">
+                <li><strong>Uniqueness:</strong> Each vector has a <em>unique</em> representation in a given basis.</li>
+                <li><strong>Basis Size:</strong> All bases for a given vector space have the <em>same</em> number of elements (dimension).</li>
+                <li><strong>Dependence:</strong> Any set with more vectors than the dimension of the space is <em>linearly dependent</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <ul class="subtopics-list" style="margin-top:1.5rem;">
-        <li>Vector spaces, bases, and span</li>
-        <li>Matrix multiplication & transpose</li>
-        <li>Determinants & invertibility</li>
-        <li>Eigendecomposition & diagonalization</li>
-        <li>SVD & pseudoinverse</li>
-        <li>PCA for dimensionality reduction</li>
-      </ul>
-    </div>
 
-    <div>
-      <div class="viz-container">
-        <div class="viz-title">Interactive Vector Transformation</div>
-        <canvas id="vec-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
-        <div class="slider-group">
-          <div class="slider-row">
-            <span class="slider-label">Matrix a₁₁:</span>
-            <input type="range" id="m11" min="-20" max="20" value="10" oninput="updateMatrix()" />
-            <span class="slider-val" id="m11v">1.0</span>
+      <!-- Theory Viz Sticky -->
+      <div style="position:sticky; top:100px; height:fit-content;">
+        <div class="viz-container">
+          <div class="viz-title" id="course-viz-title">Interactive Span Explorer</div>
+          <canvas id="span-canvas" class="viz-canvas" width="400" height="340" style="background:#030308;border-radius:8px;"></canvas>
+          <div class="slider-group" id="span-controls">
+            <div class="slider-row">
+              <span class="slider-label">Vector v₁:</span>
+              <input type="range" id="v1-angle" min="0" max="360" value="0" oninput="updateSpanViz()" />
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Vector v₂:</span>
+              <input type="range" id="v2-angle" min="0" max="360" value="90" oninput="updateSpanViz()" />
+            </div>
           </div>
-          <div class="slider-row">
-            <span class="slider-label">Matrix a₁₂:</span>
-            <input type="range" id="m12" min="-20" max="20" value="5" oninput="updateMatrix()" />
-            <span class="slider-val" id="m12v">0.5</span>
-          </div>
-          <div class="slider-row">
-            <span class="slider-label">Matrix a₂₁:</span>
-            <input type="range" id="m21" min="-20" max="20" value="-5" oninput="updateMatrix()" />
-            <span class="slider-val" id="m21v">-0.5</span>
-          </div>
-          <div class="slider-row">
-            <span class="slider-label">Matrix a₂₂:</span>
-            <input type="range" id="m22" min="-20" max="20" value="10" oninput="updateMatrix()" />
-            <span class="slider-val" id="m22v">1.0</span>
-          </div>
+          <p id="span-info" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Linear Independence: YES. Span: Full 2D Plane.</p>
         </div>
-        <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;">Blue = original basis vectors. Orange/Teal = transformed vectors.</p>
+        
+        <div class="insight-section" style="padding:1.5rem; margin-top:1.5rem;">
+          <div class="insight-badge" style="background:rgba(124,58,237,0.2); color:var(--accent-light);">💡 AI Application</div>
+          <p style="font-size:0.85rem; line-height:1.6; color:var(--text-secondary);">In **Machine Learning**, "Embeddings" are vectors in a high-dimensional vector space. "Basis transformation" (like PCA) helps us find the most important directions in our data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAMPLES TAB -->
+  <div id="examples" class="tab-content">
+    <div class="cards-grid">
+      <div class="card">
+        <div class="axiom-title">Example 1: Independence</div>
+        <p class="card-desc">Check if \(\mathbf{v}_1=(1,2)\) and \(\mathbf{v}_2=(2,4)\) are independent.</p>
+        <button class="btn btn-outline" style="font-size:0.75rem; padding:0.4rem 0.8rem;" onclick="this.nextElementSibling.classList.toggle('visible')">Show Solution</button>
+        <div class="solution-box">
+          <p>Since \(\mathbf{v}_2 = 2\mathbf{v}_1\), one is a multiple of the other. They are <strong>linearly dependent</strong>.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="axiom-title">Example 2: Basis Find</div>
+        <p class="card-desc">Find a basis for \(W = \{ (a, b, a+b) \mid a,b \in \mathbb{R} \}\).</p>
+        <button class="btn btn-outline" style="font-size:0.75rem; padding:0.4rem 0.8rem;" onclick="this.nextElementSibling.classList.toggle('visible')">Show Solution</button>
+        <div class="solution-box">
+          <p>\((a, b, a+b) = a(1,0,1) + b(0,1,1)\). The vectors \((1,0,1)\) and \((0,1,1)\) span \(W\) and are independent. Basis found!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRACTICE TAB -->
+  <div id="practice" class="tab-content">
+    <div class="topic-content" style="max-width:800px;">
+      <div class="axiom-card">
+        <p><strong>1. What is the dimension of the space of \(2 \times 2\) matrices?</strong></p>
+        <input type="text" class="nav-search" style="background:var(--glass); border:1px solid var(--glass-border); padding:0.5rem; color:#fff; width:100px; margin:0.5rem 0;" placeholder="Answer...">
+        <button class="check-btn" onclick="checkAnswer(this, '4')">Check</button>
+      </div>
+      <div class="axiom-card">
+        <p><strong>2. True or False: Every basis of \(\mathbb{R}^3\) must contain exactly 3 vectors.</strong></p>
+        <button class="btn btn-outline" onclick="checkAnswer(this, 'True')">True</button>
+        <button class="btn btn-outline" onclick="checkAnswer(this, 'False')">False</button>
       </div>
     </div>
   </div>
@@ -148,7 +339,7 @@ posterior = likelihood × prior / evidence</div>
     <div>
       <div class="viz-container">
         <div class="viz-title">Normal Distribution Explorer</div>
-        <canvas id="prob-canvas" class="viz-canvas" width="400" height="260" style="background:#060f1e;border-radius:8px;"></canvas>
+        <canvas id="prob-canvas" class="viz-canvas" width="400" height="260" style="background:#030308;border-radius:8px;"></canvas>
         <div class="slider-group">
           <div class="slider-row">
             <span class="slider-label">Mean μ:</span>
@@ -205,7 +396,7 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
     <div>
       <div class="viz-container">
         <div class="viz-title">2D Loss Surface — Gradient Descent</div>
-        <canvas id="opt-canvas" class="viz-canvas" width="400" height="300" style="background:#060f1e;border-radius:8px;"></canvas>
+        <canvas id="opt-canvas" class="viz-canvas" width="400" height="300" style="background:#030308;border-radius:8px;"></canvas>
         <div class="slider-group">
           <div class="slider-row">
             <span class="slider-label">Learning rate:</span>
@@ -242,7 +433,48 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
   <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/cs-viz.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cs-viz.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+    
+    function toggleExpand(header) {
+      const item = header.parentElement;
+      const body = header.nextElementSibling;
+      const isOpen = item.classList.contains('open');
+      
+      // Close all others in the same group (optional, but keep it for module feel)
+      // item.parentElement.querySelectorAll('.expand-item').forEach(i => {
+      //   i.classList.remove('open');
+      //   i.querySelector('.expand-body').style.maxHeight = null;
+      // });
+      
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + "px";
+      } else {
+        item.classList.remove('open');
+        body.style.maxHeight = null;
+      }
+    }
+    
+    function checkAnswer(btn, correct) {
+      const input = btn.parentElement.querySelector('input');
+      const val = input ? input.value.trim() : btn.textContent.trim();
+      if (val.toLowerCase() === correct.toLowerCase()) {
+        btn.style.background = 'var(--teal)';
+        btn.style.color = '#000';
+        alert('Correct! 🎉');
+      } else {
+        btn.style.background = '#ef4444';
+        alert('Try again! ❌');
+      }
+    }
+  </script>
 </body>
 </html>
