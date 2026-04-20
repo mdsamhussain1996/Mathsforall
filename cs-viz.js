@@ -58,7 +58,7 @@
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
@@ -114,7 +114,7 @@
 
   function draw(mu=0, sigma=1.5) {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;
@@ -244,7 +244,7 @@
 
   function drawFrame() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Heatmap
     const imgData = ctx.createImageData(W, H);
@@ -345,7 +345,7 @@
 
   function draw(v1, v2) {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0a0f0e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
 
     // Grid
     ctx.strokeStyle = 'rgba(124,58,237,0.07)'; ctx.lineWidth = 1;

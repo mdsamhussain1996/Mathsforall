@@ -185,10 +185,11 @@
           <div class="expand-body">
             <div class="expand-body-inner">
               <p>A **linear combination** is a sum of vectors scaled by constants: \(\mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots + c_k\mathbf{v}_k\).</p>
-              <p>The **Span** of a set of vectors is the set of <em>all possible</em> linear combinations.</p>
+              <p>The **Span** is the set of <em>all possible</em> linear combinations. It defines the entire geometric space reachable by the set of vectors.</p>
               <div class="formula-box">
-                \text{span}(S) = \{ c_1\mathbf{v}_1 + \dots + c_k\mathbf{v}_k \mid c_i \in \mathbb{R} \}
+                \[\text{span}(S) = \left\{ \sum_{i=1}^{k} c_i \mathbf{v}_i \;\middle|\; c_i \in \mathbb{R} \right\}\]
               </div>
+              <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">In simpler terms: if you have two non-parallel vectors in 3D space, their span is the 2D plane they "draw" together.</p>
             </div>
           </div>
         </div>
@@ -231,6 +232,50 @@
                 <li><strong>Basis Size:</strong> All bases for a given vector space have the <em>same</em> number of elements (dimension).</li>
                 <li><strong>Dependence:</strong> Any set with more vectors than the dimension of the space is <em>linearly dependent</em>.</li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">🌀</span>
+              <div>
+                <div class="expand-name">10. Eigenvalues & Eigenvectors</div>
+                <div class="expand-sub">Principal directions of transformation</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p>An **eigenvector** is a special vector that only changes its scale (not direction) when a linear transformation is applied.</p>
+              <div class="formula-box">
+                \[A\mathbf{v} = \lambda\mathbf{v}\]
+              </div>
+              <p>Where \(\lambda\) is the **eigenvalue**. This is critical for **PCA** and stability analysis in control theory.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <div class="expand-header" onclick="toggleExpand(this)">
+            <div class="expand-header-left">
+              <span class="expand-icon">📉</span>
+              <div>
+                <div class="expand-name">11. SVD & PCA</div>
+                <div class="expand-sub">Dimensionality reduction & decomposition</div>
+              </div>
+            </div>
+            <span class="expand-chevron">▾</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-inner">
+              <p><strong>SVD (Singular Value Decomposition):</strong> Decomposes any matrix into three fundamental parts. It's the workhorse of modern AI.</p>
+              <div class="formula-box">
+                \[A = U\Sigma V^T\]
+              </div>
+              <p><strong>PCA:</strong> Uses these concepts to find the most important "features" in a dataset, allowing us to visualize high-dimensional data in 2D or 3D.</p>
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@
     ctx.clearRect(0, 0, W, H);
 
     // BG
-    ctx.fillStyle = '#0a0f0e';
+    ctx.fillStyle = '#1c1917';
     ctx.fillRect(0, 0, W, H);
 
     // Grid
