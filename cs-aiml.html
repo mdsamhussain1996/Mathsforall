@@ -274,7 +274,7 @@
           </div>
         </div>
 
-        <div class="expand-item">
+                <div class="expand-item">
           <div class="expand-header" onclick="toggleExpand(this)">
             <div class="expand-header-left">
               <span class="expand-icon">💡</span>
@@ -302,6 +302,7 @@
                 <canvas id="eigen-canvas" class="viz-canvas" width="400" height="240" style="background:#1c1917;border-radius:8px;"></canvas>
                 <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem; line-height:1.4;">Yellow vector sweeps around the circle. Its transformed version (Purple) generally changes direction. Watch for moments when they align — those are the <strong>eigenvectors</strong>!</p>
               </div>
+              
               <div style="margin-top:2rem;">
                 <h3 style="color:var(--accent); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">The Expert View: Eigenvectors in AI/ML</h3>
                 
@@ -311,155 +312,106 @@
                   <p><strong>Eigenvalues (\(\lambda\)) and Eigenvectors (\(\mathbf{v}\))</strong> are defined by the fundamental equation: \[\mathbf{A}\mathbf{v} = \lambda\mathbf{v}\]</p>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
                     <li><strong>Geometric Meaning:</strong> A matrix \(\mathbf{A}\) typically rotates and stretches vectors. An <em>eigenvector</em> is a special direction where the matrix <em>only</em> stretches or compresses it. The scale factor is the <em>eigenvalue</em>.</li>
-                    <li><strong>Derivation:</strong> Rewriting as \((\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0\), for a non-zero \(\mathbf{v}\), the matrix must squish space, meaning its determinant is zero: \[\det(\mathbf{A} - \lambda\mathbf{I}) = 0\] (The Characteristic Polynomial).</li>
+                    <li><strong>Derivation:</strong> Rewriting as \((\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0\), for a non-zero \(\mathbf{v}\), the matrix must squish space, meaning its determinant is zero: \[\det(\mathbf{A} - \lambda\mathbf{I}) = 0\]</li>
                     <li><strong>Properties:</strong> The trace (sum of diagonals) equals \(\sum\lambda_i\), and the determinant equals \(\prod\lambda_i\).</li>
-                    <li><strong>Covariance Matrices:</strong> In ML, covariance matrices \(\mathbf{C} = rac{1}{n}\mathbf{X}^T\mathbf{X}\) are always <em>symmetric</em> and <em>positive semi-definite</em>. By the Spectral Theorem, symmetric matrices always have real eigenvalues and orthogonal eigenvectors—giving us a perfect perpendicular basis to understand data!</li>
+                    <li><strong>Covariance Matrices:</strong> In ML, covariance matrices \(\mathbf{C} = \frac{1}{n}\mathbf{X}^T\mathbf{X}\) are always symmetric and positive semi-definite. Symmetric matrices always have real eigenvalues and orthogonal eigenvectors.</li>
                   </ul>
                 </div>
 
                 <!-- Part 2 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">📉</span>PART 2 — Principal Component Analysis (PCA)</h4>
-                  <p>PCA fights the <em>curse of dimensionality</em> by finding axes of maximum variance.</p>
+                  <p>PCA finds axes of maximum variance by eigendecomposing the covariance matrix.</p>
+                  <div class="viz-container" style="margin: 1rem 0; padding: 1rem; border: 1px solid rgba(124,58,237,0.2);">
+                    <div class="viz-title" style="margin-bottom:0.75rem;">PCA Scree Plot (Variance Explained)</div>
+                    <canvas id="pca-scree-canvas" width="400" height="150" style="width:100%; height:auto; background:#1c1917; border-radius:8px;"></canvas>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">Magnitude of eigenvalues \(\lambda_i\) corresponds to the variance captured by each principal component.</p>
+                  </div>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
-                    <li><strong>Pipeline:</strong> 1. Center data \(\mathbf{X}\) &rarr; 2. Compute Covariance \(\mathbf{C} = rac{1}{n}\mathbf{X}^T\mathbf{X}\) &rarr; 3. Eigendecompose \(\mathbf{C}\) &rarr; 4. Project onto top eigenvectors.</li>
-                    <li><strong>Scree Plot:</strong> The magnitude of an eigenvalue \(\lambda_i\) directly equals the variance explained by that principal component.</li>
-                    <li><strong>Real Example (MNIST):</strong> A 28x28 image has 784 dimensions. By keeping only the top ~154 eigenvectors, we retain 95% of the total variance, vastly speeding up model training!</li>
-                    <li><strong>Limitations:</strong> PCA only captures <em>linear</em> correlations. For non-linear manifolds, we must use Kernel PCA, t-SNE, or UMAP.</li>
+                    <li><strong>Pipeline:</strong> Center data &rarr; Compute \(\mathbf{C} = \frac{1}{n}\mathbf{X}^T\mathbf{X}\) &rarr; Eigendecompose &rarr; Project.</li>
+                    <li><strong>Example:</strong> MNIST (784 dims &rarr; ~154 dims for 95% variance).</li>
                   </ul>
                 </div>
 
                 <!-- Part 3 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🖼️</span>PART 3 — Singular Value Decomposition (SVD)</h4>
-                  <p>SVD generalizes eigendecomposition to non-square rectangular matrices: \[\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T\]</p>
+                  <p>SVD factorizes any matrix: \[\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T\]</p>
+                  <div class="viz-container" style="margin: 1rem 0; padding: 1rem; border: 1px solid rgba(124,58,237,0.2);">
+                    <div class="viz-title" style="margin-bottom:0.75rem;">Singular Value Decay</div>
+                    <canvas id="svd-decay-canvas" width="400" height="150" style="width:100%; height:auto; background:#1c1917; border-radius:8px;"></canvas>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">The "Elbow" in the singular value curve tells us the optimal rank \(k\) for compression.</p>
+                  </div>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
-                    <li><strong>Connection:</strong> The singular values \(\sigma_i\) in \(\mathbf{\Sigma}\) are the square roots of the eigenvalues of \(\mathbf{A}^T\mathbf{A}\).</li>
-                    <li><strong>Eckart-Young Theorem:</strong> Truncating SVD to the top \(k\) terms gives the mathematically optimal rank-\(k\) approximation of the original matrix in terms of Frobenius norm.</li>
-                    <li><strong>Image Compression:</strong> An image of \(m 	imes n\) pixels usually requires \(mn\) values. A rank-\(k\) approximation only requires \(k(m + n + 1)\) values. Each term \(\sigma_i \mathbf{u}_i \mathbf{v}_i^T\) physically represents a foundational building block pattern of the image.</li>
+                    <li><strong>Eckart-Young Theorem:</strong> Rank-\(k\) SVD is the optimal low-rank approximation.</li>
+                    <li><strong>Storage Math:</strong> Compressed size = \(k(m + n + 1)\).</li>
                   </ul>
                 </div>
 
                 <!-- Part 4 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">👤</span>PART 4 — Eigenfaces & Face Recognition</h4>
-                  <p>In 1991, Turk & Pentland revolutionized computer vision using PCA on faces.</p>
+                  <p>Recognizing faces by projecting them into "Face Space" spanned by eigenvectors.</p>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
-                    <li><strong>Method:</strong> Flatten \(D 	imes D\) face images into huge vectors. Subtract the mean face \(\mu\) to get centered matrix \(\mathbf{\Phi}\).</li>
-                    <li><strong>Computational Trick:</strong> Instead of eigendecomposing the massive \(D^2 	imes D^2\) covariance matrix (impossible in 1991), they solved the \(N 	imes N\) matrix \(\mathbf{\Phi}^T\mathbf{\Phi}\) (where \(N\) is number of images) and mapped the eigenvectors back.</li>
-                    <li><strong>Face Space:</strong> Any face is projected as \(\mathbf{w} = \mathbf{U}_k^T(\mathbf{x} - \mu)\). We recognize faces via nearest-neighbor distance in this low-dimensional weight space! High projection error means the input isn't a face at all.</li>
+                    <li><strong>Computational Trick:</strong> Solving the \(N \times N\) inner product matrix instead of the massive pixel covariance matrix.</li>
+                    <li><strong>Face Space:</strong> Projection \(\mathbf{w} = \mathbf{U}_k^T(\mathbf{x} - \mu)\).</li>
                   </ul>
                 </div>
 
                 <!-- Part 5 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
-                  <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🎬</span>PART 5 — Recommender Systems (Latent Factor Analysis)</h4>
-                  <p>How Netflix predicts what you'll rate a movie.</p>
+                  <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🎬</span>PART 5 — Recommender Systems (Latent Factors)</h4>
+                  <p>Discovering hidden patterns in user tastes through matrix factorization.</p>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
-                    <li><strong>The Matrix:</strong> The User-Item rating matrix \(\mathbf{R}\) is massive, sparse, and incomplete.</li>
-                    <li><strong>Factorization:</strong> We approximate \(\mathbf{R} pprox \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T\). The vectors represent abstract <em>latent factors</em> (like "action-packed" or "romantic"). Users and items are mapped into the exact same geometric space!</li>
-                    <li><strong>Impact:</strong> The famous $1M Netflix Prize was won by BellKor's Pragmatic Chaos, heavily relying on SVD with \(k=40\) latent factors to achieve a 10.06% RMSE improvement.</li>
+                    <li><strong>Latent Factors:</strong> SVD reveals concepts like "genre" or "actor preference" as eigenvectors.</li>
+                    <li><strong>Netflix Prize:</strong> Achieved 10% improvement using \(k=40\) latent factors.</li>
                   </ul>
                 </div>
 
                 <!-- Part 6 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
-                  <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🕸️</span>PART 6 — Graph Analysis: Spectral Clustering & PageRank</h4>
+                  <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🕸️</span>PART 6 — Graph Analysis: PageRank</h4>
+                  <p>PageRank is the dominant eigenvector of the web graph transition matrix: \[\mathbf{P}\mathbf{\pi} = \mathbf{\pi}\]</p>
                   <ul style="margin-left:1.5rem; color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
-                    <li><strong>Graph Laplacian:</strong> \(\mathbf{L} = \mathbf{D} - \mathbf{W}\) (Degree matrix minus Adjacency matrix). The smallest eigenvalue \(\lambda_1 = 0\) represents the connected components.</li>
-                    <li><strong>Fiedler Vector:</strong> The eigenvector corresponding to the 2nd smallest eigenvalue (\(\lambda_2\)) is the Fiedler vector. Sorting its values provides the optimal mathematical "cut" to separate a graph into two clusters. A large gap between \(\lambda_3\) and \(\lambda_2\) guarantees well-separated clusters!</li>
-                    <li><strong>PageRank:</strong> Google's billion-dollar algorithm is literally finding the <em>dominant eigenvector</em> of the web's transition matrix: \(\mathbf{P}\mathbf{\pi} = \mathbf{\pi}\). Because the web is huge, they solve it iteratively using Power Iteration.</li>
+                    <li><strong>Spectral Clustering:</strong> Uses the 2nd smallest eigenvector of the Graph Laplacian (Fiedler vector) to find optimal cuts.</li>
                   </ul>
                 </div>
 
                 <!-- Part 7 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">🧠</span>PART 7 — COMPARATIVE SYNTHESIS</h4>
-                  <table class="math-table" style="font-size:0.85rem; width:100%; margin-top:1rem;">
+                  <table class="math-table" style="font-size:0.8rem; width:100%;">
                     <thead>
-                      <tr><th>Application</th><th>Matrix Used</th><th>Decomposition</th><th>What Eigenvectors Mean</th></tr>
+                      <tr><th>Application</th><th>Matrix Used</th><th>Type</th><th>What Eigenvectors Mean</th></tr>
                     </thead>
                     <tbody>
-                      <tr><td>PCA</td><td>Covariance \(\mathbf{C}\)</td><td>Eigendecomp</td><td>Axes of maximum variance</td></tr>
-                      <tr><td>SVD Compression</td><td>Image \(\mathbf{A}\)</td><td>SVD</td><td>Foundational visual patterns</td></tr>
-                      <tr><td>Eigenfaces</td><td>Face Pixels \(\mathbf{\Phi}\)</td><td>Eigendecomp</td><td>Ghostly basis faces</td></tr>
-                      <tr><td>Recommenders</td><td>Ratings \(\mathbf{R}\)</td><td>SVD</td><td>Latent taste/genre concepts</td></tr>
-                      <tr><td>PageRank</td><td>Web Graph \(\mathbf{P}\)</td><td>Eigendecomp</td><td>Long-term probability of visiting a page</td></tr>
+                      <tr><td>PCA</td><td>Covariance</td><td>Eigendecomp</td><td>Axes of max variance</td></tr>
+                      <tr><td>SVD Compression</td><td>Image</td><td>SVD</td><td>Foundational visual patterns</td></tr>
+                      <tr><td>Eigenfaces</td><td>Face Pixels</td><td>Eigendecomp</td><td>Basis faces</td></tr>
+                      <tr><td>Recommenders</td><td>Ratings</td><td>SVD</td><td>Latent taste concepts</td></tr>
+                      <tr><td>PageRank</td><td>Web Graph</td><td>Eigendecomp</td><td>Probability of visit</td></tr>
                     </tbody>
                   </table>
-                  <p style="margin-top:1rem; font-size:0.9rem;"><strong>Which concept is most fundamental to deep learning?</strong> SVD and PCA. Modern Neural Networks implicitly perform dimensionality reduction layer-by-layer, learning non-linear "eigenvectors" (features) that capture maximum variance in the data manifold.</p>
                 </div>
 
                 <!-- Part 8 -->
                 <div class="insight-section" style="margin-bottom: 1.5rem;">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">💻</span>PART 8 — PYTHON CODE</h4>
-                  <p style="font-size:0.85rem; color:var(--text-muted);">Real-world implementations using NumPy/Scikit-Learn.</p>
-                  
-                  <h5 style="color:var(--gold); margin-top:1rem; font-size:0.9rem;">1. PCA (Mathematical Approach)</h5>
                   <pre style="background:#111; padding:1rem; border-radius:6px; font-size:0.8rem; overflow-x:auto; color:#ddd;"><code>import numpy as np
 
-# 1. Center the data
+# PCA Core
 X_centered = X - np.mean(X, axis=0)
-
-# 2. Compute Covariance Matrix: C = (1/n) X^T X
 C = np.cov(X_centered, rowvar=False)
-
-# 3. Eigendecomposition of C
-eigenvalues, eigenvectors = np.linalg.eigh(C)
-
-# 4. Sort descending
-idx = np.argsort(eigenvalues)[::-1]
-top_k_eigenvectors = eigenvectors[:, idx][:k]
-
-# 5. Project data into lower dimension
-X_reduced = np.dot(X_centered, top_k_eigenvectors.T)</code></pre>
-
-                  <h5 style="color:var(--gold); margin-top:1rem; font-size:0.9rem;">2. SVD Image Compression</h5>
-                  <pre style="background:#111; padding:1rem; border-radius:6px; font-size:0.8rem; overflow-x:auto; color:#ddd;"><code>from scipy.linalg import svd
-
-# 1. Perform SVD on image matrix A
-U, sigma, Vt = svd(A, full_matrices=False)
-
-# 2. Keep only top k singular values (Eckart-Young Theorem)
-k = 50
-U_k = U[:, :k]
-sigma_k = np.diag(sigma[:k])
-Vt_k = Vt[:k, :]
-
-# 3. Reconstruct compressed image
-A_compressed = np.dot(U_k, np.dot(sigma_k, Vt_k))</code></pre>
-
-                  <h5 style="color:var(--gold); margin-top:1rem; font-size:0.9rem;">3. PageRank (Power Iteration)</h5>
-                  <pre style="background:#111; padding:1rem; border-radius:6px; font-size:0.8rem; overflow-x:auto; color:#ddd;"><code># M is the damped stochastic matrix of the web graph
-v = np.ones(N) / N # Initialize uniform probability vector
-
-# Power Iteration: repeatedly multiply until convergence
-for _ in range(100):
-    v_next = np.dot(M, v)
-    if np.linalg.norm(v_next - v) < 1e-6:
-        break
-    v = v_next
-# v is now the dominant eigenvector!</code></pre>
+vals, vecs = np.linalg.eigh(C)
+# SVD Core
+U, S, Vt = np.linalg.svd(A, full_matrices=False)</code></pre>
                 </div>
 
                 <!-- Part 9 -->
-                <div class="insight-section" style="margin-bottom: 1.5rem;">
+                <div class="insight-section">
                   <h4 style="color:var(--accent-light);"><span style="margin-right:0.5rem;">📝</span>PART 9 — EXAM-STYLE PROBLEMS</h4>
-                  
-                  <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:6px; margin-bottom:1rem;">
-                    <p style="font-weight:bold; font-size:0.9rem; color:var(--teal);">Q1 (Conceptual): Why is it computationally disastrous to run standard PCA directly on a dataset of 10,000 HD images (1920x1080), and how does the "Eigenfaces trick" solve this?</p>
-                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;"><strong>Solution:</strong> HD images have \(D pprox 2 	imes 10^6\) pixels. The covariance matrix would be \(D 	imes D\), containing 4 trillion entries (requiring terabytes of RAM), making eigendecomposition \(O(D^3)\) impossible. The trick computes the \(N 	imes N\) inner product matrix (where \(N=10,000\) images), doing eigendecomposition in \(O(N^3)\), then maps vectors back to pixel space.</p>
-                  </div>
-
-                  <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:6px; margin-bottom:1rem;">
-                    <p style="font-weight:bold; font-size:0.9rem; color:var(--teal);">Q2 (Conceptual): You run SVD on a User-Item rating matrix. The 1st singular value is \(\sigma_1 = 5000\), and the 2nd is \(\sigma_2 = 45\). What does this massive gap imply about your dataset?</p>
-                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;"><strong>Solution:</strong> The dataset is dominated by a single massive global trend (e.g., in Netflix, "Blockbuster Movies vs Niche Movies" or simply the average bias that users rate movies highly). You could compress the entire system to Rank-1 and still maintain high accuracy.</p>
-                  </div>
-
-                  <div style="background:rgba(255,255,255,0.03); padding:1rem; border-radius:6px; margin-bottom:1rem;">
-                    <p style="font-weight:bold; font-size:0.9rem; color:var(--teal);">Q3 (Computational): Given matrix \(\mathbf{A} = egin{bmatrix} 4 & 1 \ 0 & 3 \end{bmatrix}\). Find the eigenvalues and eigenvectors without relying on the formula.</p>
-                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;"><strong>Solution:</strong> Because \(\mathbf{A}\) is upper triangular, its eigenvalues are simply the diagonal entries: \(\lambda_1 = 4, \lambda_2 = 3\). For \(\lambda=4\), \((\mathbf{A}-4\mathbf{I})\mathbf{v} = 0 \Rightarrow egin{bmatrix} 0 & 1 \ 0 & -1 \end{bmatrix}egin{bmatrix}x\y\end{bmatrix} = 0 \Rightarrow y=0\). So \(\mathbf{v}_1 = egin{bmatrix}1\0\end{bmatrix}\).</p>
-                  </div>
+                  <p style="font-size:0.9rem; color:var(--text-secondary);"><strong>Q1:</strong> Why use the "Eigenfaces trick" for large images?<br>
+                  <strong>Ans:</strong> It reduces computational complexity from \(O(D^3)\) to \(O(N^3)\) where \(N \ll D\).</p>
                 </div>
 
               </div>

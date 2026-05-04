@@ -477,3 +477,113 @@
   }
   draw();
 })();
+
+/**
+ * Eigenvector & Application Visualizations
+ */
+(function initEigenViz() {
+  const canvas = document.getElementById('eigen-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const matrix = [[1.5, 0.5], [0.5, 1.5]];
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    const cx = W / 2, cy = H / 2;
+    const scale = 50;
+    const time = Date.now() * 0.001;
+    
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
+
+    // Vector
+    const x = Math.cos(time);
+    const y = Math.sin(time);
+    
+    // Transformed
+    const tx = matrix[0][0] * x + matrix[0][1] * y;
+    const ty = matrix[1][0] * x + matrix[1][1] * y;
+
+    // Draw Original
+    ctx.strokeStyle = '#f1c40f';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + x * scale, cy - y * scale); ctx.stroke();
+    
+    // Draw Transformed
+    ctx.strokeStyle = '#8e44ad';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + tx * scale, cy - ty * scale); ctx.stroke();
+
+    // Check Alignment
+    const cross = Math.abs(x * ty - y * tx);
+    if (cross < 0.1) {
+      ctx.fillStyle = '#2ecc71';
+      ctx.font = 'bold 12px Inter';
+      ctx.fillText('ALIGNED!', 10, 20);
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function initPCAScree() {
+  const canvas = document.getElementById('pca-scree-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const values = [40, 25, 15, 10, 5, 3, 2];
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
+
+    const barWidth = (W - 40) / values.length;
+    values.forEach((v, i) => {
+      const h = (v / 40) * (H - 40);
+      ctx.fillStyle = i < 3 ? '#10b981' : 'rgba(255,255,255,0.1)';
+      ctx.fillRect(20 + i * barWidth, H - 20 - h, barWidth - 4, h);
+    });
+    
+    // Cumulative line
+    ctx.strokeStyle = '#f1c40f';
+    ctx.beginPath();
+    let sum = 0;
+    const total = values.reduce((a, b) => a + b, 0);
+    values.forEach((v, i) => {
+      sum += v;
+      const x = 20 + i * barWidth + barWidth / 2;
+      const y = H - 20 - (sum / total) * (H - 40);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  }
+  draw();
+})();
+
+(function initSVDDecay() {
+  const canvas = document.getElementById('svd-decay-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (let i = 0; i < 50; i++) {
+      const x = 20 + (i / 50) * (W - 40);
+      const y = 20 + (H - 40) * (1 - Math.exp(-i / 5));
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    
+    // Elbow indicator
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath(); ctx.arc(20 + (10/50)*(W-40), 20 + (H-40)*(1-Math.exp(-10/5)), 4, 0, Math.PI*2); ctx.fill();
+  }
+  draw();
+})();
