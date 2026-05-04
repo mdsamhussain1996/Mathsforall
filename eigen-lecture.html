@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eigenvalues & Eigenvectors in AI/ML | Maths for All</title>
+  <meta name="description" content="A 6-part interactive deep dive into Eigenvalues, PCA, SVD, Eigenfaces, Recommender Systems, and Spectral Clustering." />
+  <link rel="stylesheet" href="css/style.css?v=1.1" />
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    .eigen-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+    .eigen-card h3 { margin-top: 0; color: var(--accent-light); }
+    .viz-panel { background: #1c1917; border-radius: 8px; padding: 1rem; border: 1px solid rgba(124,58,237,0.2); }
+    .dual-canvas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .slider-container { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+    .slider-container input[type="range"] { flex: 1; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cs-aiml.html" class="active">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div style="max-width:1400px;margin:0 auto;">
+  <div class="page-hero">
+    <div class="page-hero-tag">🌀 Deep Dive Interactive Module</div>
+    <h1>Eigenvalues & Eigenvectors in <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI/ML</span></h1>
+    <p>Six explorable sections covering the foundational math to advanced applications like PCA, SVD, Eigenfaces, and Spectral Clustering.</p>
+  </div>
+</div>
+
+<div style="max-width:1100px;margin:0 auto;padding:2rem;">
+
+  <!-- Anchor Navigation -->
+  <nav class="anchor-nav">
+    <a href="#foundation">① Foundation</a>
+    <a href="#pca">② PCA</a>
+    <a href="#svd">③ SVD & Image Comp</a>
+    <a href="#eigenfaces">④ Eigenfaces</a>
+    <a href="#recommender">⑤ Recommenders</a>
+    <a href="#spectral">⑥ Spectral Graph</a>
+  </nav>
+
+  <!-- 1. Foundation -->
+  <section id="foundation" class="animate-on-scroll" style="margin-top: 4rem;">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(59,130,246,0.15);">📐</div>
+      <div class="topic-title-group">
+        <h2>① Foundation: Geometry & Math</h2>
+        <p>What exactly are eigenvalues geometrically?</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-content">
+        <p>A linear transformation usually knocks vectors off their original span. But for certain special vectors, the transformation only stretches or flips them. These are the <strong>eigenvectors</strong>, and the scaling factor is the <strong>eigenvalue</strong> (\(\lambda\)).</p>
+        <div class="formula-box">\[A\mathbf{v} = \lambda\mathbf{v}\]</div>
+        <p>To find them algebraically, we solve the characteristic equation:</p>
+        <div class="formula-box">\[\det(A - \lambda I) = 0\]</div>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;">
+          <li><strong>Trace:</strong> Sum of eigenvalues = Sum of diagonal elements.</li>
+          <li><strong>Determinant:</strong> Product of eigenvalues = \(\det(A)\).</li>
+          <li><strong>Symmetric Matrices:</strong> Always have real, orthogonal eigenvectors.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="viz-panel">
+          <div class="viz-title">Interactive Transformation</div>
+          <canvas id="found-canvas" width="400" height="300" style="width:100%;"></canvas>
+          <div class="slider-container">
+            <label>Sweep Vector:</label>
+            <input type="range" id="found-slider" min="0" max="360" value="0">
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">Orange = Original, Blue = Transformed. Watch when they align!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 2. PCA -->
+  <section id="pca" class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(16,185,129,0.15);">📉</div>
+      <div class="topic-title-group">
+        <h2>② Principal Component Analysis (PCA)</h2>
+        <p>Finding the axes of maximum variance</p>
+      </div>
+    </div>
+    <div class="eigen-card">
+      <h3>From Covariance to Variance</h3>
+      <p>PCA computes the covariance matrix of our data, then finds its eigenvectors. These vectors (Principal Components) point in the directions of maximum variance. The corresponding eigenvalues tell us exactly how much variance that component captures.</p>
+      <div class="dual-canvas">
+        <div class="viz-panel" style="flex:1; min-width:300px;">
+          <div class="viz-title">Scree Plot (Variance)</div>
+          <canvas id="pca-canvas" width="400" height="250" style="width:100%;"></canvas>
+          <div class="slider-container">
+            <label>Components Kept (k):</label>
+            <input type="range" id="pca-slider" min="1" max="10" value="2">
+            <span id="pca-k-val" style="color:var(--accent-light);">2</span>
+          </div>
+        </div>
+        <div class="topic-content" style="flex:1; min-width:300px;">
+          <h4>Real-World: MNIST Digits</h4>
+          <p>Images of handwritten digits are 28x28 = 784 dimensions.</p>
+          <table class="math-table" style="font-size:0.85rem;">
+            <thead><tr><th>k</th><th>Cumulative Variance</th><th>Visual Quality</th></tr></thead>
+            <tbody>
+              <tr><td>2</td><td>17%</td><td>Blurry blobs</td></tr>
+              <tr><td>50</td><td>82%</td><td>Recognizable</td></tr>
+              <tr><td>154</td><td><strong style="color:var(--teal);">95%</strong></td><td>Almost perfect</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.85rem;color:var(--text-muted);">We can drop 80% of the dimensions while keeping 95% of the information!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 3. SVD -->
+  <section id="svd" class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(139,92,246,0.15);">🖼️</div>
+      <div class="topic-title-group">
+        <h2>③ SVD & Image Compression</h2>
+        <p>Eckart-Young Theorem in Action</p>
+      </div>
+    </div>
+    <div class="topic-content">
+      <p>Singular Value Decomposition factorizes any matrix \(A = U \Sigma V^T\). The singular values in \(\Sigma\) are the square roots of the eigenvalues of \(A^T A\). By keeping only the top \(k\) singular values, we create the optimal rank-\(k\) approximation of the image.</p>
+    </div>
+    <div class="viz-panel" style="margin-top:1.5rem;">
+      <div class="dual-canvas">
+        <div>
+          <div class="viz-title" style="text-align:center;">Original Image (Rank 50)</div>
+          <canvas id="svd-orig-canvas" width="200" height="200"></canvas>
+        </div>
+        <div>
+          <div class="viz-title" style="text-align:center;">Rank-<span id="svd-k-val">5</span> Approximation</div>
+          <canvas id="svd-approx-canvas" width="200" height="200"></canvas>
+        </div>
+      </div>
+      <div class="slider-container" style="max-width:500px; margin: 2rem auto 0 auto;">
+        <label>Drag k:</label>
+        <input type="range" id="svd-slider" min="1" max="50" value="5">
+      </div>
+      <p id="svd-stats" style="text-align:center; font-size:0.9rem; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 4. Eigenfaces -->
+  <section id="eigenfaces" class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(245,158,11,0.15);">👤</div>
+      <div class="topic-title-group">
+        <h2>④ Eigenfaces (Facial Recognition)</h2>
+        <p>Using PCA on a dataset of faces</p>
+      </div>
+    </div>
+    <div class="eigen-card">
+      <p>Turk & Pentland (1991) flattened face images into giant vectors, centered them, and ran PCA. The resulting eigenvectors literally look like ghostly faces — <strong>Eigenfaces</strong>! Any face can be reconstructed as a linear combination of these ghostly bases.</p>
+      <div class="dual-canvas" style="gap:2rem; margin-top:2rem;">
+        <div style="text-align:center;">
+          <canvas id="ef-mean" width="100" height="100" style="background:#000; border-radius:4px;"></canvas>
+          <div style="font-size:0.75rem; margin-top:0.5rem;">Mean Face</div>
+        </div>
+        <div style="font-size:1.5rem; display:flex; align-items:center;">+</div>
+        <div style="text-align:center;">
+          <canvas id="ef-1" width="100" height="100" style="background:#000; border-radius:4px;"></canvas>
+          <div style="font-size:0.75rem; margin-top:0.5rem;">Eigenface 1 (Lighting)</div>
+        </div>
+        <div style="text-align:center;">
+          <canvas id="ef-2" width="100" height="100" style="background:#000; border-radius:4px;"></canvas>
+          <div style="font-size:0.75rem; margin-top:0.5rem;">Eigenface 2 (Structure)</div>
+        </div>
+        <div style="font-size:1.5rem; display:flex; align-items:center;">=</div>
+        <div style="text-align:center;">
+          <canvas id="ef-recon" width="100" height="100" style="background:#000; border-radius:4px; border:2px solid var(--accent);"></canvas>
+          <div style="font-size:0.75rem; margin-top:0.5rem; color:var(--accent-light);">Live Reconstruction</div>
+        </div>
+      </div>
+      <div class="slider-container" style="max-width:400px; margin: 2rem auto 0 auto;">
+        <label>Number of Eigenfaces used:</label>
+        <input type="range" id="ef-slider" min="1" max="20" value="3">
+        <span id="ef-k-val">3</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 5. Recommender Systems -->
+  <section id="recommender" class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(236,72,153,0.15);">🎬</div>
+      <div class="topic-title-group">
+        <h2>⑤ Recommender Systems</h2>
+        <p>Latent Factor Analysis (Netflix Prize)</p>
+      </div>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <p>If we have a huge sparse matrix of Users \(\times\) Movies, SVD factors it into User Latent Vectors and Movie Latent Vectors. The dot product of these vectors predicts missing ratings.</p>
+        <p>This means users and movies are mapped into the <em>same</em> geometric space spanned by the eigenvectors of the ratings matrix.</p>
+        <table class="math-table" style="font-size:0.8rem; margin-top:1rem;">
+          <thead><tr><th>User</th><th>Sci-Fi</th><th>Romance</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Alice</td><td>5</td><td>?</td><td>4</td></tr>
+            <tr><td>Bob</td><td>?</td><td>4</td><td>1</td></tr>
+            <tr><td>Dave</td><td>?</td><td>5</td><td>?</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.5rem;">Because Dave and Bob both like Romance, their latent vectors will be close, predicting Dave won't like Action.</p>
+      </div>
+      <div class="viz-panel">
+        <div class="viz-title">Latent Space Scatter Plot</div>
+        <canvas id="rec-canvas" width="400" height="250" style="width:100%;"></canvas>
+        <p style="font-size:0.75rem; text-align:center; margin-top:0.5rem;">Dots = Users (Blue) & Movies (Red). Closer = Higher Rating.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 6. Spectral Clustering & PageRank -->
+  <section id="spectral" class="animate-on-scroll">
+    <div class="topic-header">
+      <div class="topic-icon-lg" style="background:rgba(20,184,166,0.15);">🕸️</div>
+      <div class="topic-title-group">
+        <h2>⑥ Spectral Clustering & PageRank</h2>
+        <p>Eigenvectors of Graphs and Networks</p>
+      </div>
+    </div>
+    <div class="eigen-card">
+      <div class="topic-grid">
+        <div>
+          <h3>Spectral Graph Partitioning</h3>
+          <p>By computing the eigenvectors of the Graph Laplacian matrix, the second smallest eigenvector (the <strong>Fiedler Vector</strong>) naturally assigns values to nodes that split the graph into two optimal clusters, severing the weakest links.</p>
+          <div class="viz-panel" style="margin-top:1rem;">
+            <canvas id="spectral-canvas" width="300" height="200" style="width:100%;"></canvas>
+            <p style="font-size:0.7rem; text-align:center;">Colors assigned by Fiedler Vector value</p>
+          </div>
+        </div>
+        <div>
+          <h3>Google's PageRank</h3>
+          <p>PageRank is literally just finding the <strong>dominant eigenvector</strong> of the Web's adjacency/stochastic matrix. The <em>Power Iteration</em> algorithm repeatedly multiplies a vector by the matrix until it converges to this eigenvector.</p>
+          <div class="viz-panel" style="margin-top:1rem;">
+            <canvas id="pagerank-canvas" width="300" height="200" style="width:100%;"></canvas>
+            <p style="font-size:0.7rem; text-align:center;">Convergence of Power Iteration</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Maths for All</div>
+  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/eigen-lecture.js"></script>
+<script>
+  const observerOptions = { threshold: 0.1 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
