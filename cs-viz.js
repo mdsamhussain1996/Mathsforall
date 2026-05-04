@@ -474,3 +474,104 @@
   }
   draw();
 })();
+
+// ── EIGENVECTOR VISUALIZER ──
+(function initEigenViz() {
+  const canvas = document.getElementById('eigen-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const scale = 50;
+
+  // A matrix with clear eigenvectors
+  // Let's use A = [[1.5, 0.5], [0.5, 1.5]]
+  // Eigenvalues: L1=2.0 (dir: [1,1]), L2=1.0 (dir: [-1,1])
+  const matrix = [[1.5, 0.5], [0.5, 1.5]];
+
+  let angle = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#1c1917'; 
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.beginPath();
+    for(let i = -10; i <= 10; i++) {
+      ctx.moveTo(cx + i * 20, 0); ctx.lineTo(cx + i * 20, H);
+      ctx.moveTo(0, cy + i * 20); ctx.lineTo(W, cy + i * 20);
+    }
+    ctx.stroke();
+
+    // Axes
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath();
+    ctx.moveTo(cx, 0); ctx.lineTo(cx, H);
+    ctx.moveTo(0, cy); ctx.lineTo(W, cy);
+    ctx.stroke();
+
+    // Draw eigenvectors faintly in background
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    // y = x
+    ctx.moveTo(cx - 200, cy + 200); ctx.lineTo(cx + 200, cy - 200);
+    // y = -x
+    ctx.moveTo(cx - 200, cy - 200); ctx.lineTo(cx + 200, cy + 200);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Original Vector (Sweeping)
+    const vx = Math.cos(angle);
+    const vy = Math.sin(angle);
+    
+    // Transformed Vector
+    const tx = matrix[0][0] * vx + matrix[0][1] * vy;
+    const ty = matrix[1][0] * vx + matrix[1][1] * vy;
+
+    // Check alignment (cross product near 0)
+    const crossProd = Math.abs(vx * ty - vy * tx);
+    const isEigen = crossProd < 0.05;
+
+    // Draw Original Vector (Yellow)
+    ctx.strokeStyle = '#f59e0b';
+    ctx.fillStyle = '#f59e0b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + vx * scale, cy - vy * scale);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx + vx * scale, cy - vy * scale, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Draw Transformed Vector (Purple, or Green if aligned)
+    ctx.strokeStyle = isEigen ? '#2ecc71' : '#7c3aed';
+    ctx.fillStyle = isEigen ? '#2ecc71' : '#7c3aed';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + tx * scale, cy - ty * scale);
+    ctx.stroke();
+    // Arrow head
+    const arrAngle = Math.atan2(-ty, tx);
+    ctx.beginPath();
+    ctx.moveTo(cx + tx * scale, cy - ty * scale);
+    ctx.lineTo(cx + tx * scale - 10 * Math.cos(arrAngle - 0.5), cy - ty * scale - 10 * Math.sin(arrAngle - 0.5));
+    ctx.lineTo(cx + tx * scale - 10 * Math.cos(arrAngle + 0.5), cy - ty * scale - 10 * Math.sin(arrAngle + 0.5));
+    ctx.fill();
+
+    if (isEigen) {
+      ctx.fillStyle = '#2ecc71';
+      ctx.font = 'bold 12px "Inter", sans-serif';
+      ctx.fillText('EIGENVECTOR ALIGNMENT', cx - 70, cy + 100);
+    }
+
+    angle += 0.01;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
