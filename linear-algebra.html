@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Linear Algebra Master Platform | Maths for All</title>
+  <meta name="description" content="Master all topics of Linear Algebra from intuition to example, formal theory, interactive visualizations, and real-world applications across AI, robotics, and graphics." />
+  <link rel="stylesheet" href="css/style.css?v=1.2" />
+  <!-- MathJax Configuration for crisp LaTeX math rendering -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html" class="active">Linear Algebra</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search linear algebra…" oninput="handleSearch(this.value)" autocomplete="off" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<!-- ── HERO ── -->
+<div style="max-width:1440px;margin:0 auto;padding:0 2rem;">
+  <div class="page-hero" style="margin-top:20px;">
+    <div class="page-hero-tag">📐 Complete Interactive Curriculum</div>
+    <h1>The Architecture of <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Linear Algebra</span></h1>
+    <p>From geometrical intuition to concrete numerical examples, rigorous formal theory, interactive HTML5 simulations, and production-grade applications across AI, Machine Learning, Robotics, and Graphics.</p>
+
+    <!-- Chapter Quick Navigation Pills -->
+    <div class="chapter-nav-pills">
+      <a href="#ch1" class="chapter-pill">① Vectors & Geometry</a>
+      <a href="#ch2" class="chapter-pill">② Span & Subspaces</a>
+      <a href="#ch3" class="chapter-pill">③ Systems & Elimination</a>
+      <a href="#ch4" class="chapter-pill">④ Transformations</a>
+      <a href="#ch5" class="chapter-pill">⑤ Determinants</a>
+      <a href="#ch6" class="chapter-pill">⑥ Orthogonality & Least Squares</a>
+      <a href="#ch7" class="chapter-pill">⑦ Eigenvalues & Spectra</a>
+      <a href="#ch8" class="chapter-pill">⑧ SVD & Pseudoinverse</a>
+      <a href="#ch9" class="chapter-pill">⑨ Quadratic Forms</a>
+      <a href="#ch10" class="chapter-pill">⑩ AI & Graph Applications</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN TWO-COLUMN LAYOUT WITH TABLE OF CONTENTS ── -->
+<div class="la-layout">
+  
+  <!-- Sticky Table of Contents Sidebar -->
+  <aside class="la-sidebar" id="laSidebar">
+    <div>
+      <div class="la-toc-title">Quick Search</div>
+      <input type="text" class="la-toc-search" placeholder="Filter topics…" oninput="filterTOC(this.value)" />
+    </div>
+
+    <div>
+      <div class="la-toc-title">Course Topics</div>
+      <ul class="la-toc-list" id="tocList">
+        <li class="la-toc-item"><a href="#topic-1-1">1.1 Vectors & Operations</a></li>
+        <li class="la-toc-item"><a href="#topic-1-2">1.2 Dot Product & Angles</a></li>
+        <li class="la-toc-item"><a href="#topic-1-3">1.3 Cross Product in ℝ³</a></li>
+        <li class="la-toc-item"><a href="#topic-2-1">2.1 Linear Combinations & Span</a></li>
+        <li class="la-toc-item"><a href="#topic-2-2">2.2 Linear Independence</a></li>
+        <li class="la-toc-item"><a href="#topic-2-3">2.3 Basis & Dimension</a></li>
+        <li class="la-toc-item"><a href="#topic-3-1">3.1 Systems & Augmented Matrices</a></li>
+        <li class="la-toc-item"><a href="#topic-3-2">3.2 Gaussian Elimination & RREF</a></li>
+        <li class="la-toc-item"><a href="#topic-3-3">3.3 Matrix Inverses</a></li>
+        <li class="la-toc-item"><a href="#topic-4-1">4.1 Linear Transformations</a></li>
+        <li class="la-toc-item"><a href="#topic-4-2">4.2 Matrix Multiplication</a></li>
+        <li class="la-toc-item"><a href="#topic-4-3">4.3 The Four Fundamental Subspaces</a></li>
+        <li class="la-toc-item"><a href="#topic-5-1">5.1 Determinant Geometry</a></li>
+        <li class="la-toc-item"><a href="#topic-5-2">5.2 Cramer's Rule & Invertibility</a></li>
+        <li class="la-toc-item"><a href="#topic-6-1">6.1 Orthogonal Projections</a></li>
+        <li class="la-toc-item"><a href="#topic-6-2">6.2 Gram-Schmidt & QR</a></li>
+        <li class="la-toc-item"><a href="#topic-6-3">6.3 Least Squares Regression</a></li>
+        <li class="la-toc-item"><a href="#topic-7-1">7.1 Eigenvalues & Eigenvectors</a></li>
+        <li class="la-toc-item"><a href="#topic-7-2">7.2 Diagonalization & Matrix Powers</a></li>
+        <li class="la-toc-item"><a href="#topic-7-3">7.3 Spectral Theorem</a></li>
+        <li class="la-toc-item"><a href="#topic-8-1">8.1 Geometry of SVD</a></li>
+        <li class="la-toc-item"><a href="#topic-8-2">8.2 Low-Rank Approximation</a></li>
+        <li class="la-toc-item"><a href="#topic-8-3">8.3 Moore-Penrose Pseudoinverse</a></li>
+        <li class="la-toc-item"><a href="#topic-9-1">9.1 Quadratic Forms & Energy</a></li>
+        <li class="la-toc-item"><a href="#topic-9-2">9.2 Positive Definiteness & Cholesky</a></li>
+        <li class="la-toc-item"><a href="#topic-10-1">10.1 PCA & Dimensionality</a></li>
+        <li class="la-toc-item"><a href="#topic-10-2">10.2 Tensors & Self-Attention</a></li>
+        <li class="la-toc-item"><a href="#topic-10-3">10.3 Graph Laplacians & Clustering</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main Content Body -->
+  <main class="la-content">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 1: VECTORS, GEOMETRY & INNER PRODUCTS
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch1">
+      <div class="chapter-number-tag">Chapter 1</div>
+      <h2 class="chapter-title">Vectors, Geometry & Inner Products</h2>
+      <p class="chapter-overview">
+        Linear algebra begins with vectors: directed line segments that encode magnitude and direction, or ordered arrays of numerical features. We develop geometric intuition, algebraic operations, inner products, and projections.
+      </p>
+    </div>
+
+    <!-- Topic 1.1 -->
+    <article class="topic-container" id="topic-1-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">1.1</span> Vectors in $\mathbb{R}^n$ & Vector Operations</h3>
+      </div>
+
+      <!-- 1. Intuition -->
+      <div class="phase-card phase-intuition">
+        <div class="phase-header">
+          <span class="phase-badge">💡 1. Intuition</span>
+        </div>
+        <p>
+          Think of a vector in two complementary ways:
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Geometrically (Physics):</strong> A vector is an arrow having a specific <em>length (magnitude)</em> and pointing in a specific <em>direction</em>, independent of where it is placed in space. Adding two vectors represents sequential displacement: walk along $\mathbf{u}$, then walk along $\mathbf{v}$.</li>
+          <li><strong>Algebraically (Computer Science / Data):</strong> A vector is an ordered list of numbers (coordinates or attributes). In Machine Learning, an image is a vector of pixel intensities, a house is a vector of $[ \text{bedrooms}, \text{sqft}, \text{price} ]$, and a word is an embedding vector of semantic features.</li>
+        </ul>
+      </div>
+
+      <!-- 2. Example -->
+      <div class="phase-card phase-example">
+        <div class="phase-header">
+          <span class="phase-badge">📝 2. Worked Example</span>
+        </div>
+        <p>Let $\mathbf{u} = \begin{bmatrix} 3 \\ 2 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 1 \\ 4 \end{bmatrix}$ in $\mathbb{R}^2$. Let scalars $c_1 = 2$ and $c_2 = -1$.</p>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Step 1: Scalar Multiplication</strong><br/>
+          $$c_1 \mathbf{u} = 2 \begin{bmatrix} 3 \\ 2 \end{bmatrix} = \begin{bmatrix} 2 \cdot 3 \\ 2 \cdot 2 \end{bmatrix} = \begin{bmatrix} 6 \\ 4 \end{bmatrix}, \quad c_2 \mathbf{v} = -1 \begin{bmatrix} 1 \\ 4 \end{bmatrix} = \begin{bmatrix} -1 \\ -4 \end{bmatrix}$$
+        </div>
+        <div class="example-step">
+          <strong>Step 2: Vector Addition</strong><br/>
+          $$\mathbf{w} = c_1 \mathbf{u} + c_2 \mathbf{v} = \begin{bmatrix} 6 \\ 4 \end{bmatrix} + \begin{bmatrix} -1 \\ -4 \end{bmatrix} = \begin{bmatrix} 6 + (-1) \\ 4 + (-4) \end{bmatrix} = \begin{bmatrix} 5 \\ 0 \end{bmatrix}$$
+          Geometrically, starting from origin, moving twice along $\mathbf{u}$ and once backwards along $\mathbf{v}$ lands precisely at $(5, 0)$ on the $x$-axis.
+        </div>
+      </div>
+
+      <!-- 3. Theory -->
+      <div class="phase-card phase-theory">
+        <div class="phase-header">
+          <span class="phase-badge">📘 3. Formal Theory</span>
+        </div>
+        <p>
+          Formally, $\mathbb{R}^n$ is the set of all $n$-tuples of real numbers $\mathbf{x} = (x_1, x_2, \dots, x_n)^T$. For any $\mathbf{u}, \mathbf{v}, \mathbf{w} \in \mathbb{R}^n$ and $c, d \in \mathbb{R}$, the standard operations satisfy:
+        </p>
+        <div class="formula-box">
+          $$\mathbf{u} + \mathbf{v} = \begin{bmatrix} u_1 + v_1 \\ \vdots \\ u_n + v_n \end{bmatrix}, \quad c\mathbf{u} = \begin{bmatrix} c u_1 \\ \vdots \\ c u_n \end{bmatrix}$$
+        </div>
+        <p><strong>Axiomatic Properties:</strong></p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li>Commutativity: $\mathbf{u} + \mathbf{v} = \mathbf{v} + \mathbf{u}$</li>
+          <li>Associativity: $(\mathbf{u} + \mathbf{v}) + \mathbf{w} = \mathbf{u} + (\mathbf{v} + \mathbf{w})$</li>
+          <li>Additive Identity: $\mathbf{u} + \mathbf{0} = \mathbf{u}$</li>
+          <li>Distributivity: $c(\mathbf{u} + \mathbf{v}) = c\mathbf{u} + c\mathbf{v}$ and $(c+d)\mathbf{u} = c\mathbf{u} + d\mathbf{u}$</li>
+        </ul>
+      </div>
+
+      <!-- 4. Visualization -->
+      <div class="phase-card phase-viz">
+        <div class="phase-header">
+          <span class="phase-badge">🔬 4. Interactive Simulation</span>
+        </div>
+        <p>Drag the vector heads $\mathbf{u}$ (Amber) or $\mathbf{v}$ (Cyan), and adjust the scalar sliders $c_1, c_2$ to watch the parallelogram rule and resultant $\mathbf{w}$ dynamically update in real time.</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Vector Addition & Scaling Playground</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row">
+                <label>c₁:</label>
+                <input type="range" id="slider-vec-c1" min="-2" max="2" step="0.1" value="1">
+              </div>
+              <div class="sim-slider-row">
+                <label>c₂:</label>
+                <input type="range" id="slider-vec-c2" min="-2" max="2" step="0.1" value="1">
+              </div>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-vec-add" width="600" height="360"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-vec-add">u = [3, 2]ᵀ | v = [1, 4]ᵀ | w = [4, 6]ᵀ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Application -->
+      <div class="phase-card phase-app">
+        <div class="phase-header">
+          <span class="phase-badge">🚀 5. Real-World Application</span>
+        </div>
+        <p><strong>Natural Language Processing (Word Embeddings):</strong> High-dimensional vectors capture semantic relationships where vector addition and subtraction model conceptual analogies: $\mathbf{v}_{\text{King}} - \mathbf{v}_{\text{Man}} + \mathbf{v}_{\text{Woman}} \approx \mathbf{v}_{\text{Queen}}$.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / NumPy</span></div>
+          <div class="code-content"><span class="code-kw">import</span> numpy <span class="code-kw">as</span> np
+
+<span class="code-cmt"># Representing word features [royalty, masculinity, power]</span>
+king = np.array([<span class="code-num">0.95</span>, <span class="code-num">0.90</span>, <span class="code-num">0.85</span>])
+man = np.array([<span class="code-num">0.05</span>, <span class="code-num">0.88</span>, <span class="code-num">0.40</span>])
+woman = np.array([<span class="code-num">0.05</span>, -<span class="code-num">0.85</span>, <span class="code-num">0.40</span>])
+
+<span class="code-cmt"># Vector arithmetic in semantic space</span>
+target = king - man + woman
+print(<span class="code-str">"Predicted Queen vector:"</span>, np.round(target, <span class="code-num">2</span>))
+<span class="code-cmt"># Output: [0.95, -0.83, 0.85] -> highly matching Queen embedding!</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Topic 1.2 -->
+    <article class="topic-container" id="topic-1-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">1.2</span> Dot Product, Length, Angles & Orthogonal Projections</h3>
+      </div>
+
+      <!-- 1. Intuition -->
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          The <strong>dot product</strong> measures directional alignment. If you shine a light perpendicular to vector $\mathbf{v}$, the "shadow" cast by vector $\mathbf{u}$ onto $\mathbf{v}$ is its projection.
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li>$\mathbf{u} \cdot \mathbf{v} > 0$: Vectors point generally in the same direction (acute angle $\theta < 90^\circ$).</li>
+          <li>$\mathbf{u} \cdot \mathbf{v} = 0$: Vectors are strictly perpendicular / orthogonal ($\theta = 90^\circ$). No shadow is cast!</li>
+          <li>$\mathbf{u} \cdot \mathbf{v} < 0$: Vectors point in opposing directions (obtuse angle $\theta > 90^\circ$).</li>
+        </ul>
+      </div>
+
+      <!-- 2. Example -->
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Let $\mathbf{u} = \begin{bmatrix} 4 \\ 1 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$.</p>
+        <div class="example-step">
+          <strong>1. Dot Product:</strong> $\mathbf{u} \cdot \mathbf{v} = (4)(2) + (1)(3) = 8 + 3 = 11$.
+        </div>
+        <div class="example-step">
+          <strong>2. Magnitudes:</strong> $\|\mathbf{u}\| = \sqrt{4^2 + 1^2} = \sqrt{17} \approx 4.12$, $\|\mathbf{v}\| = \sqrt{2^2 + 3^2} = \sqrt{13} \approx 3.61$.
+        </div>
+        <div class="example-step">
+          <strong>3. Angle:</strong> $\cos\theta = \frac{11}{\sqrt{17}\sqrt{13}} = \frac{11}{14.87} \approx 0.74 \implies \theta = \arccos(0.74) \approx 42.3^\circ$.
+        </div>
+        <div class="example-step">
+          <strong>4. Projection Vector of $\mathbf{u}$ onto $\mathbf{v}$:</strong>
+          $$\operatorname{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{v}\|^2} \mathbf{v} = \frac{11}{13} \begin{bmatrix} 2 \\ 3 \end{bmatrix} = \begin{bmatrix} 1.69 \\ 2.54 \end{bmatrix}$$
+        </div>
+      </div>
+
+      <!-- 3. Theory -->
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$\mathbf{u} \cdot \mathbf{v} = \sum_{i=1}^n u_i v_i = \mathbf{u}^T \mathbf{v} = \|\mathbf{u}\| \|\mathbf{v}\| \cos\theta$$
+        </div>
+        <p><strong>Fundamental Theorems:</strong></p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;font-size:0.9rem;">
+          <li><strong>Cauchy-Schwarz Inequality:</strong> $|\mathbf{u} \cdot \mathbf{v}| \le \|\mathbf{u}\| \|\mathbf{v}\|$, with equality if and only if $\mathbf{u}$ and $\mathbf{v}$ are linearly dependent.</li>
+          <li><strong>Triangle Inequality:</strong> $\|\mathbf{u} + \mathbf{v}\| \le \|\mathbf{u}\| + \|\mathbf{v}\|$.</li>
+          <li><strong>Pythagorean Theorem:</strong> If $\mathbf{u} \perp \mathbf{v}$, then $\|\mathbf{u} + \mathbf{v}\|^2 = \|\mathbf{u}\|^2 + \|\mathbf{v}\|^2$.</li>
+        </ul>
+      </div>
+
+      <!-- 4. Visualization -->
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Drag the vectors $\mathbf{u}$ or $\mathbf{v}$ to observe how the angle arc, orthogonal drop line (yellow dashed), and projection vector (purple) respond. Notice how the indicator detects exact orthogonality!</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Dot Product & Projection Explorer</span>
+            <div class="sim-controls">
+              <span class="sim-btn active" id="badge-dot-state">Acute Angle</span>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-dot-prod" width="600" height="360"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-dot-prod">u·v = 11.00 | ‖u‖ = 4.12 | ‖v‖ = 3.61</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Application -->
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Cosine Similarity in Search Engines & Recommendation Systems:</strong> Vector databases (Pinecone, FAISS, Milvus) compute the dot product between query embeddings and document embeddings to rank relevance independent of document length.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / Cosine Similarity</span></div>
+          <div class="code-content"><span class="code-kw">import</span> numpy <span class="code-kw">as</span> np
+
+<span class="code-kw">def</span> <span class="code-fn">cosine_similarity</span>(u, v):
+    <span class="code-kw">return</span> np.dot(u, v) / (np.linalg.norm(u) * np.linalg.norm(v))
+
+query_vec = np.array([<span class="code-num">0.8</span>, <span class="code-num">0.2</span>, <span class="code-num">0.0</span>])
+doc_sports = np.array([<span class="code-num">0.1</span>, <span class="code-num">0.9</span>, <span class="code-num">0.1</span>])
+doc_tech = np.array([<span class="code-num">0.9</span>, <span class="code-num">0.1</span>, <span class="code-num">0.05</span>])
+
+print(<span class="code-str">"Tech relevance:"</span>, cosine_similarity(query_vec, doc_tech))     <span class="code-cmt"># ~0.98 (High Match!)</span>
+print(<span class="code-str">"Sports relevance:"</span>, cosine_similarity(query_vec, doc_sports)) <span class="code-cmt"># ~0.35 (Low Match)</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Topic 1.3 -->
+    <article class="topic-container" id="topic-1-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">1.3</span> Cross Product & Spatial Geometry in $\mathbb{R}^3$</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Unlike the dot product (which produces a single number / scalar), the <strong>cross product</strong> produces a brand new 3D vector $\mathbf{u} \times \mathbf{v}$ that sticks straight out perpendicular to both input vectors simultaneously ($\mathbf{u} \times \mathbf{v} \perp \mathbf{u}$ and $\mathbf{u} \times \mathbf{v} \perp \mathbf{v}$).
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Magnitude:</strong> Equals the exact <em>surface area</em> of the parallelogram spanned by $\mathbf{u}$ and $\mathbf{v}$: $\|\mathbf{u} \times \mathbf{v}\| = \|\mathbf{u}\|\|\mathbf{v}\|\sin\theta$.</li>
+          <li><strong>Direction:</strong> Governed by the <strong>Right-Hand Rule</strong>: curl fingers from $\mathbf{u}$ to $\mathbf{v}$, thumb points along $\mathbf{u} \times \mathbf{v}$. Notice that reversing order flips direction: $\mathbf{v} \times \mathbf{u} = -(\mathbf{u} \times \mathbf{v})$ (anti-commutative!).</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute $\mathbf{u} \times \mathbf{v}$ for $\mathbf{u} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}$.</p>
+        <div class="example-step">
+          Using the formal $3 \times 3$ symbolic determinant expansion:
+          $$\mathbf{u} \times \mathbf{v} = \det\begin{bmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix} = \mathbf{i}(2\cdot 6 - 3\cdot 5) - \mathbf{j}(1\cdot 6 - 3\cdot 4) + \mathbf{k}(1\cdot 5 - 2\cdot 4)$$
+          $$= \mathbf{i}(12 - 15) - \mathbf{j}(6 - 12) + \mathbf{k}(5 - 8) = -3\mathbf{i} + 6\mathbf{j} - 3\mathbf{k} = \begin{bmatrix} -3 \\ 6 \\ -3 \end{bmatrix}$$
+          <strong>Verification of Orthogonality:</strong><br/>
+          $\mathbf{u} \cdot (\mathbf{u} \times \mathbf{v}) = (1)(-3) + (2)(6) + (3)(-3) = -3 + 12 - 9 = 0$ ✓<br/>
+          $\mathbf{v} \cdot (\mathbf{u} \times \mathbf{v}) = (4)(-3) + (5)(6) + (6)(-3) = -12 + 30 - 18 = 0$ ✓
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>The cross product is an operation uniquely defined in $\mathbb{R}^3$ (and algebraically in $\mathbb{R}^7$). Algebraic properties include:</p>
+        <div class="formula-box">
+          $$\mathbf{u} \times \mathbf{v} = \begin{bmatrix} u_2 v_3 - u_3 v_2 \\ u_3 v_1 - u_1 v_3 \\ u_1 v_2 - u_2 v_1 \end{bmatrix} = [\mathbf{u}]_\times \mathbf{v} = \begin{bmatrix} 0 & -u_3 & u_2 \\ u_3 & 0 & -u_1 \\ -u_2 & u_1 & 0 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix}$$
+        </div>
+        <p>Here $[\mathbf{u}]_\times$ is the <strong>skew-symmetric cross-product matrix</strong>. This Lie algebra representation is foundational in robotics and rigid body dynamics.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Observe the normal vector relationship and parallelogram surface area calculation:</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Cross Product Normal & Torque Visualizer</span>
+          </div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Vector u: [1.0, 2.0, 3.0] | Vector v: [4.0, 5.0, 6.0]</div>
+            <div style="color:#38bdf8;font-weight:600;">Normal Vector u × v: [-3.0, 6.0, -3.0]</div>
+            <div style="color:#fbbf24;">Parallelogram Surface Area: ‖u × v‖ = √(9 + 36 + 9) = √54 ≈ 7.35 units²</div>
+            <div style="color:#34d399;">Right-Hand Rule Check: u · (u × v) = 0.00 (Strictly 90° Perpendicular!)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Robotics Torque & 3D Shading (Phong Illumination):</strong> In 3D graphics rendering, computer graphics shaders compute surface normal vectors at every polygon vertex using the cross product of edge vectors: $\mathbf{n} = \frac{\mathbf{e}_1 \times \mathbf{e}_2}{\|\mathbf{e}_1 \times \mathbf{e}_2\|}$, which determines how light bounces off the object.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / 3D Graphics Surface Normal</span></div>
+          <div class="code-content"><span class="code-kw">import</span> numpy <span class="code-kw">as</span> np
+
+<span class="code-cmt"># Triangle vertices in 3D game engine</span>
+v0 = np.array([<span class="code-num">0.0</span>, <span class="code-num">0.0</span>, <span class="code-num">0.0</span>])
+v1 = np.array([<span class="code-num">1.0</span>, <span class="code-num">0.0</span>, <span class="code-num">0.0</span>])
+v2 = np.array([<span class="code-num">0.0</span>, <span class="code-num">1.0</span>, <span class="code-num">1.0</span>])
+
+edge1 = v1 - v0
+edge2 = v2 - v0
+normal = np.cross(edge1, edge2)
+unit_normal = normal / np.linalg.norm(normal)
+
+print(<span class="code-str">"Polygon surface normal:"</span>, np.round(unit_normal, <span class="code-num">3</span>)) <span class="code-cmt"># [0.0, -0.707, 0.707]</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 2: LINEAR COMBINATIONS, SPAN & SUBSPACES
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch2">
+      <div class="chapter-number-tag">Chapter 2</div>
+      <h2 class="chapter-title">Linear Combinations, Span & Subspaces</h2>
+      <p class="chapter-overview">
+        What regions of space can a set of vectors reach? Here we formalize linear combinations, define span, determine when a vector set is redundant (linear dependence), and establish the concepts of basis and dimension.
+      </p>
+    </div>
+
+    <!-- Topic 2.1 -->
+    <article class="topic-container" id="topic-2-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">2.1</span> Linear Combinations & Span</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Imagine you can only walk along two tracks defined by vectors $\mathbf{v}_1$ and $\mathbf{v}_2$. If you have freedom to scale each track by any amount $c_1$ and $c_2$, what destinations can you reach?
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li>If the two tracks point in distinct directions, you can reach <strong>every single point</strong> in the entire 2D plane ($\operatorname{span} = \mathbb{R}^2$).</li>
+          <li>If the two tracks are parallel (collinear), you are trapped on a <strong>1D line</strong> ($\operatorname{span} = \text{line}$). You cannot escape!</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Determine if $\mathbf{b} = \begin{bmatrix} 7 \\ 8 \end{bmatrix}$ is in $\operatorname{span}\left\{ \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 3 \\ 4 \end{bmatrix} \right\}$.</p>
+        <div class="example-step">
+          We test if there exist weights $c_1, c_2$ such that:
+          $$c_1 \begin{bmatrix} 1 \\ 2 \end{bmatrix} + c_2 \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 7 \\ 8 \end{bmatrix} \implies \begin{cases} c_1 + 3c_2 = 7 \\ 2c_1 + 4c_2 = 8 \end{cases}$$
+          Multiply first equation by 2: $2c_1 + 6c_2 = 14$. Subtract from second: $-2c_2 = -6 \implies c_2 = 3$.<br/>
+          Substitute $c_2$: $c_1 + 3(3) = 7 \implies c_1 = -2$.<br/>
+          <strong>Conclusion:</strong> Yes! $\mathbf{b} = -2\mathbf{v}_1 + 3\mathbf{v}_2$. Thus $\mathbf{b} \in \operatorname{span}\{\mathbf{v}_1, \mathbf{v}_2\}$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>
+          Given vectors $\{\mathbf{v}_1, \dots, \mathbf{v}_k\} \subset \mathbb{R}^n$, their <strong>span</strong> is the set of all linear combinations:
+        </p>
+        <div class="formula-box">
+          $$\operatorname{span}\{\mathbf{v}_1, \dots, \mathbf{v}_k\} = \left\{ \sum_{i=1}^k c_i \mathbf{v}_i \;\middle|\; c_i \in \mathbb{R} \right\}$$
+        </div>
+        <p><strong>Subspace Criteria:</strong> The span of any set of vectors in $\mathbb{R}^n$ is always a valid linear subspace $W \subseteq \mathbb{R}^n$ because it contains $\mathbf{0}$ and is closed under addition and scalar multiplication.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Test the span mixer. Click "Make Collinear" to see how the span collapses into a 1D line where reaching general 2D points becomes impossible.</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Span & Linear Combinations Mixer</span>
+            <div class="sim-controls">
+              <button class="sim-btn" id="btn-span-indep">Independent (2D Plane)</button>
+              <button class="sim-btn" id="btn-span-collinear">Collinear (1D Line)</button>
+              <div class="sim-slider-row">
+                <label>c₁:</label><input type="range" id="slider-span-c1" min="-3" max="3" step="0.2" value="1">
+                <label>c₂:</label><input type="range" id="slider-span-c2" min="-3" max="3" step="0.2" value="1">
+              </div>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-span-mix" width="600" height="360"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-span">INDEPENDENT! Span is all of ℝ².</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Robotic Manipulator Reachable Workspace:</strong> A robot arm with two rotational joints can only reach end-effector positions that lie within the span of its kinematic Jacobian column vectors $\mathbf{J}_1, \mathbf{J}_2$. When joints align in singularity, the span collapses in rank, causing the robot to lose a degree of mobility.</p>
+      </div>
+    </article>
+
+    <!-- Topic 2.2 -->
+    <article class="topic-container" id="topic-2-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">2.2</span> Linear Independence & Dependence</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Linear independence answers: <em>Is every vector in your set providing a genuinely new dimension of movement, or is at least one vector redundant?</em>
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Independent:</strong> No vector can be written as a linear combination of the others. Removing any vector shrinks the span.</li>
+          <li><strong>Dependent:</strong> At least one vector is "lazy" and redundant—it already lies in the flat sheet or line spanned by the others. You can walk in a closed loop back to origin without backing up ($c_1\mathbf{v}_1 + \cdots + c_k\mathbf{v}_k = \mathbf{0}$ with non-zero weights).</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Test if vectors $\mathbf{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$ are linearly independent.</p>
+        <div class="example-step">
+          We test $c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 = \mathbf{0}$:<br/>
+          $$c_1 \begin{bmatrix} 1 \\ 2 \end{bmatrix} + c_2 \begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \implies c_1 + 2c_2 = 0 \implies c_1 = -2c_2$$
+          Setting $c_2 = 1$, we get $c_1 = -2$. Notice $-2\mathbf{v}_1 + 1\mathbf{v}_2 = \mathbf{0}$.<br/>
+          Because non-zero coefficients exist ($c_1 = -2, c_2 = 1$), the vectors are <strong>linearly dependent</strong> ($\mathbf{v}_2 = 2\mathbf{v}_1$, redundant duplicate!).
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_k \mathbf{v}_k = \mathbf{0} \implies c_1 = c_2 = \cdots = c_k = 0$$
+        </div>
+        <p>A set of vectors is <strong>linearly independent</strong> if and only if the only solution to the linear combination equaling the zero vector is the trivial solution ($c_i = 0$ for all $i$).</p>
+        <p style="margin-top:0.5rem;"><strong>Matrix Determinant Test:</strong> For $n$ vectors in $\mathbb{R}^n$ arranged as matrix $A = [\mathbf{v}_1 \mid \cdots \mid \mathbf{v}_n]$, the vectors are independent if and only if $\det(A) \ne 0$ (or equivalently, $\operatorname{rank}(A) = n$ or $N(A) = \{\mathbf{0}\}$).</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Collinearity and independence visual readout:</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Dependence & Volume Collapse</span>
+          </div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Set A: v₁ = [1, 0]ᵀ, v₂ = [0, 1]ᵀ → Area = 1.00 → <span style="color:#34d399;font-weight:700;">INDEPENDENT (Basis for ℝ²)</span></div>
+            <div>Set B: v₁ = [1, 2]ᵀ, v₂ = [2, 4]ᵀ → Area = 0.00 → <span style="color:#ef4444;font-weight:700;">DEPENDENT (Trapped on line y = 2x)</span></div>
+            <div style="color:#a855f7;margin-top:0.5rem;">Theorem: Any set of m > n vectors in ℝⁿ is GUARANTEED to be linearly dependent! (Pigeonhole principle of dimensions)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Multicollinearity in Machine Learning & Econometrics:</strong> When two input features in a dataset (e.g. Temperature in Celsius and Fahrenheit) are linearly dependent, the Gram matrix $X^T X$ becomes singular ($\det = 0$), causing ordinary least squares weights $(X^T X)^{-1} X^T \mathbf{y}$ to explode to infinity. Detecting and eliminating dependent features prevents model collapse.</p>
+      </div>
+    </article>
+
+    <!-- Topic 2.3 -->
+    <article class="topic-container" id="topic-2-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">2.3</span> Vector Spaces, Subspaces, Basis & Dimension</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          A <strong>basis</strong> is the minimal set of reference directions needed to uniquely address every point in a space without waste.
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Spanning:</strong> Big enough to reach everywhere in the subspace.</li>
+          <li><strong>Independent:</strong> Small enough to contain zero redundancy.</li>
+          <li><strong>Dimension:</strong> The exact number of vectors in any basis for that space. A line has dimension 1; a flat plane through origin has dimension 2; 3D space has dimension 3.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Show that $\mathcal{B} = \left\{ \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ -1 \end{bmatrix} \right\}$ is a basis for $\mathbb{R}^2$, and find the coordinates of $\mathbf{x} = \begin{bmatrix} 4 \\ 2 \end{bmatrix}$ relative to $\mathcal{B}$.</p>
+        <div class="example-step">
+          <strong>1. Test Basis:</strong> Matrix $B = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} \implies \det(B) = (1)(-1) - (1)(1) = -2 \ne 0$. Independent & spans $\mathbb{R}^2$.<br/>
+          <strong>2. Coordinate Vector $[\mathbf{x}]_{\mathcal{B}}$:</strong> Solve $c_1 \mathbf{b}_1 + c_2 \mathbf{b}_2 = \mathbf{x}$:
+          $$\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} c_1 \\ c_2 \end{bmatrix} = \begin{bmatrix} 4 \\ 2 \end{bmatrix} \implies \begin{cases} c_1 + c_2 = 4 \\ c_1 - c_2 = 2 \end{cases} \implies 2c_1 = 6 \implies c_1 = 3, \; c_2 = 1$$
+          Therefore, $[\mathbf{x}]_{\mathcal{B}} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$. In this new coordinate system, $\mathbf{x}$ is at $(3, 1)$!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>A subset $\mathcal{B} = \{\mathbf{v}_1, \dots, \mathbf{v}_k\}$ of a vector space $V$ is a <strong>basis</strong> if:</p>
+        <ol style="margin-left:1.5rem;line-height:1.7;font-size:0.9rem;">
+          <li>$\mathcal{B}$ is linearly independent.</li>
+          <li>$\operatorname{span}(\mathcal{B}) = V$.</li>
+        </ol>
+        <p style="margin-top:0.5rem;"><strong>Dimension Invariance Theorem:</strong> If a vector space $V$ has a basis of $n$ vectors, then <em>every</em> basis of $V$ has exactly $n$ vectors. This invariant number is $\dim(V)$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Custom coordinate grids: changing basis vectors dynamically tilts and scales the reference grid lines without altering the underlying geometric points.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Basis Change & Coordinate Representation</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Standard Basis: e₁ = [1, 0]ᵀ, e₂ = [0, 1]ᵀ → Coordinates: x = 4.0e₁ + 2.0e₂</div>
+            <div style="color:#38bdf8;">Rotated Basis (45°): b₁ = [1, 1]ᵀ, b₂ = [1, -1]ᵀ → Coordinates [x]_B = [3.0, 1.0]ᵀ</div>
+            <div style="color:#34d399;">Change of Basis Matrix: P_{B←std} = B⁻¹ = [[0.5, 0.5], [0.5, -0.5]]</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>JPEG Image Compression & Fourier/Wavelet Bases:</strong> Instead of storing pixel brightness in the standard pixel basis, images are represented as coordinates relative to a 2D Discrete Cosine Transform (DCT) basis. High-frequency basis coefficients are quantized to zero, achieving 10x compression with virtually zero visible loss.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 3: SYSTEMS OF LINEAR EQUATIONS & ELIMINATION
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch3">
+      <div class="chapter-number-tag">Chapter 3</div>
+      <h2 class="chapter-title">Systems of Linear Equations & Elimination</h2>
+      <p class="chapter-overview">
+        Solving $A\mathbf{x} = \mathbf{b}$ is the computational heart of science. We master Gaussian elimination, echelon forms (REF, RREF), pivot variables, and matrix inverses.
+      </p>
+    </div>
+
+    <!-- Topic 3.1 -->
+    <article class="topic-container" id="topic-3-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">3.1</span> Systems of Equations & Augmented Matrices</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          There are two complementary ways to see a linear system $A\mathbf{x} = \mathbf{b}$ (Gilbert Strang's Row Picture vs Column Picture):
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>The Row Picture:</strong> Each linear equation represents a geometric hyperplane (a line in 2D, a flat plane in 3D). The solution $\mathbf{x}$ is the single point where <em>all</em> hyperplanes simultaneously intersect.</li>
+          <li><strong>The Column Picture:</strong> Rather than intersecting planes, we ask: <em>Can we combine the column vectors of matrix $A$ using weights $x_1, x_2, \dots, x_n$ to reach the target vector $\mathbf{b}$?</em> That is: $x_1 \mathbf{a}_1 + x_2 \mathbf{a}_2 + \cdots + x_n \mathbf{a}_n = \mathbf{b}$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Represent and analyze the system:</p>
+        $$\begin{cases} 2x - y = 1 \\ x + y = 5 \end{cases}$$
+        <div class="example-step">
+          <strong>1. Matrix Form:</strong> $\begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 1 \\ 5 \end{bmatrix}$.<br/>
+          <strong>2. Augmented Matrix $[A \mid \mathbf{b}]$:</strong> $\left[\begin{array}{cc|c} 2 & -1 & 1 \\ 1 & 1 & 5 \end{array}\right]$.<br/>
+          <strong>3. Row Picture:</strong> Line 1 ($y = 2x - 1$) and Line 2 ($y = -x + 5$) intersect at point $(2, 3)$.<br/>
+          <strong>4. Column Picture:</strong> $2 \begin{bmatrix} 2 \\ 1 \end{bmatrix} + 3 \begin{bmatrix} -1 \\ 1 \end{bmatrix} = \begin{bmatrix} 4 \\ 2 \end{bmatrix} + \begin{bmatrix} -3 \\ 3 \end{bmatrix} = \begin{bmatrix} 1 \\ 5 \end{bmatrix}$. Perfect linear combination!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>A system of $m$ linear equations in $n$ variables is compactly written as $A\mathbf{x} = \mathbf{b}$, where $A \in \mathbb{R}^{m \times n}$, $\mathbf{x} \in \mathbb{R}^n$, $\mathbf{b} \in \mathbb{R}^m$.</p>
+        <p style="margin-top:0.5rem;"><strong>The Three Solvability Cases:</strong></p>
+        <ol style="margin-left:1.5rem;line-height:1.7;font-size:0.9rem;">
+          <li><strong>Unique Solution:</strong> Determinant $\det(A) \ne 0$ (full rank). Lines/planes intersect at exactly 1 point.</li>
+          <li><strong>Infinitely Many Solutions:</strong> Dependent equations, at least one free variable. Hyperplanes intersect along a line or plane.</li>
+          <li><strong>No Solution (Inconsistent):</strong> Parallel planes that never meet ($0 = 1$), $\mathbf{b} \notin C(A)$.</li>
+        </ol>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Intersection Geometries (Unique, Parallel, Coincident)</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div style="color:#38bdf8;">Case 1 (Unique Solution): 2x - y = 1 and x + y = 5 → Intersect at point (2.0, 3.0)</div>
+            <div style="color:#ef4444;">Case 2 (Inconsistent / Parallel): 2x - y = 1 and 2x - y = 7 → Slopes equal, intercepts differ → 0 solutions!</div>
+            <div style="color:#34d399;">Case 3 (Dependent / Coincident): 2x - y = 1 and 4x - 2y = 2 → Same line repeated → ∞ solutions!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Traffic Flow & Supply Chain Optimization:</strong> Civil engineers model vehicle flow through city intersections as mass-conservation linear equations at every traffic node: $\sum \text{Inflow} = \sum \text{Outflow}$. Solved continuously to adjust green light schedules across urban transit networks.</p>
+      </div>
+    </article>
+
+    <!-- Topic 3.2 -->
+    <article class="topic-container" id="topic-3-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">3.2</span> Gaussian Elimination, REF & RREF</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          A tangled web of simultaneous equations is like a knotted rope. <strong>Forward elimination</strong> methodically untangles one variable at a time from top to bottom, creating an upper-triangular structure (Row Echelon Form). <strong>Back substitution</strong> then solves the cleanest variable first, propagating answers upwards to produce the diagonal identity matrix (Reduced Row Echelon Form).
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Solve the $3 \times 3$ system using Elementary Row Operations:</p>
+        <div class="matrix-container">
+          $$\begin{bmatrix} 2 & 1 & -1 & | & 8 \\ -3 & -1 & 2 & | & -11 \\ -2 & 1 & 2 & | & -3 \end{bmatrix} \xrightarrow{R_2 + 1.5R_1} \begin{bmatrix} 2 & 1 & -1 & | & 8 \\ 0 & 0.5 & 0.5 & | & 1 \\ 0 & 2 & 1 & | & 5 \end{bmatrix} \xrightarrow{R_3 - 4R_2} \begin{bmatrix} 2 & 1 & -1 & | & 8 \\ 0 & 0.5 & 0.5 & | & 1 \\ 0 & 0 & -1 & | & 1 \end{bmatrix}$$
+        </div>
+        <p>From $R_3$: $-z = 1 \implies z = -1$. Substituting upwards yields $y = 3$ and $x = 2$.</p>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p><strong>Three Elementary Row Operations (Preserve Solution Set):</strong></p>
+        <ol style="margin-left:1.5rem;line-height:1.7;font-size:0.9rem;">
+          <li>$R_i \leftrightarrow R_j$: Swap two rows.</li>
+          <li>$R_i \leftarrow k R_i$ ($k \ne 0$): Scale a row by a non-zero scalar.</li>
+          <li>$R_i \leftarrow R_i + k R_j$: Add a scalar multiple of one row to another.</li>
+        </ol>
+        <p style="margin-top:0.75rem;"><strong>Rank Theorem:</strong> A system $A\mathbf{x} = \mathbf{b}$ is consistent if and only if $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}])$. If $\operatorname{rank}(A) = n$ (number of variables), the solution is unique.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Step through each row operation of Gaussian Elimination interactively to watch pivot selection, clearing entries below pivots, and backwards substitution to RREF.</p>
+        
+        <div class="interactive-simulation-box" id="gauss-elim-container">
+          <div class="sim-toolbar">
+            <div>
+              <span class="sim-title" id="gauss-step-title">Initial Augmented Matrix [A | b]</span>
+              <span style="font-size:0.8rem;color:var(--text-secondary);" id="gauss-step-desc">System of 3 equations</span>
+            </div>
+            <div class="sim-controls">
+              <span class="sim-btn" id="gauss-op-badge" style="background:var(--accent);color:#000;font-weight:700;">Start</span>
+              <button class="sim-btn" id="btn-gauss-prev">← Previous</button>
+              <button class="sim-btn" id="btn-gauss-next">Next Step →</button>
+              <button class="sim-btn" id="btn-gauss-reset">Reset</button>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;padding:1.5rem 0;" id="gauss-matrix-display">
+            <!-- Dynamic Matrix Display -->
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Electrical Circuit Simulation (SPICE):</strong> Kirchhoff's Current and Voltage Laws at every circuit node form linear systems $G\mathbf{v} = \mathbf{i}$ with thousands of nodes. High-performance sparse Gaussian elimination engines solve these systems in real-time to simulate chip designs.</p>
+      </div>
+    </article>
+
+    <!-- Topic 3.3 -->
+    <article class="topic-container" id="topic-3-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">3.3</span> Matrix Inverses & Gauss-Jordan Inversion</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          If a matrix transformation $A$ scrambles, rotates, or shears space, the inverse matrix $A^{-1}$ is the exact "undo" button. Applying $A^{-1}$ after $A$ restores every point in the universe back to where it originally started ($A^{-1}A = I$).
+        </p>
+        <p style="margin-top:0.5rem;">
+          When is a matrix <strong>non-invertible (singular)</strong>? When it squashes space into a lower dimension (e.g. flattening a 2D plane onto a 1D line)! Once an entire dimension is crushed to zero, information is lost forever—you cannot resurrect a 2D plane from a 1D line.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the inverse of $A = \begin{bmatrix} 2 & 1 \\ 5 & 3 \end{bmatrix}$ using the Gauss-Jordan augmented algorithm $[A \mid I] \to [I \mid A^{-1}]$.</p>
+        <div class="example-step">
+          $$\left[\begin{array}{cc|cc} 2 & 1 & 1 & 0 \\ 5 & 3 & 0 & 1 \end{array}\right] \xrightarrow{R_2 - 2.5R_1} \left[\begin{array}{cc|cc} 2 & 1 & 1 & 0 \\ 0 & 0.5 & -2.5 & 1 \end{array}\right] \xrightarrow{R_2 \times 2} \left[\begin{array}{cc|cc} 2 & 1 & 1 & 0 \\ 0 & 1 & -5 & 2 \end{array}\right]$$
+          $$\xrightarrow{R_1 - R_2} \left[\begin{array}{cc|cc} 2 & 0 & 6 & -2 \\ 0 & 1 & -5 & 2 \end{array}\right] \xrightarrow{R_1 / 2} \left[\begin{array}{cc|cc} 1 & 0 & 3 & -1 \\ 0 & 1 & -5 & 2 \end{array}\right]$$
+          <strong>Result:</strong> $A^{-1} = \begin{bmatrix} 3 & -1 \\ -5 & 2 \end{bmatrix}$.<br/>
+          <strong>Check:</strong> $A A^{-1} = \begin{bmatrix} 2 & 1 \\ 5 & 3 \end{bmatrix}\begin{bmatrix} 3 & -1 \\ -5 & 2 \end{bmatrix} = \begin{bmatrix} 6-5 & -2+2 \\ 15-15 & -5+6 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ ✓
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>An $n \times n$ square matrix $A$ is invertible if there exists $B$ such that $AB = BA = I_n$. We denote $B = A^{-1}$.</p>
+        <div class="formula-box">
+          $$\text{For } 2 \times 2: \begin{bmatrix} a & b \\ c & d \end{bmatrix}^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}, \quad \text{provided } ad - bc \ne 0$$
+        </div>
+        <p><strong>Properties of Inverses:</strong></p>
+        <ul style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li>Reverse Order Law for Products: $(AB)^{-1} = B^{-1}A^{-1}$</li>
+          <li>Transpose Law: $(A^T)^{-1} = (A^{-1})^T$</li>
+          <li>Solving Systems: If $A$ is invertible, $A\mathbf{x} = \mathbf{b} \implies \mathbf{x} = A^{-1}\mathbf{b}$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Matrix Invertibility Criteria Check</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Matrix A: [[2, 1], [5, 3]] → det(A) = 6 - 5 = 1.00 ≠ 0 → <span style="color:#34d399;font-weight:700;">INVERTIBLE (Full Rank 2)</span></div>
+            <div style="color:#38bdf8;">Inverse A⁻¹: [[3, -1], [-5, 2]]</div>
+            <div style="color:#ef4444;margin-top:0.5rem;">Matrix B: [[1, 2], [2, 4]] → det(B) = 4 - 4 = 0.00 → SINGULAR (Non-invertible, squashes 2D space onto line y = 2x)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Cryptography (Hill Cipher) & Image Restoration:</strong> In Classical Hill Cipher cryptography, message blocks $\mathbf{p}$ are encrypted via $\mathbf{c} = K\mathbf{p} \pmod{26}$. Decryption requires computing the modular inverse matrix $K^{-1}$ to recover the plaintext: $\mathbf{p} = K^{-1}\mathbf{c} \pmod{26}$. In computational photography, deconvolution filters invert optical motion blur matrices.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 4: MATRICES AS LINEAR TRANSFORMATIONS
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch4">
+      <div class="chapter-number-tag">Chapter 4</div>
+      <h2 class="chapter-title">Matrices as Linear Transformations</h2>
+      <p class="chapter-overview">
+        Stop seeing matrices as boring grids of numbers! A matrix is a dynamic geometric function that moves, rotates, shears, stretches, or compresses space while preserving straight lines and the origin.
+      </p>
+    </div>
+
+    <!-- Topic 4.1 -->
+    <article class="topic-container" id="topic-4-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">4.1</span> Linear Transformations & Matrix Representation</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          A transformation $T$ is <em>linear</em> if it preserves the fabric of space: grid lines must remain parallel and evenly spaced, and the origin must never move ($T(\mathbf{0}) = \mathbf{0}$).
+        </p>
+        <p style="margin-top:0.5rem;">
+          To completely determine where <em>any</em> vector in the entire universe goes, you only need to track where the standard basis vectors land! The columns of matrix $A$ are simply the destination coordinates of basis vectors $\mathbf{i} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and $\mathbf{j} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the matrix that rotates every point counterclockwise by $\theta = 90^\circ$ and then shears horizontally by factor $k = 1$.</p>
+        <div class="example-step">
+          Where does $\mathbf{i} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ land under $90^\circ$ rotation? At $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$.<br/>
+          Where does $\mathbf{j} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ land under $90^\circ$ rotation? At $\begin{bmatrix} -1 \\ 0 \end{bmatrix}$.<br/>
+          $$R_{90^\circ} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}, \quad \text{Shear: } S = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$
+          Composite transformation $A = S R_{90^\circ} = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} = \begin{bmatrix} 1 & -1 \\ 1 & 0 \end{bmatrix}$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>A mapping $T: \mathbb{R}^n \to \mathbb{R}^m$ is a linear transformation if for all $\mathbf{u}, \mathbf{v} \in \mathbb{R}^n$ and $c \in \mathbb{R}$:</p>
+        <div class="formula-box">
+          $$T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}) \quad \text{and} \quad T(c\mathbf{u}) = c T(\mathbf{u})$$
+        </div>
+        <p>Every linear transformation $T: \mathbb{R}^n \to \mathbb{R}^m$ is uniquely represented by an $m \times n$ matrix:</p>
+        <div class="formula-box">
+          $$A = \begin{bmatrix} T(\mathbf{e}_1) & T(\mathbf{e}_2) & \cdots & T(\mathbf{e}_n) \end{bmatrix}$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Play with the transformation playground below! Select presets (Rotation, Shear, Reflection, Singular) or adjust the matrix entries $[a, b; c, d]$ to watch the coordinate grid warp and the determinant area adapt.</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">2D Transformation Grid Playground</span>
+            <div class="sim-controls">
+              <button class="sim-btn" id="btn-tf-id">Identity</button>
+              <button class="sim-btn" id="btn-tf-rot">Rotate 45°</button>
+              <button class="sim-btn" id="btn-tf-shear">Shear</button>
+              <button class="sim-btn" id="btn-tf-refl">Reflection</button>
+              <button class="sim-btn" id="btn-tf-sing">Singular (Det=0)</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;justify-content:center;">
+            <div class="sim-slider-row"><label>a:</label><input type="range" id="slider-tf-a" min="-2" max="2" step="0.1" value="1"></div>
+            <div class="sim-slider-row"><label>b:</label><input type="range" id="slider-tf-b" min="-2" max="2" step="0.1" value="0"></div>
+            <div class="sim-slider-row"><label>c:</label><input type="range" id="slider-tf-c" min="-2" max="2" step="0.1" value="0"></div>
+            <div class="sim-slider-row"><label>d:</label><input type="range" id="slider-tf-d" min="-2" max="2" step="0.1" value="1"></div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-transform-2d" width="600" height="380"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-tf-det">det(A) = 1.00 (Area scaling factor)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Computer Graphics & Video Game Engines (OpenGL, Unity, Unreal):</strong> 3D game engines represent camera view transformations, character rotation, and projection matrices as $4 \times 4$ homogeneous transformation matrices multiplied thousands of times per frame inside the GPU shader pipeline.</p>
+      </div>
+    </article>
+
+    <!-- Topic 4.2 -->
+    <article class="topic-container" id="topic-4-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">4.2</span> Matrix Multiplication as Composition of Transformations</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          The classic row-by-column recipe for matrix multiplication seems arbitrary until you see its geometric meaning: <strong>multiplying matrices corresponds to chaining transformations together in sequence!</strong>
+        </p>
+        <p style="margin-top:0.5rem;">
+          $(AB)\mathbf{x} = A(B\mathbf{x})$ means: <em>first</em> apply transformation $B$, and <em>then</em> apply transformation $A$ to the result.
+        </p>
+        <p style="margin-top:0.5rem;color:#f43f5e;font-weight:600;">
+          ⚠️ Crucial Insight: Why is $AB \ne BA$ (Non-commutative)?<br/>
+          Because order of operations fundamentally matters in geometry! Rotating $90^\circ$ and then shearing creates a completely different shape than shearing first and then rotating $90^\circ$.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Let $A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$ (Rotate $90^\circ$) and $B = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$ (Horizontal Shear).</p>
+        <div class="example-step">
+          $$AB = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} (0)(1)+(-1)(0) & (0)(1)+(-1)(1) \\ (1)(1)+(0)(0) & (1)(1)+(0)(1) \end{bmatrix} = \begin{bmatrix} 0 & -1 \\ 1 & 1 \end{bmatrix}$$
+          $$BA = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} = \begin{bmatrix} (1)(0)+(1)(1) & (1)(-1)+(1)(0) \\ (0)(0)+(1)(1) & (0)(-1)+(1)(0) \end{bmatrix} = \begin{bmatrix} 1 & -1 \\ 1 & 0 \end{bmatrix}$$
+          Clearly $AB \ne BA$! Testing on vector $\mathbf{x} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$:<br/>
+          $(AB)\mathbf{x} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, whereas $(BA)\mathbf{x} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$. Different final locations!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>If $T_B: \mathbb{R}^p \to \mathbb{R}^n$ has matrix $B$, and $T_A: \mathbb{R}^n \to \mathbb{R}^m$ has matrix $A$, the composite function $(T_A \circ T_B): \mathbb{R}^p \to \mathbb{R}^m$ is represented by the $m \times p$ product matrix $C = AB$, whose $(i, j)$ entry is the dot product of Row $i$ of $A$ with Column $j$ of $B$:</p>
+        <div class="formula-box">
+          $$c_{ij} = \sum_{k=1}^n a_{ik} b_{kj} = (\text{Row}_i(A)) \cdot (\text{Col}_j(B))$$
+        </div>
+        <p><strong>Algebraic Laws:</strong> Associative $(AB)C = A(BC)$, Distributive $A(B+C) = AB + AC$, Transpose Reverse Law $(AB)^T = B^T A^T$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Composition Sequence & Non-Commutativity Comparison</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Initial Vector x = [1, 0]ᵀ</div>
+            <div style="color:#38bdf8;">Sequence AB (Shear B first, then Rotate A): x → Bx = [1, 0]ᵀ → A(Bx) = [0, 1]ᵀ</div>
+            <div style="color:#fbbf24;">Sequence BA (Rotate A first, then Shear B): x → Ax = [0, 1]ᵀ → B(Ax) = [1, 1]ᵀ</div>
+            <div style="color:#f43f5e;font-weight:700;">Conclusion: AB ≠ BA (Rotations and shears do not commute in space!)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Deep Neural Network Layer Stacking:</strong> A feedforward deep neural network is literally a composition of affine matrix transformations interleaved with non-linear activation functions: $\mathbf{y} = W_L \sigma(W_{L-1} \sigma(\cdots \sigma(W_1 \mathbf{x} + \mathbf{b}_1) \cdots) + \mathbf{b}_L)$. Matrix multiplication is what GPUs compute billions of times per second.</p>
+      </div>
+    </article>
+
+    <!-- Topic 4.3 -->
+    <article class="topic-container" id="topic-4-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">4.3</span> The Four Fundamental Subspaces & Rank-Nullity Theorem</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Professor Gilbert Strang calls this <strong>"The Big Picture of Linear Algebra."</strong> Every $m \times n$ matrix $A$ acts as a bridge carving its domain $\mathbb{R}^n$ and codomain $\mathbb{R}^m$ into four mutually orthogonal subspaces:
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Row Space $C(A^T) \subset \mathbb{R}^n$:</strong> All active input combinations that $A$ moves and sends into the output space.</li>
+          <li><strong>Nullspace $N(A) \subset \mathbb{R}^n$:</strong> All "invisible" inputs that $A$ crushes completely to zero ($A\mathbf{x} = \mathbf{0}$). Notice $N(A) \perp C(A^T)$!</li>
+          <li><strong>Column Space $C(A) \subset \mathbb{R}^m$:</strong> The reachable outputs (all possible vectors $\mathbf{b}$ for which $A\mathbf{x}=\mathbf{b}$ has a solution).</li>
+          <li><strong>Left Nullspace $N(A^T) \subset \mathbb{R}^m$:</strong> The outputs that are impossible to reach ($A^T\mathbf{y} = \mathbf{0}$), orthogonal complement $N(A^T) \perp C(A)$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the dimensions and bases of the 4 subspaces for $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ ($2 \times 2$, rank $r = 1$).</p>
+        <div class="example-step">
+          <strong>1. Row Space $C(A^T)$:</strong> Spanned by pivot row $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\dim = 1$.<br/>
+          <strong>2. Nullspace $N(A)$:</strong> Solve $x_1 + 2x_2 = 0 \implies x_1 = -2x_2 \implies \mathbf{v}_{\text{null}} = \begin{bmatrix} -2 \\ 1 \end{bmatrix}$, $\dim = 1$.<br/>
+          Notice orthogonal check: $\begin{bmatrix} 1 \\ 2 \end{bmatrix} \cdot \begin{bmatrix} -2 \\ 1 \end{bmatrix} = -2 + 2 = 0$! Perpendicular lines in $\mathbb{R}^2$.<br/>
+          <strong>3. Column Space $C(A)$:</strong> Spanned by pivot column $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $\dim = 1$.<br/>
+          <strong>4. Left Nullspace $N(A^T)$:</strong> Spanned by $\begin{bmatrix} -2 \\ 1 \end{bmatrix}$, $\dim = 2 - 1 = 1$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$\dim(C(A)) = \dim(C(A^T)) = r \quad (\text{Rank})$$
+          $$\dim(N(A)) = n - r \quad (\text{Nullity})$$
+          $$\dim(N(A^T)) = m - r \quad (\text{Left Nullity})$$
+        </div>
+        <p><strong>Fundamental Theorem of Linear Algebra (Gilbert Strang):</strong></p>
+        <div class="formula-box">
+          $$C(A^T) \oplus N(A) = \mathbb{R}^n \quad \text{and} \quad C(A) \oplus N(A^T) = \mathbb{R}^m$$
+        </div>
+        <p><strong>Rank-Nullity Theorem:</strong> For any linear mapping $T: V \to W$, $\operatorname{rank}(T) + \operatorname{nullity}(T) = \dim(V)$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Strang's 4-Subspace Orthogonal Decomposition</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div style="color:#38bdf8;">Domain ℝⁿ (n=2): Row Space C(Aᵀ) [Dim 1] ⟂ Nullspace N(A) [Dim 1]</div>
+            <div>Any input vector splits uniquely: x = x_row + x_null</div>
+            <div style="color:#34d399;">Mapping: A·x = A(x_row + x_null) = A·x_row + 0 = A·x_row ∈ C(A)</div>
+            <div style="color:#fbbf24;">Codomain ℝᵐ (m=2): Column Space C(A) [Dim 1] ⟂ Left Nullspace N(Aᵀ) [Dim 1]</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Control Theory (Controllability & Observability):</strong> In autonomous driving and aerospace systems $\dot{\mathbf{x}} = A\mathbf{x} + B\mathbf{u}$, Kalman's controllability matrix $\mathcal{C} = [B \mid AB \mid \cdots \mid A^{n-1}B]$ must have full row rank $n$. If $\operatorname{nullity}(\mathcal{C}) > 0$, there exist physical directions (states) that the autopilot thrusters can never control.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 5: DETERMINANTS
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch5">
+      <div class="chapter-number-tag">Chapter 5</div>
+      <h2 class="chapter-title">Determinants</h2>
+      <p class="chapter-overview">
+        The determinant is a single number that measures how much a linear transformation multiplies areas or volumes. If $\det(A) = 0$, space is crushed flat into a lower dimension, rendering the matrix irreversible.
+      </p>
+    </div>
+
+    <!-- Topic 5.1 -->
+    <article class="topic-container" id="topic-5-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">5.1</span> Geometry of Determinants (Signed Area/Volume & Orientation Flip)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Take a unit square with area 1. Apply matrix $A$. The unit square stretches into a parallelogram. <strong>The determinant $\det(A)$ is exactly the factor by which area changes!</strong>
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li>$\det(A) = 3$: Any region's area triples after transformation.</li>
+          <li>$\det(A) = 1$: Area-preserving transformation (e.g. pure rotation or pure shear).</li>
+          <li>$\det(A) < 0$: Negative determinant indicates an <strong>orientation flip</strong> (like looking in a mirror or flipping a sheet of paper over).</li>
+          <li>$\det(A) = 0$: Space is squashed flat into zero volume (loss of dimension). Invertibility is impossible!</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute the determinant of $A = \begin{bmatrix} 3 & 1 \\ 2 & 4 \end{bmatrix}$ and interpret geometrically.</p>
+        <div class="example-step">
+          $$\det(A) = ad - bc = (3)(4) - (1)(2) = 12 - 2 = 10$$
+          The unit square spanned by $\mathbf{e}_1 = (1, 0)$ and $\mathbf{e}_2 = (0, 1)$ transforms into a parallelogram spanned by $\mathbf{a}_1 = (3, 2)$ and $\mathbf{a}_2 = (1, 4)$. The area of this parallelogram is exactly 10 square units.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>The determinant is the unique multilinear, alternating function $\det: \mathbb{R}^{n \times n} \to \mathbb{R}$ satisfying $\det(I_n) = 1$.</p>
+        <div class="formula-box">
+          $$\det(AB) = \det(A) \det(B), \quad \det(A^{-1}) = \frac{1}{\det(A)}, \quad \det(A^T) = \det(A)$$
+        </div>
+        <p>For an $n \times n$ matrix, $\det(c A) = c^n \det(A)$. In 3D, $\det(A)$ measures the signed volume of the parallelepiped spanned by its three columns.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Signed Area & Orientation Visualizer</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Matrix A = [[3, 1], [2, 4]] → det(A) = 10.00 → <span style="color:#34d399;font-weight:700;">Positive Orientation (Counter-clockwise preserved)</span></div>
+            <div>Reflected Matrix B = [[-1, 0], [0, 1]] → det(B) = -1.00 → <span style="color:#f43f5e;font-weight:700;">Orientation Flipped! (Mirror reflection)</span></div>
+            <div>Flattening Matrix C = [[2, 4], [1, 2]] → det(C) = 0.00 → <span style="color:#ef4444;font-weight:700;">Zero Area! (Squashed onto line y = 0.5x)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Multivariable Calculus (Jacobian Change of Variables) & Probability Theory:</strong> When changing variables in multivariable integration (e.g. Cartesian to Polar $(r, \theta)$), the Jacobian determinant $\det(J) = r$ accounts for the local area stretching factor $dx\,dy = r\,dr\,d\theta$. In normalizing flows (generative AI models like diffusion), log-determinants of Jacobians track probability density transformations.</p>
+      </div>
+    </article>
+
+    <!-- Topic 5.2 -->
+    <article class="topic-container" id="topic-5-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">5.2</span> Invertibility Criteria & Cramer's Rule</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          <strong>Cramer's Rule</strong> gives an exact geometric formula for solving $A\mathbf{x} = \mathbf{b}$ as a ratio of volumes! Each unknown $x_i$ equals the volume of the box formed by replacing Column $i$ with vector $\mathbf{b}$, divided by the total volume $\det(A)$.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Solve $\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = \begin{bmatrix} 5 \\ 5 \end{bmatrix}$ using Cramer's Rule.</p>
+        <div class="example-step">
+          $$\det(A) = (2)(3) - (1)(1) = 5$$
+          $$\det(A_1(\mathbf{b})) = \det\begin{bmatrix} 5 & 1 \\ 5 & 3 \end{bmatrix} = (5)(3) - (1)(5) = 15 - 5 = 10 \implies x_1 = \frac{10}{5} = 2$$
+          $$\det(A_2(\mathbf{b})) = \det\begin{bmatrix} 2 & 5 \\ 1 & 5 \end{bmatrix} = (2)(5) - (5)(1) = 10 - 5 = 5 \implies x_2 = \frac{5}{5} = 1$$
+          Solution: $(x_1, x_2) = (2, 1)$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$x_i = \frac{\det(A_i(\mathbf{b}))}{\det(A)}, \quad \text{where } A_i(\mathbf{b}) \text{ replaces column } i \text{ with } \mathbf{b}$$
+        </div>
+        <p><strong>The Invertible Matrix Theorem (Summary of Equivalences):</strong> For an $n \times n$ matrix $A$, the following statements are all logically equivalent:</p>
+        <ul style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li>$A$ is invertible ($A^{-1}$ exists).</li>
+          <li>$\det(A) \ne 0$.</li>
+          <li>$\operatorname{rank}(A) = n$ (Full rank).</li>
+          <li>The columns of $A$ are linearly independent and form a basis for $\mathbb{R}^n$.</li>
+          <li>$N(A) = \{\mathbf{0}\}$ (Nullspace contains only the zero vector).</li>
+          <li>$\lambda = 0$ is not an eigenvalue of $A$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Cramer's Rule Volume Ratio Readout</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Base Parallelogram Area det(A) = 5.00</div>
+            <div style="color:#38bdf8;">Modified Area det(A₁(b)) = 10.00 → x₁ = 10 / 5 = 2.00</div>
+            <div style="color:#fbbf24;">Modified Area det(A₂(b)) = 5.00 → x₂ = 5 / 5 = 1.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Sensitivity & Perturbation Analysis in Macroeconomics:</strong> In input-output Leontief economic models, Cramer's rule allows economists to calculate the exact symbolic derivative of individual sector outputs with respect to policy shocks without reinverting massive economic matrices.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 6: ORTHOGONALITY, PROJECTIONS & LEAST SQUARES
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch6">
+      <div class="chapter-number-tag">Chapter 6</div>
+      <h2 class="chapter-title">Orthogonality, Projections & Least Squares</h2>
+      <p class="chapter-overview">
+        When an overdetermined system $A\mathbf{x} = \mathbf{b}$ has no exact solution, how do we find the best possible approximation? By orthogonally projecting $\mathbf{b}$ onto the column space of $A$—the foundation of all linear regression.
+      </p>
+    </div>
+
+    <!-- Topic 6.1 -->
+    <article class="topic-container" id="topic-6-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">6.1</span> Orthogonal Complements & Subspace Projections</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          If you are standing on a flat field and want to reach a blimp in the sky, what is the closest point on the ground? It is the point directly beneath the blimp—where the line from the blimp to the ground hits at a <strong>strictly perpendicular ($90^\circ$) angle</strong>.
+        </p>
+        <p style="margin-top:0.5rem;">
+          Any non-perpendicular drop would be a longer diagonal hypotenuse. Thus, orthogonal projection guarantees the <strong>minimum possible error distance</strong>.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the projection matrix $P$ onto the line spanned by $\mathbf{a} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, and project $\mathbf{b} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$.</p>
+        <div class="example-step">
+          $$P = \frac{\mathbf{a} \mathbf{a}^T}{\mathbf{a}^T \mathbf{a}} = \frac{1}{1^2 + 2^2} \begin{bmatrix} 1 \\ 2 \end{bmatrix}\begin{bmatrix} 1 & 2 \end{bmatrix} = \frac{1}{5} \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix} = \begin{bmatrix} 0.2 & 0.4 \\ 0.4 & 0.8 \end{bmatrix}$$
+          $$\mathbf{p} = P\mathbf{b} = \begin{bmatrix} 0.2 & 0.4 \\ 0.4 & 0.8 \end{bmatrix}\begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 0.6 + 1.6 \\ 1.2 + 3.2 \end{bmatrix} = \begin{bmatrix} 2.2 \\ 4.4 \end{bmatrix}$$
+          Error vector: $\mathbf{e} = \mathbf{b} - \mathbf{p} = \begin{bmatrix} 3 - 2.2 \\ 4 - 4.4 \end{bmatrix} = \begin{bmatrix} 0.8 \\ -0.4 \end{bmatrix}$.<br/>
+          Check orthogonality: $\mathbf{a} \cdot \mathbf{e} = (1)(0.8) + (2)(-0.4) = 0.8 - 0.8 = 0$! Exactly perpendicular.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>For any subspace $W = C(A)$, the projection matrix $P$ onto $W$ satisfies:</p>
+        <div class="formula-box">
+          $$P = A (A^T A)^{-1} A^T$$
+        </div>
+        <p><strong>Two Defining Properties of Any Orthogonal Projector:</strong></p>
+        <ul style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>Idempotent:</strong> $P^2 = P$ (Projecting twice changes nothing—the shadow of a shadow is itself).</li>
+          <li><strong>Symmetric:</strong> $P^T = P$ (Orthogonal projection onto $W$ along $W^\perp$).</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Orthogonal Projection & Error Decomposition</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Original vector b: [3.0, 4.0]ᵀ</div>
+            <div style="color:#38bdf8;">Projected vector p: [2.2, 4.4]ᵀ (Lies strictly on line a)</div>
+            <div style="color:#ef4444;">Perpendicular error e: [0.8, -0.4]ᵀ</div>
+            <div style="color:#34d399;">Orthogonality check: a · e = 0.00 (Strictly minimum distance!)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Audio Noise Cancellation & Signal Denoising:</strong> In active noise-cancelling headphones, ambient noise signals are orthogonally projected onto the acoustic transfer function subspace and subtracted in real-time, leaving behind the pristine vocal track.</p>
+      </div>
+    </article>
+
+    <!-- Topic 6.2 -->
+    <article class="topic-container" id="topic-6-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">6.2</span> The Gram-Schmidt Process & QR Factorization</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Working with crooked, non-perpendicular coordinate axes is computationally painful. The <strong>Gram-Schmidt process</strong> takes any arbitrary set of independent vectors and straightens them one by one into an <strong>orthonormal basis</strong> ($90^\circ$ to each other, unit length 1).
+        </p>
+        <p style="margin-top:0.5rem;">
+          Keep vector 1. For vector 2, subtract its projection along vector 1, leaving only the perpendicular part. Repeat for vector 3, and normalize!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Orthogonalize $\mathbf{a}_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$ and $\mathbf{a}_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$.</p>
+        <div class="example-step">
+          <strong>Step 1:</strong> $\mathbf{u}_1 = \mathbf{a}_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, unit vector $\mathbf{q}_1 = \frac{\mathbf{u}_1}{\|\mathbf{u}_1\|} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$.<br/>
+          <strong>Step 2:</strong> Subtract projection of $\mathbf{a}_2$ onto $\mathbf{q}_1$:<br/>
+          $$\mathbf{u}_2 = \mathbf{a}_2 - (\mathbf{a}_2 \cdot \mathbf{q}_1)\mathbf{q}_1 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} - \left(\frac{1}{\sqrt{2}}\right)\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix} - \begin{bmatrix} 0.5 \\ 0.5 \\ 0 \end{bmatrix} = \begin{bmatrix} 0.5 \\ -0.5 \\ 1 \end{bmatrix}$$
+          Normalize: $\|\mathbf{u}_2\| = \sqrt{0.25 + 0.25 + 1} = \sqrt{1.5} = \sqrt{6}/2$.<br/>
+          $$\mathbf{q}_2 = \frac{1}{\sqrt{6}}\begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}$$
+          $\mathbf{q}_1$ and $\mathbf{q}_2$ form an orthonormal basis: $\mathbf{q}_1 \cdot \mathbf{q}_2 = 1 - 1 + 0 = 0$!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>Every matrix $A$ with linearly independent columns factorizes into:</p>
+        <div class="formula-box">
+          $$A = Q R$$
+        </div>
+        <p>where $Q$ has orthonormal columns ($Q^T Q = I$) and $R$ is upper-triangular and invertible ($r_{ij} = \mathbf{q}_i^T \mathbf{a}_j$).</p>
+        <p><strong>QR for Least Squares:</strong> Solving $A\mathbf{x} = \mathbf{b}$ becomes trivial: $QR\mathbf{x} = \mathbf{b} \implies R\mathbf{x} = Q^T\mathbf{b}$, solved by simple back-substitution without inverting $A^TA$!</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Gram-Schmidt Orthonormalization Flow</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Input a₁ = [1, 1, 0]ᵀ, a₂ = [1, 0, 1]ᵀ (Angle = 60°, Not orthogonal)</div>
+            <div style="color:#38bdf8;">Step 1: q₁ = [0.707, 0.707, 0.000]ᵀ (Length = 1.000)</div>
+            <div style="color:#fbbf24;">Step 2: Subtracted parallel projection (a₂·q₁)q₁</div>
+            <div style="color:#34d399;">Step 3: q₂ = [0.408, -0.408, 0.816]ᵀ (q₁ ⊥ q₂, Inner Product = 0.0000)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>The QR Algorithm for Numerical Eigenvalues:</strong> Almost all commercial mathematical software (MATLAB, LAPACK, NumPy) calculates matrix eigenvalues by iteratively applying the QR decomposition: $A_k = Q_k R_k \to A_{k+1} = R_k Q_k$. Within dozens of iterations, $A_k$ converges to Schur form, revealing all eigenvalues along the diagonal.</p>
+      </div>
+    </article>
+
+    <!-- Topic 6.3 -->
+    <article class="topic-container" id="topic-6-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">6.3</span> Least Squares Approximation & Linear Regression</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          In experimental data, noisy points rarely fall onto a single line. The equation $A\mathbf{x} = \mathbf{b}$ has <em>no solution</em> because $\mathbf{b}$ sits outside the subspace spanned by the columns of $A$.
+        </p>
+        <p style="margin-top:0.5rem;">
+          The closest reachable point in the column space is the <strong>orthogonal projection</strong> $\mathbf{p} = A\hat{\mathbf{x}}$. The error vector $\mathbf{e} = \mathbf{b} - A\hat{\mathbf{x}}$ is strictly perpendicular to every column of $A$, minimizing the sum of squared vertical errors!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Fit a line $y = mx + c$ to three data points: $(1, 1), (2, 2), (3, 2)$.</p>
+        <div class="example-step">
+          System $A\mathbf{x} = \mathbf{b}$:
+          $$\begin{bmatrix} 1 & 1 \\ 2 & 1 \\ 3 & 1 \end{bmatrix} \begin{bmatrix} m \\ c \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix}$$
+          Compute Normal Equations $A^T A \hat{\mathbf{x}} = A^T \mathbf{b}$:
+          $$A^T A = \begin{bmatrix} 1 & 2 & 3 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 2 & 1 \\ 3 & 1 \end{bmatrix} = \begin{bmatrix} 14 & 6 \\ 6 & 3 \end{bmatrix}$$
+          $$A^T \mathbf{b} = \begin{bmatrix} 1 & 2 & 3 \\ 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 11 \\ 5 \end{bmatrix}$$
+          Inverting $\begin{bmatrix} 14 & 6 \\ 6 & 3 \end{bmatrix}^{-1} = \frac{1}{6}\begin{bmatrix} 3 & -6 \\ -6 & 14 \end{bmatrix} \implies \begin{bmatrix} \hat{m} \\ \hat{c} \end{bmatrix} = \begin{bmatrix} 0.5 \\ 0.67 \end{bmatrix}$.
+          Best-fit line: $\hat{y} = 0.5x + 0.67$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$A^T A \hat{\mathbf{x}} = A^T \mathbf{b} \implies \hat{\mathbf{x}} = (A^T A)^{-1} A^T \mathbf{b}$$
+        </div>
+        <p>The projection matrix that maps any vector $\mathbf{b}$ to its closest point in $C(A)$ is:</p>
+        <div class="formula-box">
+          $$P = A (A^T A)^{-1} A^T, \quad \text{with } P^2 = P \text{ and } P^T = P$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Click anywhere on the canvas to add data points! Watch the optimal regression line recalculate instantly via the normal equations, with the red square boxes displaying the minimized squared residuals.</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Interactive Least Squares Regression</span>
+            <div class="sim-controls">
+              <button class="sim-btn" id="btn-ls-reset">Reset Points</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-least-squares" width="600" height="340"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-least-squares">ŷ = 0.81x + 0.84 | Sum of Squared Errors (SSE) = 0.58</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>GPS Trilateration & Machine Learning Linear Models:</strong> GPS receivers solve an overdetermined least-squares problem across 4+ satellite radio timestamps to pinpoint altitude and position within meters.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 7: EIGENVALUES, EIGENVECTORS & DIAGONALIZATION
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch7">
+      <div class="chapter-number-tag">Chapter 7</div>
+      <h2 class="chapter-title">Eigenvalues, Eigenvectors & Diagonalization</h2>
+      <p class="chapter-overview">
+        Most vectors change direction when transformed by a matrix. But certain privileged vectors only stretch or flip along their original line. These are eigenvectors, and their scaling factor is the eigenvalue.
+      </p>
+    </div>
+
+    <!-- Topic 7.1 -->
+    <article class="topic-container" id="topic-7-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">7.1</span> Eigenvalues & Eigenvectors</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Think of a matrix transformation as blowing wind across the plane. Most leaves will tumble and rotate. But along a few special axes, leaves fly in a perfectly straight line, merely speeding up or slowing down. Those special axes are the <strong>eigenvectors</strong>, and the speed multiplier is the <strong>eigenvalue</strong> ($\lambda$).
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the eigenvalues and eigenvectors of $A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$.</p>
+        <div class="example-step">
+          <strong>1. Characteristic Equation:</strong>
+          $$\det(A - \lambda I) = \det\begin{bmatrix} 2-\lambda & 1 \\ 1 & 2-\lambda \end{bmatrix} = (2-\lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = 0$$
+          Factoring: $(\lambda - 3)(\lambda - 1) = 0 \implies \lambda_1 = 3, \;\lambda_2 = 1$.
+        </div>
+        <div class="example-step">
+          <strong>2. Eigenvector for $\lambda_1 = 3$:</strong>
+          $$(A - 3I)\mathbf{v} = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \mathbf{0} \implies -v_1 + v_2 = 0 \implies \mathbf{v}_1 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$$
+        </div>
+        <div class="example-step">
+          <strong>3. Eigenvector for $\lambda_2 = 1$:</strong>
+          $$(A - 1I)\mathbf{v} = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \mathbf{0} \implies v_1 + v_2 = 0 \implies \mathbf{v}_2 = \begin{bmatrix} -1 \\ 1 \end{bmatrix}$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$A \mathbf{v} = \lambda \mathbf{v} \iff (A - \lambda I)\mathbf{v} = \mathbf{0}$$
+        </div>
+        <p>For a non-zero eigenvector $\mathbf{v} \ne \mathbf{0}$ to exist, $(A - \lambda I)$ must be singular, meaning:</p>
+        <div class="formula-box">
+          $$\det(A - \lambda I) = 0 \quad \text{(The Characteristic Polynomial)}$$
+        </div>
+        <p><strong>Trace & Determinant Rules:</strong> $\sum \lambda_i = \operatorname{tr}(A)$ and $\prod \lambda_i = \det(A)$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Sweep the angle slider below to rotate input vector $\mathbf{x}$ (Amber). Watch vector $A\mathbf{x}$ (Cyan). When they align in the exact same direction, the system detects an eigenvector and snaps into vibrant green glow!</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Eigenvector Sweep Detector</span>
+            <div class="sim-controls">
+              <span class="sim-btn" id="badge-eigen-status">Sweep vector</span>
+              <div class="sim-slider-row">
+                <label>Angle θ:</label>
+                <input type="range" id="slider-eigen-angle" min="0" max="360" step="1" value="0">
+              </div>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-eigen-sweep" width="600" height="360"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-eigen">Rotate to 45° or 135° to find the eigenvectors!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Google's PageRank Algorithm:</strong> The web is represented as a giant stochastic transition matrix $M$ of hyperlinks. The importance score of every webpage in the world is precisely the entries of the dominant eigenvector corresponding to $\lambda = 1$ ($M\mathbf{p} = \mathbf{p}$).</p>
+      </div>
+    </article>
+
+    <!-- Topic 7.2 -->
+    <article class="topic-container" id="topic-7-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">7.2</span> Diagonalization, Matrix Powers & Discrete Dynamical Systems</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Computing $A^{100}$ directly requires multiplying hundreds of tangled matrices. But what if we change into the coordinate system of the eigenvectors? In that special basis, the matrix acts as <strong>pure independent stretching along each axis</strong>: a diagonal matrix $D$!
+        </p>
+        <p style="margin-top:0.5rem;">
+          Raising a diagonal matrix to a power is effortless: $D^{100} = \operatorname{diag}(\lambda_1^{100}, \lambda_2^{100}, \dots)$. Diagonalization turns an impossible matrix power into high-school arithmetic!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute $A^k$ for $A = \begin{bmatrix} 1 & 2 \\ 0 & 3 \end{bmatrix}$.</p>
+        <div class="example-step">
+          Eigenvalues: $\lambda_1 = 1, \lambda_2 = 3$.<br/>
+          Eigenvectors: for $\lambda_1 = 1 \implies \mathbf{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$; for $\lambda_2 = 3 \implies \begin{bmatrix} -2 & 2 \\ 0 & 0 \end{bmatrix}\mathbf{v}_2 = \mathbf{0} \implies \mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$.<br/>
+          Eigenvector matrix $P = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \implies P^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$.<br/>
+          $$A^k = P D^k P^{-1} = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 1^k & 0 \\ 0 & 3^k \end{bmatrix} \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 3^k - 1 \\ 0 & 3^k \end{bmatrix}$$
+          For $k = 10$, $A^{10} = \begin{bmatrix} 1 & 59048 \\ 0 & 59049 \end{bmatrix}$. Instant exact calculation!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>An $n \times n$ matrix $A$ is <strong>diagonalizable</strong> if and only if it has $n$ linearly independent eigenvectors. In this case:</p>
+        <div class="formula-box">
+          $$A = P D P^{-1}, \quad \text{where } D = \operatorname{diag}(\lambda_1, \dots, \lambda_n), \; P = [\mathbf{v}_1 \mid \cdots \mid \mathbf{v}_n]$$
+          $$A^k = P D^k P^{-1}$$
+        </div>
+        <p><strong>Discrete Dynamical Systems ($\mathbf{x}_{k+1} = A\mathbf{x}_k$):</strong> The long-term state $\mathbf{x}_k = c_1 \lambda_1^k \mathbf{v}_1 + \cdots + c_n \lambda_n^k \mathbf{v}_n$ is dominated entirely by the eigenvalue with largest absolute value $|\lambda_{\max}|$ (the dominant mode).</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Dynamical System Trajectory & Dominant Mode</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Matrix A: [[1.2, 0.1], [0.0, 0.8]] → λ₁ = 1.20 (Unstable/Expanding), λ₂ = 0.80 (Stable/Decaying)</div>
+            <div style="color:#38bdf8;">Initial state: x₀ = [1.0, 1.0]ᵀ = c₁v₁ + c₂v₂</div>
+            <div style="color:#fbbf24;">State after 10 steps: x₁₀ ≈ (1.20)¹⁰ c₁ v₁ + (0.80)¹⁰ c₂ v₂ = 6.19 c₁ v₁ + 0.10 c₂ v₂</div>
+            <div style="color:#34d399;">Result: Trajectory converges asymptotically along dominant eigenvector v₁ = [1, 0]ᵀ!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Fibonacci Matrix & Population Genetics (Markov Chains):</strong> The Fibonacci recurrence $F_{k+2} = F_{k+1} + F_k$ is represented as $\begin{bmatrix} F_{k+1} \\ F_k \end{bmatrix} = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^k \begin{bmatrix} 1 \\ 0 \end{bmatrix}$. Diagonalizing this matrix yields Binet's closed-form formula in terms of the golden ratio $\phi = \frac{1+\sqrt{5}}{2} \approx 1.618$ (its dominant eigenvalue).</p>
+      </div>
+    </article>
+
+    <!-- Topic 7.3 -->
+    <article class="topic-container" id="topic-7-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">7.3</span> Symmetric Matrices & The Spectral Theorem</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Symmetric matrices ($A = A^T$) are the jewels of linear algebra. In physics and data science, correlations, covariance, physical stress, and moments of inertia are all symmetric.
+        </p>
+        <p style="margin-top:0.5rem;">
+          The <strong>Spectral Theorem</strong> guarantees that symmetric matrices are <em>always</em> diagonalizable with <strong>real eigenvalues</strong>, and their eigenvectors can always be chosen to be <strong>mutually perpendicular (orthonormal)</strong>! They perform pure orthogonal stretching along orthogonal principal axes.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the spectral decomposition of symmetric matrix $A = \begin{bmatrix} 5 & 2 \\ 2 & 2 \end{bmatrix}$.</p>
+        <div class="example-step">
+          Characteristic equation: $\det\begin{bmatrix} 5-\lambda & 2 \\ 2 & 2-\lambda \end{bmatrix} = \lambda^2 - 7\lambda + 6 = 0 \implies (\lambda - 6)(\lambda - 1) = 0$.<br/>
+          Eigenvalues: $\lambda_1 = 6, \lambda_2 = 1$ (Both real!).<br/>
+          Normalized eigenvector for $\lambda_1 = 6$: $\mathbf{q}_1 = \frac{1}{\sqrt{5}}\begin{bmatrix} 2 \\ 1 \end{bmatrix}$.<br/>
+          Normalized eigenvector for $\lambda_2 = 1$: $\mathbf{q}_2 = \frac{1}{\sqrt{5}}\begin{bmatrix} -1 \\ 2 \end{bmatrix}$.<br/>
+          Orthogonality check: $\mathbf{q}_1 \cdot \mathbf{q}_2 = \frac{1}{5}(-2 + 2) = 0$! Strictly orthogonal ($Q^T Q = I$).<br/>
+          $$A = Q \Lambda Q^T = \begin{bmatrix} 2/\sqrt{5} & -1/\sqrt{5} \\ 1/\sqrt{5} & 2/\sqrt{5} \end{bmatrix} \begin{bmatrix} 6 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 2/\sqrt{5} & 1/\sqrt{5} \\ -1/\sqrt{5} & 2/\sqrt{5} \end{bmatrix}$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p><strong>The Spectral Theorem for Real Symmetric Matrices:</strong> If $A = A^T \in \mathbb{R}^{n \times n}$, then:</p>
+        <ol style="margin-left:1.5rem;line-height:1.7;font-size:0.9rem;">
+          <li>All $n$ eigenvalues $\lambda_1, \dots, \lambda_n$ are strictly real numbers.</li>
+          <li>Eigenvectors corresponding to distinct eigenvalues are mutually orthogonal.</li>
+          <li>There exists an orthogonal matrix $Q$ ($Q^{-1} = Q^T$) such that:</li>
+        </ol>
+        <div class="formula-box">
+          $$A = Q \Lambda Q^T = \sum_{i=1}^n \lambda_i \mathbf{q}_i \mathbf{q}_i^T$$
+        </div>
+        <p>Each term $\mathbf{q}_i \mathbf{q}_i^T$ is an orthogonal projection matrix onto the 1D eigenspace spanned by $\mathbf{q}_i$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Spectral Theorem Principal Axes Ellipse</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Symmetric Matrix A: [[5, 2], [2, 2]]</div>
+            <div style="color:#38bdf8;">Major Principal Axis (q₁): [0.894, 0.447]ᵀ with semi-major stretch factor λ₁ = 6.00</div>
+            <div style="color:#fbbf24;">Minor Principal Axis (q₂): [-0.447, 0.894]ᵀ with semi-minor stretch factor λ₂ = 1.00</div>
+            <div style="color:#34d399;">Geometric Shape: Unit circle transforms into an ellipse with orthogonal principal axes!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Covariance Matrices in Finance & Data Science:</strong> Portfolio risk is governed by the covariance matrix $\Sigma = E[(\mathbf{r} - \boldsymbol{\mu})(\mathbf{r} - \boldsymbol{\mu})^T]$. Because covariance matrices are symmetric, their orthogonal eigenvectors define the uncorrelated principal risk factors (Markowitz modern portfolio theory).</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 8: SINGULAR VALUE DECOMPOSITION (SVD)
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch8">
+      <div class="chapter-number-tag">Chapter 8</div>
+      <h2 class="chapter-title">Singular Value Decomposition (SVD) & Pseudoinverse</h2>
+      <p class="chapter-overview">
+        SVD is the pinnacle theorem of linear algebra. While eigenvalues only work for square matrices, SVD factorizes <em>any</em> matrix of any shape into two orthogonal rotations and a diagonal scaling: $A = U \Sigma V^T$.
+      </p>
+    </div>
+
+    <!-- Topic 8.1 -->
+    <article class="topic-container" id="topic-8-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">8.1</span> Geometry of SVD ($A = U \Sigma V^T$)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Every matrix maps a sphere into an ellipsoid! SVD breaks down any complicated linear transformation into three pure, simple geometrical stages:
+        </p>
+        <ol style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Rotation $V^T$:</strong> Aligning domain space with the principal input axes.</li>
+          <li><strong>Stretch $\Sigma$:</strong> Scaling each axis independently by singular values $\sigma_1 \ge \sigma_2 \ge \dots \ge 0$.</li>
+          <li><strong>Rotation $U$:</strong> Rotating the resulting ellipsoid into its final orientation in the output space.</li>
+        </ol>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute the SVD of $A = \begin{bmatrix} 3 & 2 \\ 2 & 3 \end{bmatrix}$.</p>
+        <div class="example-step">
+          $A^T A = \begin{bmatrix} 13 & 12 \\ 12 & 13 \end{bmatrix}$.<br/>
+          Eigenvalues of $A^TA$: $\lambda_1 = 25, \lambda_2 = 1$.<br/>
+          Singular values: $\sigma_1 = \sqrt{25} = 5$, $\sigma_2 = \sqrt{1} = 1$.<br/>
+          Normalized eigenvectors of $A^TA$ form $V$: $\mathbf{v}_1 = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}, \mathbf{v}_2 = \frac{1}{\sqrt{2}}\begin{bmatrix} -1 \\ 1 \end{bmatrix}$.<br/>
+          Output singular vectors $\mathbf{u}_i = \frac{1}{\sigma_i} A \mathbf{v}_i$. Thus:
+          $$A = \begin{bmatrix} 1/\sqrt{2} & -1/\sqrt{2} \\ 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} \begin{bmatrix} 5 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 1/\sqrt{2} & 1/\sqrt{2} \\ -1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix}$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$A = U \Sigma V^T = \sum_{i=1}^r \sigma_i \mathbf{u}_i \mathbf{v}_i^T$$
+        </div>
+        <p><strong>Eckart-Young-Mirsky Low-Rank Approximation Theorem:</strong> The best rank-$k$ approximation to matrix $A$ in both Frobenius and spectral norms is obtained by truncating the sum to the top $k$ singular values: $A_k = \sum_{i=1}^k \sigma_i \mathbf{u}_i \mathbf{v}_i^T$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Drag the stage slider from 0 to 3 to witness the complete geometric journey of SVD: Unit Circle $\to$ Rotated by $V^T$ $\to$ Stretched into Ellipse by $\Sigma$ $\to$ Rotated by $U$.</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">3-Stage SVD Geometric Pipeline</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row">
+                <label>Pipeline Stage (0 to 3):</label>
+                <input type="range" id="slider-svd-stage" min="0" max="3" step="0.05" value="3">
+              </div>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-svd-pipeline" width="600" height="360"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-svd-stage">Step 3: Orthogonal Rotation by U into Codomain Space (Final Ellipse)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Image Compression & Latent Semantic Analysis:</strong> Truncating SVD discards high-frequency noise while retaining 95%+ of image energy with a tiny fraction of storage.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / SVD Image Compression</span></div>
+          <div class="code-content"><span class="code-kw">import</span> numpy <span class="code-kw">as</span> np
+
+<span class="code-cmt"># Rank-k Low-Rank Reconstruction</span>
+<span class="code-kw">def</span> <span class="code-fn">compress_matrix</span>(A, k):
+    U, s, Vt = np.linalg.svd(A, full_matrices=<span class="code-kw">False</span>)
+    <span class="code-kw">return</span> np.dot(U[:, :k] * s[:k], Vt[:k, :])
+
+A = np.random.randn(<span class="code-num">500</span>, <span class="code-num">500</span>)
+A_compressed = compress_matrix(A, k=<span class="code-num">20</span>)
+print(<span class="code-str">"Compressed rank:"</span>, np.linalg.matrix_rank(A_compressed)) <span class="code-cmt"># Exactly 20</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Topic 8.2 -->
+    <article class="topic-container" id="topic-8-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">8.2</span> Low-Rank Matrix Approximation (Eckart-Young-Mirsky Theorem)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Real-world data matrices (user movie ratings, web graphs, hyperspectral images) are gargantuan in size but possess low intrinsic complexity. Most entries are noisy variations of a few fundamental underlying themes.
+        </p>
+        <p style="margin-top:0.5rem;">
+          The <strong>Eckart-Young-Mirsky Theorem</strong> proves that SVD provides the mathematically optimal way to extract those core themes: simply keep the $k$ largest singular values and zero out the rest. No other rank-$k$ matrix in the universe can approximate the original data more accurately!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Given rank-2 matrix $A = \begin{bmatrix} 10 & 0 \\ 0 & 2 \end{bmatrix}$. Find its optimal rank-1 approximation $A_1$.</p>
+        <div class="example-step">
+          Singular values: $\sigma_1 = 10, \sigma_2 = 2$.<br/>
+          To form the best rank-1 approximation $A_1$, truncate at $k=1$: set $\sigma_2 = 0$:
+          $$A_1 = \sigma_1 \mathbf{u}_1 \mathbf{v}_1^T = 10 \begin{bmatrix} 1 \\ 0 \end{bmatrix} \begin{bmatrix} 1 & 0 \end{bmatrix} = \begin{bmatrix} 10 & 0 \\ 0 & 0 \end{bmatrix}$$
+          Approximation error in Frobenius norm:
+          $$\|A - A_1\|_F = \left\|\begin{bmatrix} 0 & 0 \\ 0 & 2 \end{bmatrix}\right\|_F = \sqrt{0^2 + 2^2} = 2 = \sigma_2$$
+          The error equals exactly the discarded singular value $\sigma_2$!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$A_k = \sum_{i=1}^k \sigma_i \mathbf{u}_i \mathbf{v}_i^T, \quad k < r$$
+        </div>
+        <p><strong>Eckart-Young-Mirsky Theorem:</strong> For any matrix $B$ of rank at most $k$:</p>
+        <div class="formula-box">
+          $$\min_{\operatorname{rank}(B) \le k} \|A - B\|_2 = \|A - A_k\|_2 = \sigma_{k+1}$$
+          $$\min_{\operatorname{rank}(B) \le k} \|A - B\|_F = \|A - A_k\|_F = \sqrt{\sum_{i=k+1}^r \sigma_i^2}$$
+        </div>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Low-Rank Truncation & Energy Spectrum</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Original Matrix Dimensions: 1000 × 1000 (1,000,000 parameters)</div>
+            <div style="color:#38bdf8;">Truncation Rank k = 20: Storing U[:, :20] (20,000) + s[:20] (20) + Vt[:20, :] (20,000) = 40,020 parameters</div>
+            <div style="color:#34d399;">Compression Ratio: 96.0% storage savings!</div>
+            <div style="color:#fbbf24;">Cumulative Energy Retained: 94.8% of total matrix Frobenius norm</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Recommender Systems (Netflix Prize / Collaborative Filtering):</strong> User-movie rating matrices have millions of entries but are 99% sparse. Low-rank matrix factorization models both users and movies as vectors in a 20-dimensional latent genre space, predicting unseen user ratings with remarkable accuracy.</p>
+      </div>
+    </article>
+
+    <!-- Topic 8.3 -->
+    <article class="topic-container" id="topic-8-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">8.3</span> The Moore-Penrose Pseudoinverse ($A^+$)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          What happens when you must invert a matrix that is not square or has zero determinant? Regular matrix inversion fails completely.
+        </p>
+        <p style="margin-top:0.5rem;">
+          The <strong>Moore-Penrose Pseudoinverse $A^+$</strong> gracefully bridges this gap:
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Overdetermined ($m > n$, no solution):</strong> $\mathbf{x}^+ = A^+\mathbf{b}$ yields the optimal <em>least-squares solution</em> minimizing $\|A\mathbf{x} - \mathbf{b}\|^2$.</li>
+          <li><strong>Underdetermined ($m < n$, infinite solutions):</strong> $\mathbf{x}^+ = A^+\mathbf{b}$ selects the unique solution with the <em>minimum Euclidean norm</em> $\|\mathbf{x}\|$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Find the pseudoinverse of row vector $A = \begin{bmatrix} 1 & 2 \end{bmatrix}$ ($1 \times 2$, underdetermined system $x_1 + 2x_2 = 5$).</p>
+        <div class="example-step">
+          For full row rank matrices, $A^+ = A^T (A A^T)^{-1}$:<br/>
+          $$A A^T = \begin{bmatrix} 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \end{bmatrix} = [5] \implies (A A^T)^{-1} = [1/5]$$
+          $$A^+ = \begin{bmatrix} 1 \\ 2 \end{bmatrix} [1/5] = \begin{bmatrix} 0.2 \\ 0.4 \end{bmatrix}$$
+          Solving $x_1 + 2x_2 = 5$ via $\mathbf{x}^+ = A^+ [5] = \begin{bmatrix} 0.2 \\ 0.4 \end{bmatrix} (5) = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.<br/>
+          Check: $(1) + 2(2) = 5$ ✓. Any other solution (like $x_1 = 5, x_2 = 0$, length $\sqrt{25}=5$) has larger norm than $\|\mathbf{x}^+\| = \sqrt{1^2+2^2} = \sqrt{5} \approx 2.24$!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>Via SVD, if $A = U \Sigma V^T$, the pseudoinverse is computed by inverting all non-zero singular values and transposing:</p>
+        <div class="formula-box">
+          $$A^+ = V \Sigma^+ U^T, \quad \text{where } \Sigma^+_{ii} = \begin{cases} 1/\sigma_i & \text{if } \sigma_i > 0 \\ 0 & \text{if } \sigma_i = 0 \end{cases}$$
+        </div>
+        <p><strong>The Four Penrose Conditions (Unique Axiomatic Definition of $A^+$):</strong></p>
+        <ol style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li>$A A^+ A = A$</li>
+          <li>$A^+ A A^+ = A^+$</li>
+          <li>$(A A^+)^T = A A^+$ ($A A^+$ is the orthogonal projector onto $C(A)$)</li>
+          <li>$(A^+ A)^T = A^+ A$ ($A^+ A$ is the orthogonal projector onto $C(A^T)$)</li>
+        </ol>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Minimum Norm Solution Geometry</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Underdetermined Constraint: x₁ + 2x₂ = 5 (Infinite solutions along affine line)</div>
+            <div style="color:#38bdf8;">Pseudoinverse Solution: x⁺ = [1.0, 2.0]ᵀ (Length ‖x⁺‖ = √5 ≈ 2.24)</div>
+            <div>Alternative Solution A: [5.0, 0.0]ᵀ (Length = 5.00)</div>
+            <div>Alternative Solution B: [-1.0, 3.0]ᵀ (Length = √10 ≈ 3.16)</div>
+            <div style="color:#34d399;">Proof: x⁺ lies strictly in the Row Space C(Aᵀ) = span{[1, 2]ᵀ}, which is perpendicular to the nullspace!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Redundant Robotic Arm Inverse Kinematics:</strong> A 7-axis robotic arm has more joints ($n=7$) than Cartesian task constraints ($m=6$). To move the end-effector with velocity $\dot{\mathbf{x}}$, the robot controller computes joint velocities $\dot{\mathbf{q}} = J^+ \dot{\mathbf{x}}$, which automatically minimizes joint torque energy while achieving the desired trajectory.</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 9: POSITIVE DEFINITE MATRICES & QUADRATIC FORMS
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch9">
+      <div class="chapter-number-tag">Chapter 9</div>
+      <h2 class="chapter-title">Positive Definite Matrices & Quadratic Forms</h2>
+      <p class="chapter-overview">
+        Quadratic forms $\mathbf{x}^T A \mathbf{x}$ define energy surfaces, cost landscapes, and curvature in multivariable calculus. Positive definite matrices guarantee unique global minima in optimization and enable the Cholesky factorization.
+      </p>
+    </div>
+
+    <!-- Topic 9.1 -->
+    <article class="topic-container" id="topic-9-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">9.1</span> Quadratic Forms & Energy Landscapes</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          A quadratic form $q(\mathbf{x}) = \mathbf{x}^T A \mathbf{x}$ is a multivariable generalization of the parabola $y = a x^2$. In 3D, it creates an energy landscape:
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li><strong>Positive Definite ($A \succ 0$):</strong> A clean, upright bowl opening upwards. Every non-zero input has strictly positive energy $\mathbf{x}^T A \mathbf{x} > 0$. The bottom of the bowl is a unique global minimum!</li>
+          <li><strong>Negative Definite ($A \prec 0$):</strong> An inverted bowl curving downwards ($\mathbf{x}^T A \mathbf{x} < 0$). Origin is a global maximum.</li>
+          <li><strong>Indefinite:</strong> A pringles-chip saddle point! Curves up along one axis and curves down along another.</li>
+          <li><strong>Positive Semidefinite ($A \succeq 0$):</strong> A trough or parabolic cylinder with a valley of zero-energy directions.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Classify the quadratic form $q(x_1, x_2) = 2x_1^2 + 2x_1 x_2 + 2x_2^2$.</p>
+        <div class="example-step">
+          Write in matrix form $\mathbf{x}^T A \mathbf{x}$ with symmetric matrix $A$ (split the cross-term $2x_1 x_2$ equally):
+          $$A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$$
+          Find eigenvalues: $\det\begin{bmatrix} 2-\lambda & 1 \\ 1 & 2-\lambda \end{bmatrix} = \lambda^2 - 4\lambda + 3 = 0 \implies \lambda_1 = 3, \lambda_2 = 1$.<br/>
+          Because <strong>both eigenvalues are strictly positive</strong> ($\lambda_1 > 0, \lambda_2 > 0$), the matrix is <strong>Positive Definite</strong> ($A \succ 0$). The surface is an upward-opening elliptic paraboloid bowl with minimum at origin $(0, 0)$.
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>A symmetric matrix $A \in \mathbb{R}^{n \times n}$ is <strong>positive definite</strong> (denoted $A \succ 0$) if for all non-zero $\mathbf{x} \ne \mathbf{0}$:</p>
+        <div class="formula-box">
+          $$\mathbf{x}^T A \mathbf{x} > 0$$
+        </div>
+        <p><strong>The Four Equivalent Tests for Positive Definiteness:</strong></p>
+        <ol style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>Eigenvalue Test:</strong> All eigenvalues are strictly positive: $\lambda_i > 0$ for all $i$.</li>
+          <li><strong>Sylvester's Criterion (Leading Principal Minors):</strong> The determinants of all top-left submatrices are strictly positive: $\det(A_1) > 0, \det(A_2) > 0, \dots, \det(A_n) > 0$.</li>
+          <li><strong>Pivot Test:</strong> All pivots in Gaussian elimination (without row swaps) are strictly positive: $d_i > 0$.</li>
+          <li><strong>Factorization Test:</strong> $A = R^T R$ for some invertible matrix $R$.</li>
+        </ol>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Energy Landscape Curvature Classifier</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Quadratic Form: q(x) = 2x₁² + 2x₁x₂ + 2x₂²</div>
+            <div style="color:#38bdf8;">Eigenvalues: λ₁ = 3.00, λ₂ = 1.00 (Both > 0)</div>
+            <div style="color:#34d399;font-weight:700;">Classification: POSITIVE DEFINITE BOWL (Strictly Convex, Global Minimum at Origin)</div>
+            <div style="color:#fbbf24;margin-top:0.5rem;">Contour Lines: Level sets q(x) = C form concentric ellipses oriented along eigenvectors!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Convex Optimization & Gradient Descent (Hessian Matrix):</strong> In training deep neural networks and numerical optimization, the local curvature of the loss function is governed by the Hessian matrix of second derivatives $H = \nabla^2 f(\mathbf{x})$. A critical point is a guaranteed local minimum if and only if $H \succ 0$. In Newton-Raphson optimization, updates $\Delta\mathbf{x} = -H^{-1}\nabla f$ take direct quadratic jumps toward the minimum.</p>
+      </div>
+    </article>
+
+    <!-- Topic 9.2 -->
+    <article class="topic-container" id="topic-9-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">9.2</span> Tests for Positive Definiteness & Cholesky Decomposition ($A = L L^T$)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          For positive real numbers, we can always compute the square root: $a = (\sqrt{a})^2$.
+        </p>
+        <p style="margin-top:0.5rem;">
+          The <strong>Cholesky decomposition</strong> is the exact matrix equivalent of the square root! Any symmetric positive definite matrix $A$ can be uniquely factored as $A = L L^T$, where $L$ is a lower-triangular matrix with strictly positive diagonal entries.
+        </p>
+        <p style="margin-top:0.5rem;">
+          Because $L$ is triangular, solving $A\mathbf{x} = \mathbf{b}$ requires half the computation time of standard Gaussian elimination and is unconditionally numerically stable without pivoting!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute the Cholesky decomposition of $A = \begin{bmatrix} 4 & 12 \\ 12 & 45 \end{bmatrix}$.</p>
+        <div class="example-step">
+          We want $A = \begin{bmatrix} l_{11} & 0 \\ l_{21} & l_{22} \end{bmatrix}\begin{bmatrix} l_{11} & l_{21} \\ 0 & l_{22} \end{bmatrix} = \begin{bmatrix} l_{11}^2 & l_{11} l_{21} \\ l_{11} l_{21} & l_{21}^2 + l_{22}^2 \end{bmatrix}$.<br/>
+          1. $l_{11} = \sqrt{4} = 2$.<br/>
+          2. $l_{11} l_{21} = 12 \implies 2 l_{21} = 12 \implies l_{21} = 6$.<br/>
+          3. $l_{21}^2 + l_{22}^2 = 45 \implies 6^2 + l_{22}^2 = 45 \implies l_{22}^2 = 45 - 36 = 9 \implies l_{22} = 3$.<br/>
+          $$L = \begin{bmatrix} 2 & 0 \\ 6 & 3 \end{bmatrix}, \quad L L^T = \begin{bmatrix} 2 & 0 \\ 6 & 3 \end{bmatrix}\begin{bmatrix} 2 & 6 \\ 0 & 3 \end{bmatrix} = \begin{bmatrix} 4 & 12 \\ 12 & 45 \end{bmatrix} = A$$
+          Exact Cholesky factor found in 3 arithmetic steps!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p><strong>Cholesky Factorization Theorem:</strong> A real symmetric matrix $A \in \mathbb{R}^{n \times n}$ is positive definite if and only if there exists a unique lower-triangular matrix $L$ with strictly positive diagonal entries ($l_{ii} > 0$) such that:</p>
+        <div class="formula-box">
+          $$A = L L^T$$
+        </div>
+        <p><strong>Computational Cost:</strong> Cholesky requires $\frac{1}{3} n^3$ flops—half the $\frac{2}{3} n^3$ operations of general LU decomposition—making it the gold standard for solving symmetric positive definite linear systems.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Cholesky Factor Verification</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Matrix A = [[4, 12], [12, 45]] → det(A) = 180 - 144 = 36 > 0 (Sylvester's criteria satisfied)</div>
+            <div style="color:#38bdf8;">Cholesky Factor L = [[2, 0], [6, 3]]</div>
+            <div style="color:#34d399;">Reconstruction Check L · Lᵀ = [[4, 12], [12, 45]] = A ✓</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Monte Carlo Simulation & Sampling Correlated Gaussian Random Variables:</strong> In algorithmic trading and climate modeling, generating samples from a correlated multivariate normal distribution $\mathcal{N}(\boldsymbol{\mu}, \Sigma)$ requires Cholesky factorization. If $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, I)$ is independent white noise, then $\mathbf{x} = \boldsymbol{\mu} + L\mathbf{z}$ has the exact target covariance: $\operatorname{Cov}(\mathbf{x}) = L \operatorname{Cov}(\mathbf{z}) L^T = L I L^T = \Sigma$!</p>
+      </div>
+    </article>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 10: MODERN APPLICATIONS IN AI, ROBOTICS & GRAPHS
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch10">
+      <div class="chapter-number-tag">Chapter 10</div>
+      <h2 class="chapter-title">Modern Linear Algebra in AI, Robotics & Graphs</h2>
+      <p class="chapter-overview">
+        Modern machine learning is applied linear algebra. We explore Principal Component Analysis (PCA), Tensors & Multi-head Self-Attention in Transformers, and Spectral Graph Theory.
+      </p>
+    </div>
+
+    <!-- Topic 10.1 -->
+    <article class="topic-container" id="topic-10-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">10.1</span> Principal Component Analysis (PCA)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          High-dimensional data often exhibits heavy redundancy. Imagine looking at a flock of birds: they fly across 3D space, but their primary movement is along a single flight direction. PCA finds the orthogonal axes that capture the <strong>maximum spread (variance)</strong> of the data, allowing you to compress dimensions while losing minimal information.
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Given zero-centered data matrix $X$ with covariance matrix $\Sigma = \begin{bmatrix} 4 & 2 \\ 2 & 1 \end{bmatrix}$.</p>
+        <div class="example-step">
+          Eigenvalues of $\Sigma$: $\det\begin{bmatrix} 4-\lambda & 2 \\ 2 & 1-\lambda \end{bmatrix} = \lambda^2 - 5\lambda = 0 \implies \lambda_1 = 5, \lambda_2 = 0$.<br/>
+          First Principal Component (PC1): Unit eigenvector for $\lambda_1 = 5$:
+          $$\mathbf{w}_1 = \frac{1}{\sqrt{5}}\begin{bmatrix} 2 \\ 1 \end{bmatrix}$$
+          PC1 preserves $100\%$ of total variance ($\frac{5}{5+0} = 1.0$), reducing 2D data to 1D with zero information loss!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>For centered data matrix $X \in \mathbb{R}^{n \times d}$, the sample covariance is $S = \frac{1}{n} X^T X$. The variance along unit direction $\mathbf{w}$ is:</p>
+        <div class="formula-box">
+          $$\max_{\|\mathbf{w}\|=1} \mathbf{w}^T S \mathbf{w} \implies S \mathbf{w} = \lambda \mathbf{w}$$
+        </div>
+        <p>The principal components are exactly the eigenvectors of sample covariance matrix $S$, sorted in descending order of their eigenvalues.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <p>Rotate the projection axis $\mathbf{w}$ using the slider. Watch how the green projected points spread out. Notice the peak when the axis aligns with the first Principal Component (PC1) around $35^\circ$!</p>
+        
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">PCA Variance Maximization Sweeper</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row">
+                <label>Axis Angle θ:</label>
+                <input type="range" id="slider-pca-angle" min="0" max="180" step="1" value="0">
+              </div>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap">
+            <canvas id="canvas-pca" width="600" height="340"></canvas>
+          </div>
+          <div class="sim-caption">
+            <span class="sim-readout" id="readout-pca-var">Rotate axis to maximize projected variance!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Transformers & Multi-Head Self-Attention ($QK^T / \sqrt{d_k}$):</strong> In Large Language Models (LLMs like GPT-4, Claude, Gemini), self-attention is a scaled dot-product matrix multiplication between Query and Key matrices followed by Softmax projection over Value matrices.</p>
+        <div class="code-block">
+          <div class="code-header"><span>PyTorch / Scaled Dot-Product Attention</span></div>
+          <div class="code-content"><span class="code-kw">import</span> torch
+<span class="code-kw">import</span> torch.nn.functional <span class="code-kw">as</span> F
+
+<span class="code-kw">def</span> <span class="code-fn">scaled_dot_product_attention</span>(Q, K, V):
+    d_k = Q.size(-<span class="code-num">1</span>)
+    <span class="code-cmt"># Matrix multiplication Q @ K^T / sqrt(d_k)</span>
+    scores = torch.matmul(Q, K.transpose(-<span class="code-num">2</span>, -<span class="code-num">1</span>)) / (d_k ** <span class="code-num">0.5</span>)
+    weights = F.softmax(scores, dim=-<span class="code-num">1</span>)
+    <span class="code-kw">return</span> torch.matmul(weights, V)</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Topic 10.2 -->
+    <article class="topic-container" id="topic-10-2">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">10.2</span> Tensors & Multilinear Algebra in Deep Learning (Transformers & Attention)</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          Vectors are 1D lists of numbers. Matrices are 2D grids of numbers. <strong>Tensors</strong> are multidimensional arrays generalizing matrices to $3, 4, \dots, N$ dimensions!
+        </p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;line-height:1.7;">
+          <li>A color video is a 4D tensor: $[\text{frames}, \text{height}, \text{width}, \text{color channels}]$.</li>
+          <li>A batch of sentences in an LLM is a 3D tensor: $[\text{batch size}, \text{sequence length}, \text{embedding dimension}]$.</li>
+          <li><strong>Self-Attention:</strong> Words query each other through high-dimensional multilinear dot-product contractions, calculating how much attention token $i$ should pay to token $j$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute the Scaled Dot-Product Attention for sequence length 2 with queries and keys in $\mathbb{R}^2$ ($d_k = 2$):</p>
+        <div class="example-step">
+          Queries $Q = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$, Keys $K = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, Values $V = \begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix}$.<br/>
+          <strong>1. Raw Attention Scores $Q K^T$:</strong>
+          $$Q K^T = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}$$
+          <strong>2. Scale by $\sqrt{d_k} = \sqrt{2} \approx 1.414$:</strong>
+          $$\frac{Q K^T}{\sqrt{2}} = \begin{bmatrix} 0.707 & 0.000 \\ 0.707 & 0.707 \end{bmatrix}$$
+          <strong>3. Softmax per row:</strong>
+          Row 1: $\operatorname{softmax}([0.707, 0]) \approx [0.67, 0.33]$.<br/>
+          Row 2: $\operatorname{softmax}([0.707, 0.707]) = [0.50, 0.50]$.<br/>
+          <strong>4. Multiply by $V$:</strong>
+          $$\text{Attention}(Q, K, V) = \begin{bmatrix} 0.67 & 0.33 \\ 0.50 & 0.50 \end{bmatrix} \begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix} = \begin{bmatrix} 1.67 & 3.67 \\ 1.50 & 3.50 \end{bmatrix}$$
+          Each output token is a contextual weighted blend of all values in the sequence!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>A tensor of order (rank) $d$ is an element of the tensor product of vector spaces $\mathcal{T} \in V_1 \otimes V_2 \otimes \cdots \otimes V_d$.</p>
+        <div class="formula-box">
+          $$\operatorname{Attention}(Q, K, V) = \operatorname{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
+        </div>
+        <p><strong>Einstein Summation Convention (Einsum):</strong> Multilinear contractions are compactly defined by repeated indices: $C_{ik} = A_{ij} B_{jk} \iff \texttt{einsum('ij,jk->ik', A, B)}$. Batched multi-head attention is computed as $\texttt{einsum('bhqd,bhkd->bhqk', Q, K)}$.</p>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Transformer Attention Matrix Heatmap</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Tokens: ["The", "bank", "of", "the", "river"]</div>
+            <div style="color:#38bdf8;">Query "bank" dot Keys: High dot product with "river" (0.84) vs "money" (0.12)</div>
+            <div style="color:#34d399;">Contextual Resolution: Attention weights dynamically disambiguate polysemous words using linear algebra!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Modern Generative Foundation Models (GPT-4, Gemini, Claude, LLaMA):</strong> The multi-head self-attention mechanism at the core of all Transformer LLMs executes trillions of batched matrix tensor contractions every hour, learning high-dimensional geometric representations of human thought and code.</p>
+      </div>
+    </article>
+
+    <!-- Topic 10.3 -->
+    <article class="topic-container" id="topic-10-3">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">10.3</span> Graph Laplacians & Spectral Clustering</h3>
+      </div>
+
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>
+          How do you split a complex social network, website hyperlink graph, or image into distinct natural communities without knowing labels in advance?
+        </p>
+        <p style="margin-top:0.5rem;">
+          Linear algebra provides an astonishing answer: construct the <strong>Graph Laplacian matrix</strong> $L = D - A$. The second-smallest eigenvalue's eigenvector (called the <strong>Fiedler vector</strong>) assigns a single continuous number to each node in the graph. Nodes with positive values belong to Cluster 1; nodes with negative values belong to Cluster 2! The graph partitions itself like a vibrating drumhead along its lowest fundamental harmonic mode!
+        </p>
+      </div>
+
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Worked Example</span></div>
+        <p>Compute the Graph Laplacian $L$ for a 4-node barbell graph: (Node 1 - Node 2) connected to (Node 3 - Node 4) via bridge edge (2 - 3).</p>
+        <div class="example-step">
+          <strong>1. Degree Matrix $D$:</strong> Degrees are $[1, 2, 2, 1] \implies D = \operatorname{diag}(1, 2, 2, 1)$.<br/>
+          <strong>2. Adjacency Matrix $A$:</strong> 1 if connected, 0 otherwise.<br/>
+          <strong>3. Laplacian $L = D - A$:</strong>
+          $$L = \begin{bmatrix} 1 & -1 & 0 & 0 \\ -1 & 2 & -1 & 0 \\ 0 & -1 & 2 & -1 \\ 0 & 0 & -1 & 1 \end{bmatrix}$$
+          Row sums are all 0: $L \begin{bmatrix} 1 \\ 1 \\ 1 \\ 1 \end{bmatrix} = \mathbf{0} \implies \lambda_1 = 0$ (Trivial constant eigenvector).<br/>
+          <strong>4. Fiedler Vector $\mathbf{v}_2$ ($\lambda_2 \approx 0.586$):</strong>
+          $$\mathbf{v}_2 = \begin{bmatrix} -0.65 \\ -0.27 \\ +0.27 \\ +0.65 \end{bmatrix}$$
+          Notice: Nodes 1 & 2 have negative signs ($\mathbf{v}_2 < 0$), while Nodes 3 & 4 have positive signs ($\mathbf{v}_2 > 0$). The Fiedler vector cleanly cuts the bridge edge between Node 2 and Node 3, discovering the two clusters!
+        </div>
+      </div>
+
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <p>For a graph $G = (V, E)$ with degree matrix $D$ and adjacency matrix $A$, the unnormalized <strong>Graph Laplacian</strong> is:</p>
+        <div class="formula-box">
+          $$L = D - A$$
+        </div>
+        <p><strong>Properties of the Laplacian:</strong></p>
+        <ul style="margin-left:1.5rem;font-size:0.9rem;line-height:1.7;">
+          <li>$L$ is symmetric and positive semidefinite ($L \succeq 0$). For any $\mathbf{x} \in \mathbb{R}^n$: $\mathbf{x}^T L \mathbf{x} = \sum_{(i,j) \in E} (x_i - x_j)^2 \ge 0$.</li>
+          <li>$\lambda_1 = 0$ with eigenvector $\mathbf{1} = (1, 1, \dots, 1)^T$.</li>
+          <li>The multiplicity of eigenvalue $\lambda = 0$ equals the exact number of connected components in the graph!</li>
+          <li><strong>Cheeger's Inequality:</strong> The second eigenvalue $\lambda_2$ (algebraic connectivity) bounds the optimal graph conductance / Cheeger cut: $\frac{h^2}{2 d_{\max}} \le \lambda_2 \le 2h$.</li>
+        </ul>
+      </div>
+
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive Simulation</span></div>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar"><span class="sim-title">Fiedler Vector Spectral Partitioning</span></div>
+          <div style="background:#09090b;padding:1.5rem;border-radius:8px;font-family:'JetBrains Mono',monospace;color:#e2e8f0;font-size:0.9rem;line-height:1.8;">
+            <div>Barbell Graph: Cluster Alpha (Nodes 1, 2) ── Bridge Edge (2, 3) ── Cluster Beta (Nodes 3, 4)</div>
+            <div style="color:#38bdf8;">Fiedler Vector v₂: [-0.653, -0.271, +0.271, +0.653]ᵀ</div>
+            <div style="color:#34d399;font-weight:700;">Community Cut: Group A {Node 1, 2} (v₂ < 0) vs Group B {Node 3, 4} (v₂ > 0)</div>
+            <div style="color:#fbbf24;margin-top:0.5rem;">Algebraic Connectivity λ₂ = 0.5858 (Small λ₂ indicates a weak bottleneck bridge ripe for cutting!)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🚀 5. Real-World Application</span></div>
+        <p><strong>Computer Vision Image Segmentation (Normalized Cuts) & Graph Neural Networks (GNNs):</strong> In medical image analysis, images are represented as pixel affinity graphs. Spectral clustering segments tumors from healthy tissue by computing the eigenvectors of the normalized graph Laplacian. Graph Convolutional Networks (GCNs) filter node features using polynomial approximations of the Laplacian: $H^{(l+1)} = \sigma(\tilde{D}^{-1/2}\tilde{A}\tilde{D}^{-1/2} H^{(l)} W^{(l)})$.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / Spectral Clustering with Scipy</span></div>
+          <div class="code-content"><span class="code-kw">import</span> numpy <span class="code-kw">as</span> np
+<span class="code-kw">import</span> scipy.linalg <span class="code-kw">as</span> la
+
+<span class="code-cmt"># Adjacency matrix for 4-node barbell graph</span>
+A = np.array([
+    [<span class="code-num">0</span>, <span class="code-num">1</span>, <span class="code-num">0</span>, <span class="code-num">0</span>],
+    [<span class="code-num">1</span>, <span class="code-num">0</span>, <span class="code-num">1</span>, <span class="code-num">0</span>],
+    [<span class="code-num">0</span>, <span class="code-num">1</span>, <span class="code-num">0</span>, <span class="code-num">1</span>],
+    [<span class="code-num">0</span>, <span class="code-num">0</span>, <span class="code-num">1</span>, <span class="code-num">0</span>]
+])
+D = np.diag(A.sum(axis=<span class="code-num">1</span>))
+L = D - A
+
+eigenvalues, eigenvectors = la.eigh(L)
+fiedler_vector = eigenvectors[:, <span class="code-num">1</span>] <span class="code-cmt"># 2nd smallest</span>
+clusters = fiedler_vector > <span class="code-num">0</span>
+print(<span class="code-str">"Partition clusters:"</span>, clusters) <span class="code-cmt"># [False, False, True, True] -> Discovered groups!</span></div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:var(--accent-light);text-decoration:none;">Linear Algebra</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+<script src="js/linear-algebra-viz.js"></script>
+<script>
+  // Filter sidebar TOC
+  function filterTOC(query) {
+    const q = query.toLowerCase();
+    const items = document.querySelectorAll('#tocList .la-toc-item');
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(q) ? 'block' : 'none';
+    });
+  }
+
+  // Active TOC link on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('#tocList a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  document.querySelectorAll('.topic-container, .chapter-hero').forEach(sec => observer.observe(sec));
+</script>
+</body>
+</html>

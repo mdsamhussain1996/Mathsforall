@@ -17,6 +17,7 @@
 
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
       <li><a href="cs-aiml.html">CS / AI·ML</a></li>
       <li><a href="robotics.html">Robotics</a></li>
       <li><a href="control.html">Control Theory</a></li>
@@ -57,31 +58,31 @@
 
       <p class="hero-subtitle">
         From AI and robotics to control theory and beyond — explore the mathematical 
-        foundations that power modern science and engineering through interactive 
-        visualizations and intuitive explanations.
+        foundations that power modern science and engineering through intuitive mental models, worked examples, 
+        rigorous theory, interactive simulations, and real-world applications.
       </p>
 
       <div class="hero-cta">
-        <a href="#domains" class="btn btn-primary">
+        <a href="linear-algebra.html" class="btn btn-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Explore Topics
+          Master Linear Algebra →
         </a>
-        <a href="cs-aiml.html" class="btn btn-outline">
-          Start Learning →
+        <a href="#domains" class="btn btn-outline">
+          Explore Domains
         </a>
       </div>
 
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-value">4+</div>
+          <div class="stat-value">5+</div>
           <div class="stat-label">Core Domains</div>
         </div>
         <div class="stat">
-          <div class="stat-value">50+</div>
+          <div class="stat-value">80+</div>
           <div class="stat-label">Topics Covered</div>
         </div>
         <div class="stat">
-          <div class="stat-value">20+</div>
+          <div class="stat-value">30+</div>
           <div class="stat-label">Visualizations</div>
         </div>
       </div>
@@ -90,11 +91,11 @@
     <div class="hero-visual">
       <canvas id="hero-canvas" width="520" height="380"></canvas>
       <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-        <span class="tag">Linear Algebra</span>
+        <span class="tag" style="border-color:var(--accent);color:var(--accent-light);">📐 Linear Algebra Hub</span>
+        <span class="tag">Eigenvalues & SVD</span>
         <span class="tag">Probability</span>
         <span class="tag">Optimization</span>
         <span class="tag">Kinematics</span>
-        <span class="tag">Dynamical Systems</span>
       </div>
     </div>
   </div>
@@ -115,10 +116,24 @@
   <div class="section-header animate-on-scroll">
     <div class="section-tag">Core Domains</div>
     <h2 class="section-title">Mathematics Across Fields</h2>
-    <p class="section-desc">Each domain unlocks a new dimension of mathematical thinking — from machine learning to physical systems.</p>
+    <p class="section-desc">Each domain unlocks a new dimension of mathematical thinking — from foundational linear spaces to physical control systems.</p>
   </div>
 
   <div class="cards-grid">
+
+    <!-- Premier Feature: Master Linear Algebra -->
+    <div class="card animate-on-scroll" style="--delay:0.05s;border:1px solid rgba(217,119,6,0.35);background:linear-gradient(135deg,rgba(217,119,6,0.08),rgba(41,37,36,0.7));">
+      <div class="card-icon" style="background:rgba(217,119,6,0.2);">📐</div>
+      <div class="card-title">Complete Linear Algebra Master Platform</div>
+      <p class="card-desc">Comprehensive 10-chapter curriculum: Vectors, Span, Gaussian Elimination, Matrix Transformations, Determinants, Orthogonality, Eigenvalues, SVD, and Quadratic Forms.</p>
+      <ul class="subtopics-list" style="margin-top:1rem;">
+        <li><a href="linear-algebra.html#ch1" style="color:inherit;text-decoration:none;">Vectors, Dot & Cross Products</a></li>
+        <li><a href="linear-algebra.html#ch4" style="color:inherit;text-decoration:none;">Matrices as Transformations & 4 Subspaces</a></li>
+        <li><a href="linear-algebra.html#ch7" style="color:inherit;text-decoration:none;">Eigenvalues, Diagonalization & Spectra</a></li>
+        <li><a href="linear-algebra.html#ch8" style="color:inherit;text-decoration:none;">Singular Value Decomposition (SVD)</a></li>
+      </ul>
+      <a href="linear-algebra.html" class="card-link" style="color:var(--accent-light);font-weight:700;">Explore All Linear Algebra Topics →</a>
+    </div>
 
     <div class="card animate-on-scroll" style="--delay:0.1s">
       <div class="card-icon" style="background:rgba(124,58,237,0.15);">🤖</div>
@@ -126,7 +141,7 @@
       <p class="card-desc">Linear algebra, probability, optimization — the mathematical backbone of machine learning and data science algorithms.</p>
       <ul class="subtopics-list" style="margin-top:1rem;">
         <li><a href="systems-of-equations.html" style="color:inherit; text-decoration:none;">Systems of Linear Equations</a></li>
-        <li>Linear Algebra & Matrix Calculus</li>
+        <li><a href="eigen-lecture.html" style="color:inherit; text-decoration:none;">Eigenvalues & SVD in AI/ML</a></li>
         <li>Probability & Statistics</li>
         <li>Optimization & Gradient Descent</li>
       </ul>
