@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Probability &amp; Statistics for CS and AI: Interactive Course | Maths for All</title>
+  <meta name="description" content="Master discrete counting, Bayes theorem, randomized quicksort, probability distributions, covariance, CLT, MLE/MAP estimation, and A/B testing with interactive simulations." />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/probability-statistics.html" />
+  <meta name="theme-color" content="#8b5cf6" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="Probability &amp; Statistics for CS and AI: Interactive Course | Maths for All" />
+  <meta property="og:description" content="Master discrete counting, Bayes theorem, randomized quicksort, probability distributions, covariance, CLT, MLE/MAP estimation, and A/B testing with interactive simulations." />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/probability-statistics.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Maths for All — Probability and Statistics for CS and AI" />
+  <meta property="og:locale" content="en" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Probability &amp; Statistics for CS and AI: Interactive Course | Maths for All" />
+  <meta name="twitter:description" content="Master discrete counting, Bayes theorem, randomized quicksort, probability distributions, covariance, CLT, MLE/MAP estimation, and A/B testing with interactive simulations." />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="css/style.css?v=1.4" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <style>
+    :root {
+      --accent: #8b5cf6;
+      --accent-light: #c4b5fd;
+      --accent-glow: rgba(139, 92, 246, 0.25);
+      --card-border: rgba(139, 92, 246, 0.2);
+    }
+    .theme-badge {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      color: #c4b5fd;
+    }
+    .chapter-badge {
+      background: rgba(139, 92, 246, 0.15);
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    .la-hero {
+      padding: 7rem 1.5rem 3rem;
+    }
+    @media (max-width: 600px) {
+      .la-hero {
+        padding: 5.5rem 1rem 2rem;
+      }
+    }
+  </style>
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Linear Algebra <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="linear-algebra.html">Full Course (10 Ch)</a></li>
+          <li><a href="linear-algebra.html#ch1">Vectors &amp; Spaces</a></li>
+          <li><a href="linear-algebra.html#ch4">Eigenvalues &amp; Eigenvectors</a></li>
+          <li><a href="linear-algebra.html#ch7">SVD &amp; Low-Rank Approx</a></li>
+        </ul>
+      </li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle active" aria-expanded="false" aria-haspopup="true">
+          AI/ML Maths <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="cs-aiml.html">AI/ML Maths Hub</a></li>
+          <li><a href="probability-statistics.html" class="active">Probability &amp; Statistics</a></li>
+          <li><a href="calculus-optimisation.html">Calculus &amp; Optimisation</a></li>
+        </ul>
+      </li>
+      <li><a href="maths-behind.html">The Maths Behind…</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="https://github.com/mdsamhussain1996/Mathsforall" target="_blank" rel="noopener noreferrer" class="btn-github" aria-label="GitHub Repository">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="la-hero">
+  <div class="la-hero-inner">
+    <div class="theme-badge" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.4rem 1rem; border-radius:999px; font-size:0.85rem; font-weight:600; margin-bottom:1.25rem;">
+      <span>🎲</span> Roadmap Step ③a &middot; Probability &amp; Statistics Foundation
+    </div>
+    <h1 style="font-size:clamp(1.75rem, 5.5vw, 3.25rem); font-weight:800; line-height:1.2; margin-bottom:1.2rem; overflow-wrap:break-word;">
+      Probability &amp; Statistics <span style="background:linear-gradient(135deg, var(--accent-light), #ec4899); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">for CS and AI</span>
+    </h1>
+    <p style="font-size:clamp(1rem, 2vw, 1.15rem); color:var(--text-secondary); max-width:820px; line-height:1.75; margin-bottom:2rem;">
+      From counting and Bayes’ Theorem to randomized quicksort, continuous distributions, covariance matrices in PCA, limit theorems, MLE parameter estimation, and tech A/B testing. Every concept connects directly to algorithms, machine learning models, and tech interview puzzles.
+    </p>
+
+    <!-- Author Attribution -->
+    <div style="display:inline-flex; align-items:center; gap:1rem; padding:0.75rem 1.25rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; margin-bottom:2rem;">
+      <div style="font-size:1.8rem;">👨‍🏫</div>
+      <div style="text-align:left; font-size:0.88rem;">
+        <div style="font-weight:700; color:var(--text-primary);">Dr. Md Samshad Hussain Ansari</div>
+        <div style="color:var(--text-muted);">Assistant Professor of Mathematics &middot; Newton School of Technology, ADYPU &middot; PhD, IIT Mandi</div>
+      </div>
+    </div>
+
+    <!-- Quick Chapter Links -->
+    <div style="display:flex; flex-wrap:wrap; gap:0.6rem; justify-content:center; max-width:960px; margin:0 auto 2.5rem;">
+      <a href="#ch1" class="chapter-pill">1. Counting &amp; Sample Spaces</a>
+      <a href="#ch2" class="chapter-pill">2. Bayes' Theorem</a>
+      <a href="#ch3" class="chapter-pill">3. Random Variables &amp; Quicksort</a>
+      <a href="#ch4" class="chapter-pill">4. Key Distributions</a>
+      <a href="#ch5" class="chapter-pill">5. Joint Distributions &amp; PCA</a>
+      <a href="#ch6" class="chapter-pill">6. Limit Theorems (LLN &amp; CLT)</a>
+      <a href="#ch7" class="chapter-pill">7. Estimation (MLE &amp; MAP)</a>
+      <a href="#ch8" class="chapter-pill">8. Hypothesis &amp; A/B Testing</a>
+      <a href="#placement" class="chapter-pill" style="border-color:#10b981; color:#10b981;">💼 Placement Corner</a>
+    </div>
+
+    <!-- Course Stats Grid -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; max-width:850px; margin:0 auto;">
+      <div class="la-stat-card">
+        <div class="la-stat-num">8</div>
+        <div class="la-stat-label">Full Chapters</div>
+      </div>
+      <div class="la-stat-card">
+        <div class="la-stat-num">8</div>
+        <div class="la-stat-label">Interactive Canvas Labs</div>
+      </div>
+      <div class="la-stat-card">
+        <div class="la-stat-num">48</div>
+        <div class="la-stat-label">Practice Bank Problems</div>
+      </div>
+      <div class="la-stat-card">
+        <div class="la-stat-num">100%</div>
+        <div class="la-stat-label">FAANG Interview Verified</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="la-layout">
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="la-sidebar" id="sidebar">
+    <div class="la-sidebar-header">
+      <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary); margin-bottom:0.6rem;">Table of Contents</div>
+      <input type="text" id="tocFilter" placeholder="Filter chapters or topics…" oninput="filterTOC(this.value)" aria-label="Filter chapters" />
+    </div>
+
+    <ul class="la-toc-list" id="tocList">
+      <li class="la-toc-item"><a href="#ch1" class="la-toc-link"><span class="la-toc-num">01</span> Counting &amp; Sample Spaces</a></li>
+      <li class="la-toc-item"><a href="#ch2" class="la-toc-link"><span class="la-toc-num">02</span> Bayes' Theorem &amp; Conditioning</a></li>
+      <li class="la-toc-item"><a href="#ch3" class="la-toc-link"><span class="la-toc-num">03</span> Expectation &amp; Quicksort</a></li>
+      <li class="la-toc-item"><a href="#ch4" class="la-toc-link"><span class="la-toc-num">04</span> Key Distributions</a></li>
+      <li class="la-toc-item"><a href="#ch5" class="la-toc-link"><span class="la-toc-num">05</span> Joint Distributions &amp; PCA</a></li>
+      <li class="la-toc-item"><a href="#ch6" class="la-toc-link"><span class="la-toc-num">06</span> Limit Theorems: LLN &amp; CLT</a></li>
+      <li class="la-toc-item"><a href="#ch7" class="la-toc-link"><span class="la-toc-num">07</span> Estimation: MLE, MAP &amp; CIs</a></li>
+      <li class="la-toc-item"><a href="#ch8" class="la-toc-link"><span class="la-toc-num">08</span> Hypothesis Testing &amp; A/B Tests</a></li>
+      <li class="la-toc-item"><a href="#placement" class="la-toc-link" style="color:#10b981;"><span class="la-toc-num">💼</span> Placement Corner</a></li>
+    </ul>
+
+    <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.82rem; color:var(--text-muted);">
+      <div>Related Modules:</div>
+      <ul style="list-style:none; padding:0; margin:0.5rem 0 0; display:flex; flex-direction:column; gap:0.4rem;">
+        <li><a href="cs-aiml.html" style="color:var(--accent-light); text-decoration:none;">AI/ML Maths Hub ↗</a></li>
+        <li><a href="calculus-optimisation.html" style="color:var(--accent-light); text-decoration:none;">Calculus &amp; Optimisation ↗</a></li>
+        <li><a href="linear-algebra.html" style="color:var(--accent-light); text-decoration:none;">Linear Algebra (10 Ch) ↗</a></li>
+        <li><a href="maths-behind.html" style="color:var(--accent-light); text-decoration:none;">The Maths Behind… ↗</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN ARTICLE CONTENT -->
+  <main class="la-main">
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 1: COUNTING & SAMPLE SPACES
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch1">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 01</div>
+        <h2>Counting, Sample Spaces &amp; The Birthday Paradox</h2>
+        <div class="la-chapter-meta"><span>⏱ 25 min read</span> &middot; <span>Hash collision bounds &middot; Kolmogorov axioms &middot; Inclusion–exclusion</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Hash table collision analysis in <code>std::unordered_map</code>, birthday attacks against cryptographic hashes (MD5/SHA-256 collisions), and sizing Bloom filters in distributed caches like Apache Cassandra and Redis.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Construct sample spaces $\Omega$ and event fields $\mathcal{F}$ for discrete computational processes.</li>
+          <li>Apply Kolmogorov’s three probability axioms and derive the Principle of Inclusion-Exclusion for $n$ overlapping failure events.</li>
+          <li>Prove the Birthday Paradox collision bound $k \approx \sqrt{2 \ln 2 \cdot N} = \Theta(\sqrt{N})$ using Taylor approximations.</li>
+          <li>Decide whether a given randomized hash system provides sufficient entropy to keep collision probability below a desired SLA threshold.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: Why 23 People is Enough for a 50% Collision</div>
+        <p>If you walk into a room of strangers, the chance that someone shares <em>your</em> birthday is tiny: $1 - (364/365) \approx 0.27\%$. You would need 253 people to have a $50\%$ chance that someone matches <strong>you</strong>.</p>
+        <p>But the Birthday Paradox doesn't ask if someone matches <em>you</em>; it asks if <strong>any two people match each other</strong>. In a group of $k=23$ people, the number of distinct pairs comparing birthdays is $\binom{23}{2} = \frac{23 \times 22}{2} = 253$ distinct pairs! Each pair has an independent opportunity to collide. Because the number of pairs grows quadratically with $k$, collision probabilities skyrocket far faster than human intuition expects.</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Axioms, Bounds &amp; The Birthday Collision Theorem</div>
+        
+        <p><strong>Definition 1.1 (Probability Space):</strong> A probability space is a triple $(\Omega, \mathcal{F}, P)$, where $\Omega$ is the sample space of all elementary outcomes, $\mathcal{F} \subseteq 2^\Omega$ is a $\sigma$-algebra of events, and $P: \mathcal{F} \to [0, 1]$ is a probability measure satisfying <strong>Kolmogorov's Three Axioms</strong>:</p>
+        <ol style="margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">
+          <li><strong>Non-negativity:</strong> For every event $E \in \mathcal{F}$, $P(E) \ge 0$.</li>
+          <li><strong>Unit Measure:</strong> $P(\Omega) = 1$.</li>
+          <li><strong>Countable Additivity:</strong> For any countable sequence of pairwise disjoint events $E_1, E_2, \dots$ ($E_i \cap E_j = \emptyset$ for $i \ne j$):
+            $$P\left(\bigcup_{i=1}^\infty E_i\right) = \sum_{i=1}^\infty P(E_i)$$
+          </li>
+        </ol>
+
+        <p><strong>Theorem 1.1 (Principle of Inclusion-Exclusion):</strong> For any $n$ arbitrary events $A_1, \dots, A_n$, the probability of their union is:
+          $$P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n P(A_i) - \sum_{1 \le i < j \le n} P(A_i \cap A_j) + \sum_{1 \le i < j < k \le n} P(A_i \cap A_j \cap A_k) - \dots + (-1)^{n-1} P\left(\bigcap_{i=1}^n A_i\right)$$
+        </p>
+
+        <p><strong>Theorem 1.2 (Birthday Collision Bound):</strong> Consider assigning $k$ keys uniformly at random into $N$ available slots. The probability that all $k$ keys map to distinct slots is:
+          $$P(\text{no collision}) = \prod_{i=0}^{k-1} \left(1 - \frac{i}{N}\right)$$
+          Using the Taylor expansion $1 - x \le e^{-x}$ for $x \ge 0$:
+          $$P(\text{no collision}) \le \prod_{i=0}^{k-1} \exp\left(-\frac{i}{N}\right) = \exp\left(-\frac{1}{N}\sum_{i=0}^{k-1} i\right) = \exp\left(-\frac{k(k-1)}{2N}\right)$$
+          Setting $P(\text{no collision}) \le \frac{1}{2}$ and taking natural logs gives $-\frac{k^2}{2N} \approx -\ln 2 \implies k \approx \sqrt{2 \ln(2) \cdot N} \approx 1.1774\sqrt{N} = \Theta(\sqrt{N})$.
+        </p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 1.1: Exact Collision Probability for 23 People</div>
+        <p><strong>Problem:</strong> Calculate the exact probability that at least two people among $k=23$ individuals share the same birthday, assuming $N=365$ equally likely days.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>The first person can have any birthday: $\frac{365}{365} = 1$.</li>
+          <li>The second person must avoid the first birthday: $\frac{364}{365}$.</li>
+          <li>Continuing for all 23 people:
+            $$P(\text{no collision}) = \frac{365}{365} \times \frac{364}{365} \times \frac{363}{365} \times \dots \times \frac{343}{365} = \frac{365!}{365^{23} \cdot (365 - 23)!}$$
+          </li>
+          <li>Evaluating the product: $P(\text{no collision}) \approx 0.4927$.</li>
+          <li>By the complement rule: $P(\text{at least 1 collision}) = 1 - 0.4927 = 0.5073 = \mathbf{50.73\%}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 1.2: Inclusion-Exclusion for Triple Microservice Downtime</div>
+        <p><strong>Problem:</strong> A web service relies on 3 independent redundant microservices $A, B, C$. Individual failure probabilities are $P(A)=0.10, P(B)=0.08, P(C)=0.05$. Network storms cause correlated pairwise failures: $P(A \cap B)=0.02, P(A \cap C)=0.01, P(B \cap C)=0.01$, and all three fail together with probability $P(A \cap B \cap C)=0.002$. What is the probability of experiencing at least one service failure?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Apply Theorem 1.1: $P(A \cup B \cup C) = \sum P(A) - \sum P(A \cap B) + P(A \cap B \cap C)$.</li>
+          <li>Single service sum: $0.10 + 0.08 + 0.05 = 0.230$.</li>
+          <li>Pairwise intersection sum: $0.02 + 0.01 + 0.01 = 0.040$.</li>
+          <li>Triple intersection: $+0.002$.</li>
+          <li>Total failure probability: $0.230 - 0.040 + 0.002 = \mathbf{0.192} = \mathbf{19.2\%}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 1.3: Cryptographic Hash Sizing (64-bit vs 128-bit)</div>
+        <p><strong>Problem:</strong> A software engineer proposes using a 64-bit hash ($N = 2^{64}$) for file deduplication across a cloud storage system handling 10 billion files. Is this safe from birthday collisions?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Total hash space: $N = 2^{64} \approx 1.844 \times 10^{19}$.</li>
+          <li>Number of files: $k = 10^{10}$ (10 billion).</li>
+          <li>Collision probability approximation: $P(\text{collision}) \approx 1 - \exp\left(-\frac{k^2}{2N}\right)$.</li>
+          <li>Compute exponent: $\frac{k^2}{2N} = \frac{(10^{10})^2}{2 \times 1.844 \times 10^{19}} = \frac{10^{20}}{3.689 \times 10^{19}} \approx 2.71$.</li>
+          <li>$P(\text{collision}) \approx 1 - e^{-2.71} \approx 1 - 0.0665 = \mathbf{93.35\%}$!</li>
+          <li><strong>Conclusion:</strong> A 64-bit hash is completely unsafe; a collision is virtually guaranteed. Sizing up to 128-bit gives $N = 2^{128}$, where $k^2 / (2N) \approx 1.47 \times 10^{-19} \approx 0$, providing absolute collision resistance.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab1-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 1: Birthday Paradox &amp; Hash Collision Explorer</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Adjust $k$, change hash size $N$, and run Monte Carlo trials</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab1-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Items / Group size $k$: <strong id="lab1-k-val" style="color:var(--accent-light);">23</strong>
+            <input type="range" id="lab1-k-slider" min="2" max="100" value="23" style="vertical-align:middle; margin-left:0.5rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Slot Space $N$:
+            <select id="lab1-n-select" style="background:#292524; color:#fff; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:0.25rem 0.5rem; margin-left:0.5rem;">
+              <option value="365" selected>N = 365 (Days in a year)</option>
+              <option value="1024">N = 1,024 (10-bit Hash Table)</option>
+              <option value="65536">N = 65,536 (16-bit Hash Table)</option>
+            </select>
+          </label>
+          <button class="sim-btn" id="lab1-sim-btn">🎲 Run Monte Carlo (1,000 Trials)</button>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Theoretical Collision: <span id="lab1-hud-prob">50.73%</span></div>
+          <div class="sim-hud-item">Empirical Sim: <span id="lab1-hud-sim">Click "Run Simulation"</span></div>
+          <div class="sim-hud-item">Pairs Evaluated: <span id="lab1-hud-pairs">253</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Birthday Collision Simulation vs Theory</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import math
+
+def birthday_collision(k=23, N=365):
+    # Exact product for probability of at least one collision
+    p_no_collision = math.prod(1 - i / N for i in range(k))
+    return 1.0 - p_no_collision
+
+print(f"k=23, N=365: P(collision) = {birthday_collision(23, 365):.4f}")
+print(f"k=50, N=365: P(collision) = {birthday_collision(50, 365):.4f}")
+print(f"k=70, N=365: P(collision) = {birthday_collision(70, 365):.4f}")
+
+# Expected Output:
+# k=23, N=365: P(collision) = 0.5073
+# k=50, N=365: P(collision) = 0.9704
+# k=70, N=365: P(collision) = 0.9992</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Confusing personal matches with pairwise matches:</strong> Believing that $k=23$ means a $50\%$ chance someone matches <em>their own</em> birthday. (Matching you takes 253 people; matching <em>any</em> pair takes 23).</li>
+          <li><strong>Blindly adding probabilities:</strong> Writing $P(A \cup B) = P(A) + P(B)$ without checking if $A \cap B = \emptyset$. If events overlap, you must subtract the joint probability $P(A \cap B)$.</li>
+          <li><strong>Treating the Union Bound as equality:</strong> Boole's inequality $P(\cup E_i) \le \sum P(E_i)$ is an upper bound; it significantly overestimates true probabilities when events are heavily correlated.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch1" data-title="Test Yourself: Counting &amp; Sample Spaces"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Kolmogorov's axioms govern all valid probability measures: non-negativity, unit measure, and countable additivity.</li>
+          <li>Inclusion-Exclusion corrects for overlapping sets by alternating addition and subtraction of intersection cardinalities.</li>
+          <li>The Birthday Paradox proves that hash collisions scale as $\Theta(\sqrt{N})$, NOT $\Theta(N)$. A 64-bit hash collides in only $\approx 5$ billion items.</li>
+          <li>In randomized systems, the union bound provides worst-case safety guarantees without requiring independence.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch2" class="chapter-pill">Next: Chapter 2 — Bayes' Theorem &rarr;</a>
+          <a href="maths-behind.html#rsa" class="chapter-pill" style="border-color:var(--accent);">Story: How WhatsApp Keeps Secrets &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 2: CONDITIONAL PROBABILITY & BAYES' THEOREM
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch2">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 02</div>
+        <h2>Conditional Probability, Independence &amp; Bayes’ Theorem</h2>
+        <div class="la-chapter-meta"><span>⏱ 30 min read</span> &middot; <span>Spam filters &middot; Base rate fallacy &middot; Naive Bayes classifier</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Naive Bayes spam filters in Gmail, intrusion detection systems (IDS) in AWS GuardDuty, medical diagnosis AI in radiology, and state estimation in Kalman filters for autonomous robotics.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Compute conditional probabilities using the formal definition $P(A|B) = \frac{P(A \cap B)}{P(B)}$ and the Chain Rule.</li>
+          <li>Apply Bayes’ Theorem to invert conditionals: $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$.</li>
+          <li>Deconstruct the Base Rate Fallacy in medical tests and security intrusion alerts.</li>
+          <li>Derive the log-posterior classification score for a Multinomial Naive Bayes model.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: Why a 99% Accurate Test Can Be Wrong 90% of the Time</div>
+        <p>Suppose a rare cybersecurity zero-day exploit affects 1 in 1,000 servers ($0.1\%$). An AI scanner detects the exploit with $99\%$ sensitivity (true positive rate) and has only a $1\%$ false positive rate.</p>
+        <p>A server triggers a positive alert. What is the probability that it is actually infected? Most engineers guess $99\%$.</p>
+        <p>Consider 100,000 servers. Exactly 100 are infected; 99 test positive. But of the 99,900 healthy servers, $1\%$ trigger false alarms: that is <strong>999 healthy servers falsely flagged!</strong></p>
+        <p>Out of all $99 + 999 = 1,098$ positive alerts, only 99 are genuinely infected. The probability that an alerted server is truly infected is $\frac{99}{1,098} \approx \mathbf{9.0\%}$! The vast sea of healthy servers overwhelms the tiny pool of sick ones.</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Conditioning, Partitions &amp; Bayes’ Theorem</div>
+        
+        <p><strong>Definition 2.1 (Conditional Probability):</strong> If $P(B) > 0$, the conditional probability of event $A$ given event $B$ is defined as:
+          $$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+        </p>
+
+        <p><strong>Theorem 2.1 (Law of Total Probability):</strong> Let $A_1, A_2, \dots, A_k$ form a partition of the sample space $\Omega$ (mutually exclusive $\bigcup A_i = \Omega$, $A_i \cap A_j = \emptyset$, and $P(A_i) > 0$). Then for any event $B$:
+          $$P(B) = \sum_{i=1}^k P(B \cap A_i) = \sum_{i=1}^k P(B|A_i) P(A_i)$$
+        </p>
+
+        <p><strong>Theorem 2.2 (Bayes’ Theorem):</strong> Given hypothesis partition $\{A_i\}$ and observed evidence $B$ with $P(B) > 0$:
+          $$P(A_k|B) = \frac{P(B|A_k) P(A_k)}{P(B)} = \frac{P(B|A_k) P(A_k)}{\sum_{i=1}^m P(B|A_i) P(A_i)}$$
+          Where:
+          <ul style="margin-left:1.5rem; margin-top:0.4rem; color:var(--text-secondary);">
+            <li>$P(A_k)$ is the <strong>Prior probability</strong> (our belief before observing evidence).</li>
+            <li>$P(B|A_k)$ is the <strong>Likelihood</strong> (probability of evidence given hypothesis).</li>
+            <li>$P(B)$ is the <strong>Marginal evidence probability</strong>.</li>
+            <li>$P(A_k|B)$ is the <strong>Posterior probability</strong> (updated belief after evidence).</li>
+          </ul>
+        </p>
+
+        <p><strong>Definition 2.2 (Conditional Independence):</strong> Events $A$ and $B$ are conditionally independent given $C$ if $P(A \cap B | C) = P(A|C) P(B|C)$. In Naive Bayes classification, we assume all features $x_1, \dots, x_d$ are mutually independent given class $y$:
+          $$\hat{y} = \arg\max_c P(Y=c) \prod_{j=1}^d P(x_j \mid Y=c)$$
+        </p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 2.1: Spam Email Word Filtering</div>
+        <p><strong>Problem:</strong> In a mailbox, $20\%$ of all incoming emails are spam ($P(S) = 0.20$). The word "crypto" appears in $80\%$ of spam emails ($P(W|S) = 0.80$), but only in $2\%$ of non-spam emails ($P(W|\neg S) = 0.02$). An incoming email contains the word "crypto". Compute the posterior probability $P(S|W)$ that the email is spam.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Priors: $P(S) = 0.20$, $P(\neg S) = 1 - 0.20 = 0.80$.</li>
+          <li>Likelihoods: $P(W|S) = 0.80$, $P(W|\neg S) = 0.02$.</li>
+          <li>Total probability of observing word $W$:
+            $$P(W) = P(W|S)P(S) + P(W|\neg S)P(\neg S) = (0.80)(0.20) + (0.02)(0.80) = 0.160 + 0.016 = 0.176$$
+          </li>
+          <li>Bayes’ Rule:
+            $$P(S|W) = \frac{P(W|S)P(S)}{P(W)} = \frac{0.160}{0.176} = \frac{160}{176} = \frac{10}{11} \approx \mathbf{0.9091} = \mathbf{90.91\%}$$
+          </li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 2.2: Cloud Intrusion Detection &amp; The Base Rate Fallacy</div>
+        <p><strong>Problem:</strong> An AWS intrusion alert triggers. Prior probability of an actual intrusion per hour is $P(I) = 0.0005$ (1 in 2,000). The intrusion detector has sensitivity $P(+|I) = 0.98$ and false alarm rate $P(+|\neg I) = 0.01$. Find the probability that an alarm indicates a genuine intrusion.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Prior: $P(I) = 0.0005 \implies P(\neg I) = 0.9995$.</li>
+          <li>True positives in 100,000 hours: $100,000 \times 0.0005 \times 0.98 = 49$ valid alarms.</li>
+          <li>False positives in 100,000 hours: $100,000 \times 0.9995 \times 0.01 = 999.5$ false alarms.</li>
+          <li>Total alarms $P(+) = (0.98)(0.0005) + (0.01)(0.9995) = 0.00049 + 0.009995 = 0.010485$.</li>
+          <li>Posterior:
+            $$P(I|+) = \frac{0.00049}{0.010485} \approx \mathbf{0.0467} = \mathbf{4.67\%}$$
+          </li>
+          <li>Over $95\%$ of alerts are noise, demonstrating why automated incident responders must combine multi-stage Bayesian signals!</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 2.3: The Monty Hall Paradox via Bayes’ Rule</div>
+        <p><strong>Problem:</strong> You choose Door 1. Host Monty Hall reveals a goat behind Door 3. Show why switching to Door 2 doubles your probability of winning.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Priors: $P(C_1) = P(C_2) = P(C_3) = 1/3$, where $C_i$ is "car is behind Door $i$".</li>
+          <li>Evidence $H_3$: "Host opens Door 3".</li>
+          <li>Likelihoods:
+            <ul style="margin-left:1rem;">
+              <li>If car at Door 1 ($C_1$): Host can open Door 2 or 3 at random $\implies P(H_3|C_1) = 1/2$.</li>
+              <li>If car at Door 2 ($C_2$): Host cannot open Door 1 (your pick) or Door 2 (car) $\implies P(H_3|C_2) = 1$.</li>
+              <li>If car at Door 3 ($C_3$): Host cannot open Door 3 $\implies P(H_3|C_3) = 0$.</li>
+            </ul>
+          </li>
+          <li>Total probability: $P(H_3) = (1/2)(1/3) + (1)(1/3) + (0)(1/3) = 1/6 + 1/3 = 1/2$.</li>
+          <li>Posterior Door 2: $P(C_2|H_3) = \frac{1 \times 1/3}{1/2} = \mathbf{2/3}$.</li>
+          <li>Posterior Door 1: $P(C_1|H_3) = \frac{1/2 \times 1/3}{1/2} = \mathbf{1/3}$. Switching doubles your win rate!</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab2-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 2: Bayes’ Theorem &amp; Diagnostic Tree Explorer</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Adjust prior prevalence, sensitivity, and specificity</div>
+        </div>
+        <div style="position:relative; width:100%; height:340px;">
+          <canvas id="prob-lab2-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.82rem; color:var(--text-secondary);">
+            Prior $P(H)$: <strong id="lab2-prior-val" style="color:var(--accent-light);">1.0%</strong>
+            <input type="range" id="lab2-prior-slider" min="1" max="150" value="10" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.82rem; color:var(--text-secondary);">
+            Sensitivity $P(+|H)$: <strong id="lab2-sens-val" style="color:#10b981;">99.0%</strong>
+            <input type="range" id="lab2-sens-slider" min="70" max="100" value="99" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.82rem; color:var(--text-secondary);">
+            Specificity $P(-|\neg H)$: <strong id="lab2-spec-val" style="color:#06b6d4;">95.0%</strong>
+            <input type="range" id="lab2-spec-slider" min="70" max="100" value="95" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Posterior $P(H|+)$: <span id="lab2-hud-posterior">16.61%</span></div>
+          <div class="sim-hud-item">True Positives: <span id="lab2-hud-tp">99 people</span></div>
+          <div class="sim-hud-item">False Positives: <span id="lab2-hud-fp">495 people</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Bayes’ Posterior Calculator &amp; Classifier</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>def bayes_posterior(prior, sensitivity, specificity):
+    p_pos_given_sick = sensitivity
+    p_pos_given_healthy = 1.0 - specificity
+    p_pos = (p_pos_given_sick * prior) + (p_pos_given_healthy * (1.0 - prior))
+    return (p_pos_given_sick * prior) / p_pos
+
+# Example: 0.1% prior prevalence, 99% sensitivity, 95% specificity
+p = bayes_posterior(prior=0.001, sensitivity=0.99, specificity=0.95)
+print(f"P(Sick | Positive Test) = {p * 100:.2f}% (Base rate fallacy!)")
+
+# With 99.9% specificity:
+p2 = bayes_posterior(prior=0.001, sensitivity=0.99, specificity=0.999)
+print(f"With 99.9% Specificity: P(Sick | Positive) = {p2 * 100:.2f}%")
+
+# Expected Output:
+# P(Sick | Positive Test) = 1.94% (Base rate fallacy!)
+# With 99.9% Specificity: P(Sick | Positive) = 49.77%</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Transposing the conditional (Prosecutor's Fallacy):</strong> Equating $P(A|B)$ with $P(B|A)$. The probability of an email being spam given it contains "free" is completely different from the probability of a spam email containing "free".</li>
+          <li><strong>Confusing independence with mutual exclusivity:</strong> If $A$ and $B$ are mutually exclusive ($A \cap B = \emptyset$), then $P(A|B) = 0$. Independence means $P(A|B) = P(A) > 0$. Mutually exclusive events are maximally dependent!</li>
+          <li><strong>Neglecting zero frequencies in Naive Bayes:</strong> If a word was never observed in spam training emails, $P(w|S) = 0$, multiplying all probabilities to zero. Always apply Laplace add-one smoothing: $\frac{count + 1}{total + V}$.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch2" data-title="Test Yourself: Conditional Probability &amp; Bayes' Theorem"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Conditional probability updates belief given new evidence: $P(A|B) = \frac{P(A \cap B)}{P(B)}$.</li>
+          <li>Bayes' Theorem inverts likelihoods using prior base rates: $P(H|E) \propto P(E|H) P(H)$.</li>
+          <li>The Base Rate Fallacy explains why alerts for rare events are dominated by false alarms unless test specificity is exceptionally high.</li>
+          <li>Naive Bayes assumes conditional independence among features, enabling fast $O(d)$ classification in NLP and cybersecurity.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch3" class="chapter-pill">Next: Chapter 3 — Expectation &amp; Quicksort &rarr;</a>
+          <a href="maths-behind.html#pagerank" class="chapter-pill" style="border-color:var(--accent);">Story: How Google Ranked the Web &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 3: RANDOM VARIABLES, EXPECTATION & VARIANCE
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch3">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 03</div>
+        <h2>Random Variables, Linearity of Expectation &amp; Quicksort</h2>
+        <div class="la-chapter-meta"><span>⏱ 30 min read</span> &middot; <span>Indicator variables &middot; Variance &middot; Randomized Quicksort proofs</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Proving the $O(n \log n)$ average-case runtime of Randomized Quicksort, analyzing hash table collision search chains, pricing derivative models in quantitative trading, and value iteration in Reinforcement Learning ($V(s) = \mathbb{E}[R + \gamma V(s')]$).
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Define discrete and continuous random variables, PMFs, and CDFs.</li>
+          <li>Apply the Linearity of Expectation $\mathbb{E}[\sum X_i] = \sum \mathbb{E}[X_i]$ to correlated random variables without requiring independence.</li>
+          <li>Calculate variance $\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$ and standard deviation.</li>
+          <li>Prove that Randomized Quicksort executes at most $2n \ln n \approx 1.386 n \log_2 n$ expected element comparisons using indicator variables.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: Linearity of Expectation is a Superpower</div>
+        <p>Suppose 100 students throw their backpacks into a single pile at an exam room. When leaving, each student picks a backpack completely at random. What is the expected number of students who walk away with their own backpack?</p>
+        <p>If you try to compute the full probability distribution of matches, you encounter derangements and complex factorial permutations. But with <strong>Linearity of Expectation</strong>, it takes 3 lines:</p>
+        <p>Let indicator $X_i = 1$ if student $i$ gets their backpack, and $0$ otherwise. Since backpack selection is uniform, $P(X_i = 1) = \frac{1}{100} \implies \mathbb{E}[X_i] = \frac{1}{100}$.</p>
+        <p>The total number of matches is $X = \sum_{i=1}^{100} X_i$. Linearity of expectation holds <em>even though the picks are heavily correlated</em>:</p>
+        $$\mathbb{E}[X] = \sum_{i=1}^{100} \mathbb{E}[X_i] = 100 \times \frac{1}{100} = \mathbf{1}$$
+        <p>Whether there are 10 students or 10 million students, the expected number of correct backpacks is always exactly <strong>1</strong>!</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Expectation, Variance &amp; The Quicksort Theorem</div>
+        
+        <p><strong>Definition 3.1 (Expected Value):</strong> For a discrete random variable $X$ with PMF $p(x)$, its expected value (mean) is:
+          $$\mathbb{E}[X] = \sum_{x \in \operatorname{supp}(X)} x \cdot p(x)$$
+          Provided the sum converges absolutely ($\sum |x|p(x) < \infty$).
+        </p>
+
+        <p><strong>Theorem 3.1 (Linearity of Expectation):</strong> For ANY random variables $X_1, \dots, X_n$ (independent or dependent) and constants $c_1, \dots, c_n$:
+          $$\mathbb{E}\left[\sum_{i=1}^n c_i X_i\right] = \sum_{i=1}^n c_i \mathbb{E}[X_i]$$
+        </p>
+
+        <p><strong>Definition 3.2 (Variance &amp; Standard Deviation):</strong> The variance measures the spread around the mean:
+          $$\operatorname{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$$
+          Standard deviation is $\sigma = \sqrt{\operatorname{Var}(X)}$. For independent variables: $\operatorname{Var}(\sum X_i) = \sum \operatorname{Var}(X_i)$.
+        </p>
+
+        <p><strong>Theorem 3.2 (Randomized Quicksort Comparison Bound):</strong> Let $A$ be an array of $n$ distinct elements sorted as $z_1 < z_2 < \dots < z_n$. The expected number of element comparisons $\mathbb{E}[C]$ satisfies:
+          $$\mathbb{E}[C] = \sum_{i=1}^{n-1} \sum_{j=i+1}^n \frac{2}{j - i + 1} \le 2n \ln n \approx 1.386 n \log_2 n$$
+        </p>
+        <p><strong>Proof Sketch:</strong> Let indicator $X_{ij} = 1$ if elements $z_i$ and $z_j$ are compared during the algorithm execution, and $0$ otherwise. Two elements are compared if and only if one is the pivot. Once an element is chosen as pivot, it is permanently placed and never compared again. Thus, $z_i$ and $z_j$ are compared at most once.</p>
+        <p>Consider the subset $S_{ij} = \{z_i, z_{i+1}, \dots, z_j\}$ of size $j - i + 1$. $z_i$ and $z_j$ are compared if and only if the <em>first</em> pivot chosen from $S_{ij}$ is either $z_i$ or $z_j$. Since pivots are chosen uniformly at random:
+          $$P(X_{ij} = 1) = \frac{2}{j - i + 1} \implies \mathbb{E}[X_{ij}] = \frac{2}{j - i + 1}$$
+          By Linearity of Expectation:
+          $$\mathbb{E}[C] = \sum_{i=1}^{n-1} \sum_{j=i+1}^n \frac{2}{j - i + 1} = \sum_{i=1}^{n-1} \sum_{k=2}^{n-i+1} \frac{2}{k} < 2 \sum_{i=1}^n \sum_{k=1}^n \frac{1}{k} = 2n H_n \approx 2n \ln n \quad \blacksquare$$
+        </p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 3.1: The Coupon Collector’s Problem</div>
+        <p><strong>Problem:</strong> A gaming app gives you 1 of $n=10$ distinct champion badges in each daily reward chest uniformly at random. What is the expected number of chests you must open to collect all 10 badges?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Let $T = \sum_{i=1}^n X_i$, where $X_i$ is the number of chests opened to get the $i$-th new badge after having already acquired $i-1$ distinct badges.</li>
+          <li>When you have $i-1$ badges, the probability that the next chest holds a new badge is $p_i = \frac{n - (i-1)}{n}$.</li>
+          <li>$X_i$ is a Geometric random variable with mean $\mathbb{E}[X_i] = \frac{1}{p_i} = \frac{n}{n - i + 1}$.</li>
+          <li>By Linearity of Expectation:
+            $$\mathbb{E}[T] = \sum_{i=1}^n \frac{n}{n - i + 1} = n \left(1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n}\right) = n H_n$$
+          </li>
+          <li>For $n=10$: $H_{10} = 1 + 0.5 + 0.333 + 0.25 + 0.2 + 0.167 + 0.143 + 0.125 + 0.111 + 0.100 \approx 2.929$.</li>
+          <li>$\mathbb{E}[T] = 10 \times 2.929 = \mathbf{29.29 \text{ chests}}$. In general, $\mathbb{E}[T] \approx n \ln n + \gamma n = \Theta(n \ln n)$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 3.2: Variance of a Fair 6-Sided Die</div>
+        <p><strong>Problem:</strong> Compute $\mathbb{E}[X]$, $\mathbb{E}[X^2]$, and $\operatorname{Var}(X)$ for a fair 6-sided die.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>$\mathbb{E}[X] = \frac{1 + 2 + 3 + 4 + 5 + 6}{6} = \frac{21}{6} = \mathbf{3.5}$.</li>
+          <li>$\mathbb{E}[X^2] = \frac{1^2 + 2^2 + 3^2 + 4^2 + 5^2 + 6^2}{6} = \frac{1 + 4 + 9 + 16 + 25 + 36}{6} = \frac{91}{6} \approx 15.167$.</li>
+          <li>$\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 = \frac{91}{6} - \left(\frac{7}{2}\right)^2 = \frac{91}{6} - \frac{49}{4} = \frac{182 - 147}{12} = \frac{35}{12} \approx \mathbf{2.9167}$.</li>
+          <li>Standard deviation: $\sigma = \sqrt{2.9167} \approx \mathbf{1.708}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 3.3: Quicksort Exact Expectation for $n=5$</div>
+        <p><strong>Problem:</strong> Use the exact indicator formula $\mathbb{E}[C] = \sum_{i=1}^{n-1} \sum_{j=i+1}^n \frac{2}{j-i+1}$ to compute expected comparisons for $n=5$.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Let distance $k = j - i + 1$. The distance ranges from $k=2$ to $k=5$.</li>
+          <li>$k=2$ (distance 1, adjacent elements): 4 pairs ($1-2, 2-3, 3-4, 4-5$), each with probability $\frac{2}{2} = 1 \implies 4 \times 1 = 4$.</li>
+          <li>$k=3$ (distance 2): 3 pairs ($1-3, 2-4, 3-5$), each with probability $\frac{2}{3} \implies 3 \times \frac{2}{3} = 2$.</li>
+          <li>$k=4$ (distance 3): 2 pairs ($1-4, 2-5$), each with probability $\frac{2}{4} = \frac{1}{2} \implies 2 \times \frac{1}{2} = 1$.</li>
+          <li>$k=5$ (distance 4): 1 pair ($1-5$), with probability $\frac{2}{5} \implies 1 \times 0.4 = 0.4$.</li>
+          <li>Total expected comparisons: $\mathbb{E}[C] = 4 + 2 + 1 + 0.4 = \mathbf{7.4 \text{ comparisons}}$. (Notice worst case is $\binom{5}{2} = 10$).</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab3-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 3: Randomized Quicksort Comparisons &amp; Concentration</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Simulate live sorting runs and watch comparison counts cluster at $2n \ln n$</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab3-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Array size $n$: <strong id="lab3-n-val" style="color:var(--accent-light);">30</strong>
+            <input type="range" id="lab3-n-slider" min="10" max="100" value="30" style="vertical-align:middle; margin-left:0.5rem;" />
+          </label>
+          <button class="sim-btn" id="lab3-sort-btn">▶ Run Single Sort</button>
+          <button class="sim-btn" id="lab3-sim-btn">⚡ Simulate 250 Runs</button>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Latest Run: <span id="lab3-hud-comps">–</span></div>
+          <div class="sim-hud-item">Theoretical $2n \ln n$: <span id="lab3-hud-theory">204.1</span></div>
+          <div class="sim-hud-item">Worst Case $O(n^2)$: <span id="lab3-hud-worst">435</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Randomized Quicksort Comparisons Counter</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import random, math
+
+def qsort_comps(arr):
+    if len(arr) <= 1: return 0
+    p = random.choice(arr)
+    lt, gt = [x for x in arr if x < p], [x for x in arr if x > p]
+    return (len(arr) - 1) + qsort_comps(lt) + qsort_comps(gt)
+
+n, trials = 100, 200
+avg_c = sum(qsort_comps(list(range(n))) for _ in range(trials)) / trials
+exact_th = 2 * (n + 1) * sum(1/k for k in range(1, n+1)) - 4 * n
+print(f"n={n}: Empirical Avg = {avg_c:.1f}, Exact Theory = {exact_th:.1f}")
+
+# Expected Output:
+# n=100: Empirical Avg = 648.0, Exact Theory = 647.8</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Assuming linearity of expectation requires independence:</strong> Believing $\mathbb{E}[X + Y] = \mathbb{E}[X] + \mathbb{E}[Y]$ only holds if $X, Y$ are independent. It holds for ANY random variables, even if $Y = X^2$.</li>
+          <li><strong>Assuming $\mathbb{E}[g(X)] = g(\mathbb{E}[X])$:</strong> Jensen's inequality shows that $\mathbb{E}[X^2] \ge (\mathbb{E}[X])^2$. In fact, $\mathbb{E}[1/X] \ne 1/\mathbb{E}[X]$.</li>
+          <li><strong>Scaling variance linearly:</strong> Writing $\operatorname{Var}(aX) = a \operatorname{Var}(X)$. The correct property is $\operatorname{Var}(aX) = a^2 \operatorname{Var}(X)$.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch3" data-title="Test Yourself: Random Variables, Expectation &amp; Variance"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Linearity of Expectation is universal: $\mathbb{E}[\sum X_i] = \sum \mathbb{E}[X_i]$ requires zero independence assumptions.</li>
+          <li>Indicator random variables ($X_i \in \{0, 1\}$) turn complicated combinatorial expectations into straightforward probabilities: $\mathbb{E}[X_i] = P(X_i = 1)$.</li>
+          <li>Randomized Quicksort avoids the $O(n^2)$ worst-case trap by ensuring element $z_i, z_j$ comparisons occur with probability $\frac{2}{j-i+1}$, locking expected runtime to $O(n \log n)$.</li>
+          <li>Variance measures dispersion; for independent variables, $\operatorname{Var}(X + Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)$.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch4" class="chapter-pill">Next: Chapter 4 — Key Distributions &rarr;</a>
+          <a href="maths-behind.html#chatgpt" class="chapter-pill" style="border-color:var(--accent);">Story: How ChatGPT Pays Attention &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 4: KEY DISTRIBUTIONS
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch4">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 04</div>
+        <h2>The Key Distributions of Computer Science</h2>
+        <div class="la-chapter-meta"><span>⏱ 35 min read</span> &middot; <span>Bernoulli &middot; Binomial &middot; Geometric &middot; Poisson &middot; Normal &middot; Exponential</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Poisson distributions model incoming HTTP request spikes in Nginx/Kubernetes; Exponential distributions model server task execution times; Normal distributions govern Xavier/He deep neural net weight initialization; Geometric distributions model packet retry exponential backoff.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Select the appropriate distribution (Bernoulli, Binomial, Geometric, Poisson, Uniform, Normal, Exponential) for any given CS engineering problem.</li>
+          <li>Derive the mean and variance for discrete PMFs and continuous PDFs from first principles.</li>
+          <li>Explain the Poisson Limit Theorem ($n \to \infty, p \to 0, np = \lambda$) and the memoryless property of Geometric and Exponential distributions.</li>
+          <li>Calculate standardized $z$-scores and normal probabilities using the 68–95–99.7 empirical rule.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: The Family Tree of Distributions</div>
+        <p>Every major distribution in Computer Science is connected like branches of a single family tree:</p>
+        <ul style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Flip a single biased coin $\to$ <strong>Bernoulli</strong> ($p$).</li>
+          <li>Flip $n$ independent coins and count total Heads $\to$ <strong>Binomial</strong> ($n, p$).</li>
+          <li>Flip repeatedly and count trials <em>until the first Head</em> $\to$ <strong>Geometric</strong> ($p$).</li>
+          <li>Make the flips continuous and rare (millions of users, tiny click rates) $\to$ <strong>Poisson</strong> ($\lambda$).</li>
+          <li>Measure the elapsed time <em>between</em> consecutive Poisson events $\to$ <strong>Exponential</strong> ($\lambda$).</li>
+          <li>Sum together any large collection of independent variables $\to$ <strong>Normal (Gaussian)</strong> ($\mu, \sigma$).</li>
+        </ul>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Summary of Key Distributions</div>
+        
+        <div style="overflow-x:auto; margin:1rem 0;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.85rem; color:var(--text-secondary);">
+            <thead>
+              <tr style="border-bottom:2px solid var(--accent); color:var(--text-primary); text-align:left;">
+                <th style="padding:0.6rem;">Distribution</th>
+                <th style="padding:0.6rem;">PMF / PDF $f(x)$</th>
+                <th style="padding:0.6rem;">Mean $\mathbb{E}[X]$</th>
+                <th style="padding:0.6rem;">Variance $\operatorname{Var}(X)$</th>
+                <th style="padding:0.6rem;">Primary CS Application</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Bernoulli($p$)</td>
+                <td style="padding:0.6rem;">$p^x (1-p)^{1-x}, x \in \{0, 1\}$</td>
+                <td style="padding:0.6rem;">$p$</td>
+                <td style="padding:0.6rem;">$p(1-p)$</td>
+                <td style="padding:0.6rem;">Single bit flip, coin flip, click indicator</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Binomial($n, p$)</td>
+                <td style="padding:0.6rem;">$\binom{n}{x} p^x (1-p)^{n-x}, x \in \{0..n\}$</td>
+                <td style="padding:0.6rem;">$np$</td>
+                <td style="padding:0.6rem;">$np(1-p)$</td>
+                <td style="padding:0.6rem;">Successful packet transmissions in $n$ packets</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Geometric($p$)</td>
+                <td style="padding:0.6rem;">$(1-p)^{x-1}p, x \in \{1, 2, \dots\}$</td>
+                <td style="padding:0.6rem;">$1/p$</td>
+                <td style="padding:0.6rem;">$\frac{1-p}{p^2}$</td>
+                <td style="padding:0.6rem;">Retries until network connection succeeds</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Poisson($\lambda$)</td>
+                <td style="padding:0.6rem;">$\frac{\lambda^x e^{-\lambda}}{x!}, x \in \{0, 1, \dots\}$</td>
+                <td style="padding:0.6rem;">$\lambda$</td>
+                <td style="padding:0.6rem;">$\lambda$</td>
+                <td style="padding:0.6rem;">Server request volume per second, system crashes</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Uniform($a, b$)</td>
+                <td style="padding:0.6rem;">$\frac{1}{b-a}, x \in [a, b]$</td>
+                <td style="padding:0.6rem;">$\frac{a+b}{2}$</td>
+                <td style="padding:0.6rem;">$\frac{(b-a)^2}{12}$</td>
+                <td style="padding:0.6rem;">Pseudo-random number generation, hashing</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Normal($\mu, \sigma^2$)</td>
+                <td style="padding:0.6rem;">$\frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$</td>
+                <td style="padding:0.6rem;">$\mu$</td>
+                <td style="padding:0.6rem;">$\sigma^2$</td>
+                <td style="padding:0.6rem;">Deep learning weight initialization, Gaussian noise</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Exponential($\lambda$)</td>
+                <td style="padding:0.6rem;">$\lambda e^{-\lambda x}, x \ge 0$</td>
+                <td style="padding:0.6rem;">$1/\lambda$</td>
+                <td style="padding:0.6rem;">$1/\lambda^2$</td>
+                <td style="padding:0.6rem;">Server service times, component lifespan (MTBF)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Theorem 4.1 (Memoryless Property):</strong> A continuous random variable $X$ is memoryless if and only if $P(X > s + t \mid X > s) = P(X > t)$ for all $s, t \ge 0$. The <strong>Exponential distribution</strong> is the unique continuous memoryless distribution; the <strong>Geometric distribution</strong> is the unique discrete memoryless distribution.</p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 4.1: Server Traffic (Poisson vs Binomial Approximation)</div>
+        <p><strong>Problem:</strong> A web router processes $n = 10,000$ incoming packets per second. The probability that an individual packet is dropped due to buffer overflow is $p = 0.0003$. Use the Poisson distribution to approximate the probability that at least 5 packets are dropped in a given second.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Compute Poisson parameter $\lambda = np = 10,000 \times 0.0003 = \mathbf{3.0}$ dropped packets/sec.</li>
+          <li>We need $P(X \ge 5) = 1 - \sum_{k=0}^4 P(X = k) = 1 - e^{-3} \sum_{k=0}^4 \frac{3^k}{k!}$.</li>
+          <li>Evaluate terms:
+            <ul style="margin-left:1rem;">
+              <li>$k=0$: $3^0/0! = 1$</li>
+              <li>$k=1$: $3^1/1! = 3$</li>
+              <li>$k=2$: $3^2/2! = 4.5$</li>
+              <li>$k=3$: $3^3/6 = 4.5$</li>
+              <li>$k=4$: $3^4/24 = 3.375$</li>
+            </ul>
+          </li>
+          <li>Sum of terms: $1 + 3 + 4.5 + 4.5 + 3.375 = 16.375$.</li>
+          <li>$P(X \le 4) = 16.375 \times e^{-3} = 16.375 \times 0.049787 \approx 0.8153$.</li>
+          <li>$P(X \ge 5) = 1 - 0.8153 = \mathbf{0.1847} = \mathbf{18.47\%}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 4.2: Network Packet Retransmission (Geometric Distribution)</div>
+        <p><strong>Problem:</strong> A sensor node transmits packets over an unstable radio link. Each attempt succeeds with probability $p = 0.20$. What is the expected number of transmissions, and what is the probability that it requires strictly more than 3 attempts?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Number of transmissions $X \sim \operatorname{Geometric}(p=0.20)$.</li>
+          <li>Expected transmissions: $\mathbb{E}[X] = \frac{1}{p} = \frac{1}{0.20} = \mathbf{5 \text{ transmissions}}$.</li>
+          <li>The event $\{X > 3\}$ means the first 3 consecutive transmissions all failed.</li>
+          <li>$P(X > 3) = (1 - p)^3 = (0.80)^3 = \mathbf{0.512} = \mathbf{51.2\%}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 4.3: Xavier / Glorot Neural Network Weight Initialization</div>
+        <p><strong>Problem:</strong> In a dense neural network layer with $n_{\text{in}} = 100$ inputs and $n_{\text{out}} = 50$ outputs, weights $W_{ij}$ are initialized from $\mathcal{N}(0, \sigma^2)$. Derive the Xavier variance formula $\sigma^2 = \frac{2}{n_{\text{in}} + n_{\text{out}}}$ and calculate $\sigma$.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Output neuron $y = \sum_{i=1}^{n_{\text{in}}} W_i x_i$. Assuming zero-mean independent inputs and weights:
+            $$\operatorname{Var}(y) = \sum_{i=1}^{n_{\text{in}}} \operatorname{Var}(W_i x_i) = n_{\text{in}} \operatorname{Var}(W) \operatorname{Var}(x)$$
+          </li>
+          <li>To prevent forward signals from exploding or vanishing, we want $\operatorname{Var}(y) = \operatorname{Var}(x) \implies \operatorname{Var}(W) = \frac{1}{n_{\text{in}}}$.</li>
+          <li>During backpropagation, backward gradient flow similarly requires $\operatorname{Var}(W) = \frac{1}{n_{\text{out}}}$.</li>
+          <li>Xavier takes the harmonic mean of both constraints: $\sigma^2 = \frac{2}{n_{\text{in}} + n_{\text{out}}}$.</li>
+          <li>For $n_{\text{in}}=100, n_{\text{out}}=50$: $\sigma^2 = \frac{2}{150} = \frac{1}{75} \approx 0.01333$.</li>
+          <li>Standard deviation: $\sigma = \sqrt{0.01333} \approx \mathbf{0.1155}$.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab4-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 4: Distribution Explorer &amp; Parameter Sliders</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Explore PMFs, PDFs, means, and variances across all 7 key distributions</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab4-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Distribution:
+            <select id="lab4-dist-select" style="background:#292524; color:#fff; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:0.25rem 0.5rem; margin-left:0.5rem;">
+              <option value="binomial" selected>Binomial(n, p)</option>
+              <option value="poisson">Poisson(λ)</option>
+              <option value="normal">Normal(μ, σ)</option>
+              <option value="exponential">Exponential(λ)</option>
+              <option value="uniform">Uniform(a, b)</option>
+            </select>
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            <span id="lab4-p1-lbl">Parameter 1:</span> <strong id="lab4-p1-val" style="color:var(--accent-light);">20</strong>
+            <input type="range" id="lab4-p1-slider" min="5" max="40" value="20" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            <span id="lab4-p2-lbl">Parameter 2:</span> <strong id="lab4-p2-val" style="color:#10b981;">0.4</strong>
+            <input type="range" id="lab4-p2-slider" min="0.05" max="0.95" step="0.05" value="0.4" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Mean $\mathbb{E}[X]$: <span id="lab4-hud-mean">8.000</span></div>
+          <div class="sim-hud-item">Variance $\operatorname{Var}(X)$: <span id="lab4-hud-var">4.800</span></div>
+          <div class="sim-hud-item">Std Dev $\sigma$: <span id="lab4-hud-std">2.191</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Poisson Approximation of Binomial Distribution</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import math
+
+def binom_pmf(n, k, p): return math.comb(n, k) * (p**k) * ((1-p)**(n-k))
+def poisson_pmf(k, lmbda): return (lmbda**k * math.exp(-lmbda)) / math.factorial(k)
+
+n, p, k = 1000, 0.005, 3  # lambda = n * p = 5.0
+p_bin = binom_pmf(n, k, p)
+p_poi = poisson_pmf(k, n * p)
+print(f"k={k}: Binomial = {p_bin:.5f}, Poisson = {p_poi:.5f}, Diff = {abs(p_bin - p_poi):.6f}")
+
+# Expected Output:
+# k=3: Binomial = 0.14030, Poisson = 0.14037, Diff = 0.000071</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Confusing discrete PMF values with continuous PDF density:</strong> A continuous density $f(x)$ can exceed 1 (e.g., if $\sigma=0.1$, the normal peak is $\frac{1}{0.1\sqrt{2\pi}} \approx 4.0$). Only the area $\int f(x)dx$ equals 1, and $P(X = c) = 0$ for any exact real number $c$.</li>
+          <li><strong>Applying Poisson when $n$ is small:</strong> The Poisson approximation requires large $n$ ($n \ge 100$) and small $p$ ($p \le 0.01$) so that $\lambda = np$ remains moderate.</li>
+          <li><strong>Confusing Geometric with Binomial:</strong> Using Binomial when counting the number of attempts <em>until</em> the first success, rather than counting successes in a fixed number of attempts $n$.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch4" data-title="Test Yourself: Key Distributions"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>The Poisson distribution is the mathematical limit of the Binomial distribution as $n \to \infty, p \to 0$ with $np = \lambda$.</li>
+          <li>The Geometric and Exponential distributions are the unique memoryless distributions: elapsed time does not affect remaining waiting time.</li>
+          <li>Normal distributions govern natural sums (via CLT) and dictate modern deep learning initialization schemes (Xavier/He).</li>
+          <li>Always distinguish discrete PMF probabilities ($P(X=k) \in [0, 1]$) from continuous PDF densities ($f(x) \ge 0, \int f(x)dx = 1$).</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch5" class="chapter-pill">Next: Chapter 5 — Joint Distributions &amp; PCA &rarr;</a>
+          <a href="maths-behind.html#shazam" class="chapter-pill" style="border-color:var(--accent);">Story: How Shazam Recognises a Song &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 5: JOINT DISTRIBUTIONS, COVARIANCE & CORRELATION
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch5">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 05</div>
+        <h2>Joint Distributions, Covariance &amp; The Link to PCA</h2>
+        <div class="la-chapter-meta"><span>⏱ 30 min read</span> &middot; <span>Covariance matrix &middot; Pearson correlation &middot; Spectral link to Linear Algebra</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Principal Component Analysis (PCA) for image compression and facial recognition (Eigenfaces), word embeddings in NLP (Word2Vec / GloVe), collaborative filtering in Netflix recommenders, and multicollinearity detection in tabular regression.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Define joint PMFs/PDFs, marginal distributions, and conditional distributions for multivariate random variables.</li>
+          <li>Compute covariance $\operatorname{Cov}(X,Y)$ and Pearson correlation $\rho \in [-1, 1]$ from joint distributions.</li>
+          <li>Construct the sample covariance matrix $\boldsymbol{\Sigma} = \frac{1}{N} \mathbf{X}^T \mathbf{X}$ and prove that it is symmetric positive semi-definite ($\boldsymbol{\Sigma} \succeq 0$).</li>
+          <li>Connect the eigenvectors and eigenvalues of $\boldsymbol{\Sigma}$ to the principal axes of maximum variance in PCA.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: When Features Move in Harmony</div>
+        <p>Imagine monitoring cloud servers. If you plot CPU utilization against server response latency, you notice that whenever CPU spikes, latency spikes too. They share <strong>positive covariance</strong>.</p>
+        <p>If you plot cache hit rate against latency, whenever cache hit rate increases, latency drops. They share <strong>negative covariance</strong>.</p>
+        <p>If you plot CPU utilization against the current minute of the hour, the points form a scattered circular blob with zero linear trend: <strong>zero covariance</strong>.</p>
+        <p>The <strong>Covariance Matrix</strong> collects all pairwise covariances into a single $d \times d$ grid. Geometrically, it describes the shape, tilt, and stretch of the data cloud. Finding the eigenvectors of this matrix rotates our coordinate system so that all features become mutually uncorrelated: this is <strong>Principal Component Analysis (PCA)</strong>!</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Covariance, Correlation &amp; The Spectral Bridge to PCA</div>
+        
+        <p><strong>Definition 5.1 (Covariance &amp; Correlation):</strong> For random variables $X$ and $Y$ with means $\mu_X, \mu_Y$:
+          $$\operatorname{Cov}(X, Y) = \mathbb{E}[(X - \mu_X)(Y - \mu_Y)] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]$$
+          The <strong>Pearson correlation coefficient</strong> normalizes covariance by the standard deviations:
+          $$\rho_{X, Y} = \frac{\operatorname{Cov}(X, Y)}{\sigma_X \sigma_Y} \in [-1, 1]$$
+        </p>
+
+        <p><strong>Theorem 5.1 (Zero Correlation $\ne$ Independence):</strong> If $X$ and $Y$ are independent, then $\operatorname{Cov}(X,Y) = 0$ ($\rho=0$). However, the converse is FALSE: two variables can have zero linear correlation ($\rho=0$) while possessing a completely deterministic non-linear relationship (e.g. $X \sim \text{Unif}[-1, 1]$ and $Y = X^2$).</p>
+
+        <p><strong>Theorem 5.2 (Covariance Matrix &amp; Positive Semi-Definiteness):</strong> For a centered random vector $\mathbf{x} \in \mathbb{R}^d$ ($\mathbb{E}[\mathbf{x}] = \mathbf{0}$), the covariance matrix is:
+          $$\boldsymbol{\Sigma} = \mathbb{E}[\mathbf{x}\mathbf{x}^T] \in \mathbb{R}^{d \times d}$$
+          For any vector $\mathbf{v} \in \mathbb{R}^d$, the quadratic form represents the variance of the data projected onto $\mathbf{v}$:
+          $$\operatorname{Var}(\mathbf{v}^T \mathbf{x}) = \mathbf{v}^T \mathbb{E}[\mathbf{x}\mathbf{x}^T] \mathbf{v} = \mathbf{v}^T \boldsymbol{\Sigma} \mathbf{v} \ge 0$$
+          Since variance is non-negative, $\boldsymbol{\Sigma}$ is <strong>symmetric positive semi-definite ($\boldsymbol{\Sigma} \succeq 0$)</strong>.
+        </p>
+
+        <p><strong>The Bridge to Linear Algebra (Spectral Decomposition):</strong> By the Spectral Theorem, $\boldsymbol{\Sigma}$ factors into orthonormal eigenvectors $\mathbf{v}_1, \dots, \mathbf{v}_d$ with non-negative eigenvalues $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_d \ge 0$:
+          $$\boldsymbol{\Sigma} = \mathbf{V} \boldsymbol{\Lambda} \mathbf{V}^T$$
+          The top eigenvector $\mathbf{v}_1$ is the first principal component (direction of maximum variance $\lambda_1$). Projecting data onto the top $k$ eigenvectors preserves the maximal amount of information!</p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 5.1: Discrete Joint PMF Table Analysis</div>
+        <p><strong>Problem:</strong> Let $X \in \{0, 1\}$ represent cache miss ($1$) or hit ($0$), and $Y \in \{1, 2\}$ represent latency level. The joint probabilities are: $P(0, 1) = 0.5, P(0, 2) = 0.2, P(1, 1) = 0.1, P(1, 2) = 0.2$. Compute marginal distributions, $\mathbb{E}[X], \mathbb{E}[Y]$, and $\operatorname{Cov}(X, Y)$.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Marginals:
+            $$P_X(0) = 0.5 + 0.2 = 0.7, \quad P_X(1) = 0.1 + 0.2 = 0.3$$
+            $$P_Y(1) = 0.5 + 0.1 = 0.6, \quad P_Y(2) = 0.2 + 0.2 = 0.4$$
+          </li>
+          <li>Expectations:
+            $$\mathbb{E}[X] = 0(0.7) + 1(0.3) = 0.3$$
+            $$\mathbb{E}[Y] = 1(0.6) + 2(0.4) = 0.6 + 0.8 = 1.4$$
+          </li>
+          <li>Product expectation $\mathbb{E}[XY] = \sum x y P(x, y)$:
+            $$\mathbb{E}[XY] = (0)(1)(0.5) + (0)(2)(0.2) + (1)(1)(0.1) + (1)(2)(0.2) = 0 + 0 + 0.1 + 0.4 = 0.5$$
+          </li>
+          <li>Covariance:
+            $$\operatorname{Cov}(X, Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] = 0.50 - (0.3)(1.4) = 0.50 - 0.42 = \mathbf{+0.08}$$
+            Positive covariance confirms cache misses systematically increase latency.
+          </li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 5.2: Analytical Proof that Zero Covariance $\centernot\implies$ Independence</div>
+        <p><strong>Problem:</strong> Let $X$ take values $\{-1, 0, 1\}$ with equal probability $1/3$. Let $Y = X^2$. Prove that $\operatorname{Cov}(X, Y) = 0$, even though $Y$ is completely deterministic given $X$.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Compute $\mathbb{E}[X] = \frac{-1 + 0 + 1}{3} = 0$.</li>
+          <li>The product $XY = X \cdot X^2 = X^3$.</li>
+          <li>$X^3$ takes values $(-1)^3 = -1, 0^3 = 0, 1^3 = 1$ with probability $1/3$ each.</li>
+          <li>$\mathbb{E}[XY] = \mathbb{E}[X^3] = \frac{-1 + 0 + 1}{3} = 0$.</li>
+          <li>Covariance: $\operatorname{Cov}(X, Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] = 0 - (0)(\mathbb{E}[Y]) = \mathbf{0}$.</li>
+          <li>Correlation $\rho = 0$. Yet $Y$ is an exact deterministic function of $X$ ($P(Y = X^2) = 1$). This proves covariance detects only linear dependencies!</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 5.3: Hand PCA on a $2 \times 2$ Covariance Matrix</div>
+        <p><strong>Problem:</strong> A centered 2D dataset has sample covariance matrix $\boldsymbol{\Sigma} = \begin{bmatrix} 4 & 2 \\ 2 & 1 \end{bmatrix}$. Find the principal components and the percentage of variance captured by the first component.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Characteristic equation: $\det(\boldsymbol{\Sigma} - \lambda \mathbf{I}) = (4 - \lambda)(1 - \lambda) - 4 = \lambda^2 - 5\lambda = 0$.</li>
+          <li>Eigenvalues: $\lambda_1 = 5, \quad \lambda_2 = 0$.</li>
+          <li>Total variance: $\operatorname{tr}(\boldsymbol{\Sigma}) = 4 + 1 = 5$.</li>
+          <li>Variance explained by $\lambda_1$: $\frac{5}{5} = \mathbf{100\%}$! All data points lie perfectly on a 1D line.</li>
+          <li>Eigenvector for $\lambda_1 = 5$:
+            $$(\boldsymbol{\Sigma} - 5\mathbf{I})\mathbf{v} = \begin{bmatrix} -1 & 2 \\ 2 & -4 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} = \mathbf{0} \implies -v_1 + 2v_2 = 0 \implies v_1 = 2v_2$$
+          </li>
+          <li>Normalized top principal component: $\mathbf{v}_1 = \frac{1}{\sqrt{5}} \begin{bmatrix} 2 \\ 1 \end{bmatrix}$.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab5-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 5: 2D Data Cloud, Covariance &amp; PCA Principal Axes</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Switch data presets to visualize covariance ellipses and orthogonal PCA eigenvectors live</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab5-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Data Cloud Preset:
+            <select id="lab5-preset-select" style="background:#292524; color:#fff; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:0.25rem 0.5rem; margin-left:0.5rem;">
+              <option value="pos" selected>Strong Positive Correlation</option>
+              <option value="neg">Strong Negative Correlation</option>
+              <option value="uncorr">Uncorrelated / Circular Gaussian</option>
+              <option value="nonlinear">Non-linear Parabola (Y = X², Cov = 0)</option>
+            </select>
+          </label>
+          <button class="sim-btn" id="lab5-regen-btn">🔄 Regenerate Points</button>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Sample Covariance $\operatorname{Cov}(X,Y)$: <span id="lab5-hud-cov">1.240</span></div>
+          <div class="sim-hud-item">Correlation $\rho$: <span id="lab5-hud-corr">0.820</span></div>
+          <div class="sim-hud-item">PCA Eigenvalues: <span id="lab5-hud-eig">λ₁=2.45, λ₂=0.31</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Covariance Matrix &amp; PCA via NumPy</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import numpy as np
+
+X = np.array([[2.5, 2.4], [0.5, 0.7], [2.2, 2.9], [1.9, 2.2], [3.1, 3.0]])
+X_centered = X - np.mean(X, axis=0)
+cov_matrix = np.cov(X_centered, rowvar=False)
+eigenvalues, eigenvectors = np.linalg.eigh(cov_matrix)
+print("Covariance Matrix:\n", np.round(cov_matrix, 4))
+print("Eigenvalues (variance explained):", np.round(eigenvalues[::-1], 4))
+print("Top PC Direction:", np.round(eigenvectors[:, -1], 4))
+
+# Expected Output:
+# Covariance Matrix:
+#  [[0.938  0.8405]
+#  [0.8405 0.853 ]]
+# Eigenvalues (variance explained): [1.7371 0.0539]
+# Top PC Direction: [-0.7247 -0.689 ]</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Equating correlation with causation:</strong> A high Pearson correlation $\rho = 0.95$ does not imply $X$ causes $Y$ (both might be driven by a confounding variable $Z$).</li>
+          <li><strong>Dividing by $N$ instead of $N-1$:</strong> Using $N$ when estimating sample covariance from finite data causes downward bias. Bessel's correction divides by $N-1$ to ensure unbiasedness: $S^2 = \frac{1}{N-1}\sum (x_i - \bar{x})^2$.</li>
+          <li><strong>Forgetting to center data before PCA:</strong> Computing $\mathbf{X}^T \mathbf{X}$ on uncentered data yields moments around the origin rather than covariance around the mean, distorting the principal axes.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch5" data-title="Test Yourself: Joint Distributions &amp; Covariance"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Covariance measures the linear co-movement of two variables; Pearson correlation $\rho \in [-1, 1]$ standardizes covariance by scale.</li>
+          <li>Zero correlation does NOT imply statistical independence; it only rules out linear association.</li>
+          <li>The covariance matrix $\boldsymbol{\Sigma} = \frac{1}{N}\mathbf{X}^T \mathbf{X}$ is symmetric positive semi-definite ($\boldsymbol{\Sigma} \succeq 0$).</li>
+          <li>Principal Component Analysis (PCA) diagonalizes $\boldsymbol{\Sigma}$; its orthogonal eigenvectors define the directions of maximum data variance.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch6" class="chapter-pill">Next: Chapter 6 — Limit Theorems (LLN &amp; CLT) &rarr;</a>
+          <a href="maths-behind.html#netflix" class="chapter-pill" style="border-color:var(--accent);">Story: How Netflix Guesses Your Next Show &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 6: LIMIT THEOREMS (LLN & CLT)
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch6">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 06</div>
+        <h2>Limit Theorems: The Law of Large Numbers &amp; CLT</h2>
+        <div class="la-chapter-meta"><span>⏱ 30 min read</span> &middot; <span>Weak &amp; Strong LLN &middot; Central Limit Theorem &middot; Monte Carlo $\pi$ estimation</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Monte Carlo algorithms (estimating $\pi$, randomized numeric integration, ray tracing in graphics engines, Monte Carlo Tree Search in AlphaGo), load testing reliability guarantees, and confidence intervals in machine learning benchmarks.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Distinguish between convergence in probability (Weak LLN) and almost sure convergence (Strong LLN).</li>
+          <li>State the Central Limit Theorem and prove that sample means scale with standard error $\sigma / \sqrt{n}$.</li>
+          <li>Quantify the Monte Carlo simulation convergence rate $O(1/\sqrt{N})$ and explain why reducing error tenfold requires $100\times$ more samples.</li>
+          <li>Apply Markov and Chebyshev inequalities to place distribution-free upper bounds on tail probabilities.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: The Universal Smoothing Filter of Nature</div>
+        <p>Roll a single fair 6-sided die: the distribution is flat, jagged, and uniform ($1/6$ for each face). Roll two dice and add them: you get a triangular peak at 7.</p>
+        <p>Now roll 10 dice and sum them. The jagged discreteness melts away into a silky-smooth, bell-shaped Gaussian curve. Roll 30 dice: the sum is virtually indistinguishable from a theoretical continuous Normal distribution!</p>
+        <p>It does not matter whether your underlying distribution was uniform, skewed, bimodal, or discrete. When you sum many independent random variables together, their collective noise cancels out in the center, and the sum inexorably gravitates toward the <strong>Normal distribution</strong>. This is the <strong>Central Limit Theorem</strong>—the foundation of empirical science.</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Tail Bounds, LLN &amp; The Central Limit Theorem</div>
+        
+        <p><strong>Theorem 6.1 (Markov’s Inequality):</strong> If $X$ is a non-negative random variable ($X \ge 0$) and $a > 0$:
+          $$P(X \ge a) \le \frac{\mathbb{E}[X]}{a}$$
+        </p>
+
+        <p><strong>Theorem 6.2 (Chebyshev’s Inequality):</strong> For any random variable $X$ with mean $\mu$ and variance $\sigma^2$:
+          $$P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$$
+        </p>
+
+        <p><strong>Theorem 6.3 (Weak Law of Large Numbers - WLLN):</strong> Let $X_1, X_2, \dots$ be i.i.d. with mean $\mu$ and finite variance $\sigma^2$. The sample mean $\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i$ converges in probability to $\mu$:
+          $$\forall \epsilon > 0, \quad \lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0$$
+          <em>Proof:</em> $\operatorname{Var}(\bar{X}_n) = \frac{\sigma^2}{n}$. By Chebyshev: $P(|\bar{X}_n - \mu| \ge \epsilon) \le \frac{\sigma^2}{n \epsilon^2} \to 0$ as $n \to \infty$. $\blacksquare$
+        </p>
+
+        <p><strong>Theorem 6.4 (Central Limit Theorem - CLT):</strong> Let $X_1, X_2, \dots$ be i.i.d. with mean $\mu$ and variance $\sigma^2 < \infty$. The standardized sum converges in distribution to the standard normal $\mathcal{N}(0, 1)$:
+          $$Z_n = \frac{\sum_{i=1}^n X_i - n\mu}{\sigma \sqrt{n}} = \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1) \quad \text{as } n \to \infty$$
+        </p>
+
+        <p><strong>Monte Carlo Convergence Rate:</strong> In Monte Carlo estimation $\hat{\theta} = \frac{1}{N}\sum_{i=1}^N f(U_i)$, the standard error is $\operatorname{SE} = \frac{\sigma}{\sqrt{N}} = O(1/\sqrt{N})$. To add 1 decimal place of accuracy ($10\times$ error reduction), you must generate $10^2 = \mathbf{100\times}$ more samples!</p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 6.1: Chebyshev Bound on Cloud API Latency</div>
+        <p><strong>Problem:</strong> API response latency has an unknown distribution with mean $\mu = 50\text{ ms}$ and standard deviation $\sigma = 10\text{ ms}$. Use Chebyshev's inequality to bound the probability that a query takes 80ms or longer, or 20ms or shorter.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>The event is $|X - 50| \ge 30\text{ ms}$.</li>
+          <li>Deviation $\delta = 30\text{ ms}$. In terms of standard deviations: $k = \frac{30}{\sigma} = \frac{30}{10} = 3$.</li>
+          <li>Apply Chebyshev: $P(|X - \mu| \ge 3\sigma) \le \frac{1}{3^2} = \frac{1}{9} \approx \mathbf{0.1111} = \mathbf{11.11\%}$.</li>
+          <li>Even without knowing anything about the distribution shape (it could be skewed or bimodal), at most $11.11\%$ of queries will deviate by 30ms or more.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 6.2: Central Limit Theorem on 100 Coin Flips</div>
+        <p><strong>Problem:</strong> A fair coin is flipped 100 times. What is the approximate probability of getting between 45 and 55 heads inclusive?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Each toss $X_i \sim \operatorname{Bernoulli}(0.5) \implies \mu = 0.5, \sigma^2 = 0.25$.</li>
+          <li>Total Heads $S_{100} = \sum_{i=1}^{100} X_i \implies \mu_{\text{sum}} = 100(0.5) = 50$, $\sigma_{\text{sum}} = \sqrt{100 \times 0.25} = 5$.</li>
+          <li>By CLT, $S_{100} \approx \mathcal{N}(50, 25)$.</li>
+          <li>Compute $z$-scores with continuity correction for $[44.5, 55.5]$:
+            $$z_1 = \frac{44.5 - 50}{5} = -1.10, \quad z_2 = \frac{55.5 - 50}{5} = +1.10$$
+          </li>
+          <li>$P(45 \le S_{100} \le 55) \approx \Phi(1.10) - \Phi(-1.10) = 2\Phi(1.10) - 1$.</li>
+          <li>Using standard normal table $\Phi(1.10) \approx 0.8643$:
+            $$P \approx 2(0.8643) - 1 = 1.7286 - 1 = \mathbf{0.7286} = \mathbf{72.86\%}$$
+          </li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 6.3: Error Analysis of Monte Carlo $\pi$ Estimation</div>
+        <p><strong>Problem:</strong> In Monte Carlo estimation of $\pi$, we drop $N$ uniform points into $[0, 1]^2$ and count the fraction $I_i = 1$ falling inside the quarter circle $x^2 + y^2 \le 1$. Show that $\hat{\pi} = 4 \times \frac{1}{N}\sum I_i$ is unbiased and derive its standard error.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Each indicator $I_i \sim \operatorname{Bernoulli}(p)$ where $p = \frac{\text{Area of quarter circle}}{\text{Area of square}} = \frac{\pi / 4}{1} = \frac{\pi}{4}$.</li>
+          <li>Expectation: $\mathbb{E}[\hat{\pi}] = 4 \mathbb{E}\left[\frac{1}{N}\sum I_i\right] = 4 \times \frac{1}{N}(N p) = 4p = 4\left(\frac{\pi}{4}\right) = \mathbf{\pi}$ (unbiased!).</li>
+          <li>Variance of indicator: $\operatorname{Var}(I_i) = p(1-p) = \frac{\pi}{4}\left(1 - \frac{\pi}{4}\right) \approx 0.7854(0.2146) \approx 0.1685$.</li>
+          <li>Variance of estimator: $\operatorname{Var}(\hat{\pi}) = 16 \operatorname{Var}\left(\frac{1}{N}\sum I_i\right) = \frac{16 p(1-p)}{N} \approx \frac{2.697}{N}$.</li>
+          <li>Standard error: $\operatorname{SE}(\hat{\pi}) = \frac{\sqrt{2.697}}{\sqrt{N}} \approx \frac{1.642}{\sqrt{N}}$.</li>
+          <li>To achieve a standard error of $0.001$, we solve: $\frac{1.642}{\sqrt{N}} \le 0.001 \implies \sqrt{N} \ge 1642 \implies N \ge \mathbf{2,696,164 \text{ samples}}$.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab6-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 6: Dice-Sum CLT &amp; Monte Carlo $\pi$ Dartboard</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Watch dice histograms morph into smooth Gaussians or throw random darts to approximate $\pi$</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab6-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Mode:
+            <select id="lab6-mode-select" style="background:#292524; color:#fff; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:0.25rem 0.5rem; margin-left:0.5rem;">
+              <option value="clt" selected>Dice-Sum Central Limit Theorem</option>
+              <option value="mc">Monte Carlo π Dartboard</option>
+            </select>
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Number of Dice $k$: <strong id="lab6-k-val" style="color:var(--accent-light);">5</strong>
+            <input type="range" id="lab6-k-slider" min="1" max="15" value="5" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <button class="sim-btn" id="lab6-sim-btn">🎲 Run Simulation</button>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item"><span id="lab6-hud-m1">Sum Mean: 17.5</span></div>
+          <div class="sim-hud-item"><span id="lab6-hud-m2">Std Dev: 3.82</span></div>
+          <div class="sim-hud-item"><span id="lab6-hud-m3">CLT: Bell curve fits tighter as k grows</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Monte Carlo $\pi$ Estimation &amp; Standard Error</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import numpy as np
+
+N = 100_000
+points = np.random.uniform(0, 1, size=(N, 2))
+inside = np.sum(points[:, 0]**2 + points[:, 1]**2 <= 1.0)
+pi_est = 4.0 * inside / N
+se = 4.0 * np.sqrt((inside / N) * (1 - inside / N) / N)
+print(f"N={N}: pi_hat = {pi_est:.5f}, SE = {se:.5f}, |Error| = {abs(pi_est - np.pi):.5f}")
+
+# Expected Output:
+# N=100000: pi_hat = 3.14456, SE = 0.00519, |Error| = 0.00297</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Believing the "Gambler's Fallacy" (Law of Averages):</strong> Believing that after 10 consecutive tails, a head is "due" to balance things out. The Law of Large Numbers works by <em>dilution</em> across millions of trials, NOT by actively compensating for past random runs!</li>
+          <li><strong>Thinking the CLT says individual points become normal:</strong> The CLT applies exclusively to the <strong>sum</strong> or <strong>sample mean</strong> of i.i.d. variables, never to individual samples.</li>
+          <li><strong>Expecting Monte Carlo error to decay as $O(1/N)$:</strong> Monte Carlo standard error decays as $O(1/\sqrt{N})$. To double your precision, you need $4\times$ more samples; to gain 10x precision, you need $100\times$ more samples.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch6" data-title="Test Yourself: Limit Theorems"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>The Law of Large Numbers guarantees sample averages converge to population means as sample size grows.</li>
+          <li>The Central Limit Theorem proves that sums and means of independent variables converge to a Normal distribution scaled by $\sigma / \sqrt{n}$.</li>
+          <li>Markov and Chebyshev inequalities provide robust, distribution-free tail probability bounds based solely on moments.</li>
+          <li>Monte Carlo simulation achieves dimension-independent $O(1/\sqrt{N})$ error convergence across complex high-dimensional integration tasks.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch7" class="chapter-pill">Next: Chapter 7 — Estimation (MLE &amp; MAP) &rarr;</a>
+          <a href="maths-behind.html#pagerank" class="chapter-pill" style="border-color:var(--accent);">Story: How Google Ranked the Web &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 7: ESTIMATION: MLE, MAP & CONFIDENCE INTERVALS
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch7">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 07</div>
+        <h2>Parameter Estimation: MLE, MAP &amp; Cross-Entropy</h2>
+        <div class="la-chapter-meta"><span>⏱ 35 min read</span> &middot; <span>Likelihood &middot; Cross-entropy loss is MLE &middot; Bayesian MAP &middot; Confidence intervals</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Training neural network classifiers with Cross-Entropy loss (which is negative log-likelihood), training logistic regression, $L_2$ weight decay regularization as Gaussian MAP estimation, and calculating $95\%$ latency confidence intervals in performance benchmarking.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Formulate the likelihood $L(\theta)$ and log-likelihood $\ell(\theta)$ for discrete and continuous observation models.</li>
+          <li>Derive Maximum Likelihood Estimators (MLE) by solving first-order optimality conditions $\nabla_\theta \ell(\theta) = \mathbf{0}$.</li>
+          <li>Prove that minimizing Cross-Entropy loss in deep learning is mathematically identical to Maximum Likelihood Estimation of a categorical distribution.</li>
+          <li>Prove that Maximum A Posteriori (MAP) estimation with a Gaussian prior is equivalent to $L_2$ regularization (Ridge / Weight Decay).</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: Which Universe Makes Our Data Most Probable?</div>
+        <p>You pick up an unmarked coin at a fair. You flip it 10 times and observe 8 Heads and 2 Tails.</p>
+        <p>What is the coin’s true bias $p$? <strong>Maximum Likelihood Estimation (MLE)</strong> asks a simple question: "Which value of $p \in [0, 1]$ makes the observed event (8 Heads out of 10) have the highest possible probability?"</p>
+        <p>If $p = 0.5$, $P(8\text{H}) = \binom{10}{8}(0.5)^{10} \approx 4.39\%$. If $p = 0.8$, $P(8\text{H}) = \binom{10}{8}(0.8)^8 (0.2)^2 \approx \mathbf{30.20\%}$!</p>
+        <p>The likelihood peaks exactly at $p = 0.8$. But what if your prior belief is that arcade coins are mostly fair ($p \approx 0.5$)? <strong>Maximum A Posteriori (MAP)</strong> estimation blends the observed data with your prior belief, shifting the estimate toward $p \approx 0.65$.</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Likelihood, The Deep Learning Theorem &amp; MAP</div>
+        
+        <p><strong>Definition 7.1 (Likelihood &amp; Log-Likelihood):</strong> Given i.i.d. observations $\mathbf{x} = (x_1, \dots, x_n)$ drawn from density $f(x; \theta)$:
+          $$L(\theta; \mathbf{x}) = \prod_{i=1}^n f(x_i; \theta)$$
+          The <strong>log-likelihood</strong> turns products into computationally stable sums:
+          $$\ell(\theta; \mathbf{x}) = \ln L(\theta; \mathbf{x}) = \sum_{i=1}^n \ln f(x_i; \theta)$$
+          The MLE solves $\hat{\theta}_{\text{MLE}} = \arg\max_\theta \ell(\theta)$.
+        </p>
+
+        <p><strong>Fundamental Theorem of Deep Learning: Cross-Entropy is MLE:</strong><br />
+          In $K$-class classification, each sample has a one-hot label $\mathbf{y} \in \{0, 1\}^K$ and model predicted probabilities $\mathbf{p} = \operatorname{softmax}(\mathbf{z})$. Modeling each sample as a single draw from a Categorical distribution gives the likelihood:
+          $$L(\boldsymbol{\theta}) = \prod_{i=1}^N \prod_{k=1}^K p_{ik}^{y_{ik}} \implies \ell(\boldsymbol{\theta}) = \sum_{i=1}^N \sum_{k=1}^K y_{ik} \ln p_{ik}$$
+          Maximizing $\ell(\boldsymbol{\theta})$ is mathematically IDENTICAL to minimizing the negative log-likelihood:
+          $$\mathcal{L}_{\text{CE}}(\boldsymbol{\theta}) = -\sum_{i=1}^N \sum_{k=1}^K y_{ik} \ln p_{ik}$$
+          <strong>Cross-Entropy loss IS the negative log-likelihood under a categorical distribution!</strong>
+        </p>
+
+        <p><strong>Theorem 7.1 (MAP with Gaussian Prior is $L_2$ Regularization):</strong><br />
+          In Bayesian estimation, parameters $\theta$ have a prior $P(\theta)$. The MAP estimator maximizes the log-posterior:
+          $$\hat{\theta}_{\text{MAP}} = \arg\max_\theta [\ell(\theta) + \ln P(\theta)]$$
+          If we assume weights are drawn from an independent zero-mean Gaussian prior $\theta_j \sim \mathcal{N}(0, \sigma_0^2)$:
+          $$\ln P(\theta) = \sum_j \ln\left(\frac{1}{\sqrt{2\pi}\sigma_0} e^{-\frac{\theta_j^2}{2\sigma_0^2}}\right) = -\frac{1}{2\sigma_0^2} \sum_j \theta_j^2 + \text{const} = -\frac{\lambda}{2} \|\theta\|_2^2 + \text{const}$$
+          Minimizing the negative log-posterior yields $\arg\min_\theta [\text{Loss}(\theta) + \frac{\lambda}{2}\|\theta\|_2^2]$: <strong>Weight decay is Gaussian MAP!</strong>
+        </p>
+
+        <p><strong>Confidence Intervals:</strong> A $(1-\alpha)$ confidence interval for a population mean with sample size $n$ and sample std $s$ is:
+          $$\bar{X} \pm z_{\alpha/2} \frac{s}{\sqrt{n}} \quad (\text{for } n \ge 30, z_{0.025} = 1.96 \text{ for } 95\% \text{ CI})$$
+        </p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 7.1: Derivation of the Exponential Distribution MLE</div>
+        <p><strong>Problem:</strong> Given $n$ independent service times $t_1, \dots, t_n$ from an Exponential distribution $f(t; \lambda) = \lambda e^{-\lambda t}$ ($t \ge 0$). Derive the MLE $\hat{\lambda}_{\text{MLE}}$ analytically.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Likelihood: $L(\lambda) = \prod_{i=1}^n \lambda e^{-\lambda t_i} = \lambda^n \exp\left(-\lambda \sum_{i=1}^n t_i\right)$.</li>
+          <li>Log-likelihood: $\ell(\lambda) = \ln L(\lambda) = n \ln \lambda - \lambda \sum_{i=1}^n t_i$.</li>
+          <li>Take first derivative with respect to $\lambda$:
+            $$\frac{d\ell}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^n t_i$$
+          </li>
+          <li>Set to zero: $\frac{n}{\hat{\lambda}} = \sum_{i=1}^n t_i \implies \mathbf{\hat{\lambda}_{\text{MLE}} = \frac{n}{\sum_{i=1}^n t_i} = \frac{1}{\bar{t}}}$.</li>
+          <li>Check second derivative: $\frac{d^2\ell}{d\lambda^2} = -\frac{n}{\lambda^2} < 0$ for all $\lambda > 0$, confirming a global maximum.</li>
+          <li>The MLE rate is simply the reciprocal of the sample mean service time!</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 7.2: MAP with Beta Prior for Click-Through Rates (CTR)</div>
+        <p><strong>Problem:</strong> You observe $k = 0$ clicks out of $n = 100$ impressions for a newly launched search ad. MLE gives $\hat{p} = 0/100 = 0$, which prematurely kills the ad from ever being displayed again. Apply MAP with a $\operatorname{Beta}(\alpha=2, \beta=20)$ prior to compute a smoothed estimate.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Likelihood is $\operatorname{Binomial}(n=100, k=0)$: $L(p) \propto p^0 (1-p)^{100}$.</li>
+          <li>Prior is conjugate $\operatorname{Beta}(\alpha=2, \beta=20)$: $P(p) \propto p^{\alpha-1} (1-p)^{\beta-1} = p^1 (1-p)^{19}$.</li>
+          <li>Posterior is $\operatorname{Beta}(\alpha + k, \beta + n - k) = \operatorname{Beta}(2 + 0, 20 + 100) = \operatorname{Beta}(2, 120)$.</li>
+          <li>Posterior mean estimator:
+            $$\mathbb{E}[p \mid \mathcal{D}] = \frac{\alpha'}{\alpha' + \beta'} = \frac{2}{2 + 120} = \frac{2}{122} \approx \mathbf{0.0164} = \mathbf{1.64\%}$$
+          </li>
+          <li>Bayesian smoothing prevents zero-probability traps and preserves exploration in multi-armed bandit systems.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 7.3: Computing a 95% Confidence Interval for Server Latency</div>
+        <p><strong>Problem:</strong> A benchmark test runs $n = 100$ queries against a PostgreSQL database. Sample mean latency is $\bar{x} = 45.0\text{ ms}$ with sample standard deviation $s = 10.0\text{ ms}$. Compute the $95\%$ Confidence Interval for the true mean latency.</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Standard error of the mean: $\operatorname{SE} = \frac{s}{\sqrt{n}} = \frac{10.0}{\sqrt{100}} = \frac{10.0}{10} = \mathbf{1.0\text{ ms}}$.</li>
+          <li>Critical value for $95\%$ confidence ($z_{0.025}$): $1.96$.</li>
+          <li>Margin of Error: $ME = 1.96 \times \operatorname{SE} = 1.96 \times 1.0 = \mathbf{1.96\text{ ms}}$.</li>
+          <li>Confidence Interval: $\bar{x} \pm ME = 45.0 \pm 1.96 = \mathbf{[43.04\text{ ms}, 46.96\text{ ms}]}$.</li>
+          <li><strong>Interpretation:</strong> If we repeated this benchmark experiment 100 times, $95\%$ of the resulting confidence intervals would successfully enclose the true population mean latency.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab7-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 7: Likelihood, MLE vs MAP &amp; Confidence Intervals</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Observe how the Likelihood, Beta Prior, and Posterior interact as sample size grows</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab7-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Heads $k$: <strong id="lab7-heads-val" style="color:#06b6d4;">7</strong>
+            <input type="range" id="lab7-heads-slider" min="0" max="20" value="7" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Flips $n$: <strong id="lab7-n-val" style="color:var(--text-primary);">10</strong>
+            <input type="range" id="lab7-n-slider" min="5" max="50" value="10" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Prior $\alpha$:
+            <input type="range" id="lab7-a-slider" min="1" max="10" value="3" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Prior $\beta$:
+            <input type="range" id="lab7-b-slider" min="1" max="10" value="3" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">MLE $\hat{p}$: <span id="lab7-hud-mle">70.0%</span></div>
+          <div class="sim-hud-item">MAP $\hat{p}$: <span id="lab7-hud-map">64.3%</span></div>
+          <div class="sim-hud-item">95% CI: <span id="lab7-hud-ci">[41.6%, 98.4%]</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): MLE vs Unbiased Variance &amp; Confidence Interval</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import numpy as np
+
+data = np.array([23.1, 24.5, 22.8, 25.2, 23.9, 24.1, 23.7, 24.8])
+n = len(data)
+mu_mle = np.mean(data)
+var_mle = np.mean((data - mu_mle)**2)  # 1/n (MLE biased)
+var_unbiased = np.var(data, ddof=1)    # 1/(n-1) (Bessel correction)
+ci_95 = (mu_mle - 1.96 * np.std(data, ddof=1)/np.sqrt(n), mu_mle + 1.96 * np.std(data, ddof=1)/np.sqrt(n))
+print(f"MLE mu = {mu_mle:.3f}, MLE sigma^2 = {var_mle:.4f}")
+print(f"Unbiased s^2 = {var_unbiased:.4f}, 95% CI = [{ci_95[0]:.2f}, {ci_95[1]:.2f}]")
+
+# Expected Output:
+# MLE mu = 24.012, MLE sigma^2 = 0.5861
+# Unbiased s^2 = 0.6698, 95% CI = [23.45, 24.58]</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Misinterpreting a 95% Confidence Interval:</strong> Believing that "there is a $95\%$ probability that the true parameter $\mu$ lies in this specific computed interval $[43.0, 47.0]$." (The true parameter is a fixed, non-random number! It either lies in the interval or it doesn't. The $95\%$ describes the <em>sampling procedure</em> over hypothetical re-runs).</li>
+          <li><strong>Differentiating likelihood directly without logarithms:</strong> Differentiating a product of $N$ terms $\prod f(x_i)$ is mathematically horrible and numerically leads to float underflow. Always take the natural log $\ell = \sum \ln f(x_i)$ first!</li>
+          <li><strong>Confusing MLE with MAP:</strong> MLE considers only the data likelihood; MAP integrates a prior probability distribution $P(\theta)$, acting as mathematical regularization.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch7" data-title="Test Yourself: Estimation: MLE &amp; MAP"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Maximum Likelihood Estimation finds the parameter value that maximizes the probability of generating the observed data.</li>
+          <li>Cross-Entropy loss in deep learning is mathematically identical to negative log-likelihood under a categorical distribution.</li>
+          <li>$L_2$ weight decay regularization is mathematically equivalent to Maximum A Posteriori (MAP) estimation with a zero-mean Gaussian prior.</li>
+          <li>Bessel's correction ($N-1$) fixes the downward bias of the naive sample variance estimator.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#ch8" class="chapter-pill">Next: Chapter 8 — Hypothesis Testing &amp; A/B Testing &rarr;</a>
+          <a href="maths-behind.html#chatgpt" class="chapter-pill" style="border-color:var(--accent);">Story: How ChatGPT Pays Attention &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         CHAPTER 8: HYPOTHESIS TESTING & A/B TESTING
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="ch8">
+      <div class="la-chapter-header">
+        <div class="chapter-badge">Chapter 08</div>
+        <h2>Hypothesis Testing &amp; Tech Industry A/B Testing</h2>
+        <div class="la-chapter-meta"><span>⏱ 35 min read</span> &middot; <span>Null hypothesis &middot; p-values &middot; Type I/II errors &middot; The Peeking Trap</span></div>
+      </div>
+
+      <!-- 1. Where in CS -->
+      <div class="cs-app-callout">
+        <strong>🔗 Where you'll use this in CS:</strong> Continuous experimentation and feature flags at Google, Netflix, and Meta; algorithmic trading model validation; automated canary deployment gate checks in DevOps; benchmarking LLM evaluations.
+      </div>
+
+      <!-- 2. Learning Objectives -->
+      <div class="learning-objectives-box">
+        <div class="learning-objectives-title">🎯 Learning Objectives</div>
+        <ul class="learning-objectives-list">
+          <li>Formulate Null hypotheses ($H_0$) and Alternative hypotheses ($H_1$) for software systems.</li>
+          <li>Distinguish Type I error ($\alpha$, false positive) from Type II error ($\beta$, false negative) and define Statistical Power ($1 - \beta$).</li>
+          <li>Perform a two-sample proportion $z$-test for A/B testing and compute two-tailed $p$-values.</li>
+          <li>Explain the "Peeking Problem" (optional stopping) in continuous monitoring and how it inflates false discovery rates.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Intuition First -->
+      <div class="intuition-box">
+        <div class="intuition-title">💡 Intuition First: The Courtroom Analogy of Software A/B Testing</div>
+        <p>In criminal law, a defendant is presumed innocent until proven guilty beyond a reasonable doubt. The prosecution must present evidence so strong that it would be extremely unlikely if the defendant were truly innocent.</p>
+        <p>Software A/B testing works exactly the same way:</p>
+        <ul style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li><strong>Null Hypothesis ($H_0$):</strong> "Presumed innocent"—the new checkout button or search algorithm has ZERO real effect. Any difference you see is pure random noise.</li>
+          <li><strong>Alternative Hypothesis ($H_1$):</strong> "Guilty of having an effect"—the new feature genuinely lifts conversions.</li>
+          <li><strong>The $p$-value:</strong> The probability of seeing a conversion difference this large (or larger) if the feature were completely useless ($H_0$ true).</li>
+        </ul>
+        <p>If $p < 0.05$, the probability of pure noise causing this lift is under 5%. We reject the null hypothesis and ship the feature!</p>
+      </div>
+
+      <!-- 4. Formal Theory -->
+      <div class="theory-box">
+        <div class="theory-title">📐 Formal Theory: Test Statistics, Error Confusion Matrix &amp; Sample Sizing</div>
+        
+        <p><strong>The Four Outcomes of Hypothesis Testing:</strong></p>
+        <div style="overflow-x:auto; margin:1rem 0;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.85rem; color:var(--text-secondary);">
+            <thead>
+              <tr style="border-bottom:2px solid var(--accent); color:var(--text-primary); text-align:left;">
+                <th style="padding:0.6rem;">Decision</th>
+                <th style="padding:0.6rem;">$H_0$ is Actually TRUE (No effect)</th>
+                <th style="padding:0.6rem;">$H_1$ is Actually TRUE (Real effect exists)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Fail to Reject $H_0$</td>
+                <td style="padding:0.6rem; color:#10b981;">Correct Decision ($1 - \alpha$)</td>
+                <td style="padding:0.6rem; color:#ef4444;"><strong>Type II Error ($\beta$)</strong> (False Negative / Missed opportunity)</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                <td style="padding:0.6rem; font-weight:700; color:#fff;">Reject $H_0$ (Ship it!)</td>
+                <td style="padding:0.6rem; color:#ef4444;"><strong>Type I Error ($\alpha$)</strong> (False Positive / Shipping a placebo)</td>
+                <td style="padding:0.6rem; color:#10b981;"><strong>Statistical Power ($1 - \beta$)</strong> (Correct discovery)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Theorem 8.1 (Two-Sample Proportion $z$-Test):</strong> For control group ($n_A$ users, $x_A$ conversions) and treatment group ($n_B$ users, $x_B$ conversions):
+          $$\hat{p}_A = \frac{x_A}{n_A}, \quad \hat{p}_B = \frac{x_B}{n_B}, \quad \text{Pooled: } \hat{p} = \frac{x_A + x_B}{n_A + n_B}$$
+          The standard error under $H_0: p_A = p_B$ is:
+          $$\operatorname{SE} = \sqrt{\hat{p}(1 - \hat{p})\left(\frac{1}{n_A} + \frac{1}{n_B}\right)}$$
+          The test statistic is:
+          $$Z = \frac{\hat{p}_B - \hat{p}_A}{\operatorname{SE}} \sim \mathcal{N}(0, 1)$$
+        </p>
+
+        <p><strong>Theorem 8.2 (Required Sample Size for A/B Testing):</strong> To detect a Minimum Detectable Effect (MDE) $\Delta = p_B - p_A$ with significance level $\alpha$ ($z_{\alpha/2}$) and power $1 - \beta$ ($z_\beta$):
+          $$n \approx \frac{2(z_{\alpha/2} + z_\beta)^2 \bar{p}(1 - \bar{p})}{\Delta^2}$$
+          For standard industry parameters $\alpha = 0.05$ ($z_{0.025} = 1.96$) and $80\%$ power ($z_{0.20} = 0.84$), $(1.96 + 0.84)^2 \approx 7.84$, giving the practical rule of thumb:
+          $$n \approx \mathbf{16 \frac{\bar{p}(1 - \bar{p})}{\Delta^2}}$$
+        </p>
+
+        <p><strong>The Peeking Trap (Optional Stopping):</strong> If an engineer checks the test dashboard continuously (e.g. hourly) and stops whenever $p < 0.05$, the true false positive rate inflates from the intended $5\%$ to over $30\%$! Because the test statistic performs a random walk over sample size, it will eventually cross the $\pm 1.96$ threshold by chance.</p>
+      </div>
+
+      <!-- 5. Worked Examples -->
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 8.1: E-Commerce Checkout A/B Test</div>
+        <p><strong>Problem:</strong> Control $A$ has $n_A = 10,000$ visitors and $x_A = 400$ conversions ($4.0\%$). Treatment $B$ has $n_B = 10,000$ visitors and $x_B = 470$ conversions ($4.7\%$). Test whether the $+0.7\%$ conversion lift is statistically significant at $\alpha = 0.05$ (two-sided critical value $z_{\text{crit}} = 1.96$).</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Observed rates: $\hat{p}_A = 0.040, \hat{p}_B = 0.047$. Lift $\Delta = 0.007$.</li>
+          <li>Pooled rate: $\hat{p} = \frac{400 + 470}{20,000} = \frac{870}{20,000} = 0.0435$.</li>
+          <li>Standard error:
+            $$\operatorname{SE} = \sqrt{0.0435(1 - 0.0435)\left(\frac{1}{10,000} + \frac{1}{10,000}\right)} = \sqrt{0.041608 \times 0.0002} = \sqrt{8.3216 \times 10^{-6}} \approx 0.002885$$
+          </li>
+          <li>$z$-statistic:
+            $$Z = \frac{0.047 - 0.040}{0.002885} = \frac{0.007}{0.002885} \approx \mathbf{2.426}$$
+          </li>
+          <li>Comparison: $|Z| = 2.426 > 1.96$. Two-tailed $p$-value is $2(1 - \Phi(2.426)) \approx 2(0.0076) = \mathbf{0.0152} < 0.05$.</li>
+          <li><strong>Conclusion:</strong> Reject $H_0$. The lift is statistically significant at the $5\%$ level. Ship the new checkout button!</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 8.2: Sample Size Sizing for Minimum Detectable Effect</div>
+        <p><strong>Problem:</strong> Baseline conversion is $p_A = 5\% = 0.05$. Product managers want to detect a $+0.5\%$ absolute lift ($p_B = 0.055$) with $\alpha = 0.05$ and $80\%$ statistical power. How many visitors are required in each variant?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Baseline $\bar{p} \approx 0.05$. $1 - \bar{p} = 0.95$.</li>
+          <li>Minimum Detectable Effect: $\Delta = 0.055 - 0.05 = 0.005$.</li>
+          <li>Square of effect: $\Delta^2 = (0.005)^2 = 0.000025$.</li>
+          <li>Applying the rule of thumb formula $n \approx 16 \frac{\bar{p}(1-\bar{p})}{\Delta^2}$:
+            $$n \approx 16 \times \frac{0.05 \times 0.95}{0.000025} = 16 \times \frac{0.0475}{0.000025} = 16 \times 1,900 = \mathbf{30,400 \text{ visitors per variant}}$$
+          </li>
+          <li>Total experiment traffic needed across both $A$ and $B$: $\mathbf{60,800 \text{ visitors}}$.</li>
+        </ol>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">✍️ Worked Example 8.3: Bonferroni Correction for Multiple Metric Testing</div>
+        <p><strong>Problem:</strong> A team tracks $m = 20$ different operational metrics simultaneously in an experiment (latency, crash rate, CTR, CPU, memory, etc.). If each metric is tested at individual level $\alpha = 0.05$ and all features are actually identical ($H_0$ true for all), what is the probability of at least one false positive? How does Bonferroni fix this?</p>
+        <p><strong>Step-by-step Solution:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Probability of NO false alarm on a single metric: $1 - \alpha = 0.95$.</li>
+          <li>Assuming independence, probability of zero false alarms across all 20 metrics:
+            $$(0.95)^{20} \approx 0.3585$$
+          </li>
+          <li>Family-Wise Error Rate (FWER):
+            $$P(\text{at least 1 false alarm}) = 1 - 0.3585 = \mathbf{0.6415} = \mathbf{64.15\%}$$
+          </li>
+          <li>There is a nearly $2/3$ chance of falsely declaring a discovery!</li>
+          <li><strong>Bonferroni Correction:</strong> Divide $\alpha$ by the number of tests:
+            $$\alpha' = \frac{\alpha}{m} = \frac{0.05}{20} = \mathbf{0.0025}$$
+          </li>
+          <li>Only metrics with $p < 0.0025$ are declared significant, guaranteeing the overall experiment false alarm rate stays $\le 5\%$.</li>
+        </ol>
+      </div>
+
+      <!-- 6. Interactive Lab -->
+      <div class="sim-container" id="prob-lab8-container">
+        <div class="sim-header">
+          <div class="sim-title">🔬 Interactive Lab 8: Live A/B Testing Simulator &amp; The Peeking Trap</div>
+          <div style="font-size:0.8rem; color:var(--text-muted);">Run standard fixed-horizon experiments or demonstrate how peeking triggers false alarms</div>
+        </div>
+        <div style="position:relative; width:100%; height:320px;">
+          <canvas id="prob-lab8-canvas" style="width:100%; height:100%; display:block;"></canvas>
+        </div>
+        <div class="sim-controls" style="display:flex; flex-wrap:wrap; gap:1.25rem; align-items:center; margin-top:1rem;">
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            True Lift $\Delta$: <strong id="lab8-lift-val" style="color:#10b981;">+0.7%</strong>
+            <input type="range" id="lab8-lift-slider" min="0" max="20" value="7" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <label style="font-size:0.85rem; color:var(--text-secondary);">
+            Sample Size $N$: <strong id="lab8-n-val" style="color:var(--text-primary);">10,000</strong>
+            <input type="range" id="lab8-n-slider" min="2000" max="30000" step="1000" value="10000" style="vertical-align:middle; margin-left:0.4rem;" />
+          </label>
+          <button class="sim-btn" id="lab8-fixed-btn">📊 Fixed Horizon Test</button>
+          <button class="sim-btn" id="lab8-peek-btn" style="border-color:#f59e0b; color:#fbbf24;">⚠️ Peeking Trap (Walk)</button>
+        </div>
+        <div class="sim-hud">
+          <div class="sim-hud-item">Test Statistic $Z$: <span id="lab8-hud-z">2.43</span></div>
+          <div class="sim-hud-item">$p$-value: <span id="lab8-hud-pval">0.0152</span></div>
+          <div class="sim-hud-item">Decision: <span id="lab8-hud-decision" style="color:#10b981;">REJECT H₀ (Significant Lift ✓)</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Python in <= 15 lines -->
+      <div class="code-box">
+        <div class="code-header">
+          <span>🐍 Python (≤15 lines): Two-Sample Proportion $z$-Test for A/B Testing</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+        </div>
+        <pre><code>import math
+
+def ab_test_z(nA, xA, nB, xB):
+    pA, pB = xA / nA, xB / nB
+    p_pool = (xA + xB) / (nA + nB)
+    se = math.sqrt(p_pool * (1 - p_pool) * (1/nA + 1/nB))
+    z = (pB - pA) / se
+    pval = 2 * (1 - 0.5 * (1 + math.erf(abs(z) / math.sqrt(2))))
+    return z, pval, pB - pA
+
+z, pval, diff = ab_test_z(10000, 400, 10000, 470)
+print(f"Observed Lift = {diff*100:+.2f}%, z-score = {z:.3f}, p-value = {pval:.4f}")
+print("Result:", "Significant at alpha=0.05" if pval < 0.05 else "Not significant")
+
+# Expected Output:
+# Observed Lift = +0.70%, z-score = 2.427, p-value = 0.0152
+# Result: Significant at alpha=0.05</code></pre>
+      </div>
+
+      <!-- 8. Common Mistakes -->
+      <div class="mistakes-box">
+        <div class="mistakes-title">⚠️ Common Mistakes Students Make</div>
+        <ul class="mistakes-list">
+          <li><strong>Believing the $p$-value is $P(H_0 \mid \text{Data})$:</strong> A $p$-value is $P(\text{Data} \mid H_0)$. It does NOT tell you the probability that the null hypothesis is true!</li>
+          <li><strong>Peeking and early stopping without sequential corrections:</strong> Checking results every morning and stopping as soon as $p < 0.05$ causes optional stopping inflation, boosting the false discovery rate up to $30\%+$.</li>
+          <li><strong>Confusing statistical significance with practical impact:</strong> With 50 million users, an absolute lift of $0.001\%$ will yield $p < 0.0001$. However, the tiny gain may not justify the server infrastructure cost of deploying the feature.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Test Yourself -->
+      <section data-practice="prob-ch8" data-title="Test Yourself: Hypothesis Testing &amp; A/B Testing"></section>
+
+      <!-- 10. Key Takeaways -->
+      <div class="takeaways-box">
+        <div class="takeaways-title">📌 Key Takeaways</div>
+        <ul class="takeaways-list">
+          <li>Hypothesis testing balances false positives (Type I error, $\alpha$) against false negatives (Type II error, $\beta$).</li>
+          <li>Sample size sizing requires setting the Minimum Detectable Effect (MDE); $n$ scales inversely with $\Delta^2$.</li>
+          <li>Continuous metric monitoring requires sequential testing methods (e.g. mSPRT) to prevent peeking distortion.</li>
+          <li>Bonferroni corrections control the Family-Wise Error Rate when evaluating multiple product metrics concurrently.</li>
+        </ul>
+        <div class="takeaways-footer">
+          <a href="#placement" class="chapter-pill" style="border-color:#10b981; color:#10b981;">Next: Placement Corner &rarr;</a>
+          <a href="maths-behind.html#pagerank" class="chapter-pill" style="border-color:var(--accent);">Story: How Google Ranked the Web &rarr;</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         PLACEMENT CORNER: PROBABILITY & STATS FOR TECH INTERVIEWS
+         ══════════════════════════════════════════════════════════ -->
+    <article class="la-chapter" id="placement" style="border-left:4px solid #10b981;">
+      <div class="la-chapter-header">
+        <div class="chapter-badge" style="background:rgba(16,185,129,0.15); color:#10b981; border-color:rgba(16,185,129,0.3);">Interview Mastery</div>
+        <h2>Placement Corner: 4 Classic Tech Interview Probability Puzzles</h2>
+        <div class="la-chapter-meta"><span>FAANG &middot; Jane Street &middot; Citadel &middot; Two Sigma &middot; Uber</span></div>
+      </div>
+
+      <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:2rem;">
+        Top technology companies and quantitative hedge funds ask rigorous probability questions during technical rounds. Unlike standard textbook questions, interviewers test your ability to decompose problems using <strong>indicator random variables</strong>, <strong>recurrence expectations</strong>, and <strong>streaming algorithms</strong>. Here are the 4 most commonly asked problems with complete mathematical walkthroughs.
+      </p>
+
+      <!-- Puzzle 1: Reservoir Sampling -->
+      <div class="example-box" style="border-color:rgba(16,185,129,0.3);">
+        <div class="example-title" style="color:#10b981;">💼 Problem 1: Reservoir Sampling (Google / Citadel)</div>
+        <p><strong>Question:</strong> You are receiving an endless stream of items $x_1, x_2, \dots$ of unknown length $N$. You can only store $k$ items in memory. How can you uniformly sample $k$ items such that every item has equal probability $\frac{k}{N}$ of being selected when the stream terminates?</p>
+        <p><strong>Algorithm $R$:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Store the first $k$ items directly in your reservoir.</li>
+          <li>For each subsequent item $x_i$ ($i > k$): generate a random integer $j \in \{0, 1, \dots, i-1\}$. If $j < k$, replace reservoir element $j$ with $x_i$. Otherwise, ignore $x_i$.</li>
+        </ol>
+        <p><strong>Induction Proof of Correctness:</strong></p>
+        <ul style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li><strong>Base Case ($i = k$):</strong> Every item $1..k$ is in the reservoir with probability $1 = k/k$. Holds.</li>
+          <li><strong>Inductive Hypothesis:</strong> Assume that after processing $i-1$ elements, every element has been chosen with probability $\frac{k}{i-1}$.</li>
+          <li><strong>Step $i$:</strong> Item $x_i$ is chosen to enter the reservoir with probability $\frac{k}{i}$. Any prior element $x_m$ survives if: (1) it was already in the reservoir (prob $\frac{k}{i-1}$), AND (2) it is NOT evicted by $x_i$.</li>
+          <li>$x_m$ is evicted if $x_i$ enters AND picks $x_m$'s slot: $P(\text{evicted}) = \frac{k}{i} \times \frac{1}{k} = \frac{1}{i}$.</li>
+          <li>$P(\text{not evicted}) = 1 - \frac{1}{i} = \frac{i-1}{i}$.</li>
+          <li>$P(x_m \text{ survives}) = \frac{k}{i-1} \times \frac{i-1}{i} = \mathbf{\frac{k}{i}}$. Every item has equal probability in $O(1)$ extra space! $\blacksquare$</li>
+        </ul>
+        <div class="code-box" style="margin-top:1rem;">
+          <div class="code-header">
+            <span>🐍 Python (≤10 lines): Reservoir Sampling Implementation</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+          </div>
+          <pre><code>import random
+
+def reservoir_sample(stream, k=3):
+    res = []
+    for i, item in enumerate(stream):
+        if i < k: res.append(item)
+        else:
+            j = random.randint(0, i)
+            if j < k: res[j] = item
+    return res
+
+print("Sample of 3 from 10,000 items:", reservoir_sample(range(1, 10001), k=3))</code></pre>
+        </div>
+      </div>
+
+      <!-- Puzzle 2: Coupon Collector -->
+      <div class="example-box" style="border-color:rgba(16,185,129,0.3);">
+        <div class="example-title" style="color:#10b981;">💼 Problem 2: The Coupon Collector Asymptotic Proof (Amazon / Microsoft)</div>
+        <p><strong>Question:</strong> There are $n$ distinct coupons. Each box contains one coupon chosen uniformly at random. Prove that the expected number of boxes to collect all $n$ coupons is $\Theta(n \ln n)$.</p>
+        <p><strong>Solution Walkthrough:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Let $X_i$ be the number of boxes bought to collect the $i$-th new coupon after having collected $i-1$ coupons.</li>
+          <li>$X_i \sim \operatorname{Geometric}(p_i)$ where $p_i = \frac{n - (i-1)}{n}$. Mean $\mathbb{E}[X_i] = \frac{n}{n - i + 1}$.</li>
+          <li>Total boxes $T = \sum_{i=1}^n X_i$. By linearity of expectation:
+            $$\mathbb{E}[T] = \sum_{i=1}^n \frac{n}{n - i + 1} = n \sum_{k=1}^n \frac{1}{k} = n H_n$$
+          </li>
+          <li>Integral bound on Harmonic numbers: $\ln(n + 1) \le H_n \le 1 + \ln n$.</li>
+          <li>As $n \to \infty$, $H_n = \ln n + \gamma + O(1/n)$ (Euler-Mascheroni constant $\gamma \approx 0.5772$).</li>
+          <li>Therefore, $\mathbb{E}[T] = n \ln n + \gamma n + O(1) = \mathbf{\Theta(n \ln n)}$.</li>
+        </ol>
+      </div>
+
+      <!-- Puzzle 3: Expected Steps on a Random Walk -->
+      <div class="example-box" style="border-color:rgba(16,185,129,0.3);">
+        <div class="example-title" style="color:#10b981;">💼 Problem 3: Consecutive Coin Flips (HT vs HH) (Jane Street / Bloomberg)</div>
+        <p><strong>Question:</strong> What is the expected number of flips of a fair coin until you see: (a) Heads followed by Tails (HT)? (b) Heads followed by Heads (HH)? Why are they different?</p>
+        <p><strong>Solution Walkthrough:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li><strong>Case (a) HT:</strong>
+            <ul style="margin-left:1rem;">
+              <li>Expected flips to get the first Head is $\mathbb{E}[H] = 1 / 0.5 = 2$.</li>
+              <li>Once you have a Head, the next flip gives T (done! 1 flip) or H (you still have a Head! 1 flip, but you don't reset to zero).</li>
+              <li>Let $E$ be remaining flips after getting H: $E = 1 + 0.5(0) + 0.5(E) \implies 0.5E = 1 \implies E = 2$.</li>
+              <li>Total expected flips for HT: $2 + 2 = \mathbf{4 \text{ flips}}$.</li>
+            </ul>
+          </li>
+          <li><strong>Case (b) HH:</strong>
+            <ul style="margin-left:1rem;">
+              <li>Let $x$ be total expected flips from start. First flip: $x = 1 + 0.5(x) + 0.5(E_H)$.</li>
+              <li>From state H: next flip is H (done!) or T (reset back to the very beginning $x$!).</li>
+              <li>$E_H = 1 + 0.5(0) + 0.5(x) = 1 + 0.5x$.</li>
+              <li>Substitute: $x = 1 + 0.5x + 0.5(1 + 0.5x) = 1.5 + 0.75x \implies 0.25x = 1.5 \implies x = \mathbf{6 \text{ flips}}$.</li>
+            </ul>
+          </li>
+          <li><strong>The Insight:</strong> A failure after H resets you to zero for HH (because T destroys progress), but for HT, an extra H keeps you in the active prefix state!</li>
+        </ol>
+      </div>
+
+      <!-- Puzzle 4: Monte Carlo Pi Convergence -->
+      <div class="example-box" style="border-color:rgba(16,185,129,0.3);">
+        <div class="example-title" style="color:#10b981;">💼 Problem 4: The 1/√N Convergence Barrier (Two Sigma)</div>
+        <p><strong>Question:</strong> Why does Monte Carlo estimation error decrease as $O(1/\sqrt{N})$, regardless of the dimension of the problem $d$? How does this compare to numerical grid integration?</p>
+        <p><strong>Solution Walkthrough:</strong></p>
+        <ol style="margin-left:1.5rem; line-height:1.8; color:var(--text-secondary);">
+          <li>Let estimator $\hat{I}_N = \frac{1}{N}\sum_{i=1}^N f(X_i)$ for $X_i \sim \text{Unif}([0, 1]^d)$.</li>
+          <li>Variance: $\operatorname{Var}(\hat{I}_N) = \frac{1}{N^2} \sum_{i=1}^N \operatorname{Var}(f(X_i)) = \frac{\sigma_f^2}{N}$.</li>
+          <li>Standard error: $\operatorname{SE}(\hat{I}_N) = \frac{\sigma_f}{\sqrt{N}} = \mathbf{O(1/\sqrt{N})}$. Notice there is NO $d$ in the exponent!</li>
+          <li>In contrast, standard grid quadrature (trapezoidal rule) partitions each dimension into $k$ grid intervals ($N = k^d$). Its error scales as $O(k^{-2}) = O(N^{-2/d})$.</li>
+          <li>For dimension $d > 4$, $O(N^{-2/d})$ decays slower than $O(N^{-1/2})$. In high dimensions (e.g. $d = 100$ in graphics or finance), grid quadrature is paralyzed by the <em>curse of dimensionality</em>, while Monte Carlo maintains its steadfast $O(1/\sqrt{N})$ rate.</li>
+        </ol>
+      </div>
+    </article>
+
+  </main>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Maths for All</h4>
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.7;">
+        An open educational resource by Dr. Md Samshad Hussain Ansari, Assistant Professor of Mathematics at Newton School of Technology, ADYPU, Pune. Bridging rigorous mathematics to computer science algorithms and artificial intelligence.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Course Curriculum</h4>
+      <ul>
+        <li><a href="discrete-maths.html">Discrete Mathematics</a></li>
+        <li><a href="linear-algebra.html">Linear Algebra for CS</a></li>
+        <li><a href="probability-statistics.html">Probability &amp; Statistics</a></li>
+        <li><a href="calculus-optimisation.html">Calculus &amp; Optimisation</a></li>
+        <li><a href="cs-aiml.html">AI/ML Maths Hub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Interactive Stories</h4>
+      <ul>
+        <li><a href="maths-behind.html#pagerank">How Google Ranked the Web</a></li>
+        <li><a href="maths-behind.html#chatgpt">How ChatGPT Pays Attention</a></li>
+        <li><a href="maths-behind.html#shazam">How Shazam Recognises a Song</a></li>
+        <li><a href="maths-behind.html#rsa">How WhatsApp Keeps Secrets</a></li>
+        <li><a href="maths-behind.html#netflix">How Netflix Guesses Your Show</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Connect &amp; Research</h4>
+      <ul>
+        <li><a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer">Author Portfolio ↗</a></li>
+        <li><a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer">ORCID Profile ↗</a></li>
+        <li><a href="mailto:mdsamhussain1996@gmail.com">Email Dr. Ansari</a></li>
+        <li><a href="https://github.com/mdsamhussain1996/Mathsforall" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>&copy; 2026 Maths for All &middot; Created by Dr. Md Samshad Hussain Ansari &middot; Open educational resource for CS undergraduates.</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:var(--text-secondary);text-decoration:none;">Home</a>
+      <a href="cs-aiml.html" style="color:var(--text-secondary);text-decoration:none;">AI/ML Hub</a>
+      <a href="#navbar" style="color:var(--accent-light);text-decoration:none;">Back to top &uarr;</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script src="js/main.js"></script>
+<script src="js/practice-data.js"></script>
+<script src="js/practice-data-calc.js"></script>
+<script src="js/practice-data-prob.js"></script>
+<script src="js/practice.js"></script>
+<script src="js/probability-viz.js"></script>
+
+<script>
+  function filterTOC(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('#tocList .la-toc-item').forEach(item => {
+      const txt = item.textContent.toLowerCase();
+      item.style.display = txt.includes(q) ? '' : 'none';
+    });
+  }
+
+  function copyCode(btn) {
+    const pre = btn.closest('.code-box').querySelector('pre code');
+    if (!pre) return;
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      const orig = btn.innerText;
+      btn.innerText = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerText = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
