@@ -51,7 +51,15 @@
           <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
         </ul>
       </li>
-      <li><a href="cs-aiml.html">AI/ML Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          AI/ML Maths <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="cs-aiml.html">AI/ML Maths Hub (Overview)</a></li>
+          <li><a href="calculus-optimisation.html">Calculus &amp; Optimisation (7 Ch)</a></li>
+        </ul>
+      </li>
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
       <li class="nav-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
@@ -276,16 +284,22 @@
       </div>
       <div style="font-size:2rem;">🤖</div>
       <h3>Maths for AI / ML</h3>
-      <p class="roadmap-desc">Multivariate calculus, probability distributions, Bayes theorem, and gradient descent optimisation.</p>
+      <p class="roadmap-desc">Multivariate calculus, computational graphs, backpropagation by hand, loss surfaces, and Adam optimisation.</p>
       <ul class="roadmap-links">
-        <li><a href="cs-aiml.html#probability">→ Bayes Theorem &amp; Conditioning</a></li>
-        <li><a href="cs-aiml.html#optimization">→ Loss Surfaces &amp; Gradient Descent</a></li>
-        <li><a href="cs-aiml.html">→ Maximum Likelihood &amp; Entropy</a></li>
+        <li><a href="calculus-optimisation.html">→ <strong>Calculus &amp; Optimisation (7 Ch)</strong></a></li>
+        <li><a href="calculus-optimisation.html#ch4">→ Backpropagation by Hand &amp; GradCheck</a></li>
+        <li><a href="calculus-optimisation.html#ch6">→ 4-Way Optimizer Race (GD vs Adam)</a></li>
+        <li><a href="cs-aiml.html#probability">→ Bayes Theorem &amp; Probability Distributions</a></li>
         <li><a href="linear-algebra.html#topic-10-2">→ Attention Mechanisms in Transformers</a></li>
       </ul>
-      <a href="cs-aiml.html" class="btn btn-primary" style="margin-top:auto;text-align:center;padding:0.6rem 1rem;font-size:0.85rem;">
-        Master AI/ML Maths →
-      </a>
+      <div style="display:flex;gap:0.5rem;margin-top:auto;flex-wrap:wrap;">
+        <a href="calculus-optimisation.html" class="btn btn-primary" style="flex:1;text-align:center;padding:0.6rem 0.75rem;font-size:0.82rem;white-space:nowrap;background:#059669;border-color:#059669;">
+          Calculus &amp; Optim (New) →
+        </a>
+        <a href="cs-aiml.html" class="btn btn-outline" style="flex:1;text-align:center;padding:0.6rem 0.75rem;font-size:0.82rem;white-space:nowrap;">
+          AI/ML Hub →
+        </a>
+      </div>
     </div>
 
   </div>

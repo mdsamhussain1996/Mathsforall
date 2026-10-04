@@ -689,9 +689,10 @@ footer {
 
 .page-hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  font-weight: 800; line-height: 1.2;
+  font-size: clamp(1.45rem, 5.5vw, 3.25rem);
+  font-weight: 800; line-height: 1.25;
   margin-bottom: 1rem;
+  overflow-wrap: break-word;
 }
 
 .page-hero p {
@@ -1087,6 +1088,28 @@ mjx-container[jax="CHTML"][display="true"] {
   .la-layout {
     grid-template-columns: 1fr;
     padding: 1rem;
+    gap: 1.5rem;
+  }
+  .la-sidebar {
+    position: static;
+    height: auto;
+    max-height: 260px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .la-layout {
+    padding: 0.75rem 0.5rem;
+  }
+  .page-hero h1 {
+    font-size: 1.75rem;
+  }
+  .chapter-title {
+    font-size: 1.5rem;
+  }
+  .chapter-hero {
+    padding: 1.25rem 1rem;
   }
 }
 
@@ -1977,14 +2000,149 @@ footer.site-footer {
   }
 }
 
-@media (max-width: 600px) {
-  .footer-inner-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
+
+/* ── COURSE 10-PART TEMPLATE UTILITIES ── */
+.learning-objectives-box {
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-left: 4px solid #10b981;
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.learning-objectives-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.6rem;
+}
+
+.learning-objectives-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.mistakes-box {
+  background: rgba(244, 63, 94, 0.06);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-left: 4px solid #f43f5e;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.mistakes-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fb7185;
+  margin-bottom: 1rem;
+}
+
+.mistake-item {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.mistake-item:last-child {
+  margin-bottom: 0;
+}
+
+.mistake-name {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.mistake-fix {
+  color: #94a3b8;
+}
+
+.takeaways-box {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin: 3rem 0;
+}
+
+.takeaways-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 1rem;
+}
+
+.takeaways-list {
+  margin: 0 0 1.25rem 0;
+  padding-left: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.takeaways-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sim-hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  margin-top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+}
+
+.sim-hud-item span {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.sim-btn {
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.sim-btn:hover, .sim-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
 }
 

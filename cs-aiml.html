@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maths for AI &amp; Machine Learning: Probability &amp; Optimisation | Maths for All</title>
-  <meta name="description" content="The maths behind AI and ML explained for CS students: linear algebra, probability, Bayes&#x27; theorem and gradient descent, with interactive visualisations." />
+  <title>AI &amp; Machine Learning Mathematics Hub | Maths for All</title>
+  <meta name="description" content="The definitive mathematics curriculum for AI and machine learning: linear algebra, probability &amp; statistics, multivariate calculus, and optimisation with interactive labs and Python code." />
   <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/cs-aiml.html" />
   <meta name="theme-color" content="#d97706" />
   <link rel="icon" href="favicon.ico" sizes="48x48" />
@@ -15,20 +15,31 @@
   <link rel="manifest" href="site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Maths for All" />
-  <meta property="og:title" content="Maths for AI &amp; Machine Learning: Probability &amp; Optimisation | Maths for All" />
-  <meta property="og:description" content="The maths behind AI and ML explained for CS students: linear algebra, probability, Bayes&#x27; theorem and gradient descent, with interactive visualisations." />
+  <meta property="og:title" content="AI &amp; Machine Learning Mathematics Hub | Maths for All" />
+  <meta property="og:description" content="The definitive mathematics curriculum for AI and machine learning: linear algebra, probability &amp; statistics, multivariate calculus, and optimisation with interactive labs and Python code." />
   <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/cs-aiml.html" />
   <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Maths for All — interactive maths for CS students" />
+  <meta property="og:image:alt" content="Maths for All — AI &amp; Machine Learning Mathematics Hub" />
   <meta property="og:locale" content="en" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Maths for AI &amp; Machine Learning: Probability &amp; Optimisation | Maths for All" />
-  <meta name="twitter:description" content="The maths behind AI and ML explained for CS students: linear algebra, probability, Bayes&#x27; theorem and gradient descent, with interactive visualisations." />
+  <meta name="twitter:title" content="AI &amp; Machine Learning Mathematics Hub | Maths for All" />
+  <meta name="twitter:description" content="The definitive mathematics curriculum for AI and machine learning: linear algebra, probability &amp; statistics, multivariate calculus, and optimisation with interactive labs and Python code." />
   <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
-  <meta name="twitter:image:alt" content="Maths for All — interactive maths for CS students" />
-  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/style.css?v=1.4" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
 <body>
@@ -51,7 +62,15 @@
           <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
         </ul>
       </li>
-      <li><a href="cs-aiml.html" class="active">AI/ML Maths</a></li>
+      <li class="nav-dropdown active">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          AI/ML Maths <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="cs-aiml.html" class="active">AI/ML Maths Hub (Overview)</a></li>
+          <li><a href="calculus-optimisation.html">Calculus &amp; Optimisation (7 Ch)</a></li>
+        </ul>
+      </li>
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
       <li class="nav-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
@@ -76,44 +95,185 @@
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<div style="max-width:1400px;margin:0 auto;">
-  <div class="page-hero">
-    <div class="page-hero-tag">🤖 Mathematics for CS / AI·ML</div>
-    <h1>The Math Behind <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Artificial Intelligence</span></h1>
-    <p>Linear algebra, probability, and optimization form the mathematical trinity of modern machine learning. Master these foundations to truly understand AI systems — not just use them.</p>
+<!-- ── HUB HERO ── -->
+<div style="max-width:1400px;margin:0 auto;padding:0 1.5rem;">
+  <div class="page-hero" style="border-bottom:1px solid var(--card-border);padding-bottom:3rem;">
+    <div class="page-hero-tag">🤖 THE MATHEMATICAL FOUNDATIONS OF ARTIFICIAL INTELLIGENCE</div>
+    <h1>AI &amp; Machine Learning <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Maths Hub</span></h1>
+    <p>
+      Machine learning is built on three mathematical pillars: <strong>Linear Algebra</strong> to structure representations in high-dimensional spaces, <strong>Probability &amp; Statistics</strong> to model stochastic uncertainty, and <strong>Calculus &amp; Optimisation</strong> to train models via gradient descent. Master these three foundations in the sequence below.
+    </p>
     <div style="display:flex;gap:1rem;margin-top:1.75rem;flex-wrap:wrap;">
-      <a href="linear-algebra.html" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;">📐 Master Linear Algebra Hub</a>
-      <a href="#probability" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Probability & Stats</a>
-      <a href="#optimization" class="btn btn-outline" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Optimization</a>
+      <a href="linear-algebra.html" class="btn btn-primary" style="font-size:0.88rem;padding:0.6rem 1.25rem;">📐 Linear Algebra (Pillar 1)</a>
+      <a href="calculus-optimisation.html" class="btn btn-primary" style="font-size:0.88rem;padding:0.6rem 1.25rem;background:#059669;border-color:#059669;">🚀 Calculus &amp; Optimisation (Pillar 3)</a>
+      <a href="#study-order" class="btn btn-outline" style="font-size:0.88rem;padding:0.6rem 1.25rem;">Suggested Study Pathway ↓</a>
+      <a href="#overview-section" class="btn btn-outline" style="font-size:0.88rem;padding:0.6rem 1.25rem;">Foundational Overview ↓</a>
     </div>
   </div>
 </div>
 
-<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
+<div style="max-width:1400px;margin:0 auto;padding:0 1.5rem;">
 
-  <!-- ── LINEAR ALGEBRA MASTER BANNER ── -->
-  <div class="insight-section animate-on-scroll" style="margin-top:4rem; padding:1.5rem; display:flex; align-items:center; justify-content:space-between; gap:2rem; border:1px solid rgba(217,119,6,0.3); background:linear-gradient(135deg,rgba(217,119,6,0.1),rgba(41,37,36,0.7));">
-    <div>
-      <div class="insight-badge" style="background:var(--accent-glow); color:var(--accent-light);">⭐ Master Curriculum</div>
-      <h3 style="font-family:'Playfair Display', serif; font-size:1.5rem; margin-bottom:0.5rem;">Comprehensive Linear Algebra Platform</h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); max-width:650px;">Explore all 10 chapters: from vectors and span, to Gaussian elimination, linear transformations, determinants, least squares, eigenvalues, SVD, and graph Laplacians with interactive simulations.</p>
+  <!-- ── SECTION: SUGGESTED STUDY ORDER ── -->
+  <section id="study-order" style="margin:3.5rem 0 4rem 0;">
+    <div style="margin-bottom:2rem;">
+      <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-light);margin-bottom:0.4rem;">CURRICULUM ARCHITECTURE</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;">Suggested Study Order</h2>
+      <p style="color:var(--text-secondary);font-size:0.95rem;max-width:850px;line-height:1.6;">
+        Computer science students often jump straight to training models without understanding the mathematical dependency chain. We recommend following this progressive sequence:
+      </p>
     </div>
-    <a href="linear-algebra.html" class="btn btn-primary" style="white-space:nowrap;">Open Master Curriculum →</a>
-  </div>
 
-  <!-- ── FOUNDATIONS ── -->
-  <div class="insight-section animate-on-scroll" style="margin-top:2rem; padding:1.5rem; display:flex; align-items:center; justify-content:space-between; gap:2rem;">
-    <div>
-      <div class="insight-badge" style="background:var(--accent-glow); color:var(--accent-light);">📚 Prerequisites</div>
-      <h3 style="font-family:'Playfair Display', serif; font-size:1.5rem; margin-bottom:0.5rem;">Systems of Linear Equations</h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); max-width:600px;">Before diving into abstract vector spaces, ensure you master the fundamental techniques of solving systems through graphing, substitution, and elimination.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.5rem;">
+      
+      <!-- Stage 1 -->
+      <div style="background:var(--card-bg);border:1px solid rgba(217,119,6,0.3);border-radius:var(--radius);padding:1.75rem;display:flex;flex-direction:column;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span style="background:rgba(217,119,6,0.2);color:var(--accent-light);font-size:0.75rem;font-weight:800;padding:0.25rem 0.6rem;border-radius:100px;font-family:'JetBrains Mono',monospace;">STAGE 1</span>
+          <span style="font-size:0.8rem;color:var(--text-secondary);">Semesters 1–2</span>
+        </div>
+        <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.5rem;">📐 Linear Algebra</h3>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.25rem;">
+          Vectors, linear transformations, matrices, projections, eigenvalues, SVD, and PCA.
+        </p>
+        <div style="font-size:0.82rem;color:#cbd5e1;background:rgba(0,0,0,0.3);padding:0.6rem 0.8rem;border-radius:6px;margin-bottom:1.25rem;line-height:1.5;">
+          <strong>Why first:</strong> Neural networks, word embeddings, and graphics datasets are geometric objects in high-dimensional vector spaces.
+        </div>
+        <a href="linear-algebra.html" class="btn btn-primary" style="margin-top:auto;text-align:center;font-size:0.82rem;padding:0.5rem;">
+          Start Linear Algebra (10 Ch) →
+        </a>
+      </div>
+
+      <!-- Stage 2 -->
+      <div style="background:var(--card-bg);border:1px solid rgba(56,189,248,0.3);border-radius:var(--radius);padding:1.75rem;display:flex;flex-direction:column;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span style="background:rgba(56,189,248,0.2);color:#38bdf8;font-size:0.75rem;font-weight:800;padding:0.25rem 0.6rem;border-radius:100px;font-family:'JetBrains Mono',monospace;">STAGE 2</span>
+          <span style="font-size:0.8rem;color:var(--text-secondary);">Semesters 2–3</span>
+        </div>
+        <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.5rem;">🎲 Probability &amp; Statistics</h3>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.25rem;">
+          Sample spaces, Bayes' theorem, random variables, distributions, Central Limit Theorem, MLE &amp; MAP.
+        </p>
+        <div style="font-size:0.82rem;color:#cbd5e1;background:rgba(0,0,0,0.3);padding:0.6rem 0.8rem;border-radius:6px;margin-bottom:1.25rem;line-height:1.5;">
+          <strong>Why second:</strong> Data is inherently stochastic. Machine learning loss functions (like cross-entropy) are derived directly from Maximum Likelihood Estimation.
+        </div>
+        <a href="#probability" class="btn btn-outline" style="margin-top:auto;text-align:center;font-size:0.82rem;padding:0.5rem;border-color:#38bdf8;color:#38bdf8;">
+          View Probability Overview ↓
+        </a>
+      </div>
+
+      <!-- Stage 3 -->
+      <div style="background:var(--card-bg);border:1px solid rgba(16,185,129,0.3);border-radius:var(--radius);padding:1.75rem;display:flex;flex-direction:column;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span style="background:rgba(16,185,129,0.2);color:#10b981;font-size:0.75rem;font-weight:800;padding:0.25rem 0.6rem;border-radius:100px;font-family:'JetBrains Mono',monospace;">STAGE 3</span>
+          <span style="font-size:0.8rem;color:var(--text-secondary);">Semesters 3–4</span>
+        </div>
+        <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.5rem;">🚀 Calculus &amp; Optimisation</h3>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.25rem;">
+          Multivariate gradients, Jacobians, backpropagation by hand, convexity, Adam optimizer, and KKT constraints.
+        </p>
+        <div style="font-size:0.82rem;color:#cbd5e1;background:rgba(0,0,0,0.3);padding:0.6rem 0.8rem;border-radius:6px;margin-bottom:1.25rem;line-height:1.5;">
+          <strong>Why third:</strong> Once representations and objectives are defined, calculus is the optimization engine that updates model weights to minimize error.
+        </div>
+        <a href="calculus-optimisation.html" class="btn btn-primary" style="margin-top:auto;text-align:center;font-size:0.82rem;padding:0.5rem;background:#059669;border-color:#059669;">
+          Explore Calculus &amp; Optimisation (7 Ch) →
+        </a>
+      </div>
+
+      <!-- Stage 4 -->
+      <div style="background:var(--card-bg);border:1px solid rgba(168,85,247,0.3);border-radius:var(--radius);padding:1.75rem;display:flex;flex-direction:column;position:relative;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span style="background:rgba(168,85,247,0.2);color:#c084fc;font-size:0.75rem;font-weight:800;padding:0.25rem 0.6rem;border-radius:100px;font-family:'JetBrains Mono',monospace;">STAGE 4</span>
+          <span style="font-size:0.8rem;color:var(--text-secondary);">Any Semester</span>
+        </div>
+        <h3 style="font-size:1.3rem;color:#fff;margin-bottom:0.5rem;">💡 The Maths Behind…</h3>
+        <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:1.25rem;">
+          6 story-driven case studies: Google PageRank, ChatGPT Attention, Shazam, WhatsApp RSA, Netflix SVD, and JPEG DCT.
+        </p>
+        <div style="font-size:0.82rem;color:#cbd5e1;background:rgba(0,0,0,0.3);padding:0.6rem 0.8rem;border-radius:6px;margin-bottom:1.25rem;line-height:1.5;">
+          <strong>Why fourth:</strong> Grounds the abstract mathematics into the tangible engineering mechanics of production products.
+        </div>
+        <a href="maths-behind.html" class="btn btn-outline" style="margin-top:auto;text-align:center;font-size:0.82rem;padding:0.5rem;border-color:#a855f7;color:#c084fc;">
+          Read Maths Stories (6 Articles) →
+        </a>
+      </div>
+
     </div>
-    <a href="systems-of-equations.html" class="btn btn-outline" style="white-space:nowrap;">Explore Foundations →</a>
-  </div>
+  </section>
 
-  <!-- ── COMPREHENSIVE COURSE MODULE: VECTOR SPACES ── -->
-  <div class="topic-header" style="margin-top:4rem;">
+  <!-- ── SECTION: THE 3 CORE PILLARS ── -->
+  <section style="margin:4rem 0;">
+    <div style="margin-bottom:2rem;">
+      <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-light);margin-bottom:0.4rem;">PRIMARY PLATFORMS</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;">The 3 Core Mathematical Pillars</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+      
+      <!-- Pillar 1 Card -->
+      <div style="background:linear-gradient(135deg,rgba(217,119,6,0.1),rgba(41,37,36,0.85));border:1px solid rgba(217,119,6,0.35);border-radius:var(--radius);padding:2rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <div style="max-width:750px;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+            <span style="background:rgba(217,119,6,0.25);color:var(--accent-light);font-size:0.75rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;font-family:'JetBrains Mono',monospace;">PILLAR 1 · 10 CHAPTERS</span>
+            <span style="color:#10b981;font-size:0.82rem;font-weight:600;">✓ Fully Interactive</span>
+          </div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:0.5rem;">Linear Algebra for CS &amp; Machine Learning</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.6;">
+            10 chapters covering vectors in $\mathbb{R}^n$, Gaussian elimination, linear transformations, determinants, projections, least squares, spectral theorem, SVD, and Graph Laplacians with interactive canvas simulations and 50+ practice problems.
+          </p>
+        </div>
+        <a href="linear-algebra.html" class="btn btn-primary" style="white-space:nowrap;padding:0.7rem 1.5rem;font-size:0.9rem;">
+          Launch Linear Algebra Course →
+        </a>
+      </div>
+
+      <!-- Pillar 2 Card -->
+      <div style="background:linear-gradient(135deg,rgba(56,189,248,0.1),rgba(41,37,36,0.85));border:1px solid rgba(56,189,248,0.35);border-radius:var(--radius);padding:2rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <div style="max-width:750px;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+            <span style="background:rgba(56,189,248,0.25);color:#38bdf8;font-size:0.75rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;font-family:'JetBrains Mono',monospace;">PILLAR 2 · 8 CHAPTERS</span>
+            <span style="color:#38bdf8;font-size:0.82rem;font-weight:600;">Roadmap Step ③a</span>
+          </div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:0.5rem;">Probability &amp; Statistics for CS &amp; AI</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.6;">
+            Foundations of uncertainty: Bayes' theorem, linearity of expectation in randomized algorithms, probability distributions (Binomial, Poisson, Normal), Central Limit Theorem, covariance matrices, MLE, and A/B testing methodology.
+          </p>
+        </div>
+        <a href="#probability" class="btn btn-outline" style="white-space:nowrap;padding:0.7rem 1.5rem;font-size:0.9rem;border-color:#38bdf8;color:#38bdf8;">
+          Explore Probability Overview ↓
+        </a>
+      </div>
+
+      <!-- Pillar 3 Card -->
+      <div style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(41,37,36,0.85));border:1px solid rgba(16,185,129,0.35);border-radius:var(--radius);padding:2rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <div style="max-width:750px;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+            <span style="background:rgba(16,185,129,0.25);color:#10b981;font-size:0.75rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:4px;font-family:'JetBrains Mono',monospace;">PILLAR 3 · 7 CHAPTERS</span>
+            <span style="color:#10b981;font-size:0.82rem;font-weight:600;">Roadmap Step ③b · NEW</span>
+          </div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:0.5rem;">Calculus &amp; Optimisation for Machine Learning</h3>
+          <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.6;">
+            7 comprehensive chapters: rates of change, directional derivatives, computational graphs, backpropagation by hand, convexity and Hessians, 4-way optimizer race (GD, Momentum, RMSprop, Adam), and KKT constrained optimization with 42 practice problems.
+          </p>
+        </div>
+        <a href="calculus-optimisation.html" class="btn btn-primary" style="white-space:nowrap;padding:0.7rem 1.5rem;font-size:0.9rem;background:#059669;border-color:#059669;">
+          Launch Calculus &amp; Optimisation →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SECTION: OVERVIEW & STANDALONE MODULES (EXISTING CONTENT PRESERVED) ── -->
+  <section id="overview-section" style="margin-top:5rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.1);">
+    <div style="margin-bottom:2.5rem;">
+      <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-light);margin-bottom:0.4rem;">FOUNDATIONAL DEEP-DIVES</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;">Course Overview &amp; Standalone Modules</h2>
+      <p style="color:var(--text-secondary);font-size:0.95rem;max-width:850px;line-height:1.6;">
+        Reference modules, interactive tabbed theory, worked examples, and problem sets covering vector spaces, linear systems, optimization, and probability.
+      </p>
+    </div>
+<div class="topic-header" style="margin-top:4rem;">
     <div class="topic-icon-lg" style="background:rgba(217,119,6,0.2);">📐</div>
     <div class="topic-title-group">
       <h2 id="vector-spaces-title">Vector Spaces, Bases, and Span</h2>
@@ -762,6 +922,8 @@ vₜ = β₂vₜ₋₁ + (1-β₂)(∇θ)²
 </div><!-- /max-width -->
 
 <!-- ── COMPREHENSIVE FOOTER ── -->
+</section>
+</div>
 <footer class="site-footer" id="site-footer">
   <div class="footer-inner-grid">
     <div class="footer-brand">
