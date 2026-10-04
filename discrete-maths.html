@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discrete Maths for CS: Logic, Graphs &amp; RSA | Maths for All</title>
+  <meta name="description" content="Learn discrete mathematics for computer science: logic and proofs, sets, combinatorics, recurrences and Big-O, graph algorithms and RSA, with interactive visualisations, Python code and interview-style practice." />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/discrete-maths.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="Discrete Maths for CS: Logic, Graphs &amp; RSA | Maths for All" />
+  <meta property="og:description" content="Learn discrete mathematics for computer science: logic and proofs, sets, combinatorics, recurrences and Big-O, graph algorithms and RSA, with interactive visualisations, Python code and interview-style practice." />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/discrete-maths.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Maths for All — interactive maths for CS students" />
+  <meta property="og:locale" content="en" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Discrete Maths for CS: Logic, Graphs &amp; RSA | Maths for All" />
+  <meta name="twitter:description" content="Learn discrete mathematics for computer science: logic and proofs, sets, combinatorics, recurrences and Big-O, graph algorithms and RSA, with interactive visualisations, Python code and interview-style practice." />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="Maths for All — interactive maths for CS students" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Course","name":"Discrete Mathematics for Computer Science","description":"Learn discrete mathematics for computer science: logic and proofs, sets, combinatorics, recurrences and Big-O, graph algorithms and RSA, with interactive visualisations, Python code and interview-style practice.","url":"https://mdsamhussain1996.github.io/Mathsforall/discrete-maths.html","provider":{"@type":"Organization","name":"Maths for All","url":"https://mdsamhussain1996.github.io/Mathsforall/"},"educationalLevel":"Undergraduate","isAccessibleForFree":true,"inLanguage":"en","teaches":["Propositional logic","Mathematical induction","Combinatorics","Recurrences and the Master theorem","Graph algorithms","Number theory and RSA"]}
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <!-- MathJax Configuration for crisp LaTeX math rendering -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="discrete-maths.html" class="active">Discrete Maths</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search discrete maths…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search topics" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<!-- ── HERO ── -->
+<div style="max-width:1440px;margin:0 auto;padding:0 2rem;">
+  <div class="page-hero" style="margin-top:20px;">
+    <div class="page-hero-tag">🧮 Logic · Counting · Graphs · Cryptography</div>
+    <h1>The Mathematics of <span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Discrete Structures</span></h1>
+    <p>Six chapters that turn the maths every programmer secretly uses into something you can see, prove, and run: truth tables, Venn diagrams, pigeons, recurrences, graph searches and a working RSA. Each chapter comes with worked examples, a 10-line Python snippet, an interactive visualisation, and five practice problems (up to Google/Amazon/TCS-style interview questions).</p>
+
+    <!-- Chapter Quick Navigation Pills -->
+    <div class="chapter-nav-pills" role="navigation" aria-label="Chapters">
+      <a href="#ch1" class="chapter-pill">① Logic &amp; Proofs</a>
+      <a href="#ch2" class="chapter-pill">② Sets, Relations &amp; Functions</a>
+      <a href="#ch3" class="chapter-pill">③ Combinatorics</a>
+      <a href="#ch4" class="chapter-pill">④ Recurrences &amp; Big-O</a>
+      <a href="#ch5" class="chapter-pill">⑤ Graph Theory</a>
+      <a href="#ch6" class="chapter-pill">⑥ Number Theory</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN TWO-COLUMN LAYOUT WITH TABLE OF CONTENTS ── -->
+<div class="la-layout">
+
+  <!-- Sticky Table of Contents Sidebar -->
+  <aside class="la-sidebar" id="laSidebar">
+    <div>
+      <div class="la-toc-title">Quick Search</div>
+      <input type="text" class="la-toc-search" placeholder="Filter topics…" oninput="filterTOC(this.value)" aria-label="Filter topics" />
+    </div>
+
+    <div>
+      <div class="la-toc-title">Course Topics</div>
+      <ul class="la-toc-list" id="tocList">
+        <li class="la-toc-item"><a href="#topic-1-1">1.1 Logic &amp; Proofs</a></li>
+        <li class="la-toc-item"><a href="#practice-1">1 ✎ Test Yourself</a></li>
+        <li class="la-toc-item"><a href="#topic-2-1">2.1 Sets, Relations &amp; Functions</a></li>
+        <li class="la-toc-item"><a href="#practice-2">2 ✎ Test Yourself</a></li>
+        <li class="la-toc-item"><a href="#topic-3-1">3.1 Combinatorics</a></li>
+        <li class="la-toc-item"><a href="#practice-3">3 ✎ Test Yourself</a></li>
+        <li class="la-toc-item"><a href="#topic-4-1">4.1 Recurrences &amp; Big-O</a></li>
+        <li class="la-toc-item"><a href="#practice-4">4 ✎ Test Yourself</a></li>
+        <li class="la-toc-item"><a href="#topic-5-1">5.1 Graph Theory</a></li>
+        <li class="la-toc-item"><a href="#practice-5">5 ✎ Test Yourself</a></li>
+        <li class="la-toc-item"><a href="#topic-6-1">6.1 Number Theory</a></li>
+        <li class="la-toc-item"><a href="#practice-6">6 ✎ Test Yourself</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Main Content Body -->
+  <main class="la-content">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 1: Logic &amp; Proofs
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch1">
+      <div class="chapter-number-tag">Chapter 1</div>
+      <h2 class="chapter-title">Logic &amp; Proofs</h2>
+      <p class="chapter-overview">Before you can trust an algorithm you must be able to <em>prove</em> things about it. We start with truth tables and quantifiers — the grammar of reasoning — and finish with mathematical induction, the engine behind recursion.</p>
+    </div>
+
+    <article class="topic-container" id="topic-1-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">1.1</span> Truth Tables, Quantifiers &amp; Induction</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>Every <code>if</code>, <code>while</code> and SQL <code>WHERE</code> clause is propositional logic in disguise — and induction is the proof technique behind every recursive algorithm you will ever trust.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>A <strong>proposition</strong> is a statement that is either true or false — nothing in between. Glue propositions together with <em>connectives</em> ($\neg$ not, $\wedge$ and, $\vee$ or, $\to$ implies) and you have the grammar of every boolean expression in your code.</p>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>Implication is a promise.</strong> $p \to q$ only breaks when $p$ is true and $q$ is false. If it's not raining, you cannot break a promise about what happens “if it rains”. That's <em>vacuous truth</em>.</li>
+          <li><strong>Quantifiers are loops.</strong> $\forall x\,P(x)$ is Python's <code>all(...)</code>; $\exists x\,P(x)$ is <code>any(...)</code>. Negating one flips it to the other.</li>
+          <li><strong>Induction is a line of dominoes.</strong> Prove the first one falls, prove each one knocks over the next — and <em>all</em> of them fall. It is exactly how you reason about recursion.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — Is an implication equivalent to its contrapositive?</strong><br/>
+          Build the truth table for $p \to q$ and $\neg q \to \neg p$:
+          <div class="dm-table-wrap"><table class="dm-table"><thead><tr><th>$p$</th><th>$q$</th><th>$p \to q$</th><th>$\neg q \to \neg p$</th></tr></thead><tbody>
+          <tr><td class="t">T</td><td class="t">T</td><td class="t">T</td><td class="t">T</td></tr>
+          <tr><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="f">F</td></tr>
+          <tr><td class="f">F</td><td class="t">T</td><td class="t">T</td><td class="t">T</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="t">T</td><td class="t">T</td></tr></tbody></table></div>
+          The last two columns match in every row, so $p \to q \equiv \neg q \to \neg p$. <em>Proof by contrapositive</em> is therefore completely legitimate: to prove “if $n^2$ is even then $n$ is even”, prove “if $n$ is odd then $n^2$ is odd”.
+        </div>
+        <div class="example-step">
+          <strong>Example B — Induction: the sum of the first $n$ odd numbers is $n^2$</strong><br/>
+          Claim $P(n)$: $\;1 + 3 + 5 + \dots + (2n-1) = n^2$.<br/>
+          <strong>Base case</strong> ($n=1$): $1 = 1^2$ ✓.<br/>
+          <strong>Inductive step.</strong> Assume $P(k)$ holds. Then
+          $$1 + 3 + \dots + (2k-1) + (2k+1) = k^2 + (2k+1) = (k+1)^2.$$
+          So $P(k) \to P(k+1)$. By induction, $P(n)$ is true for every $n \ge 1$. 🎉 (Picture it: each new odd number is an L-shaped border that grows an $k\times k$ square into $(k+1)\times(k+1)$.)
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$\neg(p \wedge q) \equiv \neg p \vee \neg q, \qquad \neg(p \vee q) \equiv \neg p \wedge \neg q \quad\text{(De Morgan)}$$
+          $$\neg\,\forall x\,P(x) \equiv \exists x\,\neg P(x), \qquad \neg\,\exists x\,P(x) \equiv \forall x\,\neg P(x)$$
+          $$\Big[\,P(1) \;\wedge\; \forall k\,\big(P(k) \to P(k+1)\big)\Big] \;\to\; \forall n \ge 1\;P(n)\quad\text{(Mathematical induction)}$$
+        </div>
+        <p><strong>Rigour check:</strong> a <em>tautology</em> is true under every assignment (e.g. $p \vee \neg p$); a <em>contradiction</em> is false under every assignment ($p \wedge \neg p$). With $n$ variables a truth table has $2^n$ rows — which is exactly why SAT solvers are famous. <strong>Strong induction</strong> assumes $P(1),\dots,P(k)$ to prove $P(k+1)$ (use it for “every integer $\ge2$ is a product of primes”).</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Truth-Table Generator</span></div>
+        <p>Type any formula using <code>p q r …</code>, <code>!</code> (not), <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>-&gt;</code> and <code>&lt;-&gt;</code>. Use <code>==</code> to test whether two formulas are equivalent.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Truth-Table Generator</span>
+            <div class="sim-controls">
+              <input class="dm-input" id="tt-input" type="text" value="(p -> q) == (!q -> !p)" aria-label="Logical formula" spellcheck="false" autocomplete="off">
+              <button type="button" class="sim-btn" data-tt-preset="p -> q">p → q</button>
+              <button type="button" class="sim-btn" data-tt-preset="!(p &amp; q) == (!p | !q)">De Morgan</button>
+              <button type="button" class="sim-btn" data-tt-preset="p | !p">p ∨ ¬p</button>
+              <button type="button" class="sim-btn" data-tt-preset="(p ^ q) == ((p | q) &amp; !(p &amp; q))">XOR from ∧∨</button>
+              <button type="button" class="sim-btn" data-tt-preset="(p | q) &amp; !r">(p∨q)∧¬r</button>
+            </div>
+          </div>
+          <div style="padding:0 1rem 0.5rem;"><div class="dm-table-wrap" id="tt-table"></div><div class="dm-verdict" id="tt-verdict" aria-live="polite"></div></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
+        <p>Let the machine prove the contrapositive equivalence by brute force — and sanity-check an induction claim for 500 cases (evidence, not proof!).</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / itertools</span></div>
+          <div class="code-content"><span class="code-kw">from</span> itertools <span class="code-kw">import</span> product
+
+<span class="code-kw">def</span> implies(p, q): <span class="code-kw">return</span> (<span class="code-kw">not</span> p) <span class="code-kw">or</span> q
+
+rows = list(product([<span class="code-kw">False</span>, <span class="code-kw">True</span>], repeat=<span class="code-num">2</span>))          <span class="code-cmt"># all 2^2 assignments</span>
+<span class="code-kw">for</span> p, q <span class="code-kw">in</span> rows:
+    <span class="code-kw">print</span>(p, q, implies(p, q), implies(<span class="code-kw">not</span> q, <span class="code-kw">not</span> p))   <span class="code-cmt"># columns match!</span>
+
+<span class="code-kw">print</span>(<span class="code-str">"Equivalent:"</span>, <span class="code-kw">all</span>(implies(p, q) == implies(<span class="code-kw">not</span> q, <span class="code-kw">not</span> p) <span class="code-kw">for</span> p, q <span class="code-kw">in</span> rows))
+<span class="code-cmt"># Induction sanity check: 1 + 2 + ... + n == n(n+1)/2</span>
+<span class="code-kw">print</span>(<span class="code-kw">all</span>(<span class="code-kw">sum</span>(<span class="code-kw">range</span>(<span class="code-num">1</span>, n + <span class="code-num">1</span>)) == n * (n + <span class="code-num">1</span>) // <span class="code-num">2</span> <span class="code-kw">for</span> n <span class="code-kw">in</span> <span class="code-kw">range</span>(<span class="code-num">1</span>, <span class="code-num">500</span>)))</div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-1" data-practice="dm-ch1" data-title="Test Yourself — Logic &amp; Proofs"></section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 2: Sets, Relations &amp; Functions
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch2">
+      <div class="chapter-number-tag">Chapter 2</div>
+      <h2 class="chapter-title">Sets, Relations &amp; Functions</h2>
+      <p class="chapter-overview">Almost every data structure is secretly a set, a relation or a function. We build the vocabulary precisely — equivalence relations, partitions, injections and bijections — so that later chapters can lean on it.</p>
+    </div>
+
+    <article class="topic-container" id="topic-2-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">2.1</span> Sets, Equivalence Relations &amp; Functions</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>Python's <code>set</code>, SQL joins, hash maps and type signatures are all sets, relations and functions wearing costumes — learn the originals and the costumes become obvious.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>A set</strong> is an unordered collection with no duplicates — $\{1,2,3\} = \{3,2,1,1\}$. Union, intersection and difference are the operators <code>|</code>, <code>&amp;</code>, <code>-</code>.</li>
+          <li><strong>A relation</strong> is just a set of ordered pairs: $R \subseteq A \times B$. A database table <em>is</em> a relation; “$\le$”, “divides” and “is friends with” are relations.</li>
+          <li><strong>A function</strong> is a relation where every input has <em>exactly one</em> output — a pure function, a dictionary lookup, a hash.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — Equivalence classes: congruence mod 3</strong><br/>
+          On $A=\{1,2,3,4,5,6\}$ let $a \sim b$ iff $3 \mid (a-b)$. <br/>
+          <strong>Reflexive:</strong> $a-a = 0$ is divisible by 3 ✓. <strong>Symmetric:</strong> if $3\mid(a-b)$ then $3\mid(b-a)$ ✓. <strong>Transitive:</strong> $3\mid(a-b)$ and $3\mid(b-c)$ give $3\mid(a-c)$ ✓.<br/>
+          So $\sim$ is an <em>equivalence relation</em>. Its classes partition $A$:
+          $$[1]=\{1,4\},\qquad [2]=\{2,5\},\qquad [3]=\{3,6\}.$$
+          Three disjoint classes covering everything — a <strong>partition</strong>. (This is exactly how <code>x % 3</code> buckets data.)
+        </div>
+        <div class="example-step">
+          <strong>Example B — Injective? Surjective? $f(x) = 2x+1$ on $\mathbb{Z}$</strong><br/>
+          <strong>Injective</strong> (one-to-one): suppose $f(a)=f(b)$. Then $2a+1 = 2b+1 \Rightarrow a=b$ ✓.<br/>
+          <strong>Surjective</strong> (onto $\mathbb{Z}$)? Is $2$ an output? $2x+1 = 2 \Rightarrow x = \tfrac12 \notin \mathbb{Z}$ ✗. Only <em>odd</em> numbers are hit.<br/>
+          So $f:\mathbb{Z}\to\mathbb{Z}$ is injective but not surjective. On $\mathbb{R}\to\mathbb{R}$ it <em>is</em> a bijection with inverse $f^{-1}(y) = \tfrac{y-1}{2}$ — and bijections are exactly the functions you can undo (think: lossless encoding).
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$|A \cup B| = |A| + |B| - |A \cap B| \quad\text{(inclusion–exclusion)}, \qquad |\mathcal{P}(A)| = 2^{|A|}$$
+          $$\text{Equivalence relation} = \text{reflexive} + \text{symmetric} + \text{transitive} \iff \text{a partition of } A$$
+          $$\#\text{functions } A\to B = |B|^{|A|}, \qquad \#\text{injections} = \frac{|B|!}{(|B|-|A|)!}\ \ (|A|\le|B|)$$
+        </div>
+        <p>A relation that is reflexive, <em>antisymmetric</em> and transitive is a <strong>partial order</strong> (e.g. $\subseteq$, “divides”, task dependencies in a build graph). A function is <strong>bijective</strong> iff it is injective and surjective, and then $|A|=|B|$ for finite sets.</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Venn Diagram Playground</span></div>
+        <p>Pick an operation to shade it. <strong>Click any numbered element</strong> to cycle it through <em>outside → A only → both → B only</em> and watch inclusion–exclusion stay true.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Set Operations Playground</span>
+            <div class="sim-controls">
+              <button type="button" data-set-op="union" class="sim-btn active">A ∪ B</button>
+              <button type="button" class="sim-btn" data-set-op="inter">A ∩ B</button>
+              <button type="button" class="sim-btn" data-set-op="amb">A ∖ B</button>
+              <button type="button" class="sim-btn" data-set-op="bma">B ∖ A</button>
+              <button type="button" class="sim-btn" data-set-op="sym">A △ B</button>
+              <button type="button" class="sim-btn" data-set-op="comp">Aᶜ</button>
+              <button type="button" class="sim-btn" id="sets-random">🎲 Randomise</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap"><canvas id="canvas-sets" width="600" height="360" role="img" aria-label="Venn diagram of sets A and B with ten clickable elements"></canvas></div>
+          <div class="sim-caption"><span class="sim-readout" id="readout-sets"></span></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
+        <p>Python’s built-in sets mirror the maths symbol for symbol. Here we <em>verify</em> that “$\le$” is a partial order and test a function for injectivity.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / set theory</span></div>
+          <div class="code-content">A, B = {<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>, <span class="code-num">4</span>}, {<span class="code-num">3</span>, <span class="code-num">4</span>, <span class="code-num">5</span>}
+<span class="code-kw">print</span>(A | B, A &amp; B, A - B, A ^ B)                     <span class="code-cmt"># union, intersection, difference, symmetric diff</span>
+R = {(a, b) <span class="code-kw">for</span> a <span class="code-kw">in</span> A <span class="code-kw">for</span> b <span class="code-kw">in</span> A <span class="code-kw">if</span> a &lt;= b}          <span class="code-cmt"># the relation "&lt;=" on A, as a set of pairs</span>
+reflexive  = <span class="code-kw">all</span>((a, a) <span class="code-kw">in</span> R <span class="code-kw">for</span> a <span class="code-kw">in</span> A)
+antisym    = <span class="code-kw">all</span>(<span class="code-kw">not</span> ((a, b) <span class="code-kw">in</span> R <span class="code-kw">and</span> (b, a) <span class="code-kw">in</span> R) <span class="code-kw">or</span> a == b <span class="code-kw">for</span> a <span class="code-kw">in</span> A <span class="code-kw">for</span> b <span class="code-kw">in</span> A)
+transitive = <span class="code-kw">all</span>((a, c) <span class="code-kw">in</span> R <span class="code-kw">for</span> a, b <span class="code-kw">in</span> R <span class="code-kw">for</span> b2, c <span class="code-kw">in</span> R <span class="code-kw">if</span> b == b2)
+<span class="code-kw">print</span>(reflexive, antisym, transitive)                 <span class="code-cmt"># True True True -&gt; a partial order!</span>
+f = {<span class="code-num">1</span>: <span class="code-str">"x"</span>, <span class="code-num">2</span>: <span class="code-str">"y"</span>, <span class="code-num">3</span>: <span class="code-str">"x"</span>}                          <span class="code-cmt"># a function as a dict</span>
+<span class="code-kw">print</span>(<span class="code-str">"injective:"</span>, <span class="code-kw">len</span>(set(f.values())) == <span class="code-kw">len</span>(f))   <span class="code-cmt"># False: 1 and 3 collide</span>
+<span class="code-kw">print</span>(<span class="code-str">"power set size:"</span>, <span class="code-num">2</span> ** <span class="code-kw">len</span>(A))                 <span class="code-cmt"># 16</span></div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-2" data-practice="dm-ch2" data-title="Test Yourself — Sets, Relations &amp; Functions"></section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 3: Combinatorics
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch3">
+      <div class="chapter-number-tag">Chapter 3</div>
+      <h2 class="chapter-title">Combinatorics</h2>
+      <p class="chapter-overview">The art of counting without counting. Permutations and combinations tell you <em>how many</em>; the pigeonhole principle tells you something <em>must</em> happen. Together they underpin probability, hashing, and complexity lower bounds.</p>
+    </div>
+
+    <article class="topic-container" id="topic-3-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">3.1</span> Permutations, Combinations &amp; the Pigeonhole Principle</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>How many test cases? How many possible passwords? Will two keys collide in your hash table? Counting answers all of these <em>before</em> you run a single line of code.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>Product rule:</strong> if you make a choice in $m$ ways and then another in $n$ ways, there are $m\cdot n$ outcomes. (A 3-char lowercase code: $26^3$.)</li>
+          <li><strong>Permutation</strong> = order matters (a ranking, a PIN). <strong>Combination</strong> = order doesn't (a committee, a lottery ticket). Same objects, you just <em>divide out</em> the orderings you don't care about.</li>
+          <li><strong>Pigeonhole:</strong> put 13 pigeons in 12 holes and some hole holds two. Obvious — and astonishingly powerful. It proves that every lossless compressor must <em>expand</em> some inputs.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — Arrangements with repeats: the word LETTER</strong><br/>
+          LETTER has 6 letters, but E appears twice and T appears twice. If all letters were distinct we'd get $6! = 720$ orderings. Swapping the two E's (or the two T's) gives the <em>same</em> word, so we divide by the redundancy:
+          $$\frac{6!}{2!\,2!} = \frac{720}{4} = 180.$$
+        </div>
+        <div class="example-step">
+          <strong>Example B — Pigeonhole: among any 5 integers, two differ by a multiple of 4</strong><br/>
+          Each integer has a remainder $0,1,2$ or $3$ when divided by 4: those are the <strong>4 holes</strong>. We have <strong>5 pigeons</strong> (the integers), so two share a remainder: $a \equiv b \pmod 4$. Hence $4 \mid (a-b)$. ∎<br/>
+          The same trick with $m$ holes shows: among any $m+1$ integers, two are congruent mod $m$ — the basis of hash-collision arguments.
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$P(n,k) = \frac{n!}{(n-k)!}, \qquad \binom{n}{k} = \frac{n!}{k!\,(n-k)!}, \qquad \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
+          $$(x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{k} y^{\,n-k}, \qquad \sum_{k=0}^{n}\binom{n}{k} = 2^n$$
+          $$\textbf{Pigeonhole:}\ \ n \text{ pigeons in } k \text{ holes} \;\Rightarrow\; \text{some hole has at least } \Big\lceil \tfrac{n}{k} \Big\rceil \text{ pigeons}$$
+        </div>
+        <p>Pascal's rule has a one-line combinatorial proof: to pick $k$ items from $n$, either <em>include</em> the last item (choose $k-1$ from the rest) or <em>exclude</em> it (choose $k$ from the rest). And $\sum_k \binom nk = 2^n$ just counts every subset of an $n$-element set two ways.</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Pigeonhole Simulator</span></div>
+        <p>Slide pigeons ($n$) and holes ($k$). Drop them randomly and watch holes turn amber when they get a collision. Notice what happens to the “no collision” probability as $n$ grows — that is the birthday paradox.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Pigeonhole Principle Lab</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row"><label for="pg-n">pigeons n <b id="pg-n-val">13</b></label><input type="range" id="pg-n" min="1" max="24" step="1" value="13"></div>
+              <div class="sim-slider-row"><label for="pg-k">holes k <b id="pg-k-val">12</b></label><input type="range" id="pg-k" min="1" max="12" step="1" value="12"></div>
+              <button type="button" class="sim-btn" id="pg-random">🎲 Drop randomly</button>
+              <button type="button" class="sim-btn" id="pg-spread">⚖ Spread evenly</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap"><canvas id="canvas-pigeon" width="600" height="360" role="img" aria-label="Pigeons dropped into holes, crowded holes highlighted"></canvas></div>
+          <div class="sim-caption"><span class="sim-readout" id="readout-pigeon"></span></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
+        <p>Count, then confirm pigeonhole experimentally, then compute the famous birthday probability exactly.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / math.comb & friends</span></div>
+          <div class="code-content"><span class="code-kw">from</span> math <span class="code-kw">import</span> factorial, comb, perm
+<span class="code-kw">import</span> random
+
+<span class="code-kw">print</span>(perm(<span class="code-num">5</span>, <span class="code-num">3</span>), comb(<span class="code-num">5</span>, <span class="code-num">3</span>))                          <span class="code-cmt"># 60 ordered, 10 unordered</span>
+<span class="code-kw">print</span>(comb(<span class="code-num">5</span>, <span class="code-num">3</span>) == factorial(<span class="code-num">5</span>) // (factorial(<span class="code-num">3</span>) * factorial(<span class="code-num">2</span>)))   <span class="code-cmt"># the formula checks out</span>
+months = [random.randrange(<span class="code-num">12</span>) <span class="code-kw">for</span> _ <span class="code-kw">in</span> <span class="code-kw">range</span>(<span class="code-num">13</span>)]     <span class="code-cmt"># 13 people, 12 birth months</span>
+<span class="code-kw">print</span>(<span class="code-kw">max</span>(months.count(m) <span class="code-kw">for</span> m <span class="code-kw">in</span> <span class="code-kw">range</span>(<span class="code-num">12</span>)) &gt;= <span class="code-num">2</span>)    <span class="code-cmt"># ALWAYS True: pigeonhole!</span>
+p = <span class="code-num">1.0</span>                                                <span class="code-cmt"># birthday paradox, 23 people</span>
+<span class="code-kw">for</span> i <span class="code-kw">in</span> <span class="code-kw">range</span>(<span class="code-num">23</span>): p *= (<span class="code-num">365</span> - i) / <span class="code-num">365</span>               <span class="code-cmt"># P(all birthdays different)</span>
+<span class="code-kw">print</span>(round(<span class="code-num">1</span> - p, <span class="code-num">3</span>))                                 <span class="code-cmt"># 0.507 -&gt; better than a coin flip</span></div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-3" data-practice="dm-ch3" data-title="Test Yourself — Combinatorics"></section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 4: Recurrences &amp; Big-O
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch4">
+      <div class="chapter-number-tag">Chapter 4</div>
+      <h2 class="chapter-title">Recurrences &amp; Big-O</h2>
+      <p class="chapter-overview">How do you know your algorithm is fast? Write down its recurrence and solve it. We learn Big-O precisely, draw recursion trees, and then let the Master theorem solve most divide-and-conquer recurrences in one line.</p>
+    </div>
+
+    <article class="topic-container" id="topic-4-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">4.1</span> Master Theorem &amp; Solving $T(n)$</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>Merge sort, binary search, Karatsuba, the FFT — the cost of recursive code <em>is</em> a recurrence. Solve $T(n)$ and you know whether your algorithm scales before you ever run it.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <p>Big-O is how we talk about growth while ignoring machine speed: $f(n) = O(g(n))$ means “eventually, $f$ is at most a constant times $g$”. A <strong>recurrence</strong> expresses a recursive algorithm's cost in terms of itself: $T(n) = a\,T(n/b) + f(n)$ means <em>“make $a$ calls on inputs $b$ times smaller, plus $f(n)$ work to split and combine”</em>.</p>
+        <p><strong>The recursion-tree picture:</strong> the root does $f(n)$ work; its $a$ children each do $f(n/b)$; and so on for $\log_b n$ levels. Is the cost dominated by the <em>root</em> (top-heavy), the <em>leaves</em> (bottom-heavy), or is every level equal? The Master theorem is exactly that three-way question.</p>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — Merge sort: $T(n) = 2\,T(n/2) + n$</strong><br/>
+          Draw the tree. Level $i$ has $2^i$ subproblems of size $n/2^i$, each costing its own size, so every level costs $2^i \cdot \frac{n}{2^i} = n$. There are $\log_2 n$ levels:
+          $$T(n) = \underbrace{n + n + \dots + n}_{\log_2 n\ \text{levels}} + \Theta(n)\ (\text{leaves}) = \Theta(n\log n).$$
+          Master theorem agrees: $a=2,\ b=2,\ \log_b a = 1$ and $f(n) = n = \Theta(n^{1})$ — <strong>balanced</strong>, Case 2.
+        </div>
+        <div class="example-step">
+          <strong>Example B — Karatsuba multiplication: $T(n) = 3\,T(n/2) + n$</strong><br/>
+          Here $a=3$, $b=2$, so $\log_b a = \log_2 3 \approx 1.585$. Compare with $f(n)=n^1$: since $1 < 1.585$, the <strong>leaves dominate</strong> (Case 1):
+          $$T(n) = \Theta\big(n^{\log_2 3}\big) \approx \Theta(n^{1.585}).$$
+          That beats the schoolbook $\Theta(n^2)$ — one saved multiplication per level compounds into a faster algorithm. 🚀
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory — The Master Theorem</span></div>
+        <p>For $T(n) = a\,T(n/b) + f(n)$ with $a \ge 1,\ b > 1$, let $c = \log_b a$ (the “leaf exponent”):</p>
+        <div class="formula-box">
+          $$\begin{aligned}
+          \textbf{Case 1:}\ & f(n) = O(n^{c-\varepsilon}) &&\Rightarrow\ T(n) = \Theta(n^{c}) &&\text{(leaves dominate)}\\
+          \textbf{Case 2:}\ & f(n) = \Theta(n^{c}) &&\Rightarrow\ T(n) = \Theta(n^{c}\log n) &&\text{(every level equal)}\\
+          \textbf{Case 3:}\ & f(n) = \Omega(n^{c+\varepsilon}) \text{ and } a f(n/b)\le k f(n),\ k<1 &&\Rightarrow\ T(n) = \Theta(f(n)) &&\text{(root dominates)}
+          \end{aligned}$$
+        </div>
+        <p><strong>Beyond the theorem.</strong> For $T(n) = T(n-1) + n$ the size shrinks by <em>subtraction</em>, so the Master theorem does not apply — unroll instead: $T(n) = n + (n-1) + \dots + 1 = \tfrac{n(n+1)}{2} = \Theta(n^2)$. And $T(n) = T(n-1) + T(n-2)$ (naive Fibonacci) grows like $\varphi^n$ — exponential!</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Recurrence Explorer</span></div>
+        <p>Dial in $a$, $b$ and $d$ for $T(n) = a\,T(n/b) + n^d$. The amber curve is the exact $T(n)$ (log–log scale, so powers become straight lines). See which reference line it hugs — that is the Master-theorem case.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Master Theorem Explorer</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row"><label for="rc-a">a <b id="rc-a-val">2</b></label><input type="range" id="rc-a" min="1" max="8" step="1" value="2"></div>
+              <div class="sim-slider-row"><label for="rc-b">b <b id="rc-b-val">2</b></label><input type="range" id="rc-b" min="2" max="4" step="1" value="2"></div>
+              <div class="sim-slider-row"><label for="rc-d">d <b id="rc-d-val">1</b></label><input type="range" id="rc-d" min="0" max="3" step="0.5" value="1"></div>
+              <button type="button" class="sim-btn" data-rc="2,2,1">Merge sort</button>
+              <button type="button" class="sim-btn" data-rc="3,2,1">Karatsuba</button>
+              <button type="button" class="sim-btn" data-rc="1,2,0">Binary search</button>
+              <button type="button" class="sim-btn" data-rc="2,2,2">Root-heavy</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap"><canvas id="canvas-recur" width="600" height="360" role="img" aria-label="Log-log plot of T(n) against reference growth lines"></canvas></div>
+          <div class="sim-caption"><span class="sim-readout" id="readout-recur"></span></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
+        <p>Compute $T(n)$ exactly, watch the ratio to $n\log_2 n$ settle towards 1, and feel exponential blow-up in naive Fibonacci.</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / memoised recurrence</span></div>
+          <div class="code-content"><span class="code-kw">from</span> functools <span class="code-kw">import</span> lru_cache
+<span class="code-kw">from</span> math <span class="code-kw">import</span> log2
+
+@lru_cache(<span class="code-kw">None</span>)
+<span class="code-kw">def</span> T(n):                                    <span class="code-cmt"># T(n) = 2T(n/2) + n   (merge sort)</span>
+    <span class="code-kw">return</span> <span class="code-num">1</span> <span class="code-kw">if</span> n &lt;= <span class="code-num">1</span> <span class="code-kw">else</span> <span class="code-num">2</span> * T(n // <span class="code-num">2</span>) + n
+
+<span class="code-kw">for</span> k <span class="code-kw">in</span> (<span class="code-num">4</span>, <span class="code-num">8</span>, <span class="code-num">12</span>, <span class="code-num">16</span>):
+    n = <span class="code-num">2</span> ** k
+    <span class="code-kw">print</span>(n, T(n), round(T(n) / (n * log2(n)), <span class="code-num">3</span>))   <span class="code-cmt"># ratio = 1 + 1/k -&gt; Theta(n log n)</span>
+
+<span class="code-kw">def</span> fib(n): <span class="code-kw">return</span> n <span class="code-kw">if</span> n &lt; <span class="code-num">2</span> <span class="code-kw">else</span> fib(n - <span class="code-num">1</span>) + fib(n - <span class="code-num">2</span>)   <span class="code-cmt"># T(n) = T(n-1)+T(n-2)+1</span>
+<span class="code-kw">print</span>([fib(i) <span class="code-kw">for</span> i <span class="code-kw">in</span> <span class="code-kw">range</span>(<span class="code-num">10</span>)])           <span class="code-cmt"># fib(35) already takes seconds: exponential!</span></div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-4" data-practice="dm-ch4" data-title="Test Yourself — Recurrences &amp; Big-O"></section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 5: Graph Theory
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch5">
+      <div class="chapter-number-tag">Chapter 5</div>
+      <h2 class="chapter-title">Graph Theory</h2>
+      <p class="chapter-overview">Graphs are the most reusable data model in computer science. We learn the traversals (BFS, DFS), the structure of trees, weighted shortest paths with Dijkstra, and graph colouring — then watch the searches run, step by step.</p>
+    </div>
+
+    <article class="topic-container" id="topic-5-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">5.1</span> BFS/DFS, Trees, Dijkstra &amp; Graph Colouring</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>Maps, social networks, build systems, the internet, state machines — graphs model all of them, and BFS, DFS and Dijkstra are the first tools you reach for.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>A graph</strong> $G=(V,E)$ is dots and lines. Store it as an <em>adjacency list</em> (<code>dict</code> of neighbours) and most algorithms become a few lines.</li>
+          <li><strong>BFS</strong> explores like a ripple: all neighbours, then neighbours-of-neighbours (a <em>queue</em>). It finds the fewest-hops path. <strong>DFS</strong> explores like a maze-runner: dive until stuck, then backtrack (a <em>stack</em> / recursion).</li>
+          <li><strong>A tree</strong> is a connected graph with no cycles — exactly one path between any two vertices. <strong>Dijkstra</strong> is BFS for weighted roads: always expand the cheapest frontier vertex (a <em>priority queue</em>).</li>
+          <li><strong>Colouring</strong> assigns colours so neighbours differ — it's scheduling: exams as vertices, clashes as edges, colours as time slots.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — BFS on a small graph</strong><br/>
+          Edges: $A\!-\!B,\ A\!-\!C,\ B\!-\!D,\ C\!-\!D,\ D\!-\!E$. Run BFS from $A$ (queue shown after each step):
+          <div class="dm-table-wrap"><table class="dm-table"><thead><tr><th>Pop</th><th>Newly discovered</th><th>Queue</th></tr></thead><tbody>
+          <tr><td>—</td><td>A</td><td>[A]</td></tr>
+          <tr><td>A</td><td>B, C</td><td>[B, C]</td></tr>
+          <tr><td>B</td><td>D</td><td>[C, D]</td></tr>
+          <tr><td>C</td><td>— (D already seen)</td><td>[D]</td></tr>
+          <tr><td>D</td><td>E</td><td>[E]</td></tr>
+          <tr><td>E</td><td>—</td><td>[ ]</td></tr></tbody></table></div>
+          Visit order $A,B,C,D,E$ and hop-distances $0,1,1,2,3$. Total work $O(|V|+|E|)$.
+        </div>
+        <div class="example-step">
+          <strong>Example B — Dijkstra's shortest paths</strong><br/>
+          Directed weighted graph: $A\to B\,(4),\ A\to C\,(1),\ C\to B\,(2),\ C\to D\,(5),\ B\to D\,(1)$. Start at $A$.<br/>
+          • Settle $A\,(0)$: tentative $B=4,\ C=1$.<br/>
+          • Settle $C\,(1)$: $B = \min(4,\ 1+2) = 3$ ✔ improved; $D = 1+5 = 6$.<br/>
+          • Settle $B\,(3)$: $D = \min(6,\ 3+1) = 4$ ✔ improved.<br/>
+          • Settle $D\,(4)$. Final distances: $A{:}0,\ C{:}1,\ B{:}3,\ D{:}4$ along $A\to C\to B\to D$. The greedy choice is safe <em>because no edge is negative</em>.
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$\text{Tree on } n \text{ vertices: } |E| = n-1, \qquad \text{BFS/DFS: } O(|V|+|E|), \qquad \text{Dijkstra (heap): } O\big((|V|+|E|)\log|V|\big)$$
+          $$\chi(G) = \text{fewest colours needed}, \qquad \chi(G) \le \Delta(G)+1 \ \ (\text{greedy}), \qquad \chi(G)\le 2 \iff G \text{ has no odd cycle}$$
+        </div>
+        <p><strong>Facts to own:</strong> a connected graph on $n$ vertices has at least $n-1$ edges, and with exactly $n-1$ it is a tree. BFS gives shortest paths only when all edges cost the same; with non-negative weights use Dijkstra; with negative weights use Bellman–Ford. The <strong>Four Colour Theorem</strong> says every planar map needs at most 4 colours — and computing $\chi(G)$ in general is NP-hard.</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Animated BFS &amp; DFS</span></div>
+        <p>Choose BFS or DFS and a start vertex, then step through. <span style="color:#fde68a">Amber</span> = waiting in the queue/stack, <span style="color:#6ee7b7">green</span> = being processed, teal = done, thick green edges = the search tree. Same graph, different shapes of exploration!</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Graph Search Animator</span>
+            <div class="sim-controls">
+              <button type="button" data-graph-mode="bfs" class="sim-btn active">BFS (queue)</button>
+              <button type="button" class="sim-btn" data-graph-mode="dfs">DFS (stack)</button>
+              <label for="graph-start" style="color:#d6d3d1;font-size:.85rem;">start</label><select class="dm-select" id="graph-start"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+              <button type="button" class="sim-btn" id="graph-step">⏭ Step</button>
+              <button type="button" class="sim-btn" id="graph-play">▶ Auto-play</button>
+              <button type="button" class="sim-btn" id="graph-reset">↺ Reset</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap"><canvas id="canvas-graph" width="600" height="360" role="img" aria-label="Graph with eight vertices animated by breadth-first or depth-first search"></canvas></div>
+          <div class="sim-caption"><span class="sim-readout" id="readout-graph"></span></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 12 Lines of Python</span></div>
+        <p>Dijkstra with a binary heap — the same algorithm that powers route planning (plug in road lengths and you have a tiny GPS).</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / heapq</span></div>
+          <div class="code-content"><span class="code-kw">import</span> heapq
+G = {<span class="code-str">'A'</span>: {<span class="code-str">'B'</span>: <span class="code-num">4</span>, <span class="code-str">'C'</span>: <span class="code-num">1</span>}, <span class="code-str">'B'</span>: {<span class="code-str">'D'</span>: <span class="code-num">1</span>}, <span class="code-str">'C'</span>: {<span class="code-str">'B'</span>: <span class="code-num">2</span>, <span class="code-str">'D'</span>: <span class="code-num">5</span>}, <span class="code-str">'D'</span>: {}}
+<span class="code-kw">def</span> dijkstra(src):
+    dist, pq = {src: <span class="code-num">0</span>}, [(<span class="code-num">0</span>, src)]
+    <span class="code-kw">while</span> pq:
+        d, u = heapq.heappop(pq)
+        <span class="code-kw">if</span> d &gt; dist[u]: <span class="code-kw">continue</span>                 <span class="code-cmt"># stale entry: skip</span>
+        <span class="code-kw">for</span> v, w <span class="code-kw">in</span> G[u].items():
+            <span class="code-kw">if</span> d + w &lt; dist.get(v, float(<span class="code-str">'inf'</span>)):
+                dist[v] = d + w; heapq.heappush(pq, (dist[v], v))
+    <span class="code-kw">return</span> dist
+<span class="code-kw">print</span>(dijkstra(<span class="code-str">'A'</span>))   <span class="code-cmt"># {'A': 0, 'B': 3, 'C': 1, 'D': 4}  (matches Example B)</span></div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-5" data-practice="dm-ch5" data-title="Test Yourself — Graph Theory"></section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CHAPTER 6: Number Theory
+         ══════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-hero" id="ch6">
+      <div class="chapter-number-tag">Chapter 6</div>
+      <h2 class="chapter-title">Number Theory</h2>
+      <p class="chapter-overview">Modular arithmetic, the Euclidean algorithm and Euler's theorem look like pure maths — and then they build the cryptography that secures the internet. We finish by implementing RSA from scratch.</p>
+    </div>
+
+    <article class="topic-container" id="topic-6-1">
+      <div class="topic-title-bar">
+        <h3><span class="topic-id-badge">6.1</span> Modular Arithmetic, GCD &amp; RSA</h3>
+      </div>
+      <div class="dm-hook"><b>🧑‍💻 Why a programmer cares:</b><span>Hashing, checksums, random-number generators and every padlock in your browser rest on modular arithmetic — and on the fact that multiplying primes is easy while factoring the product is brutally hard.</span></div>
+      <div class="phase-card phase-intuition">
+        <div class="phase-header"><span class="phase-badge">💡 1. Intuition</span></div>
+        <ul style="margin-left:1.5rem;margin-top:0.5rem;font-size:0.9rem;line-height:1.7;">
+          <li><strong>Modular arithmetic is clock arithmetic.</strong> $17 + 25 = 42 \equiv 6 \pmod{12}$: wrap around after 12. Python's <code>%</code> is the clock.</li>
+          <li><strong>GCD</strong> is the biggest number dividing both inputs; Euclid's algorithm finds it by repeated remainders, in about $\log$ steps.</li>
+          <li><strong>Division on a clock</strong> works only sometimes: $a$ has an inverse mod $m$ exactly when $\gcd(a,m)=1$.</li>
+          <li><strong>RSA's trick:</strong> anyone can <em>multiply</em> two huge primes into a public $n$, but only someone who knows the primes can compute the secret exponent. Locking is public; unlocking is private.</li>
+        </ul>
+      </div>
+      <div class="phase-card phase-example">
+        <div class="phase-header"><span class="phase-badge">📝 2. Two Worked Examples</span></div>
+        <div class="example-step" style="margin-top:0.75rem;">
+          <strong>Example A — Extended Euclid: $\gcd(240,46)$ and Bézout coefficients</strong><br/>
+          Forward (each line is “dividend = quotient · divisor + remainder”):
+          $$240 = 5\cdot46 + 10,\quad 46 = 4\cdot10 + 6,\quad 10 = 1\cdot6 + 4,\quad 6 = 1\cdot4 + 2,\quad 4 = 2\cdot2 + 0.$$
+          The last non-zero remainder is $\gcd = 2$. Back-substitute to write it as a combination:
+          $$2 = 6 - 4 = 6 - (10-6) = 2\cdot6 - 10 = 2(46 - 4\cdot10) - 10 = 2\cdot46 - 9\cdot10 = 2\cdot46 - 9(240 - 5\cdot46) = 47\cdot46 - 9\cdot240.$$
+          Check: $47\cdot46 - 9\cdot240 = 2162 - 2160 = 2$ ✓. (This is how modular inverses are computed.)
+        </div>
+        <div class="example-step">
+          <strong>Example B — RSA from scratch with tiny primes</strong><br/>
+          <strong>Key generation.</strong> Pick primes $p=5,\ q=11$. Then $n = pq = 55$ and $\varphi(n) = (p-1)(q-1) = 4\cdot10 = 40$. Choose $e=3$ (coprime to 40). Find $d \equiv e^{-1} \pmod{40}$: $3\cdot27 = 81 = 2\cdot40 + 1$, so $d = 27$.<br/>
+          <strong>Encrypt</strong> $m = 9$: $c = m^e \bmod n = 9^3 = 729 = 13\cdot55 + 14 \Rightarrow c = 14$.<br/>
+          <strong>Decrypt</strong>: $c^d \bmod n = 14^{27} \bmod 55 = 9$ ✓ — the message is back! (Compute $14^{27}$ by repeated squaring, never by multiplying 27 times.)<br/>
+          <strong>Why it works:</strong> $ed = 1 + k\varphi(n)$, so $m^{ed} = m\cdot(m^{\varphi(n)})^k \equiv m\cdot 1^k$ by Euler's theorem.
+        </div>
+
+      </div>
+      <div class="phase-card phase-theory">
+        <div class="phase-header"><span class="phase-badge">📘 3. Formal Theory</span></div>
+        <div class="formula-box">
+          $$a \equiv b \pmod m \iff m \mid (a-b), \qquad \gcd(a,b) = ax + by \ \ (\text{Bézout}), \qquad a^{-1} \bmod m \text{ exists} \iff \gcd(a,m)=1$$
+          $$\text{Fermat: } a^{p-1} \equiv 1 \pmod p\ \ (p\ \text{prime},\ p\nmid a), \qquad \text{Euler: } a^{\varphi(n)} \equiv 1 \pmod n\ \ (\gcd(a,n)=1)$$
+          $$\textbf{RSA:}\quad n=pq,\quad ed\equiv1 \pmod{\varphi(n)},\quad c = m^{e} \bmod n,\quad m = c^{d} \bmod n$$
+        </div>
+        <p><strong>Security in one sentence:</strong> knowing $n$ and $e$ but not $p,q$, computing $\varphi(n)$ (hence $d$) is as hard as factoring $n$ — believed infeasible for 2048-bit $n$. <em>Warning:</em> “textbook RSA” as shown is for learning; real systems add padding (OAEP) and use vetted libraries.</p>
+      </div>
+      <div class="phase-card phase-viz">
+        <div class="phase-header"><span class="phase-badge">🔬 4. Interactive: Modular Clock &amp; RSA Lab</span></div>
+        <p>Set the modulus $m$, then add or multiply: the hand jumps around the clock. Notice when $a$ stops being invertible ($\gcd \ne 1$). Below the clock, build a toy RSA key and encrypt a message yourself.</p>
+        <div class="interactive-simulation-box">
+          <div class="sim-toolbar">
+            <span class="sim-title">Modular Arithmetic Clock</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row"><label for="mc-m">modulus m <b id="mc-m-val">12</b></label><input type="range" id="mc-m" min="2" max="24" step="1" value="12"></div>
+              <div class="sim-slider-row"><label for="mc-a">a <b id="mc-a-val">7</b></label><input type="range" id="mc-a" min="0" max="72" step="1" value="7"></div>
+              <div class="sim-slider-row"><label for="mc-b">b <b id="mc-b-val">5</b></label><input type="range" id="mc-b" min="0" max="12" step="1" value="5"></div>
+              <button type="button" data-mc-op="+" class="sim-btn active">a + b</button>
+              <button type="button" class="sim-btn" data-mc-op="×">a × b</button>
+              <button type="button" class="sim-btn" id="mc-replay">↺ Replay</button>
+            </div>
+          </div>
+          <div class="sim-canvas-wrap"><canvas id="canvas-clock" width="600" height="360" role="img" aria-label="Clock face with modulus m, showing modular addition and multiplication jumps"></canvas></div>
+          <div class="sim-caption"><span class="sim-readout" id="readout-clock"></span></div>
+        </div>
+        <div class="interactive-simulation-box" style="margin-top:1rem;">
+          <div class="sim-toolbar"><span class="sim-title">RSA From Scratch (BigInt)</span>
+            <div class="sim-controls">
+              <div class="sim-slider-row"><label for="rsa-p">p</label><input class="dm-input" style="min-width:90px;width:90px" id="rsa-p" type="number" min="0" value="61"></div>
+              <div class="sim-slider-row"><label for="rsa-q">q</label><input class="dm-input" style="min-width:90px;width:90px" id="rsa-q" type="number" min="0" value="53"></div>
+              <div class="sim-slider-row"><label for="rsa-e">e</label><input class="dm-input" style="min-width:90px;width:90px" id="rsa-e" type="number" min="0" value="17"></div>
+              <div class="sim-slider-row"><label for="rsa-m">message m</label><input class="dm-input" style="min-width:90px;width:90px" id="rsa-m" type="number" min="0" value="65"></div>
+              <button type="button" class="sim-btn" id="rsa-run">🔐 Encrypt &amp; decrypt</button>
+            </div>
+          </div>
+          <div style="padding:0.75rem 1rem;"><div class="dm-verdict" id="rsa-out" aria-live="polite"></div></div>
+        </div>
+
+      </div>
+      <div class="phase-card phase-app">
+        <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
+        <p>Real RSA, end to end — extended Euclid for the private key, <code>pow(m, e, n)</code> for fast modular exponentiation. (Use $p,q$ with 1024 bits and you have the real thing, minus padding.)</p>
+        <div class="code-block">
+          <div class="code-header"><span>Python / RSA from scratch</span></div>
+          <div class="code-content"><span class="code-kw">def</span> egcd(a, b):                      <span class="code-cmt"># extended Euclid: returns (g, x, y) with a*x + b*y = g</span>
+    <span class="code-kw">if</span> b == <span class="code-num">0</span>: <span class="code-kw">return</span> a, <span class="code-num">1</span>, <span class="code-num">0</span>
+    g, x, y = egcd(b, a % b)
+    <span class="code-kw">return</span> g, y, x - (a // b) * y
+
+p, q, e = <span class="code-num">61</span>, <span class="code-num">53</span>, <span class="code-num">17</span>
+n, phi = p * q, (p - <span class="code-num">1</span>) * (q - <span class="code-num">1</span>)       <span class="code-cmt"># n = 3233, phi = 3120</span>
+d = egcd(e, phi)[<span class="code-num">1</span>] % phi               <span class="code-cmt"># modular inverse of e -&gt; d = 2753</span>
+m = <span class="code-num">65</span>
+c = pow(m, e, n)                        <span class="code-cmt"># encrypt: 2790</span>
+<span class="code-kw">print</span>(n, d, c, pow(c, d, n))            <span class="code-cmt"># 3233 2753 2790 65  &lt;- decrypts back to m</span></div>
+        </div>
+
+      </div>
+    </article>
+
+    <section id="practice-6" data-practice="dm-ch6" data-title="Test Yourself — Number Theory"></section>
+
+  </main>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="discrete-maths.html" style="color:var(--accent-light);text-decoration:none;">Discrete Maths</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+<script src="js/discrete-viz.js"></script>
+<script src="js/practice-data.js"></script>
+<script src="js/practice.js"></script>
+<script>
+  // Filter sidebar TOC
+  function filterTOC(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('#tocList .la-toc-item').forEach(item => {
+      item.style.display = item.textContent.toLowerCase().includes(q) ? 'block' : 'none';
+    });
+  }
+
+  // Active TOC link on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('#tocList a').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  document.querySelectorAll('.topic-container, .practice').forEach(sec => observer.observe(sec));
+</script>
+</body>
+</html>

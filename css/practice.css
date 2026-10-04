@@ -1,0 +1,122 @@
+/* ============================================================
+   Maths for All — Practice component + Discrete Maths helpers
+   Used by js/practice.js (Test Yourself) and discrete-maths.html
+   All text colours here meet WCAG AA on the dark theme.
+   ============================================================ */
+
+/* ── TEST YOURSELF ── */
+.practice {
+  margin: 2.5rem 0 1rem;
+  padding: 1.75rem;
+  background: linear-gradient(160deg, rgba(16,185,129,0.07), rgba(217,119,6,0.06));
+  border: 1px solid rgba(16,185,129,0.28);
+  border-radius: var(--radius);
+}
+.practice-head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.25rem;
+}
+.practice-head h3 { font-size: 1.35rem; color: var(--text-primary); display: flex; align-items: center; gap: .6rem; }
+.practice-head h3 .practice-icon { font-size: 1.4rem; }
+.practice-tracker { display: flex; align-items: center; gap: .75rem; font-size: .85rem; color: var(--text-secondary); }
+.practice-bar { width: 160px; height: 8px; border-radius: 99px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.practice-bar > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #10b981, #fbbf24); transition: width .4s ease; }
+.practice-reset {
+  background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--text-muted);
+  font: inherit; font-size: .75rem; padding: .2rem .6rem; border-radius: 6px; cursor: pointer;
+}
+.practice-reset:hover { color: var(--text-primary); border-color: var(--accent-light); }
+
+.practice-list { list-style: none; display: grid; gap: 1rem; counter-reset: pq; }
+.practice-item {
+  background: rgba(28,25,23,0.75); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 1.1rem 1.25rem; transition: border-color .25s, box-shadow .25s;
+}
+.practice-item.is-solved { border-color: rgba(16,185,129,0.6); box-shadow: 0 0 0 1px rgba(16,185,129,0.25) inset; }
+.practice-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-bottom: .6rem; }
+.practice-num { font-weight: 700; color: var(--accent-light); }
+.practice-badge {
+  font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: .15rem .55rem; border-radius: 99px; border: 1px solid currentColor;
+}
+.practice-badge.t-concept { color: #38bdf8; }
+.practice-badge.t-computation { color: #fbbf24; }
+.practice-badge.t-interview { color: #fb923c; }
+.practice-dots { margin-left: auto; display: inline-flex; gap: 3px; }
+.practice-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+.practice-dots i.on { background: var(--accent-light); }
+.practice-q { color: var(--text-primary); font-size: .97rem; line-height: 1.7; }
+.practice-q pre, .practice-solution pre {
+  background: #0f0f11; padding: .6rem .8rem; border-radius: 8px; overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #e2e8f0; margin: .6rem 0;
+}
+.practice-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+.practice-btn {
+  font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer;
+  padding: .4rem .9rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.05); color: var(--text-primary); transition: var(--transition);
+}
+.practice-btn:hover { border-color: var(--accent-light); transform: translateY(-1px); }
+.practice-btn:focus-visible, .practice-reset:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+.practice-btn.hint { color: #fbbf24; }
+.practice-btn.reveal { color: #34d399; }
+.practice-btn.solve[aria-pressed="true"] { background: #10b981; color: #052e1f; border-color: #10b981; }
+.practice-hint {
+  margin-top: .8rem; padding: .7rem .9rem; border-left: 3px solid #fbbf24;
+  background: rgba(251,191,36,0.08); border-radius: 0 8px 8px 0; font-size: .9rem; color: var(--text-secondary);
+}
+.practice-solution {
+  margin-top: .8rem; padding: .9rem 1.1rem; border-left: 3px solid #10b981;
+  background: rgba(16,185,129,0.07); border-radius: 0 8px 8px 0; font-size: .92rem; color: var(--text-secondary);
+}
+.practice-solution ol { margin-left: 1.25rem; display: grid; gap: .45rem; }
+.practice-solution .practice-answer { margin-top: .7rem; color: #6ee7b7; font-weight: 700; }
+.practice-hint[hidden], .practice-solution[hidden] { display: none; }
+
+/* ── DISCRETE MATHS INTERACTIVES ── */
+.dm-hook {
+  display: flex; gap: .75rem; align-items: flex-start; margin: 0 0 1.1rem; padding: .85rem 1.1rem;
+  background: rgba(251,191,36,0.09); border: 1px solid rgba(251,191,36,0.35); border-radius: 12px;
+  color: var(--text-primary); font-size: .98rem;
+}
+.dm-hook b { color: var(--accent-light); white-space: nowrap; }
+.dm-input {
+  font: inherit; font-family: 'JetBrains Mono', monospace; font-size: .9rem; min-width: 260px;
+  background: #0f0f11; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px; padding: .4rem .7rem;
+}
+.dm-input:focus { outline: 2px solid var(--accent-light); outline-offset: 1px; }
+.dm-select {
+  font: inherit; font-size: .85rem; background: #0f0f11; color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: .35rem .6rem;
+}
+.dm-table-wrap { max-height: 300px; overflow: auto; margin-top: .8rem; }
+.dm-table { border-collapse: collapse; width: 100%; font-family: 'JetBrains Mono', monospace; font-size: .85rem; }
+.dm-table th, .dm-table td { border: 1px solid rgba(255,255,255,0.14); padding: .3rem .7rem; text-align: center; }
+.dm-table th { background: rgba(217,119,6,0.18); color: var(--accent-light); position: sticky; top: 0; }
+.dm-table td.t { color: #6ee7b7; }
+.dm-table td.f { color: #fca5a5; }
+.dm-table tr.dm-result-row td:last-child { font-weight: 700; }
+.dm-verdict { margin-top: .6rem; font-weight: 700; font-size: .9rem; }
+.dm-verdict.ok { color: #6ee7b7; }
+.dm-verdict.warn { color: #fbbf24; }
+.dm-verdict.err { color: #fca5a5; }
+.dm-chip-row { display: flex; flex-wrap: wrap; gap: .4rem; margin: .5rem 0 0; }
+.dm-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: .78rem; padding: .15rem .55rem; border-radius: 6px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: var(--text-primary);
+}
+.dm-chip.hot { background: rgba(251,191,36,0.2); border-color: #fbbf24; color: #fde68a; }
+.dm-chip.done { background: rgba(16,185,129,0.18); border-color: #10b981; color: #a7f3d0; }
+.dm-note { font-size: .85rem; color: var(--text-muted); margin-top: .5rem; }
+.dm-toc-hint { font-size: .8rem; color: var(--text-muted); }
+
+/* ── 404 PAGE ── */
+.nf-wrap { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 6rem 1.5rem 3rem; }
+.nf-code { font-size: clamp(5rem, 18vw, 11rem); font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, #fbbf24, #d97706 55%, #10b981); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.nf-wrap h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); margin: .5rem 0 1rem; }
+.nf-wrap p { color: var(--text-secondary); max-width: 520px; margin: 0 auto 1.5rem; }
+.nf-links { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-top: 1.25rem; }
+.nf-links a { color: var(--accent-light); text-decoration: none; border: 1px solid var(--card-border); padding: .45rem .95rem; border-radius: 99px; }
+.nf-links a:hover { border-color: var(--accent-light); background: rgba(251,191,36,0.08); }

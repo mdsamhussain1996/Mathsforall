@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <title>Maths for All — interactive maths for CS students</title>
+  <defs>
+    <radialGradient id="bg" cx="0.78" cy="0.3" r="0.9">
+      <stop offset="0" stop-color="#3a2a14"/>
+      <stop offset="0.55" stop-color="#26211f"/>
+      <stop offset="1" stop-color="#14110f"/>
+    </radialGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fcd34d"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0 H0 V48" fill="none" stroke="#d97706" stroke-opacity="0.09" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g opacity="0.9">
+    <g stroke="#fbbf24" stroke-opacity="0.5" stroke-width="3">
+      <line x1="880" y1="170" x2="1020" y2="120"/>
+      <line x1="1020" y1="120" x2="1100" y2="260"/>
+      <line x1="1100" y1="260" x2="960" y2="320"/>
+      <line x1="960" y1="320" x2="820" y2="300"/>
+      <line x1="820" y1="300" x2="880" y2="170"/>
+      <line x1="880" y1="170" x2="960" y2="320"/>
+    </g>
+    <circle cx="880" cy="170" r="14" fill="#10b981"/>
+    <circle cx="1020" cy="120" r="14" fill="#fbbf24"/>
+    <circle cx="1100" cy="260" r="14" fill="#fbbf24"/>
+    <circle cx="960" cy="320" r="14" fill="#10b981"/>
+    <circle cx="820" cy="300" r="14" fill="#fbbf24"/>
+    <path d="M760 520 C 840 520, 860 400, 940 400 S 1060 560, 1140 470" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-opacity="0.8"/>
+  </g>
+  <rect x="80" y="86" width="104" height="104" rx="24" fill="#1c1917" stroke="#d97706" stroke-opacity="0.6" stroke-width="3"/>
+  <path d="M104 108 H162 V122 H128 L146 138 L128 154 H162 V168 H104 V160 L124 138 L104 116 Z" fill="url(#amber)"/>
+  <rect x="104" y="176" width="36" height="6" rx="3" fill="#10b981"/>
+  <text x="80" y="330" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="108" font-weight="800" fill="#f5f5f4" letter-spacing="-3">Maths <tspan fill="url(#amber)">for All</tspan></text>
+  <text x="84" y="396" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="38" font-weight="500" fill="#d6d3d1">Interactive maths for CS students</text>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" font-weight="600">
+    <rect x="80" y="468" width="230" height="52" rx="26" fill="#d97706" fill-opacity="0.18" stroke="#d97706" stroke-opacity="0.7"/>
+    <text x="195" y="503" text-anchor="middle" fill="#fbbf24">Linear Algebra</text>
+    <rect x="326" y="468" width="230" height="52" rx="26" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-opacity="0.7"/>
+    <text x="441" y="503" text-anchor="middle" fill="#34d399">Discrete Maths</text>
+    <rect x="572" y="468" width="170" height="52" rx="26" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.3"/>
+    <text x="657" y="503" text-anchor="middle" fill="#e7e5e4">AI · ML</text>
+  </g>
+  <text x="80" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" fill="#a8a29e">Visualise it · Prove it · Code it — mdsamhussain1996.github.io/Mathsforall</text>
+</svg>

@@ -58,6 +58,13 @@ const searchData = [
   { title: 'Lyapunov Stability', desc: 'Stability analysis method', url: 'control.html#stability' },
   { title: 'State Space', desc: 'System representation', url: 'control.html#state-space' },
   { title: 'Systems of Linear Equations', desc: 'Graphing, substitution, and elimination', url: 'systems-of-equations.html' },
+  { title: 'Discrete Mathematics for CS', desc: 'Logic, sets, combinatorics, recurrences, graphs and RSA', url: 'discrete-maths.html' },
+  { title: 'Logic, Truth Tables & Induction', desc: 'Propositions, quantifiers and mathematical induction', url: 'discrete-maths.html#ch1' },
+  { title: 'Sets, Relations & Functions', desc: 'Equivalence relations, injective and surjective maps', url: 'discrete-maths.html#ch2' },
+  { title: 'Combinatorics & Pigeonhole Principle', desc: 'Permutations, combinations and counting', url: 'discrete-maths.html#ch3' },
+  { title: 'Recurrences, Big-O & Master Theorem', desc: 'Solving T(n) for divide-and-conquer algorithms', url: 'discrete-maths.html#ch4' },
+  { title: 'Graph Theory: BFS, DFS & Dijkstra', desc: 'Trees, shortest paths and graph colouring', url: 'discrete-maths.html#ch5' },
+  { title: 'Number Theory & RSA', desc: 'Modular arithmetic, GCD and public-key cryptography', url: 'discrete-maths.html#ch6' },
 ];
 
 function handleSearch(q) {
