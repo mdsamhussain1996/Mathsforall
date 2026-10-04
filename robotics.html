@@ -29,27 +29,50 @@
   <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <meta name="twitter:image:alt" content="Maths for All — interactive maths for CS students" />
   <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css" />
 </head>
 <body>
 
+<!-- ── NAVBAR ── -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="linear-algebra.html">Linear Algebra</a></li>
       <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Linear Algebra <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="linear-algebra.html">Full Course (10 Chapters)</a></li>
+          <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+          <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
+        </ul>
+      </li>
+      <li><a href="cs-aiml.html">AI/ML Maths</a></li>
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
-      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-      <li><a href="robotics.html" class="active">Robotics</a></li>
-      <li><a href="control.html">Control Theory</a></li>
-      <li><a href="more.html">More ▾</a></li>
+      <li class="nav-dropdown active">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Applications <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="robotics.html" class="active">Robotics</a></li>
+          <li><a href="control.html">Control Theory</a></li>
+          <li><a href="more.html">More Branches</a></li>
+        </ul>
+      </li>
     </ul>
+
     <div class="nav-search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Search topics…" />
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search maths topics" />
     </div>
-    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
@@ -261,19 +284,62 @@ RK4:    k₁ = f(t, y),   k₂ = f(t+h/2, y+h·k₁/2)
 
 </div>
 
-<footer>
-  <div class="footer-logo">Maths for All</div>
-  <ul class="footer-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-    <li><a href="robotics.html">Robotics</a></li>
-    <li><a href="control.html">Control Theory</a></li>
-    <li><a href="more.html">More Branches</a></li>
-  </ul>
-  <p class="footer-copy">© 2025 Maths for All. Built for learners everywhere.</p>
+
+<!-- ── TEST YOURSELF PRACTICE SECTION ── -->
+<div style="max-width:1200px;margin:3rem auto;padding:0 2rem;">
+  <section data-practice="robotics" data-title="Test Yourself: Robotics Mathematics"></section>
+</div>
+
+<!-- ── COMPREHENSIVE FOOTER ── -->
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Maths <span>for All</span></a>
+      <p class="footer-tagline">
+        Maths for All: the maths behind computer science, explained visually.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="discrete-maths.html">Discrete Mathematics</a></li>
+        <li><a href="linear-algebra.html">Linear Algebra Course</a></li>
+        <li><a href="cs-aiml.html">AI &amp; Machine Learning Maths</a></li>
+        <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+        <li><a href="eigen-lecture.html">Eigenvalues &amp; SVD Lab</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="maths-behind.html">The Maths Behind…</a></li>
+        <li><a href="robotics.html">Robotics Kinematics</a></li>
+        <li><a href="control.html">Control Theory</a></li>
+        <li><a href="more.html">Physics &amp; More Branches</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer">Author: Dr. Md Samshad Hussain Ansari</a></li>
+        <li><a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer">ORCID Profile</a></li>
+        <li><a href="mailto:mdsamhussain1996@gmail.com?subject=Maths%20for%20All%20-%20Topic%20Suggestion">Suggest a Topic</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2026 Dr. Md Samshad Hussain Ansari · Newton School of Technology · Free for every student</div>
+    <div style="color:var(--text-muted);">Built with visual intuition &amp; open rigor</div>
+  </div>
 </footer>
 
 <script src="js/main.js"></script>
 <script src="js/robotics-viz.js"></script>
+<script src="js/practice-data.js"></script>
+<script src="js/practice.js"></script>
 </body>
 </html>

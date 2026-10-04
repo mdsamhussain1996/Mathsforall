@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How ChatGPT Pays Attention: Dot Products, Softmax &amp; Matrix Projections in the Transformer | Maths for All</title>
-  <meta name="description" content="Discover the math behind ChatGPT: Consider this sentence: &lt;em&gt;&quot;The animal didn&#x27;t cross the street because &lt;strong&gt;it&lt;/strong&gt; was too tired.&quot;&lt;/em&gt; Now change one word: &lt;em&gt;&quot;The animal " />
+  <meta name="description" content="Learn how ChatGPT's transformer pays attention using dot products, softmax normalization, and query-key-value matrix projections." />
   <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/chatgpt-attention.html" />
   <meta name="theme-color" content="#d97706" />
   <link rel="icon" href="favicon.ico" sizes="48x48" />
@@ -16,14 +16,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Maths for All" />
   <meta property="og:title" content="How ChatGPT Pays Attention: Dot Products, Softmax &amp; Matrix Projections in the Transformer | Maths for All" />
-  <meta property="og:description" content="Discover the math behind ChatGPT: Consider this sentence: &lt;em&gt;&quot;The animal didn&#x27;t cross the street because &lt;strong&gt;it&lt;/strong&gt; was too tired.&quot;&lt;/em&gt; Now change one word: &lt;em&gt;&quot;The animal " />
+  <meta property="og:description" content="Learn how ChatGPT's transformer pays attention using dot products, softmax normalization, and query-key-value matrix projections." />
   <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/chatgpt-attention.html" />
   <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How ChatGPT Pays Attention: Dot Products, Softmax &amp; Matrix Projections in the Transformer | Maths for All" />
-  <meta name="twitter:description" content="Discover the math behind ChatGPT: Consider this sentence: &lt;em&gt;&quot;The animal didn&#x27;t cross the street because &lt;strong&gt;it&lt;/strong&gt; was too tired.&quot;&lt;/em&gt; Now change one word: &lt;em&gt;&quot;The animal " />
+  <meta name="twitter:description" content="Learn how ChatGPT's transformer pays attention using dot products, softmax normalization, and query-key-value matrix projections." />
   <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <link rel="stylesheet" href="css/style.css?v=1.3" />
   <link rel="stylesheet" href="css/practice.css?v=1.0" />
@@ -46,27 +46,45 @@
 <body>
 
 <!-- ── NAVBAR ── -->
+<!-- ── NAVBAR ── -->
+<!-- ── NAVBAR ── -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="linear-algebra.html">Linear Algebra</a></li>
       <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Linear Algebra <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="linear-algebra.html">Full Course (10 Chapters)</a></li>
+          <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+          <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
+        </ul>
+      </li>
+      <li><a href="cs-aiml.html">AI/ML Maths</a></li>
       <li><a href="maths-behind.html" class="active">The Maths Behind…</a></li>
-      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-      <li><a href="robotics.html">Robotics</a></li>
-      <li><a href="control.html">Control Theory</a></li>
-      <li><a href="more.html">More ▾</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Applications <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="robotics.html">Robotics</a></li>
+          <li><a href="control.html">Control Theory</a></li>
+          <li><a href="more.html">More Branches</a></li>
+        </ul>
+      </li>
     </ul>
 
     <div class="nav-search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search maths topics" />
     </div>
 
-    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
     </div>
   </div>
@@ -204,64 +222,93 @@ print(&quot;Output Context vector:&quot;, np.round(context, 3))</pre>
     </div>
   </section>
 
-  <!-- 6. Where to Go Next -->
-  <section class="mb-section">
-    <div class="mb-next-card">
-      <h3><span>🗺️</span> Where to Go Next on Maths for All</h3>
-      <p style="color:var(--text-secondary);font-size:0.95rem;">Ready to master the underlying mathematical theory from first principles? Explore these chapters on the platform:</p>
-      <div class="mb-next-links">
-        
-      <a href="linear-algebra.html#ch1" class="mb-next-link-item">
-        <div>
-          <div>Linear Algebra: Chapter 1 — Dot Products & Geometry</div>
-          <span>Deep-dive into vector projections, cosine similarity, and orthogonality.</span>
-        </div>
-        <div>→</div>
-      </a>
-
-      <a href="linear-algebra.html#ch10" class="mb-next-link-item">
-        <div>
-          <div>Linear Algebra: Chapter 10 — Tensors & Self-Attention</div>
-          <span>See full multi-head attention and transformer matrix pipelines.</span>
-        </div>
-        <div>→</div>
-      </a>
-
+  <!-- ── 5. LEARN THE FULL TOPIC & TEST YOURSELF ── -->
+  <section class="mb-section" id="learn-topic" style="margin-top:2.5rem;">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🎓</span> 5. Learn the Full Topic</h2>
+    <div class="mb-next-card" style="margin-bottom:2rem;">
+      <h3><span>🗺️</span> Go Deeper on Maths for All</h3>
+      <p style="color:var(--text-secondary);font-size:0.98rem;line-height:1.7;margin-bottom:1.25rem;">
+        Self-attention transforms static word embeddings into dynamic, context-aware representations using high-dimensional dot products, projection matrices, and softmax probability distributions.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+        <a href="linear-algebra.html#ch1" class="btn btn-primary" style="padding:0.7rem 1.5rem;font-size:0.92rem;">
+          Master Chapter 1: Vectors & Dot Products →
+        </a>
+        <a href="cs-aiml.html#probability" class="btn btn-outline" style="padding:0.7rem 1.4rem;font-size:0.92rem;">Explore AI/ML Probability & Softmax →</a>
       </div>
     </div>
-  </section>
 
-  <!-- Story Prev / Next Navigation -->
-  <div class='mb-story-nav'>
-      <a href="google-pagerank.html" class="mb-story-nav-btn">
+    <!-- Interactive Practice Questions -->
+    <section data-practice="mb-chatgpt" data-title="Test Yourself: How ChatGPT Pays Attention"></section>
+
+    <!-- Cyclical Previous / Next Story Navigation -->
+    <div class="mb-story-nav" style="margin-top:2.5rem;">
+      <a href="maths-behind-google-pagerank.html" class="mb-story-nav-btn">
         <span class="mb-story-nav-label">← Previous Story</span>
         <span class="mb-story-nav-title">Google: How Google Ranked the Web</span>
       </a>
 
-      <a href="shazam-fourier.html" class="mb-story-nav-btn mb-story-nav-next">
+      <a href="maths-behind-shazam-fourier.html" class="mb-story-nav-btn mb-story-nav-next">
         <span class="mb-story-nav-label">Next Story →</span>
         <span class="mb-story-nav-title">Shazam: How Shazam Recognises a Song</span>
       </a>
-</div>
+    </div>
+  </section>
+
 </div>
 
 <!-- ── FOOTER ── -->
-<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
-  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
-    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
-    <div style="display:flex;gap:1.5rem;">
-      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
-      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
-      <a href="discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
-      <a href="maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
-      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
-      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
-      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+<!-- ── COMPREHENSIVE FOOTER ── -->
+<!-- ── COMPREHENSIVE FOOTER ── -->
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Maths <span>for All</span></a>
+      <p class="footer-tagline">
+        Maths for All: the maths behind computer science, explained visually.
+      </p>
     </div>
+
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="discrete-maths.html">Discrete Mathematics</a></li>
+        <li><a href="linear-algebra.html">Linear Algebra Course</a></li>
+        <li><a href="cs-aiml.html">AI &amp; Machine Learning Maths</a></li>
+        <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+        <li><a href="eigen-lecture.html">Eigenvalues &amp; SVD Lab</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="maths-behind.html">The Maths Behind…</a></li>
+        <li><a href="robotics.html">Robotics Kinematics</a></li>
+        <li><a href="control.html">Control Theory</a></li>
+        <li><a href="more.html">Physics &amp; More Branches</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer">Author: Dr. Md Samshad Hussain Ansari</a></li>
+        <li><a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer">ORCID Profile</a></li>
+        <li><a href="mailto:mdsamhussain1996@gmail.com?subject=Maths%20for%20All%20-%20Topic%20Suggestion">Suggest a Topic</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2026 Dr. Md Samshad Hussain Ansari · Newton School of Technology · Free for every student</div>
+    <div style="color:var(--text-muted);">Built with visual intuition &amp; open rigor</div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
 <script src="js/maths-behind-viz.js"></script>
+<script src="js/practice-data.js"></script>
+<script src="js/practice.js"></script>
 </body>
 </html>

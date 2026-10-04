@@ -1,12 +1,81 @@
-// ── NAVBAR SCROLL ──
+// ── NAVBAR SCROLL & ACCESSIBILITY ──
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
-});
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+}
 
 // ── HAMBURGER ──
 function toggleNav() {
-  document.getElementById('navLinks').classList.toggle('open');
+  const links = document.getElementById('navLinks');
+  if (links) links.classList.toggle('open');
+}
+
+// ── ACCESSIBLE DROPDOWNS (KEYBOARD & TAP) ──
+function initAccessibleDropdowns() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  dropdowns.forEach(dd => {
+    const toggle = dd.querySelector('.nav-dropdown-toggle');
+    const menu = dd.querySelector('.nav-dropdown-menu');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dd.classList.contains('open');
+      dropdowns.forEach(other => {
+        if (other !== dd) {
+          other.classList.remove('open');
+          const t = other.querySelector('.nav-dropdown-toggle');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+      dd.classList.toggle('open', !isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // Keyboard support: Enter / Space / Escape / Arrows
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        dd.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        const firstLink = menu.querySelector('a');
+        if (firstLink) firstLink.focus();
+      } else if (e.key === 'Escape') {
+        dd.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      const links = Array.from(menu.querySelectorAll('a'));
+      const idx = links.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' && idx < links.length - 1) {
+        e.preventDefault();
+        links[idx + 1].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (idx > 0) links[idx - 1].focus();
+        else toggle.focus();
+      } else if (e.key === 'Escape') {
+        dd.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+  });
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      dropdowns.forEach(dd => {
+        dd.classList.remove('open');
+        const toggle = dd.querySelector('.nav-dropdown-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
 }
 
 // ── SCROLL ANIMATIONS ──
@@ -19,6 +88,67 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// ── CODE SNIPPET COPY BUTTON ──
+function initCodeCopy() {
+  document.querySelectorAll('.code-box-copy, .code-copy-btn, .code-header button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const container = btn.closest('.code-box') || btn.closest('.code-block');
+      if (!container) return;
+      const codeEl = container.querySelector('pre code, .code-content, pre');
+      if (!codeEl) return;
+      navigator.clipboard.writeText(codeEl.innerText).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+}
+
+// ── REAL STATS COUNT-UP ANIMATION ──
+function initStatsCountUp() {
+  const statElements = document.querySelectorAll('.stat-value[data-target]');
+  if (!statElements.length) return;
+
+  const statsContainer = document.querySelector('.hero-stats');
+  if (!statsContainer) return;
+
+  const statsObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        statElements.forEach(el => {
+          const target = parseInt(el.getAttribute('data-target'), 10);
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 1200;
+          const start = performance.now();
+
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(ease * target);
+            el.textContent = current + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            } else {
+              el.textContent = target + suffix;
+            }
+          }
+          requestAnimationFrame(update);
+        });
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+
+  statsObserver.observe(statsContainer);
+}
 
 // ── SEARCH ──
 const searchData = [
@@ -100,15 +230,16 @@ document.addEventListener('click', e => {
   }
 });
 
-// ── DAILY INSIGHTS ──
+// ── DAILY INSIGHTS: CS & MATHEMATICS GIANTS ──
 const insights = [
-  { quote: "Mathematics is the language with which God has written the universe.", attr: "— Galileo Galilei" },
+  { quote: "Computer Science is no more about computers than astronomy is about telescopes.", attr: "— Edsger W. Dijkstra" },
+  { quote: "Science is what we understand well enough to explain to a computer. Art is everything else we do.", attr: "— Donald E. Knuth" },
+  { quote: "Mathematical reasoning may be regarded schematically as the exercise of two faculties: intuition and ingenuity.", attr: "— Alan Turing" },
   { quote: "The only way to learn mathematics is to do mathematics.", attr: "— Paul Halmos" },
-  { quote: "Pure mathematics is, in its way, the poetry of logical ideas.", attr: "— Albert Einstein" },
-  { quote: "In mathematics, the art of proposing a question must be held of higher value than solving it.", attr: "— Georg Cantor" },
-  { quote: "Mathematics is not about numbers, equations, computations, or algorithms — it is about understanding.", attr: "— William Paul Thurston" },
-  { quote: "The mathematician does not study pure mathematics because it is useful; he studies it because he delights in it.", attr: "— Henri Poincaré" },
-  { quote: "To those who do not know mathematics it is difficult to get across a real feeling as to the beauty of nature.", attr: "— Richard Feynman" },
+  { quote: "The purpose of computing is insight, not numbers.", attr: "— Richard Hamming" },
+  { quote: "The Analytical Engine weaves algebraical patterns just as the Jacquard loom weaves flowers and leaves.", attr: "— Ada Lovelace" },
+  { quote: "Information is the resolution of uncertainty.", attr: "— Claude Shannon" },
+  { quote: "If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is.", attr: "— John von Neumann" }
 ];
 
 let insightIdx = Math.floor(Math.random() * insights.length);
@@ -131,17 +262,16 @@ function nextInsight() {
   showInsight();
 }
 
-showInsight();
-
-// ── HERO CANVAS – animated mathematical art ──
-(function initHeroCanvas() {
+// ── LAZY-INITIALISED HERO CANVAS ──
+function initHeroCanvas() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
   let t = 0;
+  let animId = null;
+  let isVisible = false;
 
-  // Lissajous curves + floating particles
   const particles = Array.from({ length: 40 }, () => ({
     x: Math.random() * W, y: Math.random() * H,
     r: Math.random() * 2 + 0.5,
@@ -151,22 +281,20 @@ showInsight();
   }));
 
   function draw() {
+    if (!isVisible) return;
     ctx.clearRect(0, 0, W, H);
 
-    // Background gradient
     const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W/1.2);
     grad.addColorStop(0, 'rgba(41,37,36,0.95)');
     grad.addColorStop(1, 'rgba(28,25,23,0.98)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
-    // Grid lines
     ctx.strokeStyle = 'rgba(217,119,6,0.06)';
     ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
     for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
 
-    // Lissajous curve
     const cx = W / 2, cy = H / 2;
     const a = 3, b = 2, delta = t * 0.008;
     ctx.beginPath();
@@ -184,7 +312,6 @@ showInsight();
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Sine wave
     ctx.beginPath();
     for (let x = 0; x < W; x += 2) {
       const y = cy + 30 * Math.sin((x / W) * Math.PI * 4 + t * 0.03);
@@ -194,7 +321,6 @@ showInsight();
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
-    // Particles
     particles.forEach(p => {
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
@@ -205,7 +331,6 @@ showInsight();
       ctx.fill();
     });
 
-    // Rotating triangle
     const triCx = W * 0.78, triCy = H * 0.22, triR = 35;
     ctx.save();
     ctx.translate(triCx, triCy);
@@ -222,14 +347,38 @@ showInsight();
     ctx.stroke();
     ctx.restore();
 
-    // Euler's identity text
     ctx.font = '500 14px "JetBrains Mono", monospace';
-    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
     ctx.fillText('e^(iπ) + 1 = 0', 20, H - 20);
 
     t++;
-    requestAnimationFrame(draw);
+    animId = requestAnimationFrame(draw);
   }
 
-  draw();
-})();
+  // IntersectionObserver to pause when offscreen
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        isVisible = true;
+        if (!animId) draw();
+      } else {
+        isVisible = false;
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      }
+    });
+  }, { threshold: 0.05 });
+
+  heroObserver.observe(canvas);
+}
+
+// ── DOM READY INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  initAccessibleDropdowns();
+  initStatsCountUp();
+  initCodeCopy();
+  showInsight();
+  initHeroCanvas();
+});

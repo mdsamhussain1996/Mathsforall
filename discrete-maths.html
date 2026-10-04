@@ -51,27 +51,44 @@
 <body>
 
 <!-- ── NAVBAR ── -->
+<!-- ── NAVBAR ── -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="linear-algebra.html">Linear Algebra</a></li>
       <li><a href="discrete-maths.html" class="active">Discrete Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Linear Algebra <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="linear-algebra.html">Full Course (10 Chapters)</a></li>
+          <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+          <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
+        </ul>
+      </li>
+      <li><a href="cs-aiml.html">AI/ML Maths</a></li>
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
-      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-      <li><a href="robotics.html">Robotics</a></li>
-      <li><a href="control.html">Control Theory</a></li>
-      <li><a href="more.html">More ▾</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Applications <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="robotics.html">Robotics</a></li>
+          <li><a href="control.html">Control Theory</a></li>
+          <li><a href="more.html">More Branches</a></li>
+        </ul>
+      </li>
     </ul>
 
     <div class="nav-search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" placeholder="Search discrete maths…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search topics" />
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search maths topics" />
     </div>
 
-    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
     </div>
   </div>
@@ -139,6 +156,7 @@
       <h2 class="chapter-title">Logic &amp; Proofs</h2>
       <p class="chapter-overview">Before you can trust an algorithm you must be able to <em>prove</em> things about it. We start with truth tables and quantifiers — the grammar of reasoning — and finish with mathematical induction, the engine behind recursion.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> SAT solvers, automated software verification, hardware digital circuit design, SQL WHERE predicates, and mathematical induction to prove loop invariants and recursive function correctness.</div></div>
 
     <article class="topic-container" id="topic-1-1">
       <div class="topic-title-bar">
@@ -208,7 +226,7 @@
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
         <p>Let the machine prove the contrapositive equivalence by brute force — and sanity-check an induction claim for 500 cases (evidence, not proof!).</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / itertools</span></div>
+          <div class="code-header"><span>Python / itertools</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content"><span class="code-kw">from</span> itertools <span class="code-kw">import</span> product
 
 <span class="code-kw">def</span> implies(p, q): <span class="code-kw">return</span> (<span class="code-kw">not</span> p) <span class="code-kw">or</span> q
@@ -235,6 +253,7 @@ rows = list(product([<span class="code-kw">False</span>, <span class="code-kw">T
       <h2 class="chapter-title">Sets, Relations &amp; Functions</h2>
       <p class="chapter-overview">Almost every data structure is secretly a set, a relation or a function. We build the vocabulary precisely — equivalence relations, partitions, injections and bijections — so that later chapters can lean on it.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> Relational database design (Codd's relational algebra), programming language type theory, set data structures (O(1) hash sets), and finite state automata.</div></div>
 
     <article class="topic-container" id="topic-2-1">
       <div class="topic-title-bar">
@@ -301,7 +320,7 @@ rows = list(product([<span class="code-kw">False</span>, <span class="code-kw">T
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
         <p>Python’s built-in sets mirror the maths symbol for symbol. Here we <em>verify</em> that “$\le$” is a partial order and test a function for injectivity.</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / set theory</span></div>
+          <div class="code-header"><span>Python / set theory</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content">A, B = {<span class="code-num">1</span>, <span class="code-num">2</span>, <span class="code-num">3</span>, <span class="code-num">4</span>}, {<span class="code-num">3</span>, <span class="code-num">4</span>, <span class="code-num">5</span>}
 <span class="code-kw">print</span>(A | B, A &amp; B, A - B, A ^ B)                     <span class="code-cmt"># union, intersection, difference, symmetric diff</span>
 R = {(a, b) <span class="code-kw">for</span> a <span class="code-kw">in</span> A <span class="code-kw">for</span> b <span class="code-kw">in</span> A <span class="code-kw">if</span> a &lt;= b}          <span class="code-cmt"># the relation "&lt;=" on A, as a set of pairs</span>
@@ -327,6 +346,7 @@ f = {<span class="code-num">1</span>: <span class="code-str">"x"</span>, <span c
       <h2 class="chapter-title">Combinatorics</h2>
       <p class="chapter-overview">The art of counting without counting. Permutations and combinations tell you <em>how many</em>; the pigeonhole principle tells you something <em>must</em> happen. Together they underpin probability, hashing, and complexity lower bounds.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> Algorithm search space size, brute-force complexity estimation, cryptographic password entropy, hash collision analysis (the Birthday Paradox), and randomized algorithms.</div></div>
 
     <article class="topic-container" id="topic-3-1">
       <div class="topic-title-bar">
@@ -386,7 +406,7 @@ f = {<span class="code-num">1</span>: <span class="code-str">"x"</span>, <span c
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
         <p>Count, then confirm pigeonhole experimentally, then compute the famous birthday probability exactly.</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / math.comb & friends</span></div>
+          <div class="code-header"><span>Python / math.comb & friends</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content"><span class="code-kw">from</span> math <span class="code-kw">import</span> factorial, comb, perm
 <span class="code-kw">import</span> random
 
@@ -412,6 +432,7 @@ p = <span class="code-num">1.0</span>                                           
       <h2 class="chapter-title">Recurrences &amp; Big-O</h2>
       <p class="chapter-overview">How do you know your algorithm is fast? Write down its recurrence and solve it. We learn Big-O precisely, draw recursion trees, and then let the Master theorem solve most divide-and-conquer recurrences in one line.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> Runtime complexity of divide-and-conquer algorithms (MergeSort, QuickSort, Strassen matrix multiplication), recursive tree depth, and dynamic programming memory/time trade-offs.</div></div>
 
     <article class="topic-container" id="topic-4-1">
       <div class="topic-title-bar">
@@ -476,7 +497,7 @@ p = <span class="code-num">1.0</span>                                           
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
         <p>Compute $T(n)$ exactly, watch the ratio to $n\log_2 n$ settle towards 1, and feel exponential blow-up in naive Fibonacci.</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / memoised recurrence</span></div>
+          <div class="code-header"><span>Python / memoised recurrence</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content"><span class="code-kw">from</span> functools <span class="code-kw">import</span> lru_cache
 <span class="code-kw">from</span> math <span class="code-kw">import</span> log2
 
@@ -505,6 +526,7 @@ p = <span class="code-num">1.0</span>                                           
       <h2 class="chapter-title">Graph Theory</h2>
       <p class="chapter-overview">Graphs are the most reusable data model in computer science. We learn the traversals (BFS, DFS), the structure of trees, weighted shortest paths with Dijkstra, and graph colouring — then watch the searches run, step by step.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> GPS navigation (Dijkstra/A*), social network graph recommendation (PageRank/community detection), garbage collection reachability, and network routing topology.</div></div>
 
     <article class="topic-container" id="topic-5-1">
       <div class="topic-title-bar">
@@ -576,7 +598,7 @@ p = <span class="code-num">1.0</span>                                           
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 12 Lines of Python</span></div>
         <p>Dijkstra with a binary heap — the same algorithm that powers route planning (plug in road lengths and you have a tiny GPS).</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / heapq</span></div>
+          <div class="code-header"><span>Python / heapq</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content"><span class="code-kw">import</span> heapq
 G = {<span class="code-str">'A'</span>: {<span class="code-str">'B'</span>: <span class="code-num">4</span>, <span class="code-str">'C'</span>: <span class="code-num">1</span>}, <span class="code-str">'B'</span>: {<span class="code-str">'D'</span>: <span class="code-num">1</span>}, <span class="code-str">'C'</span>: {<span class="code-str">'B'</span>: <span class="code-num">2</span>, <span class="code-str">'D'</span>: <span class="code-num">5</span>}, <span class="code-str">'D'</span>: {}}
 <span class="code-kw">def</span> dijkstra(src):
@@ -604,6 +626,7 @@ G = {<span class="code-str">'A'</span>: {<span class="code-str">'B'</span>: <spa
       <h2 class="chapter-title">Number Theory</h2>
       <p class="chapter-overview">Modular arithmetic, the Euclidean algorithm and Euler's theorem look like pure maths — and then they build the cryptography that secures the internet. We finish by implementing RSA from scratch.</p>
     </div>
+    <div class="cs-callout"><div class="cs-callout-icon">🔗</div><div class="cs-callout-text"><strong>Where you'll use this in CS:</strong> Public-key encryption (RSA, Diffie-Hellman key exchange, Elliptic Curve Cryptography), SSL/TLS certificates securing HTTPS, cryptographic hash tables, and blockchain digital signatures.</div></div>
 
     <article class="topic-container" id="topic-6-1">
       <div class="topic-title-bar">
@@ -683,7 +706,7 @@ G = {<span class="code-str">'A'</span>: {<span class="code-str">'B'</span>: <spa
         <div class="phase-header"><span class="phase-badge">🐍 5. Bring It to Life: 10 Lines of Python</span></div>
         <p>Real RSA, end to end — extended Euclid for the private key, <code>pow(m, e, n)</code> for fast modular exponentiation. (Use $p,q$ with 1024 bits and you have the real thing, minus padding.)</p>
         <div class="code-block">
-          <div class="code-header"><span>Python / RSA from scratch</span></div>
+          <div class="code-header"><span>Python / RSA from scratch</span><button type="button" class="code-box-copy" aria-label="Copy code">📋 Copy</button></div>
           <div class="code-content"><span class="code-kw">def</span> egcd(a, b):                      <span class="code-cmt"># extended Euclid: returns (g, x, y) with a*x + b*y = g</span>
     <span class="code-kw">if</span> b == <span class="code-num">0</span>: <span class="code-kw">return</span> a, <span class="code-num">1</span>, <span class="code-num">0</span>
     g, x, y = egcd(b, a % b)
@@ -706,17 +729,50 @@ c = pow(m, e, n)                        <span class="code-cmt"># encrypt: 2790</
 </div>
 
 <!-- ── FOOTER ── -->
-<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
-  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
-    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
-    <div style="display:flex;gap:1.5rem;">
-      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
-      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
-      <a href="discrete-maths.html" style="color:var(--accent-light);text-decoration:none;">Discrete Maths</a>
-      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
-      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
-      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+<!-- ── COMPREHENSIVE FOOTER ── -->
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Maths <span>for All</span></a>
+      <p class="footer-tagline">
+        Maths for All: the maths behind computer science, explained visually.
+      </p>
     </div>
+
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="discrete-maths.html">Discrete Mathematics</a></li>
+        <li><a href="linear-algebra.html">Linear Algebra Course</a></li>
+        <li><a href="cs-aiml.html">AI &amp; Machine Learning Maths</a></li>
+        <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+        <li><a href="eigen-lecture.html">Eigenvalues &amp; SVD Lab</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="maths-behind.html">The Maths Behind…</a></li>
+        <li><a href="robotics.html">Robotics Kinematics</a></li>
+        <li><a href="control.html">Control Theory</a></li>
+        <li><a href="more.html">Physics &amp; More Branches</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer">Author: Dr. Md Samshad Hussain Ansari</a></li>
+        <li><a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer">ORCID Profile</a></li>
+        <li><a href="mailto:mdsamhussain1996@gmail.com?subject=Maths%20for%20All%20-%20Topic%20Suggestion">Suggest a Topic</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2026 Dr. Md Samshad Hussain Ansari · Newton School of Technology · Free for every student</div>
+    <div style="color:var(--text-muted);">Built with visual intuition &amp; open rigor</div>
   </div>
 </footer>
 

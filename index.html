@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maths for All – Free Interactive Maths for CS &amp; AI Students</title>
-  <meta name="description" content="Learn the maths behind computer science, AI/ML and robotics with interactive visualisations, worked examples and practice problems. Free and open for every student." />
+  <title>Maths for All – The Maths Behind Computer Science</title>
+  <meta name="description" content="Discrete maths, linear algebra, probability, and optimization explained with visual intuition, worked examples, runnable Python and practice problems. Built for CS and AI students." />
   <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/" />
   <meta name="theme-color" content="#d97706" />
   <link rel="icon" href="favicon.ico" sizes="48x48" />
@@ -15,8 +15,8 @@
   <link rel="manifest" href="site.webmanifest" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Maths for All" />
-  <meta property="og:title" content="Maths for All – Free Interactive Maths for CS &amp; AI Students" />
-  <meta property="og:description" content="Learn the maths behind computer science, AI/ML and robotics with interactive visualisations, worked examples and practice problems. Free and open for every student." />
+  <meta property="og:title" content="Maths for All – The Maths Behind Computer Science" />
+  <meta property="og:description" content="Visual intuition, worked examples, runnable Python and practice problems for CS & AI students. Built by Dr. Md Samshad Hussain Ansari." />
   <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/" />
   <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -24,11 +24,11 @@
   <meta property="og:image:alt" content="Maths for All — interactive maths for CS students" />
   <meta property="og:locale" content="en" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Maths for All – Free Interactive Maths for CS &amp; AI Students" />
-  <meta name="twitter:description" content="Learn the maths behind computer science, AI/ML and robotics with interactive visualisations, worked examples and practice problems. Free and open for every student." />
+  <meta name="twitter:title" content="Maths for All – The Maths Behind Computer Science" />
+  <meta name="twitter:description" content="Visual intuition, worked examples, runnable Python and practice problems for CS & AI students." />
   <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
   <meta name="twitter:image:alt" content="Maths for All — interactive maths for CS students" />
-  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/style.css?v=2.0" />
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
 <body>
@@ -40,21 +40,37 @@
 
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="linear-algebra.html">Linear Algebra</a></li>
       <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Linear Algebra <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="linear-algebra.html">Full Course (10 Chapters)</a></li>
+          <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+          <li><a href="eigen-lecture.html">Eigenvalues in AI/ML</a></li>
+        </ul>
+      </li>
+      <li><a href="cs-aiml.html">AI/ML Maths</a></li>
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
-      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-      <li><a href="robotics.html">Robotics</a></li>
-      <li><a href="control.html">Control Theory</a></li>
-      <li><a href="more.html">More ▾</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Applications <span aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu">
+          <li><a href="robotics.html">Robotics</a></li>
+          <li><a href="control.html">Control Theory</a></li>
+          <li><a href="more.html">More Branches</a></li>
+        </ul>
+      </li>
     </ul>
 
     <div class="nav-search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" />
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search maths topics" />
     </div>
 
-    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()" aria-label="Toggle navigation menu" role="button" tabindex="0">
       <span></span><span></span><span></span>
     </div>
   </div>
@@ -72,43 +88,49 @@
     <div class="hero-text">
       <div class="hero-badge">
         <span class="dot"></span>
-        Open Educational Platform
+        Free · Open · Built for CS Students
       </div>
 
       <h1 class="hero-title">
-        Making Mathematics<br/>
-        <span class="gradient-text">Accessible Across</span><br/>
-        Disciplines
+        The Maths Behind<br/>
+        <span class="gradient-text">Computer Science</span>
       </h1>
 
       <p class="hero-subtitle">
-        From AI and robotics to control theory and beyond — explore the mathematical 
-        foundations that power modern science and engineering through intuitive mental models, worked examples, 
-        rigorous theory, interactive simulations, and real-world applications.
+        Discrete maths, linear algebra, probability and optimisation, explained with visual intuition, worked examples, runnable Python and practice problems. Built for CS and AI students.
       </p>
 
-      <div class="hero-cta">
-        <a href="linear-algebra.html" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Master Linear Algebra →
+      <div class="hero-cta" style="flex-wrap:wrap;gap:1rem;align-items:center;">
+        <a href="discrete-maths.html" class="btn btn-primary">
+          Start with Discrete Maths →
         </a>
-        <a href="#domains" class="btn btn-outline">
-          Explore Domains
+        <a href="linear-algebra.html" class="btn btn-outline">
+          Master Linear Algebra →
         </a>
       </div>
 
+      <div style="margin-top:0.85rem;font-size:0.9rem;">
+        <span style="color:var(--text-muted);">or read a story:</span>
+        <a href="maths-behind/google-pagerank.html" style="color:var(--accent-light);font-weight:600;text-decoration:none;margin-left:0.35rem;">How Google Ranked the Web →</a>
+      </div>
+
+      <!-- Real stats computed from site -->
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-value">5+</div>
-          <div class="stat-label">Core Domains</div>
+          <div class="stat-value" data-target="6">6</div>
+          <div class="stat-label">Discrete Maths Chapters</div>
         </div>
         <div class="stat">
-          <div class="stat-value">80+</div>
-          <div class="stat-label">Topics Covered</div>
+          <div class="stat-value" data-target="10">10</div>
+          <div class="stat-label">Linear Algebra Chapters</div>
         </div>
         <div class="stat">
-          <div class="stat-value">30+</div>
-          <div class="stat-label">Visualizations</div>
+          <div class="stat-value" data-target="35" data-suffix="+">35+</div>
+          <div class="stat-label">Interactive Demos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" data-target="105" data-suffix="+">105+</div>
+          <div class="stat-label">Practice Problems</div>
         </div>
       </div>
     </div>
@@ -116,11 +138,11 @@
     <div class="hero-visual">
       <canvas id="hero-canvas" width="520" height="380"></canvas>
       <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-        <span class="tag" style="border-color:var(--accent);color:var(--accent-light);">📐 Linear Algebra Hub</span>
-        <span class="tag">Eigenvalues & SVD</span>
-        <span class="tag">Probability</span>
-        <span class="tag">Optimization</span>
-        <span class="tag">Kinematics</span>
+        <a href="discrete-maths.html#ch1" class="tag" style="border-color:rgba(56,189,248,0.4);color:#38bdf8;text-decoration:none;">⚡ Logic &amp; Proofs</a>
+        <a href="discrete-maths.html#ch5" class="tag" style="border-color:rgba(16,185,129,0.4);color:var(--teal);text-decoration:none;">🕸️ Graph Theory</a>
+        <a href="linear-algebra.html#ch7" class="tag" style="border-color:rgba(217,119,6,0.4);color:var(--accent-light);text-decoration:none;">📐 Eigenvalues &amp; SVD</a>
+        <a href="cs-aiml.html#probability" class="tag" style="border-color:rgba(168,85,247,0.4);color:#c084fc;text-decoration:none;">🎲 Probability</a>
+        <a href="cs-aiml.html#optimization" class="tag" style="border-color:rgba(245,158,11,0.4);color:var(--gold);text-decoration:none;">📉 Gradient Descent</a>
       </div>
     </div>
   </div>
@@ -132,10 +154,9 @@
     <div class="insight-badge">⭐ Daily Math Insight</div>
     <div class="insight-quote" id="insight-quote">Loading insight…</div>
     <div class="insight-attr" id="insight-attr"></div>
-    <button onclick="nextInsight()" class="btn btn-outline" style="margin-top:1.25rem;padding:0.5rem 1.25rem;font-size:0.85rem;">Next Insight →</button>
+    <button onclick="nextInsight()" class="btn btn-outline" style="margin-top:1.25rem;padding:0.5rem 1.25rem;font-size:0.85rem;" aria-label="Load next insight">Next Insight →</button>
   </div>
 </div>
-
 
 <!-- ── FEATURED STORY: THE MATHS BEHIND... ── -->
 <div style="max-width:1400px;margin:2.5rem auto 0;padding:0 2rem;">
@@ -145,7 +166,7 @@
         🔥 Featured Story Series · The Maths Behind…
       </div>
       <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800; line-height: 1.25; margin-bottom: 0.75rem; color: #fff;">
-        How Google Ranked the Web: <span class="gradient-text">Eigenvectors & PageRank</span>
+        How Google Ranked the Web: <span class="gradient-text">Eigenvectors &amp; PageRank</span>
       </h2>
       <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.25rem;">
         In 1996, search engines just counted keywords. Larry Page and Sergey Brin had a radical idea: treat links as votes of confidence. Discover how a $1 trillion algorithm is just finding the principal eigenvector of a web graph.
@@ -190,141 +211,219 @@
   </div>
 </div>
 
-<!-- ── DOMAINS ── -->
-<section class="section" id="domains">
+<!-- ── YOUR LEARNING PATH: CS MATHS ROADMAP ── -->
+<section class="section" id="roadmap">
   <div class="section-header animate-on-scroll">
-    <div class="section-tag">Core Domains</div>
-    <h2 class="section-title">Mathematics Across Fields</h2>
-    <p class="section-desc">Each domain unlocks a new dimension of mathematical thinking — from foundational linear spaces to physical control systems.</p>
+    <div class="section-tag">YOUR LEARNING PATH</div>
+    <h2 class="section-title">Your CS Maths Roadmap</h2>
+    <p class="section-desc">Follow the path most CS degrees take, or jump straight to what you need.</p>
   </div>
 
-  <div class="cards-grid">
+  <!-- Cards ① → ② → ③ with connecting path line on desktop -->
+  <div class="roadmap-flow animate-on-scroll">
 
-    <!-- Premier Feature: Master Linear Algebra -->
-    <div class="card animate-on-scroll" style="--delay:0.05s;border:1px solid rgba(217,119,6,0.35);background:linear-gradient(135deg,rgba(217,119,6,0.08),rgba(41,37,36,0.7));">
-      <div class="card-icon" style="background:rgba(217,119,6,0.2);">📐</div>
-      <div class="card-title">Complete Linear Algebra Master Platform</div>
-      <p class="card-desc">Comprehensive 10-chapter curriculum: Vectors, Span, Gaussian Elimination, Matrix Transformations, Determinants, Orthogonality, Eigenvalues, SVD, and Quadratic Forms.</p>
-      <ul class="subtopics-list" style="margin-top:1rem;">
-        <li><a href="linear-algebra.html#ch1" style="color:inherit;text-decoration:none;">Vectors, Dot & Cross Products</a></li>
-        <li><a href="linear-algebra.html#ch4" style="color:inherit;text-decoration:none;">Matrices as Transformations & 4 Subspaces</a></li>
-        <li><a href="linear-algebra.html#ch7" style="color:inherit;text-decoration:none;">Eigenvalues, Diagonalization & Spectra</a></li>
-        <li><a href="linear-algebra.html#ch8" style="color:inherit;text-decoration:none;">Singular Value Decomposition (SVD)</a></li>
+    <!-- Card 1: Discrete Maths -->
+    <div class="roadmap-card">
+      <div class="roadmap-header">
+        <span class="roadmap-step-badge">①</span>
+        <span class="roadmap-sem-tag">Semester 1</span>
+        <span class="roadmap-diff">🟢 Beginner</span>
+      </div>
+      <div style="font-size:2rem;">🧩</div>
+      <h3>Discrete Mathematics</h3>
+      <p class="roadmap-desc">The bedrock of algorithms, theoretical CS, database systems and cryptography.</p>
+      <ul class="roadmap-links">
+        <li><a href="discrete-maths.html#ch1">→ Logic, Truth Tables &amp; Proofs</a></li>
+        <li><a href="discrete-maths.html#ch3">→ Combinatorics &amp; Pigeonhole</a></li>
+        <li><a href="discrete-maths.html#ch4">→ Recurrences &amp; Master Theorem</a></li>
+        <li><a href="discrete-maths.html#ch5">→ Graphs, Trees, BFS/DFS &amp; Dijkstra</a></li>
+        <li><a href="discrete-maths.html#ch6">→ Modular Arithmetic &amp; RSA Cryptography</a></li>
       </ul>
-      <a href="linear-algebra.html" class="card-link" style="color:var(--accent-light);font-weight:700;">Explore All Linear Algebra Topics →</a>
+      <a href="discrete-maths.html" class="btn btn-primary" style="margin-top:auto;text-align:center;padding:0.6rem 1rem;font-size:0.85rem;">
+        Start Discrete Maths →
+      </a>
     </div>
 
-    <div class="card animate-on-scroll" style="--delay:0.1s">
-      <div class="card-icon" style="background:rgba(124,58,237,0.15);">🤖</div>
-      <div class="card-title">Mathematics for CS & AI/ML</div>
-      <p class="card-desc">Linear algebra, probability, optimization — the mathematical backbone of machine learning and data science algorithms.</p>
-      <ul class="subtopics-list" style="margin-top:1rem;">
-        <li><a href="systems-of-equations.html" style="color:inherit; text-decoration:none;">Systems of Linear Equations</a></li>
-        <li><a href="eigen-lecture.html" style="color:inherit; text-decoration:none;">Eigenvalues & SVD in AI/ML</a></li>
-        <li>Probability & Statistics</li>
-        <li>Optimization & Gradient Descent</li>
+    <!-- Card 2: Linear Algebra -->
+    <div class="roadmap-card">
+      <div class="roadmap-header">
+        <span class="roadmap-step-badge">②</span>
+        <span class="roadmap-sem-tag">Semester 1–2</span>
+        <span class="roadmap-diff">🟡 Intermediate</span>
+      </div>
+      <div style="font-size:2rem;">📐</div>
+      <h3>Linear Algebra</h3>
+      <p class="roadmap-desc">High-dimensional vector spaces, transformations, matrix decompositions, and PCA/SVD.</p>
+      <ul class="roadmap-links">
+        <li><a href="linear-algebra.html#ch1">→ Vectors, Dot &amp; Cross Products</a></li>
+        <li><a href="linear-algebra.html#ch4">→ Matrices as Spatial Transformations</a></li>
+        <li><a href="linear-algebra.html#ch7">→ Eigenvalues, Diagonalization &amp; Spectra</a></li>
+        <li><a href="linear-algebra.html#ch8">→ Singular Value Decomposition (SVD)</a></li>
+        <li><a href="systems-of-equations.html">→ Systems of Equations Lab</a></li>
+        <li><a href="eigen-lecture.html">→ Eigenvalues in AI/ML Deep-Dive</a></li>
       </ul>
-      <a href="cs-aiml.html" class="card-link">Explore CS Math →</a>
+      <a href="linear-algebra.html" class="btn btn-primary" style="margin-top:auto;text-align:center;padding:0.6rem 1rem;font-size:0.85rem;">
+        Explore Linear Algebra →
+      </a>
     </div>
 
-    <div class="card animate-on-scroll" style="--delay:0.2s">
-      <div class="card-icon" style="background:rgba(0,201,184,0.15);">🦾</div>
-      <div class="card-title">Mathematics for Robotics</div>
-      <p class="card-desc">Kinematics, coordinate transforms and differential equations — the math that makes robots move intelligently.</p>
-      <ul class="subtopics-list" style="margin-top:1rem;">
-        <li>Forward & Inverse Kinematics</li>
-        <li>Rotation Matrices & Quaternions</li>
-        <li>Trajectory Planning & ODEs</li>
+    <!-- Card 3: Maths for AI/ML -->
+    <div class="roadmap-card">
+      <div class="roadmap-header">
+        <span class="roadmap-step-badge">③</span>
+        <span class="roadmap-sem-tag">Semester 3–4</span>
+        <span class="roadmap-diff">🔴 Advanced</span>
+      </div>
+      <div style="font-size:2rem;">🤖</div>
+      <h3>Maths for AI / ML</h3>
+      <p class="roadmap-desc">Multivariate calculus, probability distributions, Bayes theorem, and gradient descent optimisation.</p>
+      <ul class="roadmap-links">
+        <li><a href="cs-aiml.html#probability">→ Bayes Theorem &amp; Conditioning</a></li>
+        <li><a href="cs-aiml.html#optimization">→ Loss Surfaces &amp; Gradient Descent</a></li>
+        <li><a href="cs-aiml.html">→ Maximum Likelihood &amp; Entropy</a></li>
+        <li><a href="linear-algebra.html#topic-10-2">→ Attention Mechanisms in Transformers</a></li>
       </ul>
-      <a href="robotics.html" class="card-link">Explore Robotics Math →</a>
+      <a href="cs-aiml.html" class="btn btn-primary" style="margin-top:auto;text-align:center;padding:0.6rem 1rem;font-size:0.85rem;">
+        Master AI/ML Maths →
+      </a>
     </div>
 
-    <div class="card animate-on-scroll" style="--delay:0.3s">
-      <div class="card-icon" style="background:rgba(167,139,250,0.15);">⚙️</div>
-      <div class="card-title">Mathematics for Control Theory</div>
-      <p class="card-desc">State-space models, stability analysis and Lyapunov methods — the math behind feedback control systems.</p>
-      <ul class="subtopics-list" style="margin-top:1rem;">
-        <li>Dynamical Systems & State Space</li>
-        <li>Stability & Lyapunov Analysis</li>
-        <li>Controllability & Observability</li>
+  </div>
+
+  <!-- Cards ④ & ⑤ -->
+  <div class="roadmap-secondary-row animate-on-scroll">
+
+    <!-- Card 4: The Maths Behind... -->
+    <div class="roadmap-card" style="border-color:rgba(217,119,6,0.35);background:linear-gradient(145deg,rgba(41,37,36,0.85),rgba(28,25,23,0.9));">
+      <div class="roadmap-header">
+        <span class="roadmap-step-badge" style="border-color:var(--accent);color:var(--accent-light);">★</span>
+        <span class="roadmap-sem-tag">Any Time</span>
+        <span class="roadmap-diff">🌟 All Levels</span>
+      </div>
+      <div style="font-size:2rem;">💡</div>
+      <h3>The Maths Behind…</h3>
+      <p class="roadmap-desc">Short, story-driven articles with live interactive canvas simulations showing the math inside the apps you use every day.</p>
+      <ul class="roadmap-links" style="grid-template-columns:1fr 1fr;display:grid;gap:0.4rem 1rem;">
+        <li><a href="maths-behind/google-pagerank.html">→ Google: Eigenvectors &amp; PageRank</a></li>
+        <li><a href="maths-behind/chatgpt-attention.html">→ ChatGPT: Dot Product Attention</a></li>
+        <li><a href="maths-behind/shazam-fourier.html">→ Shazam: Fourier Transform</a></li>
+        <li><a href="maths-behind/whatsapp-rsa.html">→ WhatsApp: Modular Cryptography</a></li>
+        <li><a href="maths-behind/netflix-svd.html">→ Netflix: SVD Matrix Factors</a></li>
+        <li><a href="maths-behind/jpeg-dct.html">→ JPEG: Discrete Cosine Transform</a></li>
       </ul>
-      <a href="control.html" class="card-link">Explore Control Math →</a>
+      <a href="maths-behind.html" class="btn btn-outline" style="margin-top:auto;text-align:center;padding:0.6rem 1rem;font-size:0.85rem;">
+        Explore All Stories Hub →
+      </a>
     </div>
 
-    <div class="card animate-on-scroll" style="--delay:0.4s">
-      <div class="card-icon" style="background:rgba(245,158,11,0.15);">📚</div>
-      <div class="card-title">More Mathematical Branches</div>
-      <p class="card-desc">Mathematics for Physics, Economics, Data Science and Biology — explore the universal language across sciences.</p>
-      <ul class="subtopics-list" style="margin-top:1rem;">
-        <li>Physics: PDEs & Fourier Analysis</li>
-        <li>Economics: Game Theory & Calculus</li>
-        <li>Biology: Population Dynamics</li>
+    <!-- Card 5: Applications (beyond CS) -->
+    <div class="roadmap-card">
+      <div class="roadmap-header">
+        <span class="roadmap-step-badge" style="border-color:#10b981;color:var(--teal);">🌐</span>
+        <span class="roadmap-sem-tag" style="color:var(--teal);border-color:rgba(16,185,129,0.35);background:rgba(16,185,129,0.1);">Electives</span>
+        <span class="roadmap-diff">🟡 Intermediate</span>
+      </div>
+      <div style="font-size:2rem;">🚀</div>
+      <h3>Applications (Beyond CS)</h3>
+      <p class="roadmap-desc">Real-world physical, biological and economic systems driven by differential equations and control.</p>
+      <ul class="roadmap-links">
+        <li><a href="robotics.html">→ Robotics (Kinematics &amp; Transforms)</a></li>
+        <li><a href="control.html">→ Control Theory (State-Space &amp; Lyapunov)</a></li>
+        <li><a href="more.html">→ Physics, Economics &amp; Biology Dynamics</a></li>
       </ul>
-      <a href="more.html" class="card-link">Explore More →</a>
+      <div style="display:flex;gap:0.5rem;margin-top:auto;flex-wrap:wrap;">
+        <a href="robotics.html" class="btn btn-outline" style="padding:0.45rem 0.8rem;font-size:0.78rem;">Robotics</a>
+        <a href="control.html" class="btn btn-outline" style="padding:0.45rem 0.8rem;font-size:0.78rem;">Control</a>
+        <a href="more.html" class="btn btn-outline" style="padding:0.45rem 0.8rem;font-size:0.78rem;">More</a>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- ── WHY MATHS ── -->
-<section style="background:linear-gradient(180deg,transparent,rgba(46,204,113,0.04),transparent);padding:5rem 0;">
+<!-- ── WHY CS STUDENTS NEED MATHS ── -->
+<section style="background:linear-gradient(180deg,transparent,rgba(217,119,6,0.04),transparent);padding:5rem 0;">
   <div class="section" style="padding-top:0;padding-bottom:0;">
     <div class="section-header animate-on-scroll">
-      <div class="section-tag">Why Mathematics?</div>
-      <h2 class="section-title">The Universal Language</h2>
-      <p class="section-desc">Mathematics is not just a subject — it is the foundation of all modern technology and scientific discovery.</p>
+      <div class="section-tag">WHY MATHEMATICS?</div>
+      <h2 class="section-title">Why CS Students Need Maths</h2>
+      <p class="section-desc">Code is just the translation layer. The competitive edge in CS and AI comes from understanding the mathematical models beneath the libraries.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
-      <div class="card animate-on-scroll" style="text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🧠</div>
-        <div class="card-title">Builds Rigorous Thinking</div>
-        <p class="card-desc">Mathematical reasoning develops problem-solving skills transferable to any field.</p>
+    <div class="cs-why-grid animate-on-scroll">
+      <!-- 1: Graph Theory -->
+      <div class="cs-why-card">
+        <div>
+          <div class="cs-why-icon">🗺️</div>
+          <h3>Graph Theory</h3>
+          <p>Powers Google Maps shortest-path routing, social network recommendations, dependency trees, and compiler register allocation.</p>
+        </div>
+        <a href="discrete-maths.html#ch5">Learn Dijkstra, BFS/DFS &amp; Graphs →</a>
       </div>
-      <div class="card animate-on-scroll" style="text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🔗</div>
-        <div class="card-title">Connects Disciplines</div>
-        <p class="card-desc">The same equations appear in physics, economics, biology, and engineering.</p>
+
+      <!-- 2: Number Theory -->
+      <div class="cs-why-card">
+        <div>
+          <div class="cs-why-icon">🔐</div>
+          <h3>Number Theory</h3>
+          <p>Secures every HTTPS web connection, encrypted WhatsApp message, banking transaction, and blockchain via modular arithmetic trapdoors.</p>
+        </div>
+        <a href="discrete-maths.html#ch6">Explore Modular Arithmetic &amp; RSA →</a>
       </div>
-      <div class="card animate-on-scroll" style="text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">💡</div>
-        <div class="card-title">Powers Innovation</div>
-        <p class="card-desc">Every breakthrough in AI, medicine, or space exploration is built on mathematics.</p>
+
+      <!-- 3: Linear Algebra -->
+      <div class="cs-why-card">
+        <div>
+          <div class="cs-why-icon">🧠</div>
+          <h3>Linear Algebra</h3>
+          <p>Drives neural network feedforward passes, GPU 3D graphics rendering, computer vision, and low-rank recommender systems.</p>
+        </div>
+        <a href="linear-algebra.html">Master High-Dimensional Spaces →</a>
       </div>
-      <div class="card animate-on-scroll" style="text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">📈</div>
-        <div class="card-title">Quantifies the World</div>
-        <p class="card-desc">From stock markets to quantum mechanics, math gives us tools to describe reality.</p>
+
+      <!-- 4: Probability -->
+      <div class="cs-why-card">
+        <div>
+          <div class="cs-why-icon">📊</div>
+          <h3>Probability &amp; Stats</h3>
+          <p>Underpins spam filters, A/B experiment testing, Monte Carlo simulations, and Large Language Model next-token probability distributions.</p>
+        </div>
+        <a href="cs-aiml.html#probability">Explore Bayes &amp; Probability →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── INTERACTIVE PREVIEW ── -->
+<!-- ── INTERACTIVE PREVIEW: GRADIENT DESCENT ── -->
 <section class="section animate-on-scroll">
   <div class="section-header">
     <div class="section-tag">Interactive Demo</div>
-    <h2 class="section-title">Visualize Mathematics</h2>
-    <p class="section-desc">Explore a gradient descent animation — one of the core algorithms in machine learning.</p>
+    <h2 class="section-title">Visualize Optimisation in Action</h2>
+    <p class="section-desc">Explore a live gradient descent simulation — the fundamental engine powering modern neural network training.</p>
   </div>
 
   <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:2rem;backdrop-filter:blur(12px);">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;align-items:start;">
       <div>
-        <h3 style="color:var(--accent-light);font-size:1rem;margin-bottom:0.5rem;">Gradient Descent</h3>
+        <h3 style="color:var(--accent-light);font-size:1.15rem;margin-bottom:0.5rem;">Gradient Descent Optimizer</h3>
         <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.7;margin-bottom:1rem;">
-          Gradient descent finds the minimum of a function by iteratively moving in the direction of the negative gradient. It's the backbone of training neural networks.
+          Gradient descent finds the minimum of a cost function by iteratively moving in the direction of the steepest negative gradient.
         </p>
         <div class="formula-box">w ← w − α · ∇L(w)</div>
-        <p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem;">where α is the learning rate and ∇L is the gradient of the loss function.</p>
+        <p style="color:var(--text-muted);font-size:0.82rem;margin-top:0.5rem;">where α is the learning rate and ∇L is the gradient of the loss function.</p>
         <div class="slider-group" style="margin-top:1.5rem;">
           <div class="slider-row">
-            <span class="slider-label">Learning rate α:</span>
-            <input type="range" id="lr-slider" min="1" max="50" value="15" oninput="updateGD()" />
+            <span class="slider-label" style="color:#e2e8f0;">Learning rate α:</span>
+            <input type="range" id="lr-slider" min="1" max="50" value="15" oninput="updateGD()" aria-label="Learning rate slider" />
             <span class="slider-val" id="lr-val">0.15</span>
           </div>
         </div>
-        <button onclick="restartGD()" class="btn btn-primary" style="margin-top:1.25rem;padding:0.6rem 1.25rem;font-size:0.85rem;">↺ Restart</button>
+        <button onclick="restartGD()" class="btn btn-primary" style="margin-top:1.25rem;padding:0.6rem 1.25rem;font-size:0.85rem;" aria-label="Restart Gradient Descent">↺ Restart Simulation</button>
+        
+        <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08);font-size:0.9rem;">
+          <span style="color:var(--text-muted);">Want the full story?</span>
+          <a href="cs-aiml.html#optimization" style="color:var(--accent-light);font-weight:600;text-decoration:none;margin-left:0.35rem;">→ Optimisation &amp; Gradient Descent</a>
+        </div>
       </div>
       <div>
         <canvas id="gd-canvas" width="400" height="300" style="width:100%;border-radius:var(--radius-sm);background:#020617;"></canvas>
@@ -333,22 +432,80 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-logo">Maths for All</div>
-  <p style="font-size:0.9rem;margin-top:0.25rem;">Making Mathematics Accessible Across Disciplines</p>
-  <ul class="footer-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="cs-aiml.html">CS / AI·ML</a></li>
-    <li><a href="robotics.html">Robotics</a></li>
-    <li><a href="control.html">Control Theory</a></li>
-    <li><a href="more.html">More Branches</a></li>
-  </ul>
-  <div class="divider" style="max-width:400px;margin:0 auto;"></div>
-  <p class="footer-copy" style="margin-top:1rem;">© 2025 Maths for All. Built for learners everywhere.</p>
+<!-- ── MEET THE AUTHOR ── -->
+<section class="author-section animate-on-scroll" id="author">
+  <div class="author-card">
+    <div class="author-avatar-wrap">
+      <img src="assets/author.jpg" alt="Dr. Md Samshad Hussain Ansari" class="author-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="author-avatar-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">SA</div>
+    </div>
+    <div class="author-info">
+      <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--teal);margin-bottom:0.35rem;">Meet the Author &amp; Educator</div>
+      <h3>Dr. Md Samshad Hussain Ansari</h3>
+      <div class="author-title">Assistant Professor of Mathematics · Newton School of Technology, ADYPU, Pune</div>
+      <p class="author-bio">
+        I teach mathematics to CS students and research fractional-order dynamical systems, neural networks and control. This site is what I wish I'd had as a student.
+      </p>
+      <div class="author-links">
+        <a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:0.55rem 1.15rem;font-size:0.85rem;">
+          Portfolio &amp; Research →
+        </a>
+        <a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:0.55rem 1.15rem;font-size:0.85rem;">
+          ORCID: 0000-0002-7757-3216
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPREHENSIVE FOOTER ── -->
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Maths <span>for All</span></a>
+      <p class="footer-tagline">
+        Maths for All: the maths behind computer science, explained visually.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="discrete-maths.html">Discrete Mathematics</a></li>
+        <li><a href="linear-algebra.html">Linear Algebra Course</a></li>
+        <li><a href="cs-aiml.html">AI &amp; Machine Learning Maths</a></li>
+        <li><a href="systems-of-equations.html">Systems of Equations</a></li>
+        <li><a href="eigen-lecture.html">Eigenvalues &amp; SVD Lab</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="maths-behind.html">The Maths Behind…</a></li>
+        <li><a href="robotics.html">Robotics Kinematics</a></li>
+        <li><a href="control.html">Control Theory</a></li>
+        <li><a href="more.html">Physics &amp; More Branches</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="https://mdsamhussain1996.github.io/" target="_blank" rel="noopener noreferrer">Author: Dr. Md Samshad Hussain Ansari</a></li>
+        <li><a href="https://orcid.org/0000-0002-7757-3216" target="_blank" rel="noopener noreferrer">ORCID Profile</a></li>
+        <li><a href="mailto:mdsamhussain1996@gmail.com?subject=Maths%20for%20All%20-%20Topic%20Suggestion">Suggest a Topic</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2026 Dr. Md Samshad Hussain Ansari · Newton School of Technology · Free for every student</div>
+    <div style="color:var(--text-muted);">Built with visual intuition &amp; open rigor</div>
+  </div>
 </footer>
 
-<script src="js/main.js?v=1.1"></script>
-<script src="js/visualizations.js?v=1.1"></script>
+<script src="js/main.js?v=2.0"></script>
+<script src="js/visualizations.js?v=2.0"></script>
 </body>
 </html>
