@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Netflix Guesses Your Next Show: Low-Rank SVD, Latent Taste Factors &amp; Collaborative Filtering | Maths for All</title>
+  <meta name="description" content="Discover the math behind Netflix: Netflix has 250 million subscribers and over 15,000 movie titles. The average user has watched fewer than 150 movies. That means if you drew a giant t" />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/netflix-svd.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="How Netflix Guesses Your Next Show: Low-Rank SVD, Latent Taste Factors &amp; Collaborative Filtering | Maths for All" />
+  <meta property="og:description" content="Discover the math behind Netflix: Netflix has 250 million subscribers and over 15,000 movie titles. The average user has watched fewer than 150 movies. That means if you drew a giant t" />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/netflix-svd.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How Netflix Guesses Your Next Show: Low-Rank SVD, Latent Taste Factors &amp; Collaborative Filtering | Maths for All" />
+  <meta name="twitter:description" content="Discover the math behind Netflix: Netflix has 250 million subscribers and over 15,000 movie titles. The average user has watched fewer than 150 movies. That means if you drew a giant t" />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <link rel="stylesheet" href="css/maths-behind.css?v=1.0" />
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li><a href="maths-behind.html" class="active">The Maths Behind…</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<div class="mb-article-container">
+  <div class="mb-breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <a href="maths-behind.html">The Maths Behind…</a>
+    <span>/</span>
+    <span style="color:var(--text-primary);">Netflix</span>
+  </div>
+
+  <header class="mb-article-hero">
+    <div class="mb-article-badges">
+      <span class="mb-app-badge"><span class="mb-app-icon">🎬</span> Netflix</span>
+      <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+      <span style="font-size:0.85rem;color:var(--text-muted);">⏱️ 2 min read</span>
+      <span class="mb-tag">Linear Algebra · Recommender Systems</span>
+    </div>
+    <h1 class="mb-article-title">How Netflix Guesses Your Next Show</h1>
+    <p class="mb-article-subtitle">Low-Rank SVD, Latent Taste Factors & Collaborative Filtering</p>
+  </header>
+
+  <!-- 1. The Hook -->
+  <section class="mb-section">
+    <div class="mb-hook-box">
+      Netflix has 250 million subscribers and over 15,000 movie titles. The average user has watched fewer than 150 movies. That means if you drew a giant table of [Users $\times$ Movies], <strong>over 99.2% of the boxes are completely empty</strong>! How does Netflix accurately predict whether you will give a 5-star rating to a movie you've never heard of?
+    </div>
+  </section>
+
+  <!-- 2. The Big Idea -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">💡</span> 1. The Big Idea</h2>
+    <div class="mb-idea-card">
+      <h3>The Core Intuition</h3>
+      <p style="font-size:1.05rem;line-height:1.7;color:var(--text-primary);">People don't pick movies at random, and movies aren't isolated entities. Both exist in a low-dimensional space of <strong>latent factors</strong>. A movie might be $80\%$ sci-fi, $10\%$ action, $10\%$ drama. A user might have a taste vector that loves sci-fi and hates romance. If we compress the giant $250\text{M} \times 15\text{k}$ sparse rating matrix into two tiny dense matrices—<strong>User Tastes ($P$)</strong> and <strong>Movie Traits ($Q$)</strong>—taking their dot product fills in every single blank in the entire database!</p>
+    </div>
+  </section>
+
+  <!-- 3. The Maths -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">📐</span> 2. The Formal Mathematics</h2>
+    <div class="mb-prose">
+      
+<p>This is the core insight of <strong>Singular Value Decomposition (SVD)</strong> and low-rank matrix factorisation (which won the famous $1,000,000 Netflix Prize):</p>
+<div class="formula-box">
+  $$R \approx P \cdot Q^T, \qquad \text{where } P \in \mathbb{R}^{m \times k}, \; Q \in \mathbb{R}^{n \times k}, \; k \ll \min(m, n)$$
+  $$\hat{r}_{ui} = \mathbf{p}_u \cdot \mathbf{q}_i = \sum_{f=1}^{k} p_{uf} \cdot q_{if}$$
+</div>
+<p>To learn the latent factors from sparse known ratings, we minimize regularised squared error using stochastic gradient descent (SGD):</p>
+<div class="formula-box">
+  $$\mathcal{L} = \sum_{(u,i) \in \text{known}} (r_{ui} - \mathbf{p}_u \cdot \mathbf{q}_i)^2 + \lambda \left( \|\mathbf{p}_u\|^2 + \|\mathbf{q}_i\|^2 \right)$$
+</div>
+
+    </div>
+    
+    <div class="mb-example-box">
+      <div style="font-weight:700;color:var(--accent-light);margin-bottom:0.75rem;font-size:1.1rem;">
+        📝 Worked Example by Hand
+      </div>
+      
+<p>Suppose we discover $k=2$ latent factors: <em>Factor 1: Sci-Fi affinity</em>, <em>Factor 2: Animation affinity</em>. Ratings are scaled $1$ to $5$ stars:</p>
+<div class="mb-example-step">
+  <strong>Step 1: User Tastes for Alice ($\mathbf{p}$) and Movie Traits for Interstellar ($\mathbf{q}$)</strong><br/>
+  Alice loves sci-fi, avoids cartoons: $\mathbf{p}_{\text{Alice}} = [0.9, 0.1]^T$.<br/>
+  <em>Interstellar</em> is pure sci-fi: $\mathbf{q}_{\text{Interstellar}} = [0.95, 0.05]^T$.
+</div>
+<div class="mb-example-step">
+  <strong>Step 2: Compute Predicted Rating via Dot Product</strong><br/>
+  $$\hat{r} = 5 \cdot (\mathbf{p} \cdot \mathbf{q}) = 5 \cdot \big[ (0.9)(0.95) + (0.1)(0.05) \big] = 5 \cdot [0.855 + 0.005] = 5 \cdot (0.86) = 4.3 \text{ stars!}$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 3: What about Finding Nemo? ($\mathbf{q} = [0.05, 0.95]^T$)</strong><br/>
+  $$\hat{r} = 5 \cdot \big[ (0.9)(0.05) + (0.1)(0.95) \big] = 5 \cdot [0.045 + 0.095] = 5 \cdot (0.14) = 0.7 \text{ stars (Hide from homepage)}$$
+  <strong>Conclusion:</strong> Two numbers per movie and user accurately predict personalized satisfaction for millions of catalog entries!
+</div>
+
+    </div>
+  </section>
+
+  <!-- 4. See It Live -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🔬</span> 3. See It Live</h2>
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">Interactive 4x4 Collaborative Filtering Matrix. Green cells represent missing ratings predicted automatically via the 2-factor dot product model.</p>
+
+    <div class="interactive-simulation-box">
+      <div class="sim-toolbar">
+        <span class="sim-title">Netflix Simulation Lab</span>
+        <div class="sim-controls">
+          
+        </div>
+      </div>
+      <div class="sim-canvas-wrap">
+        <canvas id="cv-netflix" width="700" height="340" role="img" aria-label="How Netflix Guesses Your Next Show interactive canvas"></canvas>
+      </div>
+      <div class="sim-caption">
+        <span class="sim-readout" id="netflix-readout">Initializing simulation…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Try It in Python -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🐍</span> 4. Try It in Python (&lt; 15 Lines)</h2>
+    <div class="code-block">
+      <div class="code-header"><span>Python 3 Runnable Snippet</span></div>
+      <pre class="code-content" style="font-family:'JetBrains Mono',monospace;font-size:0.875rem;line-height:1.6;margin:0;color:#e2e8f0;">import numpy as np
+
+# Sparse ratings: -1 means unrated
+R = np.array([
+    [5, -1, 1, -1],
+    [4,  5, -1, 1],
+    [-1, 1,  5, 5],
+    [1, -1,  4, 5]
+])
+
+# 2 latent factors: Sci-Fi, Animation
+P = np.array([[0.9, 0.1], [0.85, 0.2], [0.1, 0.95], [0.2, 0.8]])
+Q = np.array([[0.95, 0.05], [0.9, 0.1], [0.1, 0.9], [0.05, 0.95]])
+
+# Reconstructed rating matrix
+R_pred = np.clip(np.round((P @ Q.T) * 5, 1), 1.0, 5.0)
+print(&quot;Predicted Missing Ratings:\n&quot;, R_pred)</pre>
+    </div>
+  </section>
+
+  <!-- 6. Where to Go Next -->
+  <section class="mb-section">
+    <div class="mb-next-card">
+      <h3><span>🗺️</span> Where to Go Next on Maths for All</h3>
+      <p style="color:var(--text-secondary);font-size:0.95rem;">Ready to master the underlying mathematical theory from first principles? Explore these chapters on the platform:</p>
+      <div class="mb-next-links">
+        
+      <a href="linear-algebra.html#ch8" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 8 — Singular Value Decomposition (SVD)</div>
+          <span>Study Eckart-Young low-rank approximation and pseudoinverses.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      <a href="eigen-lecture.html" class="mb-next-link-item">
+        <div>
+          <div>Interactive Lecture: Eigenvalues & SVD in Recommender Systems</div>
+          <span>Explore collaborative filtering and principal components in depth.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Prev / Next Navigation -->
+  <div class='mb-story-nav'>
+      <a href="whatsapp-rsa.html" class="mb-story-nav-btn">
+        <span class="mb-story-nav-label">← Previous Story</span>
+        <span class="mb-story-nav-title">WhatsApp: How WhatsApp Keeps Secrets</span>
+      </a>
+
+      <a href="jpeg-dct.html" class="mb-story-nav-btn mb-story-nav-next">
+        <span class="mb-story-nav-label">Next Story →</span>
+        <span class="mb-story-nav-title">JPEG: How JPEG Shrinks Photos</span>
+      </a>
+</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
+      <a href="maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/maths-behind-viz.js"></script>
+</body>
+</html>

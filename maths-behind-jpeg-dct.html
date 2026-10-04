@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How JPEG Shrinks Photos: The Discrete Cosine Transform &amp; Perceptual Quantization | Maths for All</title>
+  <meta name="description" content="Discover the math behind JPEG: A raw 12-megapixel smartphone photo takes roughly 36 megabytes of storage. When saved as a JPEG, the exact same photo shrinks down to just 2.5 megabyt" />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/jpeg-dct.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="How JPEG Shrinks Photos: The Discrete Cosine Transform &amp; Perceptual Quantization | Maths for All" />
+  <meta property="og:description" content="Discover the math behind JPEG: A raw 12-megapixel smartphone photo takes roughly 36 megabytes of storage. When saved as a JPEG, the exact same photo shrinks down to just 2.5 megabyt" />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/jpeg-dct.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How JPEG Shrinks Photos: The Discrete Cosine Transform &amp; Perceptual Quantization | Maths for All" />
+  <meta name="twitter:description" content="Discover the math behind JPEG: A raw 12-megapixel smartphone photo takes roughly 36 megabytes of storage. When saved as a JPEG, the exact same photo shrinks down to just 2.5 megabyt" />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <link rel="stylesheet" href="css/maths-behind.css?v=1.0" />
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li><a href="maths-behind.html" class="active">The Maths Behind…</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<div class="mb-article-container">
+  <div class="mb-breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <a href="maths-behind.html">The Maths Behind…</a>
+    <span>/</span>
+    <span style="color:var(--text-primary);">JPEG</span>
+  </div>
+
+  <header class="mb-article-hero">
+    <div class="mb-article-badges">
+      <span class="mb-app-badge"><span class="mb-app-icon">🖼️</span> JPEG</span>
+      <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+      <span style="font-size:0.85rem;color:var(--text-muted);">⏱️ 2 min read</span>
+      <span class="mb-tag">Image Compression · Frequency Domain</span>
+    </div>
+    <h1 class="mb-article-title">How JPEG Shrinks Photos</h1>
+    <p class="mb-article-subtitle">The Discrete Cosine Transform & Perceptual Quantization</p>
+  </header>
+
+  <!-- 1. The Hook -->
+  <section class="mb-section">
+    <div class="mb-hook-box">
+      A raw 12-megapixel smartphone photo takes roughly 36 megabytes of storage. When saved as a JPEG, the exact same photo shrinks down to just 2.5 megabytes—a staggering <strong>93% compression ratio</strong>—yet when you look at it on your screen, your eyes can hardly spot a difference. Where did the missing 33 megabytes go?
+    </div>
+  </section>
+
+  <!-- 2. The Big Idea -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">💡</span> 1. The Big Idea</h2>
+    <div class="mb-idea-card">
+      <h3>The Core Intuition</h3>
+      <p style="font-size:1.05rem;line-height:1.7;color:var(--text-primary);">The human eye is an imperfect optical sensor: <strong>we notice slow, smooth changes in lighting immediately, but our brains are practically blind to fine, rapid high-frequency zig-zags</strong>. JPEG cuts an image into $8 \times 8$ pixel tiles, converts them from spatial coordinates to 64 cosine frequency amounts, and then ruthlessly divides all the fine high frequencies to zero (quantization). The zeros compress away to almost nothing, while the image still looks sharp and crisp to human eyes!</p>
+    </div>
+  </section>
+
+  <!-- 3. The Maths -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">📐</span> 2. The Formal Mathematics</h2>
+    <div class="mb-prose">
+      
+<p>Each $8 \times 8$ pixel block $f(x,y)$ is transformed into 64 frequency coefficients $F(u,v)$ via the <strong>2D Discrete Cosine Transform (DCT)</strong>:</p>
+<div class="formula-box">
+  $$F(u,v) = \frac{1}{4} C(u) C(v) \sum_{x=0}^{7} \sum_{y=0}^{7} f(x,y) \cos\left[\frac{(2x+1)u\pi}{16}\right] \cos\left[\frac{(2y+1)v\pi}{16}\right]$$
+</div>
+<p>The top-left coefficient $F(0,0)$ is the <strong>DC component</strong> (the overall average brightness). The remaining 63 are <strong>AC components</strong> (increasing in frequency down and right). JPEG then divides by a psychovisual quantization matrix $Q$ and rounds:</p>
+<div class="formula-box">
+  $$F_Q(u,v) = \text{round}\left( \frac{F(u,v)}{Q(u,v)} \right) \implies \text{Almost all high-frequency terms turn to } 0$$
+</div>
+
+    </div>
+    
+    <div class="mb-example-box">
+      <div style="font-weight:700;color:var(--accent-light);margin-bottom:0.75rem;font-size:1.1rem;">
+        📝 Worked Example by Hand
+      </div>
+      
+<p>Let's compress a simplified $2 \times 2$ pixel tile: $\begin{bmatrix} 120 & 130 \\ 120 & 130 \end{bmatrix}$ (a gentle horizontal brightness step):</p>
+<div class="mb-example-step">
+  <strong>Step 1: Compute Average (DC) and Difference (AC) Basis</strong><br/>
+  $$F(0,0) = \frac{120 + 130 + 120 + 130}{2} = 250 \;\text{(Average brightness)}$$
+  $$F(0,1) = \frac{(120 - 130) + (120 - 130)}{2} = -10 \;\text{(Horizontal gradient)}$$
+  $$F(1,0) = 0, \quad F(1,1) = 0 \;\text{(Vertical & diagonal changes)}$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 2: Quantize with $Q = \begin{bmatrix} 10 & 20 \\ 20 & 40 \end{bmatrix}$</strong><br/>
+  $$F_Q(0,0) = \text{round}(250 / 10) = 25$$
+  $$F_Q(0,1) = \text{round}(-10 / 20) = 0 \;\text{(Rounded to zero!)}$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 3: Reconstruct via Inverse DCT</strong><br/>
+  De-quantize: $25 \times 10 = 250$. Reconstructed pixels: $[125, 125, 125, 125]$.<br/>
+  <strong>Conclusion:</strong> The difference between $120$ and $125$ is virtually imperceptible to human rods and cones, but storage dropped from 4 independent numbers to just 1!
+</div>
+
+    </div>
+  </section>
+
+  <!-- 4. See It Live -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🔬</span> 3. See It Live</h2>
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">Interactive 8x8 DCT Compression Lab. Adjust the slider from 100% (Lossless) down to 10% (High compression). Notice how high frequencies turn to zero while the reconstructed tile remains smooth!</p>
+
+    <div class="interactive-simulation-box">
+      <div class="sim-toolbar">
+        <span class="sim-title">JPEG Simulation Lab</span>
+        <div class="sim-controls">
+          
+<label style="color:#d6d3d1;font-size:0.85rem;">Compression Level:</label>
+<input type="range" id="slider-jpeg-qual" min="5" max="100" value="50" style="width:140px;">
+
+        </div>
+      </div>
+      <div class="sim-canvas-wrap">
+        <canvas id="cv-jpeg" width="700" height="340" role="img" aria-label="How JPEG Shrinks Photos interactive canvas"></canvas>
+      </div>
+      <div class="sim-caption">
+        <span class="sim-readout" id="jpeg-readout">Initializing simulation…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Try It in Python -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🐍</span> 4. Try It in Python (&lt; 15 Lines)</h2>
+    <div class="code-block">
+      <div class="code-header"><span>Python 3 Runnable Snippet</span></div>
+      <pre class="code-content" style="font-family:'JetBrains Mono',monospace;font-size:0.875rem;line-height:1.6;margin:0;color:#e2e8f0;">import numpy as np
+
+# 8x8 image block
+block = np.array([[120 + i*5 + j*5 for j in range(8)] for i in range(8)])
+
+# 1D DCT matrix
+N = 8
+A = np.zeros((N, N))
+for i in range(N):
+    for j in range(N):
+        A[i, j] = np.sqrt(1/N if i==0 else 2/N) * np.cos((2*j+1)*i*np.pi / (2*N))
+
+# 2D DCT: F = A * block * A.T
+dct_coeffs = A @ (block - 128) @ A.T
+# Zero out high frequency bottom-right quadrant
+dct_coeffs[4:, 4:] = 0
+reconstructed = (A.T @ dct_coeffs @ A) + 128
+print(&quot;Max absolute pixel reconstruction error:&quot;, np.max(np.abs(block - reconstructed)))</pre>
+    </div>
+  </section>
+
+  <!-- 6. Where to Go Next -->
+  <section class="mb-section">
+    <div class="mb-next-card">
+      <h3><span>🗺️</span> Where to Go Next on Maths for All</h3>
+      <p style="color:var(--text-secondary);font-size:0.95rem;">Ready to master the underlying mathematical theory from first principles? Explore these chapters on the platform:</p>
+      <div class="mb-next-links">
+        
+      <a href="linear-algebra.html#ch4" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 4 — Linear Transformations & Matrix Multiplication</div>
+          <span>Learn how DCT is an orthonormal change of basis matrix.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      <a href="linear-algebra.html#ch8" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 8 — Low-Rank Approximation & Image SVD</div>
+          <span>Compare frequency quantization (JPEG) with rank truncation (SVD).</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Prev / Next Navigation -->
+  <div class='mb-story-nav'>
+      <a href="netflix-svd.html" class="mb-story-nav-btn">
+        <span class="mb-story-nav-label">← Previous Story</span>
+        <span class="mb-story-nav-title">Netflix: How Netflix Guesses Your Next Show</span>
+      </a>
+
+      <a href="maths-behind.html" class="mb-story-nav-btn mb-story-nav-next">
+        <span class="mb-story-nav-label">Overview →</span>
+        <span class="mb-story-nav-title">All Stories</span>
+      </a>
+</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
+      <a href="maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/maths-behind-viz.js"></script>
+</body>
+</html>

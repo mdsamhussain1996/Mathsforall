@@ -22,6 +22,14 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
 
 // ── SEARCH ──
 const searchData = [
+  { title: "The Maths Behind Everyday Apps", desc: "Interactive stories: Google, ChatGPT, Shazam, WhatsApp, Netflix, JPEG", url: "maths-behind.html" },
+  { title: "How Google Ranked the Web (PageRank)", desc: "Eigenvectors and random surfer Markov chains", url: "maths-behind/google-pagerank.html" },
+  { title: "How ChatGPT Pays Attention", desc: "Query, Key, Value dot products and softmax matrix transformations", url: "maths-behind/chatgpt-attention.html" },
+  { title: "How Shazam Recognises a Song", desc: "Fast Fourier Transform (FFT) and spectrogram peak hashes", url: "maths-behind/shazam-fourier.html" },
+  { title: "How WhatsApp Keeps Secrets", desc: "Diffie-Hellman key exchange and modular arithmetic trapdoors", url: "maths-behind/whatsapp-rsa.html" },
+  { title: "How Netflix Guesses Your Next Show", desc: "Low-rank SVD and latent factor collaborative filtering", url: "maths-behind/netflix-svd.html" },
+  { title: "How JPEG Shrinks Photos", desc: "2D Discrete Cosine Transform (DCT) and perceptual quantization", url: "maths-behind/jpeg-dct.html" },
+
   { title: 'Linear Algebra Master Curriculum', desc: 'Complete 10-chapter curriculum with interactive simulations', url: 'linear-algebra.html' },
   { title: 'Vectors & Vector Operations', desc: 'Displacements, addition, and scaling in ℝⁿ', url: 'linear-algebra.html#topic-1-1' },
   { title: 'Dot Product & Projections', desc: 'Angles, lengths, Cauchy-Schwarz, and orthogonal shadows', url: 'linear-algebra.html#topic-1-2' },

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Maths Behind Everyday Apps: Google, ChatGPT, Shazam, Netflix | Maths for All</title>
+  <meta name="description" content="Explore the mathematics inside the apps you use every day: Google PageRank, ChatGPT attention, Shazam FFT, WhatsApp encryption, Netflix SVD, and JPEG DCT." />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="The Maths Behind Everyday Apps: Google, ChatGPT, Shazam, Netflix | Maths for All" />
+  <meta property="og:description" content="Explore the mathematics inside the apps you use every day: Google PageRank, ChatGPT attention, Shazam FFT, WhatsApp encryption, Netflix SVD, and JPEG DCT." />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Maths Behind Everyday Apps: Google, ChatGPT, Shazam, Netflix | Maths for All" />
+  <meta name="twitter:description" content="Explore the mathematics inside the apps you use every day: Google PageRank, ChatGPT attention, Shazam FFT, WhatsApp encryption, Netflix SVD, and JPEG DCT." />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <link rel="stylesheet" href="css/maths-behind.css?v=1.0" />
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li><a href="maths-behind.html" class="active">The Maths Behind…</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<div style="max-width:1440px;margin:0 auto;padding:0 2rem;">
+  <div class="mb-hero">
+    <div class="mb-hero-tag">🚀 Story-Driven Mathematics for Developers</div>
+    <h1>The Maths Behind… <br/><span style="background:linear-gradient(135deg,#fff,var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Apps You Use Every Day</span></h1>
+    <p>Ever wondered what mathematical machinery actually runs inside your favourite applications? No dry definitions or hand-waving: step inside the algorithms powering Google, ChatGPT, Shazam, WhatsApp, Netflix, and JPEG — with intuitive mental models, hand-calculated examples, and live interactive simulations.</p>
+    
+    <div class="mb-filter-bar">
+      <button class="mb-filter-btn active" onclick="filterCards('all')">All Stories (6)</button>
+      <button class="mb-filter-btn" onclick="filterCards('ai')">AI & Search</button>
+      <button class="mb-filter-btn" onclick="filterCards('media')">Media & Audio</button>
+      <button class="mb-filter-btn" onclick="filterCards('crypto')">Security & Crypto</button>
+    </div>
+  </div>
+
+  <div class="mb-grid" id="storyGrid">
+
+      <a href="maths-behind/google-pagerank.html" class="mb-card" data-category="linear algebra · markov chains">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🌐</span>
+            <span>Google</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How Google Ranked the Web</h3>
+        <p class="mb-card-hook">How did Google figure out which of 50 billion web pages to show you in 0.2 seconds? In 1996, search engines just counted keyword matches—so spam …</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Linear Algebra · Markov Chains</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+      <a href="maths-behind/chatgpt-attention.html" class="mb-card" data-category="deep learning · transformers">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🤖</span>
+            <span>ChatGPT</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How ChatGPT Pays Attention</h3>
+        <p class="mb-card-hook">Consider this sentence: <em>"The animal didn't cross the street because <strong>it</strong> was too tired."</em> Now change one word: <em>"The an…</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Deep Learning · Transformers</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+      <a href="maths-behind/shazam-fourier.html" class="mb-card" data-category="signal processing · fft">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🎵</span>
+            <span>Shazam</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-red">🔴 Advanced</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How Shazam Recognises a Song</h3>
+        <p class="mb-card-hook">You are standing inside a noisy restaurant with blaring chatter and clinking wine glasses. A 4-second fragment of a song plays faintly in the bac…</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Signal Processing · FFT</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+      <a href="maths-behind/whatsapp-rsa.html" class="mb-card" data-category="cryptography · number theory">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🔒</span>
+            <span>WhatsApp</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-green">🟢 Beginner</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How WhatsApp Keeps Secrets</h3>
+        <p class="mb-card-hook">When you send a private message on WhatsApp, it travels through airport coffee-shop Wi-Fi, internet service providers, undersea telecom cables, a…</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Cryptography · Number Theory</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+      <a href="maths-behind/netflix-svd.html" class="mb-card" data-category="linear algebra · recommender systems">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🎬</span>
+            <span>Netflix</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How Netflix Guesses Your Next Show</h3>
+        <p class="mb-card-hook">Netflix has 250 million subscribers and over 15,000 movie titles. The average user has watched fewer than 150 movies. That means if you drew a gi…</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Linear Algebra · Recommender Systems</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+      <a href="maths-behind/jpeg-dct.html" class="mb-card" data-category="image compression · frequency domain">
+        <div class="mb-card-header">
+          <div class="mb-app-badge">
+            <span class="mb-app-icon">🖼️</span>
+            <span>JPEG</span>
+          </div>
+          <div class="mb-card-meta">
+            <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+            <span>⏱️ 2 min read</span>
+          </div>
+        </div>
+        <h3 class="mb-card-title">How JPEG Shrinks Photos</h3>
+        <p class="mb-card-hook">A raw 12-megapixel smartphone photo takes roughly 36 megabytes of storage. When saved as a JPEG, the exact same photo shrinks down to just 2.5 me…</p>
+        <div class="mb-card-footer">
+          <div class="mb-card-tags">
+            <span class="mb-tag">Image Compression · Frequency Domain</span>
+          </div>
+          <span class="mb-card-cta">Read Story →</span>
+        </div>
+      </a>
+
+  </div>
+</div>
+
+<script>
+  function filterCards(cat) {
+    document.querySelectorAll('.mb-filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    const cards = document.querySelectorAll('.mb-card');
+    cards.forEach(card => {
+      const tags = card.getAttribute('data-category');
+      if (cat === 'all') {
+        card.style.display = 'flex';
+      } else if (cat === 'ai' && (tags.includes('linear algebra') || tags.includes('deep learning') || tags.includes('markov'))) {
+        card.style.display = 'flex';
+      } else if (cat === 'media' && (tags.includes('signal') || tags.includes('image') || tags.includes('recommender'))) {
+        card.style.display = 'flex';
+      } else if (cat === 'crypto' && tags.includes('cryptography')) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
+      <a href="maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/maths-behind-viz.js"></script>
+</body>
+</html>

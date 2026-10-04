@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Google Ranked the Web: Eigenvectors, Random Surfers &amp; the $1 Trillion Linear Algebra Algorithm | Maths for All</title>
+  <meta name="description" content="Discover the math behind Google: How did Google figure out which of 50 billion web pages to show you in 0.2 seconds? In 1996, search engines just counted keyword matches—so spam sites" />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/google-pagerank.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="How Google Ranked the Web: Eigenvectors, Random Surfers &amp; the $1 Trillion Linear Algebra Algorithm | Maths for All" />
+  <meta property="og:description" content="Discover the math behind Google: How did Google figure out which of 50 billion web pages to show you in 0.2 seconds? In 1996, search engines just counted keyword matches—so spam sites" />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/google-pagerank.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How Google Ranked the Web: Eigenvectors, Random Surfers &amp; the $1 Trillion Linear Algebra Algorithm | Maths for All" />
+  <meta name="twitter:description" content="Discover the math behind Google: How did Google figure out which of 50 billion web pages to show you in 0.2 seconds? In 1996, search engines just counted keyword matches—so spam sites" />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="css/style.css?v=1.3" />
+  <link rel="stylesheet" href="css/practice.css?v=1.0" />
+  <link rel="stylesheet" href="css/maths-behind.css?v=1.0" />
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="discrete-maths.html">Discrete Maths</a></li>
+      <li><a href="maths-behind.html" class="active">The Maths Behind…</a></li>
+      <li><a href="cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="robotics.html">Robotics</a></li>
+      <li><a href="control.html">Control Theory</a></li>
+      <li><a href="more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<div class="mb-article-container">
+  <div class="mb-breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <a href="maths-behind.html">The Maths Behind…</a>
+    <span>/</span>
+    <span style="color:var(--text-primary);">Google</span>
+  </div>
+
+  <header class="mb-article-hero">
+    <div class="mb-article-badges">
+      <span class="mb-app-badge"><span class="mb-app-icon">🌐</span> Google</span>
+      <span class="mb-diff-pill mb-diff-yellow">🟡 Intermediate</span>
+      <span style="font-size:0.85rem;color:var(--text-muted);">⏱️ 2 min read</span>
+      <span class="mb-tag">Linear Algebra · Markov Chains</span>
+    </div>
+    <h1 class="mb-article-title">How Google Ranked the Web</h1>
+    <p class="mb-article-subtitle">Eigenvectors, Random Surfers & the $1 Trillion Linear Algebra Algorithm</p>
+  </header>
+
+  <!-- 1. The Hook -->
+  <section class="mb-section">
+    <div class="mb-hook-box">
+      How did Google figure out which of 50 billion web pages to show you in 0.2 seconds? In 1996, search engines just counted keyword matches—so spam sites simply typed "cheap shoes" 10,000 times in invisible white font. Larry Page and Sergey Brin had a radical intuition: what if links weren't just hyperlinks, but votes of confidence from one human creator to another?
+    </div>
+  </section>
+
+  <!-- 2. The Big Idea -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">💡</span> 1. The Big Idea</h2>
+    <div class="mb-idea-card">
+      <h3>The Core Intuition</h3>
+      <p style="font-size:1.05rem;line-height:1.7;color:var(--text-primary);">A link from the New York Times is worth millions of links from random spam blogs. In other words: <em>a page is important if important pages link to it</em>. That sounds like a circular definition! How do you compute who is important if you need to know who is important first? In mathematics, circular definitions are solved using <strong>equilibrium distributions and eigenvectors</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 3. The Maths -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">📐</span> 2. The Formal Mathematics</h2>
+    <div class="mb-prose">
+      
+<p>Model the entire internet as a directed graph where pages are nodes and links are edges. If page $i$ has $C(i)$ outgoing links, each receiving page gets a vote fraction of $1/C(i)$. The rank of page $j$ is:</p>
+<div class="formula-box">
+  $$r_j = \sum_{i \in \text{links to } j} \frac{r_i}{C(i)}$$
+</div>
+<p>In matrix notation: $\mathbf{r} = M \mathbf{r}$. But what if a page has no outbound links (a dead end) or groups of pages trap the surfer? Page and Brin introduced a <strong>damping factor $d = 0.85$</strong>: with 85% probability the surfer clicks a link on the current page; with 15% probability they get bored and teleport to any random page across the entire web:</p>
+<div class="formula-box">
+  $$G = d M + \frac{1-d}{n} \mathbf{1}\mathbf{1}^T, \qquad G \mathbf{r} = 1 \cdot \mathbf{r}$$
+</div>
+<p>Notice that equation: $G \mathbf{r} = 1 \cdot \mathbf{r}$. <strong>PageRank is literally finding the principal eigenvector of the Google transition matrix $G$ with eigenvalue $\lambda = 1$!</strong> By the Perron-Frobenius theorem, this equilibrium vector is guaranteed to exist and be unique.</p>
+
+    </div>
+    
+    <div class="mb-example-box">
+      <div style="font-weight:700;color:var(--accent-light);margin-bottom:0.75rem;font-size:1.1rem;">
+        📝 Worked Example by Hand
+      </div>
+      
+<p>Consider a mini-internet of 3 pages: <strong>A</strong> links to B and C; <strong>B</strong> links to C; <strong>C</strong> links to A. Let damping $d=1$ for hand calculation:</p>
+<div class="mb-example-step">
+  <strong>Step 1: Set up the Column-Stochastic Transition Matrix $M$</strong><br/>
+  Page A distributes its weight 50/50 to B and C. Page B sends 100% to C. Page C sends 100% to A:
+  $$M = \begin{bmatrix} 0 & 0 & 1 \\ 0.5 & 0 & 0 \\ 0.5 & 1 & 0 \end{bmatrix}$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 2: Solve the Linear System $(M - I)\mathbf{r} = \mathbf{0}$</strong><br/>
+  $$\begin{aligned}
+  r_A &= r_C \\
+  r_B &= 0.5 r_A \\
+  r_C &= 0.5 r_A + r_B = 0.5 r_A + 0.5 r_A = r_A
+  \end{aligned}$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 3: Normalise so probabilities sum to 1 ($r_A + r_B + r_C = 1$)</strong><br/>
+  $$r_A + 0.5 r_A + r_A = 1 \implies 2.5 r_A = 1 \implies r_A = 0.4, \quad r_B = 0.2, \quad r_C = 0.4$$
+  <strong>Conclusion:</strong> Pages A and C tie for #1 rank (40% each), while Page B gets 20%. Page C receives votes from both A and B, making it high authority!
+</div>
+
+    </div>
+  </section>
+
+  <!-- 4. See It Live -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🔬</span> 3. See It Live</h2>
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">Watch the green Random Surfer particle navigate the 5-node web graph with 15% random teleportation. The probability bar chart on the right automatically converges to the exact principal eigenvector!</p>
+
+    <div class="interactive-simulation-box">
+      <div class="sim-toolbar">
+        <span class="sim-title">Google Simulation Lab</span>
+        <div class="sim-controls">
+          
+<button type="button" class="sim-btn" id="btn-pr-play">⏸ Pause</button>
+<button type="button" class="sim-btn" id="btn-pr-step">⏭ Step Surfer</button>
+<button type="button" class="sim-btn" id="btn-pr-reset">↺ Reset Stats</button>
+
+        </div>
+      </div>
+      <div class="sim-canvas-wrap">
+        <canvas id="cv-pagerank" width="700" height="340" role="img" aria-label="How Google Ranked the Web interactive canvas"></canvas>
+      </div>
+      <div class="sim-caption">
+        <span class="sim-readout" id="pagerank-readout">Initializing simulation…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Try It in Python -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🐍</span> 4. Try It in Python (&lt; 15 Lines)</h2>
+    <div class="code-block">
+      <div class="code-header"><span>Python 3 Runnable Snippet</span></div>
+      <pre class="code-content" style="font-family:'JetBrains Mono',monospace;font-size:0.875rem;line-height:1.6;margin:0;color:#e2e8f0;">import numpy as np
+
+# Transition matrix: columns sum to 1
+M = np.array([
+    [0.0, 0.0, 1.0],
+    [0.5, 0.0, 0.0],
+    [0.5, 1.0, 0.0]
+])
+d, n = 0.85, 3
+G = d * M + (1 - d) / n * np.ones((n, n))
+
+# Power Iteration: simulate infinite surfing
+r = np.ones(n) / n
+for _ in range(50):
+    r = G @ r
+
+print(&quot;PageRank scores:&quot;, np.round(r, 4))
+# Output: [0.3878, 0.2148, 0.3974] -&gt; Page C ranks highest!</pre>
+    </div>
+  </section>
+
+  <!-- 6. Where to Go Next -->
+  <section class="mb-section">
+    <div class="mb-next-card">
+      <h3><span>🗺️</span> Where to Go Next on Maths for All</h3>
+      <p style="color:var(--text-secondary);font-size:0.95rem;">Ready to master the underlying mathematical theory from first principles? Explore these chapters on the platform:</p>
+      <div class="mb-next-links">
+        
+      <a href="linear-algebra.html#ch7" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 7 — Eigenvalues & Spectra</div>
+          <span>Master the characteristic polynomial, invariant axes, and spectral decomposition.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      <a href="linear-algebra.html#ch10" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 10 — AI & Graph Applications</div>
+          <span>Explore graph Laplacians, spectral clustering, and random walks.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Prev / Next Navigation -->
+  <div class='mb-story-nav'>
+      <a href="maths-behind.html" class="mb-story-nav-btn">
+        <span class="mb-story-nav-label">← Overview</span>
+        <span class="mb-story-nav-title">All Stories</span>
+      </a>
+
+      <a href="chatgpt-attention.html" class="mb-story-nav-btn mb-story-nav-next">
+        <span class="mb-story-nav-label">Next Story →</span>
+        <span class="mb-story-nav-title">ChatGPT: How ChatGPT Pays Attention</span>
+      </a>
+</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
+      <a href="maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
+      <a href="cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/maths-behind-viz.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Shazam Recognises a Song: The Fast Fourier Transform, Spectrograms &amp; Combinatorial Hashes | Maths for All</title>
+  <meta name="description" content="Discover the math behind Shazam: You are standing inside a noisy restaurant with blaring chatter and clinking wine glasses. A 4-second fragment of a song plays faintly in the backgrou" />
+  <link rel="canonical" href="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/shazam-fourier.html" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="icon" href="../favicon.ico" sizes="48x48" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="../assets/favicon-16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Maths for All" />
+  <meta property="og:title" content="How Shazam Recognises a Song: The Fast Fourier Transform, Spectrograms &amp; Combinatorial Hashes | Maths for All" />
+  <meta property="og:description" content="Discover the math behind Shazam: You are standing inside a noisy restaurant with blaring chatter and clinking wine glasses. A 4-second fragment of a song plays faintly in the backgrou" />
+  <meta property="og:url" content="https://mdsamhussain1996.github.io/Mathsforall/maths-behind/shazam-fourier.html" />
+  <meta property="og:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How Shazam Recognises a Song: The Fast Fourier Transform, Spectrograms &amp; Combinatorial Hashes | Maths for All" />
+  <meta name="twitter:description" content="Discover the math behind Shazam: You are standing inside a noisy restaurant with blaring chatter and clinking wine glasses. A 4-second fragment of a song plays faintly in the backgrou" />
+  <meta name="twitter:image" content="https://mdsamhussain1996.github.io/Mathsforall/assets/og-image.png" />
+  <link rel="stylesheet" href="../css/style.css?v=1.3" />
+  <link rel="stylesheet" href="../css/practice.css?v=1.0" />
+  <link rel="stylesheet" href="../css/maths-behind.css?v=1.0" />
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Maths <span>for All</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../linear-algebra.html">Linear Algebra</a></li>
+      <li><a href="../discrete-maths.html">Discrete Maths</a></li>
+      <li><a href="../maths-behind.html" class="active">The Maths Behind…</a></li>
+      <li><a href="../cs-aiml.html">CS / AI·ML</a></li>
+      <li><a href="../robotics.html">Robotics</a></li>
+      <li><a href="../control.html">Control Theory</a></li>
+      <li><a href="../more.html">More ▾</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search" />
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
+
+<div class="mb-article-container">
+  <div class="mb-breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>/</span>
+    <a href="../maths-behind.html">The Maths Behind…</a>
+    <span>/</span>
+    <span style="color:var(--text-primary);">Shazam</span>
+  </div>
+
+  <header class="mb-article-hero">
+    <div class="mb-article-badges">
+      <span class="mb-app-badge"><span class="mb-app-icon">🎵</span> Shazam</span>
+      <span class="mb-diff-pill mb-diff-red">🔴 Advanced</span>
+      <span style="font-size:0.85rem;color:var(--text-muted);">⏱️ 2 min read</span>
+      <span class="mb-tag">Signal Processing · FFT</span>
+    </div>
+    <h1 class="mb-article-title">How Shazam Recognises a Song</h1>
+    <p class="mb-article-subtitle">The Fast Fourier Transform, Spectrograms & Combinatorial Hashes</p>
+  </header>
+
+  <!-- 1. The Hook -->
+  <section class="mb-section">
+    <div class="mb-hook-box">
+      You are standing inside a noisy restaurant with blaring chatter and clinking wine glasses. A 4-second fragment of a song plays faintly in the background. You tap Shazam on your phone, and within 2 seconds it correctly identifies the track, album, and exact second playing. How does it hear through all that noise?
+    </div>
+  </section>
+
+  <!-- 2. The Big Idea -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">💡</span> 1. The Big Idea</h2>
+    <div class="mb-idea-card">
+      <h3>The Core Intuition</h3>
+      <p style="font-size:1.05rem;line-height:1.7;color:var(--text-primary);">A raw sound recording is just a wiggly line of pressure measurements over time (44,100 samples per second). Trying to match that raw wave is hopeless: background noise, echoes, and volume corrupt the time wave completely. But in 1822, Joseph Fourier discovered that <strong>any periodic wave can be decomposed into a unique sum of pure sine and cosine tones</strong>. When you convert audio into frequencies over time (a spectrogram), a song's musical chords form a persistent constellation of frequency peaks that survive any amount of chatter!</p>
+    </div>
+  </section>
+
+  <!-- 3. The Maths -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">📐</span> 2. The Formal Mathematics</h2>
+    <div class="mb-prose">
+      
+<p>The <strong>Discrete Fourier Transform (DFT)</strong> translates $N$ time samples $x[n]$ into $N$ frequency coefficients $X[k]$:</p>
+<div class="formula-box">
+  $$X[k] = \sum_{n=0}^{N-1} x[n] \cdot e^{-i 2\pi k n / N} = \sum_{n=0}^{N-1} x[n] \Big[ \cos\Big(\frac{2\pi kn}{N}\Big) - i \sin\Big(\frac{2\pi kn}{N}\Big) \Big]$$
+</div>
+<p>By sliding a window over time (the Short-Time Fourier Transform, or STFT), Shazam generates a 2D <strong>time-frequency spectrogram</strong>. It picks out the highest energy peaks (constellation points) and pairs them into compact combinatorial hash signatures:</p>
+<div class="formula-box">
+  $$\text{Hash} = \big[ f_1 \;:\; f_2 \;:\; (t_2 - t_1) \big] \implies \text{Points to Song ID and Time offset } t_1$$
+</div>
+
+    </div>
+    
+    <div class="mb-example-box">
+      <div style="font-weight:700;color:var(--accent-light);margin-bottom:0.75rem;font-size:1.1rem;">
+        📝 Worked Example by Hand
+      </div>
+      
+<p>Let's take a tiny 4-point discrete audio signal: $x = [1, 0, -1, 0]$ at sample times $n=0, 1, 2, 3$. Let's test for frequency $k=1$:</p>
+<div class="mb-example-step">
+  <strong>Step 1: Compute Basis Angles $\theta_n = 2\pi(1)n / 4 = n\pi/2$</strong><br/>
+  For $n=0$: $\theta = 0 \implies e^{-i 0} = 1$<br/>
+  For $n=1$: $\theta = \pi/2 \implies e^{-i \pi/2} = -i$<br/>
+  For $n=2$: $\theta = \pi \implies e^{-i \pi} = -1$<br/>
+  For $n=3$: $\theta = 3\pi/2 \implies e^{-i 3\pi/2} = i$
+</div>
+<div class="mb-example-step">
+  <strong>Step 2: Multiply and Sum</strong><br/>
+  $$X[1] = (1)(1) + (0)(-i) + (-1)(-1) + (0)(i) = 1 + 0 + 1 + 0 = 2$$
+</div>
+<div class="mb-example-step">
+  <strong>Step 3: Measure Frequency Magnitude</strong><br/>
+  $$|X[1]| = \sqrt{2^2 + 0^2} = 2$$
+  <strong>Conclusion:</strong> The Fourier transform successfully extracted an amplitude of $2.0$ at fundamental frequency $k=1$!
+</div>
+
+    </div>
+  </section>
+
+  <!-- 4. See It Live -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🔬</span> 3. See It Live</h2>
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">Live Audio Synthesizer & FFT Spectrum Analyzer. Add an 880Hz overtone and crank the background noise slider. Notice how the FFT frequency peaks remain crystal clear even when the time waveform looks like chaos!</p>
+
+    <div class="interactive-simulation-box">
+      <div class="sim-toolbar">
+        <span class="sim-title">Shazam Simulation Lab</span>
+        <div class="sim-controls">
+          
+<button type="button" class="sim-btn" id="btn-fft-overtone">+ Add 880Hz Overtone</button>
+<label style="color:#d6d3d1;font-size:0.85rem;margin-left:0.75rem;">Noise Level:</label>
+<input type="range" id="slider-fft-noise" min="0" max="0.8" step="0.05" value="0.15" style="width:110px;">
+
+        </div>
+      </div>
+      <div class="sim-canvas-wrap">
+        <canvas id="cv-fourier" width="700" height="340" role="img" aria-label="How Shazam Recognises a Song interactive canvas"></canvas>
+      </div>
+      <div class="sim-caption">
+        <span class="sim-readout" id="fourier-readout">Initializing simulation…</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Try It in Python -->
+  <section class="mb-section">
+    <h2 class="mb-section-title"><span class="mb-section-icon">🐍</span> 4. Try It in Python (&lt; 15 Lines)</h2>
+    <div class="code-block">
+      <div class="code-header"><span>Python 3 Runnable Snippet</span></div>
+      <pre class="code-content" style="font-family:'JetBrains Mono',monospace;font-size:0.875rem;line-height:1.6;margin:0;color:#e2e8f0;">import numpy as np
+
+# Sample rate: 8000 Hz, duration 0.05 seconds
+t = np.linspace(0, 0.05, 400, endpoint=False)
+# 440 Hz (Concert A) + noise
+signal = np.sin(2 * np.pi * 440 * t) + 0.4 * np.random.randn(len(t))
+
+# Compute Fast Fourier Transform
+fft_vals = np.fft.rfft(signal)
+freqs = np.fft.rfftfreq(len(t), 1/8000)
+
+peak_freq = freqs[np.argmax(np.abs(fft_vals))]
+print(f&quot;Detected strongest frequency: {peak_freq:.1f} Hz (Expected ~440 Hz)&quot;)</pre>
+    </div>
+  </section>
+
+  <!-- 6. Where to Go Next -->
+  <section class="mb-section">
+    <div class="mb-next-card">
+      <h3><span>🗺️</span> Where to Go Next on Maths for All</h3>
+      <p style="color:var(--text-secondary);font-size:0.95rem;">Ready to master the underlying mathematical theory from first principles? Explore these chapters on the platform:</p>
+      <div class="mb-next-links">
+        
+      <a href="../linear-algebra.html#ch6" class="mb-next-link-item">
+        <div>
+          <div>Linear Algebra: Chapter 6 — Orthogonality & Projections</div>
+          <span>Understand why Fourier basis waves are mutually orthogonal inner products.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      <a href="../discrete-maths.html#ch4" class="mb-next-link-item">
+        <div>
+          <div>Discrete Maths: Chapter 4 — Recurrences & Divide-and-Conquer</div>
+          <span>Learn how the Cooley-Tukey FFT slashes complexity from $O(N^2)$ to $O(N\log N)$.</span>
+        </div>
+        <div>→</div>
+      </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Prev / Next Navigation -->
+  <div class='mb-story-nav'>
+      <a href="chatgpt-attention.html" class="mb-story-nav-btn">
+        <span class="mb-story-nav-label">← Previous Story</span>
+        <span class="mb-story-nav-title">ChatGPT: How ChatGPT Pays Attention</span>
+      </a>
+
+      <a href="whatsapp-rsa.html" class="mb-story-nav-btn mb-story-nav-next">
+        <span class="mb-story-nav-label">Next Story →</span>
+        <span class="mb-story-nav-title">WhatsApp: How WhatsApp Keeps Secrets</span>
+      </a>
+</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--card-border);padding:3rem 2rem;text-align:center;margin-top:5rem;color:var(--text-secondary);font-size:0.875rem;">
+  <div style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+    <div><strong>Maths for All</strong> — Open Interactive Educational Platform</div>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="../index.html" style="color:inherit;text-decoration:none;">Home</a>
+      <a href="../linear-algebra.html" style="color:inherit;text-decoration:none;">Linear Algebra</a>
+      <a href="../discrete-maths.html" style="color:inherit;text-decoration:none;">Discrete Maths</a>
+      <a href="../maths-behind.html" style="color:var(--accent-light);text-decoration:none;">The Maths Behind…</a>
+      <a href="../cs-aiml.html" style="color:inherit;text-decoration:none;">CS / AI·ML</a>
+      <a href="../robotics.html" style="color:inherit;text-decoration:none;">Robotics</a>
+      <a href="../control.html" style="color:inherit;text-decoration:none;">Control</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="../js/maths-behind-viz.js"></script>
+</body>
+</html>
