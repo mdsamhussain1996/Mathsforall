@@ -7,7 +7,7 @@
   --accent-light: #fbbf24;
   --accent-glow: rgba(217, 119, 6, 0.25);
   --teal: #10b981;
-  --purple: #8b5cf6;
+  --purple: #a78bfa;   /* WCAG AA: ~6.1:1 on --primary (was #8b5cf6, ~4.0:1) */
   --gold: #f59e0b;
   --text-primary: #f5f5f4;
   --text-secondary: #d6d3d1;   /* AA: ~12:1 on --primary */

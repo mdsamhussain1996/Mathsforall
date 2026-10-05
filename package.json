@@ -8,6 +8,7 @@
     "check:render": "node scripts/render_check.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "http-server": "^14.1.1",
     "playwright": "^1.49.1"
   }
