@@ -12,6 +12,10 @@ window.MathJax = {
   },
   startup: {
     ready: function () {
+      var isLazy = document.body && document.body.hasAttribute('data-lazy-math');
+      if (isLazy) {
+        MathJax.config.startup.typeset = false;
+      }
       MathJax.startup.defaultReady();
     }
   }
