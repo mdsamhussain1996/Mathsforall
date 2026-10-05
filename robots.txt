@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /maths-for-all.html
 
 Sitemap: https://mdsamhussain1996.github.io/Mathsforall/sitemap.xml
