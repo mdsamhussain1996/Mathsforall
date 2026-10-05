@@ -8,7 +8,7 @@
   'use strict';
 
   var P = window.PRACTICE_DATA = window.PRACTICE_DATA || {};
-  function R(str) { return str; }
+  var R = String.raw;
 
   // CHAPTER 1: COUNTING & SAMPLE SPACES
   P["prob-ch1"] = [

@@ -189,7 +189,7 @@
       <div class="phase-card phase-intuition">
         <div class="phase-header"><span class="phase-badge">💡 3. Intuition First</span></div>
         <p>
-          Imagine driving down the Mumbai-Pune Expressway. If you drive 100 kilometres in one hour, your <em>average speed</em> is $100	ext{ km/h}$. But at any specific moment, your speedometer may have read $125	ext{ km/h}$ or $0	ext{ km/h}$ at a toll booth.
+          Imagine driving down the Mumbai-Pune Expressway. If you drive 100 kilometres in one hour, your <em>average speed</em> is $100\text{ km/h}$. But at any specific moment, your speedometer may have read $125\text{ km/h}$ or $0\text{ km/h}$ at a toll booth.
         </p>
         <p style="margin-top:0.75rem;">
           The derivative is simply that <strong>instantaneous speedometer reading</strong>. Graphically, if you zoom into any smooth non-linear curve at a microscopic level, the curve straightens out until it is indistinguishable from a flat straight line. That local line is the <strong>tangent line</strong>, and its slope is the derivative.
@@ -199,21 +199,21 @@
       <!-- 4. 📐 Formal theory -->
       <div class="phase-card phase-theory">
         <div class="phase-header"><span class="phase-badge">📐 4. Formal Theory</span></div>
-        <p><strong>Definition (The Derivative):</strong> Let $f: \mathbb{R} 	o \mathbb{R}$ be defined on an open interval containing $x$. The derivative $f'(x)$ is:</p>
+        <p><strong>Definition (The Derivative):</strong> Let $f: \mathbb{R} \to \mathbb{R}$ be defined on an open interval containing $x$. The derivative $f'(x)$ is:</p>
         <div class="formula-box">
-          $$f'(x) = \lim_{h 	o 0} rac{f(x + h) - f(x)}{h}$$
+          $$f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}$$
         </div>
         <p><strong>First-Order Linear Approximation (Taylor Expansion):</strong></p>
         <div class="formula-box">
-          $$f(x + \Delta x) pprox f(x) + f'(x) \Delta x, \quad 	ext{with error } E(\Delta x) = \mathcal{O}(\Delta x^2)$$
+          $$f(x + \Delta x) \approx f(x) + f'(x) \Delta x, \quad \text{with error } E(\Delta x) = \mathcal{O}(\Delta x^2)$$
         </div>
         <p><strong>Numerical Differentiation Formulas:</strong></p>
         <ul style="margin-left:1.5rem;line-height:1.7;color:var(--text-secondary);font-size:0.92rem;">
-          <li><strong>Forward Difference:</strong> $rac{f(x+h) - f(x)}{h} = f'(x) + rac{h}{2}f''(x) + \mathcal{O}(h^2)$ &nbsp; $\implies$ Truncation error is $\mathcal{O}(h)$.</li>
-          <li><strong>Central Difference:</strong> $rac{f(x+h) - f(x-h)}{2h} = f'(x) + rac{h^2}{6}f'''(x) + \mathcal{O}(h^4)$ &nbsp; $\implies$ Truncation error is $\mathcal{O}(h^2)$.</li>
+          <li><strong>Forward Difference:</strong> $\frac{f(x+h) - f(x)}{h} = f'(x) + \frac{h}{2}f''(x) + \mathcal{O}(h^2)$ &nbsp; $\implies$ Truncation error is $\mathcal{O}(h)$.</li>
+          <li><strong>Central Difference:</strong> $\frac{f(x+h) - f(x-h)}{2h} = f'(x) + \frac{h^2}{6}f'''(x) + \mathcal{O}(h^4)$ &nbsp; $\implies$ Truncation error is $\mathcal{O}(h^2)$.</li>
         </ul>
         <p style="margin-top:0.75rem;font-size:0.9rem;color:#cbd5e1;">
-          <em>The Floating-Point Trade-off:</em> Why can't we just set $h = 10^{-25}$? In 64-bit IEEE 754 arithmetic, machine precision is $\epsilon_{	ext{mach}} pprox 10^{-16}$. When $h < \epsilon_{	ext{mach}}$, $x+h$ and $x$ round to identical bits, causing $(f(x+h)-f(x))$ to suffer <strong>catastrophic cancellation</strong> to zero! Total error is minimized when truncation error equals roundoff error, yielding optimal step $h^* pprox \sqrt{\epsilon_{	ext{mach}}} pprox 10^{-8}$.
+          <em>The Floating-Point Trade-off:</em> Why can't we just set $h = 10^{-25}$? In 64-bit IEEE 754 arithmetic, machine precision is $\epsilon_{\text{mach}} \approx 10^{-16}$. When $h < \epsilon_{\text{mach}}$, $x+h$ and $x$ round to identical bits, causing $(f(x+h)-f(x))$ to suffer <strong>catastrophic cancellation</strong> to zero! Total error is minimized when truncation error equals roundoff error, yielding optimal step $h^* \approx \sqrt{\epsilon_{\text{mach}}} \approx 10^{-8}$.
         </p>
       </div>
 
@@ -227,21 +227,21 @@
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Exact derivative: $f'(x) = 3x^2 - 4 \implies f'(2) = 3(4) - 4 = 8$.<br/>
             2. Base value: $f(2) = 2^3 - 4(2) + 1 = 8 - 8 + 1 = 1$.<br/>
-            3. Tangent line approximation: $f(2.05) pprox f(2) + f'(2)(0.05) = 1 + 8(0.05) = 1 + 0.40 = 1.40$.<br/>
+            3. Tangent line approximation: $f(2.05) \approx f(2) + f'(2)(0.05) = 1 + 8(0.05) = 1 + 0.40 = 1.40$.<br/>
             4. True value: $f(2.05) = (2.05)^3 - 4(2.05) + 1 = 8.615125 - 8.20 + 1 = 1.415125$.<br/>
-            5. Error: $|1.415125 - 1.40| = 0.015125 pprox rac{1}{2} f''(2) (0.05)^2 = 3(2)(0.0025) = 0.0150$ ✓.
+            5. Error: $|1.415125 - 1.40| = 0.015125 \approx \frac{1}{2} f''(2) (0.05)^2 = 3(2)(0.0025) = 0.0150$ ✓.
           </div>
         </div>
 
         <div class="example-step">
           <strong>Example 1.2 (Sigmoid Activation Function):</strong><br/>
-          Prove that for the logistic sigmoid $\sigma(x) = rac{1}{1 + e^{-x}}$, the derivative satisfies $\sigma'(x) = \sigma(x)(1 - \sigma(x))$, and evaluate it at $x = 0$ and $x = 2$.
+          Prove that for the logistic sigmoid $\sigma(x) = \frac{1}{1 + e^{-x}}$, the derivative satisfies $\sigma'(x) = \sigma(x)(1 - \sigma(x))$, and evaluate it at $x = 0$ and $x = 2$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Rewrite as $\sigma(x) = (1 + e^{-x})^{-1}$.<br/>
-            2. By the chain rule: $\sigma'(x) = -(1 + e^{-x})^{-2} \cdot (-e^{-x}) = rac{e^{-x}}{(1 + e^{-x})^2}$.<br/>
-            3. Algebraic factoring: $rac{1}{1 + e^{-x}} \cdot rac{e^{-x}}{1 + e^{-x}} = \sigma(x) \cdot \left(rac{1 + e^{-x} - 1}{1 + e^{-x}}ight) = \sigma(x)(1 - \sigma(x))$ (Q.E.D.).<br/>
-            4. At $x = 0$: $\sigma(0) = rac{1}{2} \implies \sigma'(0) = 0.5(1 - 0.5) = 0.25$.<br/>
-            5. At $x = 2$: $\sigma(2) pprox 0.8808 \implies \sigma'(2) = 0.8808(1 - 0.8808) = 0.8808(0.1192) pprox 0.1050$.
+            2. By the chain rule: $\sigma'(x) = -(1 + e^{-x})^{-2} \cdot (-e^{-x}) = \frac{e^{-x}}{(1 + e^{-x})^2}$.<br/>
+            3. Algebraic factoring: $\frac{1}{1 + e^{-x}} \cdot \frac{e^{-x}}{1 + e^{-x}} = \sigma(x) \cdot \left(\frac{1 + e^{-x} - 1}{1 + e^{-x}}\right) = \sigma(x)(1 - \sigma(x))$ (Q.E.D.).<br/>
+            4. At $x = 0$: $\sigma(0) = \frac{1}{2} \implies \sigma'(0) = 0.5(1 - 0.5) = 0.25$.<br/>
+            5. At $x = 2$: $\sigma(2) \approx 0.8808 \implies \sigma'(2) = 0.8808(1 - 0.8808) = 0.8808(0.1192) \approx 0.1050$.
           </div>
         </div>
 
@@ -249,11 +249,11 @@
           <strong>Example 1.3 (Forward vs Central Difference Numerical Error):</strong><br/>
           For $f(x) = \ln(x)$ at $x = 1$, compute the forward and central difference approximations with $h = 0.1$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Exact derivative: $f'(x) = rac{1}{x} \implies f'(1) = 1.000000$.<br/>
-            2. $f(1) = 0$, $f(1 + 0.1) = \ln(1.1) pprox 0.095310$, $f(1 - 0.1) = \ln(0.9) pprox -0.105361$.<br/>
-            3. Forward difference: $rac{0.095310 - 0}{0.1} = 0.953102 \implies 	ext{Error} = 0.046898 pprox rac{h}{2} = 0.05$.<br/>
-            4. Central difference: $rac{0.095310 - (-0.105361)}{0.2} = rac{0.200671}{0.2} = 1.003353 \implies 	ext{Error} = 0.003353 pprox rac{h^2}{6} = 0.00167$.<br/>
-            5. Notice that central difference is over **$14	imes$ more accurate** at the exact same step size!
+            1. Exact derivative: $f'(x) = \frac{1}{x} \implies f'(1) = 1.000000$.<br/>
+            2. $f(1) = 0$, $f(1 + 0.1) = \ln(1.1) \approx 0.095310$, $f(1 - 0.1) = \ln(0.9) \approx -0.105361$.<br/>
+            3. Forward difference: $\frac{0.095310 - 0}{0.1} = 0.953102 \implies \text{Error} = 0.046898 \approx \frac{h}{2} = 0.05$.<br/>
+            4. Central difference: $\frac{0.095310 - (-0.105361)}{0.2} = \frac{0.200671}{0.2} = 1.003353 \implies \text{Error} = 0.003353 \approx \frac{h^2}{6} = 0.00167$.<br/>
+            5. Notice that central difference is over **$14\times$ more accurate** at the exact same step size!
           </div>
         </div>
       </div>
@@ -310,11 +310,11 @@ print(f"Analytic: {exact:.6f} | Central Diff: {approx:.6f} | Error: {abs(exact -
         <div class="mistakes-title">⚠️ Common Student Mistakes</div>
         <div class="mistake-item">
           <div class="mistake-name">1. Choosing $h = 10^{-20}$ expecting zero truncation error</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> Due to floating-point rounding limits ($\epsilon_{	ext{mach}} pprox 10^{-16}$), $(x+h)$ rounds to $x$ and the numerator evaluates to exactly $0.0$, wiping out the gradient. Always use $h pprox 10^{-5}$ to $10^{-8}$.</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> Due to floating-point rounding limits ($\epsilon_{\text{mach}} \approx 10^{-16}$), $(x+h)$ rounds to $x$ and the numerator evaluates to exactly $0.0$, wiping out the gradient. Always use $h \approx 10^{-5}$ to $10^{-8}$.</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">2. Assuming derivatives always exist everywhere</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> Activations like $	ext{ReLU}(x) = \max(0, x)$ have no classical derivative at $x = 0$. Frameworks use subgradients (conventionally setting $g'(0) = 0$).</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> Activations like $\text{ReLU}(x) = \max(0, x)$ have no classical derivative at $x = 0$. Frameworks use subgradients (conventionally setting $g'(0) = 0$).</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">3. Forgetting the $2h$ denominator in central difference</div>
@@ -365,10 +365,8 @@ print(f"Analytic: {exact:.6f} | Central Diff: {approx:.6f} | Error: {abs(exact -
       <div class="learning-objectives-box">
         <div class="learning-objectives-title">🎯 Learning Objectives</div>
         <ul class="learning-objectives-list">
-          <li><strong>Assemble</strong> the gradient vector $
-abla f(\mathbf{x})$ from coordinate-wise partial derivatives.</li>
-          <li><strong>Calculate</strong> directional derivatives $D_{\mathbf{u}}f(\mathbf{x}) = 
-abla f(\mathbf{x}) \cdot \mathbf{u}$ for any arbitrary unit direction.</li>
+          <li><strong>Assemble</strong> the gradient vector $\nabla f(\mathbf{x})$ from coordinate-wise partial derivatives.</li>
+          <li><strong>Calculate</strong> directional derivatives $D_{\mathbf{u}}f(\mathbf{x}) = \nabla f(\mathbf{x}) \cdot \mathbf{u}$ for any arbitrary unit direction.</li>
           <li><strong>Prove</strong> using the Cauchy–Schwarz inequality that the gradient vector points in the direction of steepest ascent and is orthogonal to level curves.</li>
         </ul>
       </div>
@@ -380,41 +378,30 @@ abla f(\mathbf{x}) \cdot \mathbf{u}$ for any arbitrary unit direction.</li>
           Imagine standing blindfolded on a foggy mountain slope in the Western Ghats. You want to reach the peak as quickly as possible. If you take a step North, the ground rises steeply; if you take a step East, it slopes gently downward.
         </p>
         <p style="margin-top:0.75rem;">
-          The <strong>partial derivatives</strong> are your step slopes in the cardinal directions (along the coordinate axes). The <strong>gradient vector</strong> combines all these directional slopes into a single compass arrow pointing straight up the mountain's steepest line of ascent. If you drop a marble, it rolls in the exact opposite direction: $-
-abla f(\mathbf{x})$.
+          The <strong>partial derivatives</strong> are your step slopes in the cardinal directions (along the coordinate axes). The <strong>gradient vector</strong> combines all these directional slopes into a single compass arrow pointing straight up the mountain's steepest line of ascent. If you drop a marble, it rolls in the exact opposite direction: $-\nabla f(\mathbf{x})$.
         </p>
       </div>
 
       <!-- 4. 📐 Formal theory -->
       <div class="phase-card phase-theory">
         <div class="phase-header"><span class="phase-badge">📐 4. Formal Theory</span></div>
-        <p><strong>Definition (Partial Derivative):</strong> For $f: \mathbb{R}^n 	o \mathbb{R}$, the partial derivative with respect to $x_i$ holds all other variables constant:</p>
+        <p><strong>Definition (Partial Derivative):</strong> For $f: \mathbb{R}^n \to \mathbb{R}$, the partial derivative with respect to $x_i$ holds all other variables constant:</p>
         <div class="formula-box">
-          $$rac{\partial f}{\partial x_i}(\mathbf{x}) = \lim_{h 	o 0} rac{f(\mathbf{x} + h \mathbf{e}_i) - f(\mathbf{x})}{h}$$
+          $$\frac{\partial f}{\partial x_i}(\mathbf{x}) = \lim_{h \to 0} \frac{f(\mathbf{x} + h \mathbf{e}_i) - f(\mathbf{x})}{h}$$
         </div>
         <p><strong>The Gradient Vector:</strong> The collection of all $n$ first partial derivatives arranged as a column vector:</p>
         <div class="formula-box">
-          $$
-abla f(\mathbf{x}) = egin{bmatrix} rac{\partial f}{\partial x_1} \ dots \ rac{\partial f}{\partial x_n} \end{bmatrix} \in \mathbb{R}^n$$
+          $$\nabla f(\mathbf{x}) = \begin{bmatrix} \frac{\partial f}{\partial x_1} \ \vdots \ \frac{\partial f}{\partial x_n} \end{bmatrix} \in \mathbb{R}^n$$
         </div>
         <p><strong>Directional Derivative:</strong> For any unit vector $\mathbf{u} \in \mathbb{R}^n$ ($\|\mathbf{u}\| = 1$):</p>
         <div class="formula-box">
-          $$D_{\mathbf{u}}f(\mathbf{x}) = \lim_{h 	o 0} rac{f(\mathbf{x} + h\mathbf{u}) - f(\mathbf{x})}{h} = 
-abla f(\mathbf{x}) \cdot \mathbf{u} = \|
-abla f(\mathbf{x})\| \cos	heta$$
+          $$D_{\mathbf{u}}f(\mathbf{x}) = \lim_{h \to 0} \frac{f(\mathbf{x} + h\mathbf{u}) - f(\mathbf{x})}{h} = \nabla f(\mathbf{x}) \cdot \mathbf{u} = \|\nabla f(\mathbf{x})\| \cos\theta$$
         </div>
         <p><strong>Fundamental Theorems of the Gradient:</strong></p>
         <ul style="margin-left:1.5rem;line-height:1.7;color:var(--text-secondary);font-size:0.92rem;">
-          <li><strong>Steepest Ascent:</strong> Since $\cos	heta \le 1$, $D_{\mathbf{u}}f(\mathbf{x})$ is maximized when $	heta = 0 \implies \mathbf{u} = rac{
-abla f}{\|
-abla f\|}$, with maximum rate $\|
-abla f(\mathbf{x})\|$.</li>
-          <li><strong>Steepest Descent:</strong> Minimized when $	heta = \pi \implies \mathbf{u} = -rac{
-abla f}{\|
-abla f\|}$, with rate $-\|
-abla f(\mathbf{x})\|$.</li>
-          <li><strong>Orthogonality to Level Sets:</strong> For level set $S = \{\mathbf{x} : f(\mathbf{x}) = c\}$, $
-abla f(\mathbf{x})$ is orthogonal to every tangent vector $\mathbf{r}'(t)$ on $S$.</li>
+          <li><strong>Steepest Ascent:</strong> Since $\cos\theta \le 1$, $D_{\mathbf{u}}f(\mathbf{x})$ is maximized when $\theta = 0 \implies \mathbf{u} = \frac{\nabla f}{\|\nabla f\|}$, with maximum rate $\|\nabla f(\mathbf{x})\|$.</li>
+          <li><strong>Steepest Descent:</strong> Minimized when $\theta = \pi \implies \mathbf{u} = -\frac{\nabla f}{\|\nabla f\|}$, with rate $-\|\nabla f(\mathbf{x})\|$.</li>
+          <li><strong>Orthogonality to Level Sets:</strong> For level set $S = \{\mathbf{x} : f(\mathbf{x}) = c\}$, $\nabla f(\mathbf{x})$ is orthogonal to every tangent vector $\mathbf{r}'(t)$ on $S$.</li>
         </ul>
       </div>
 
@@ -424,16 +411,13 @@ abla f(\mathbf{x})$ is orthogonal to every tangent vector $\mathbf{r}'(t)$ on $S
         
         <div class="example-step">
           <strong>Example 2.1 (Gradient of an Elliptic Paraboloid):</strong><br/>
-          Let $f(x, y) = 3x^2 + 2y^2 - 4x + 6y$. Compute $
-abla f(1, -1)$ and evaluate the rate of steepest ascent.
+          Let $f(x, y) = 3x^2 + 2y^2 - 4x + 6y$. Compute $\nabla f(1, -1)$ and evaluate the rate of steepest ascent.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. $rac{\partial f}{\partial x} = 6x - 4 \implies rac{\partial f}{\partial x}(1, -1) = 6(1) - 4 = 2$.<br/>
-            2. $rac{\partial f}{\partial y} = 4y + 6 \implies rac{\partial f}{\partial y}(1, -1) = 4(-1) + 6 = 2$.<br/>
-            3. Gradient vector: $
-abla f(1, -1) = egin{bmatrix} 2 \ 2 \end{bmatrix}$.<br/>
-            4. Maximum rate of increase: $\|
-abla f(1, -1)\| = \sqrt{2^2 + 2^2} = \sqrt{8} pprox 2.8284$.<br/>
-            5. Direction of steepest ascent: $\mathbf{u}^* = rac{1}{\sqrt{8}} egin{bmatrix} 2 \ 2 \end{bmatrix} = egin{bmatrix} 1/\sqrt{2} \ 1/\sqrt{2} \end{bmatrix}$ ($45^\circ$ heading).
+            1. $\frac{\partial f}{\partial x} = 6x - 4 \implies \frac{\partial f}{\partial x}(1, -1) = 6(1) - 4 = 2$.<br/>
+            2. $\frac{\partial f}{\partial y} = 4y + 6 \implies \frac{\partial f}{\partial y}(1, -1) = 4(-1) + 6 = 2$.<br/>
+            3. Gradient vector: $\nabla f(1, -1) = \begin{bmatrix} 2 \ 2 \end{bmatrix}$.<br/>
+            4. Maximum rate of increase: $\|\nabla f(1, -1)\| = \sqrt{2^2 + 2^2} = \sqrt{8} \approx 2.8284$.<br/>
+            5. Direction of steepest ascent: $\mathbf{u}^* = \frac{1}{\sqrt{8}} \begin{bmatrix} 2 \ 2 \end{bmatrix} = \begin{bmatrix} 1/\sqrt{2} \ 1/\sqrt{2} \end{bmatrix}$ ($45^\circ$ heading).
           </div>
         </div>
 
@@ -441,27 +425,23 @@ abla f(1, -1)\| = \sqrt{2^2 + 2^2} = \sqrt{8} pprox 2.8284$.<br/>
           <strong>Example 2.2 (Directional Derivative along an Arbitrary Vector):</strong><br/>
           For $f(x, y) = x^2 y + \sin(xy)$, find the directional derivative at $(1, 0)$ in the direction of vector $\mathbf{v} = (3, 4)$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. First partials: $rac{\partial f}{\partial x} = 2xy + y\cos(xy)$, $rac{\partial f}{\partial y} = x^2 + x\cos(xy)$.<br/>
-            2. Evaluate at $(1, 0)$: $rac{\partial f}{\partial x}(1, 0) = 0 + 0 = 0$; $rac{\partial f}{\partial y}(1, 0) = 1^2 + 1\cos(0) = 1 + 1 = 2$.<br/>
-            3. Gradient vector: $
-abla f(1, 0) = egin{bmatrix} 0 \ 2 \end{bmatrix}$.<br/>
-            4. Normalize direction: $\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = 5 \implies \mathbf{u} = egin{bmatrix} 3/5 \ 4/5 \end{bmatrix} = egin{bmatrix} 0.6 \ 0.8 \end{bmatrix}$.<br/>
-            5. Directional derivative: $D_{\mathbf{u}}f(1, 0) = 
-abla f \cdot \mathbf{u} = 0(0.6) + 2(0.8) = 1.6$.
+            1. First partials: $\frac{\partial f}{\partial x} = 2xy + y\cos(xy)$, $\frac{\partial f}{\partial y} = x^2 + x\cos(xy)$.<br/>
+            2. Evaluate at $(1, 0)$: $\frac{\partial f}{\partial x}(1, 0) = 0 + 0 = 0$; $\frac{\partial f}{\partial y}(1, 0) = 1^2 + 1\cos(0) = 1 + 1 = 2$.<br/>
+            3. Gradient vector: $\nabla f(1, 0) = \begin{bmatrix} 0 \ 2 \end{bmatrix}$.<br/>
+            4. Normalize direction: $\|\mathbf{v}\| = \sqrt{3^2 + 4^2} = 5 \implies \mathbf{u} = \begin{bmatrix} 3/5 \ 4/5 \end{bmatrix} = \begin{bmatrix} 0.6 \ 0.8 \end{bmatrix}$.<br/>
+            5. Directional derivative: $D_{\mathbf{u}}f(1, 0) = \nabla f \cdot \mathbf{u} = 0(0.6) + 2(0.8) = 1.6$.
           </div>
         </div>
 
         <div class="example-step">
           <strong>Example 2.3 (Binary Cross-Entropy Loss Gradient):</strong><br/>
-          For prediction $\hat{y} = \sigma(\mathbf{w}^T \mathbf{x})$ and target $y \in \{0, 1\}$, loss is $L(\mathbf{w}) = -[y \ln \hat{y} + (1 - y) \ln(1 - \hat{y})]$. Derive $
-abla_{\mathbf{w}} L$.
+          For prediction $\hat{y} = \sigma(\mathbf{w}^T \mathbf{x})$ and target $y \in \{0, 1\}$, loss is $L(\mathbf{w}) = -[y \ln \hat{y} + (1 - y) \ln(1 - \hat{y})]$. Derive $\nabla_{\mathbf{w}} L$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Let $z = \mathbf{w}^T \mathbf{x} = \sum_j w_j x_j$. Then $rac{\partial z}{\partial w_j} = x_j$.<br/>
-            2. Since $\hat{y} = \sigma(z)$, we have $rac{\partial \hat{y}}{\partial z} = \hat{y}(1 - \hat{y})$.<br/>
-            3. $rac{\partial L}{\partial \hat{y}} = -rac{y}{\hat{y}} + rac{1 - y}{1 - \hat{y}} = rac{-y(1 - \hat{y}) + (1 - y)\hat{y}}{\hat{y}(1 - \hat{y})} = rac{\hat{y} - y}{\hat{y}(1 - \hat{y})}$.<br/>
-            4. By chain rule: $rac{\partial L}{\partial w_j} = rac{\partial L}{\partial \hat{y}} \cdot rac{\partial \hat{y}}{\partial z} \cdot rac{\partial z}{\partial w_j} = \left[rac{\hat{y} - y}{\hat{y}(1 - \hat{y})}ight] \cdot [\hat{y}(1 - \hat{y})] \cdot x_j = (\hat{y} - y) x_j$.<br/>
-            5. In vector form: $
-abla_{\mathbf{w}} L = (\hat{y} - y) \mathbf{x}$. The error scalar directly scales the input vector!
+            1. Let $z = \mathbf{w}^T \mathbf{x} = \sum_j w_j x_j$. Then $\frac{\partial z}{\partial w_j} = x_j$.<br/>
+            2. Since $\hat{y} = \sigma(z)$, we have $\frac{\partial \hat{y}}{\partial z} = \hat{y}(1 - \hat{y})$.<br/>
+            3. $\frac{\partial L}{\partial \hat{y}} = -\frac{y}{\hat{y}} + \frac{1 - y}{1 - \hat{y}} = \frac{-y(1 - \hat{y}) + (1 - y)\hat{y}}{\hat{y}(1 - \hat{y})} = \frac{\hat{y} - y}{\hat{y}(1 - \hat{y})}$.<br/>
+            4. By chain rule: $\frac{\partial L}{\partial w_j} = \frac{\partial L}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z} \cdot \frac{\partial z}{\partial w_j} = \left[\frac{\hat{y} - y}{\hat{y}(1 - \hat{y})}\right] \cdot [\hat{y}(1 - \hat{y})] \cdot x_j = (\hat{y} - y) x_j$.<br/>
+            5. In vector form: $\nabla_{\mathbf{w}} L = (\hat{y} - y) \mathbf{x}$. The error scalar directly scales the input vector!
           </div>
         </div>
       </div>
@@ -472,8 +452,7 @@ abla_{\mathbf{w}} L = (\hat{y} - y) \mathbf{x}$. The error scalar directly scale
           <span class="sim-title">🔬 Lab 2: 2D Contour Map &amp; Gradient Vector Explorer</span>
         </div>
         <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.75rem;">
-          Drag coordinates $(x, y)$ on paraboloid $f(x, y) = rac{1}{2}x^2 + y^2$. Observe how the amber gradient vector $
-abla f$ remains strictly perpendicular to the level curves.
+          Drag coordinates $(x, y)$ on paraboloid $f(x, y) = \frac{1}{2}x^2 + y^2$. Observe how the amber gradient vector $\nabla f$ remains strictly perpendicular to the level curves.
         </p>
         <div class="sim-controls" style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;">
           <div style="display:flex;align-items:center;gap:0.5rem;">
@@ -529,7 +508,7 @@ print(f"Gradient at {pos}: {g} | Directional deriv along u: {d_u:.4f}")
         </div>
         <div class="mistake-item">
           <div class="mistake-name">2. Confusing gradient direction with contour curve direction</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> The gradient vector points perpendicular ($	heta = 90^\circ$) to the contour line. Moving along the contour line yields zero change ($D_{\mathbf{u}}f = 0$).</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> The gradient vector points perpendicular ($\theta = 90^\circ$) to the contour line. Moving along the contour line yields zero change ($D_{\mathbf{u}}f = 0$).</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">3. Treating dependent variables as constants</div>
@@ -544,11 +523,8 @@ print(f"Gradient at {pos}: {g} | Directional deriv along u: {d_u:.4f}")
       <div class="takeaways-box">
         <div class="takeaways-title">📌 Key Takeaways</div>
         <ul class="takeaways-list">
-          <li>The gradient $
-abla f(\mathbf{x})$ packs all partial derivatives into a vector pointing in the direction of steepest rate of increase.</li>
-          <li>The directional derivative is the dot product $D_{\mathbf{u}}f = 
-abla f \cdot \mathbf{u} = \|
-abla f\| \cos	heta$.</li>
+          <li>The gradient $\nabla f(\mathbf{x})$ packs all partial derivatives into a vector pointing in the direction of steepest rate of increase.</li>
+          <li>The directional derivative is the dot product $D_{\mathbf{u}}f = \nabla f \cdot \mathbf{u} = \|\nabla f\| \cos\theta$.</li>
           <li>Level curves are orthogonal to the gradient vector everywhere along smooth surfaces.</li>
           <li>Next, we connect multiple multivariable operations into composite computational graphs via the chain rule.</li>
         </ul>
@@ -584,7 +560,7 @@ abla f\| \cos	heta$.</li>
         <div class="learning-objectives-title">🎯 Learning Objectives</div>
         <ul class="learning-objectives-list">
           <li><strong>Construct</strong> computational DAGs for complex composite functions with intermediate nodes.</li>
-          <li><strong>Compute</strong> Jacobian matrices $\mathbf{J} \in \mathbb{R}^{m 	imes n}$ for vector-valued multivariable transformations.</li>
+          <li><strong>Compute</strong> Jacobian matrices $\mathbf{J} \in \mathbb{R}^{m \times n}$ for vector-valued multivariable transformations.</li>
           <li><strong>Formulate</strong> reverse-mode automatic differentiation as vector-Jacobian products (VJPs) and explain why reverse mode is $\mathcal{O}(1)$ for scalar loss functions.</li>
         </ul>
       </div>
@@ -593,7 +569,7 @@ abla f\| \cos	heta$.</li>
       <div class="phase-card phase-intuition">
         <div class="phase-header"><span class="phase-badge">💡 3. Intuition First</span></div>
         <p>
-          Think of a mechanical gear train in a watch. If turning Gear A by 1 radian causes Gear B to turn 3 radians ($rac{dB}{dA} = 3$), and turning Gear B causes Gear C to turn 2 radians ($rac{dC}{dB} = 2$), then turning Gear A causes Gear C to turn $3 	imes 2 = 6$ radians.
+          Think of a mechanical gear train in a watch. If turning Gear A by 1 radian causes Gear B to turn 3 radians ($\frac{dB}{dA} = 3$), and turning Gear B causes Gear C to turn 2 radians ($\frac{dC}{dB} = 2$), then turning Gear A causes Gear C to turn $3 \times 2 = 6$ radians.
         </p>
         <p style="margin-top:0.75rem;">
           In high dimensions, each "gear" is a vector of numbers, and the gear ratio becomes a <strong>Jacobian matrix</strong> of all pairwise partial derivatives. The chain rule states that to find how the final output changes with respect to the input, you simply multiply all the intermediate Jacobian matrices together!
@@ -603,11 +579,11 @@ abla f\| \cos	heta$.</li>
       <!-- 4. 📐 Formal theory -->
       <div class="phase-card phase-theory">
         <div class="phase-header"><span class="phase-badge">📐 4. Formal Theory</span></div>
-        <p><strong>Definition (The Jacobian Matrix):</strong> For vector-valued function $\mathbf{f}: \mathbb{R}^n 	o \mathbb{R}^m$, the Jacobian $\mathbf{J}_{\mathbf{f}} \in \mathbb{R}^{m 	imes n}$ contains all first-order partial derivatives:</p>
+        <p><strong>Definition (The Jacobian Matrix):</strong> For vector-valued function $\mathbf{f}: \mathbb{R}^n \to \mathbb{R}^m$, the Jacobian $\mathbf{J}_{\mathbf{f}} \in \mathbb{R}^{m \times n}$ contains all first-order partial derivatives:</p>
         <div class="formula-box">
-          $$\mathbf{J}_{\mathbf{f}}(\mathbf{x}) = egin{bmatrix} rac{\partial f_1}{\partial x_1} & \cdots & rac{\partial f_1}{\partial x_n} \ dots & \ddots & dots \ rac{\partial f_m}{\partial x_1} & \cdots & rac{\partial f_m}{\partial x_n} \end{bmatrix}$$
+          $$\mathbf{J}_{\mathbf{f}}(\mathbf{x}) = \begin{bmatrix} \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \ \vdots & \ddots & \vdots \ \frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n} \end{bmatrix}$$
         </div>
-        <p><strong>Theorem (The Multivariable Chain Rule):</strong> Let $\mathbf{u} = \mathbf{g}(\mathbf{x}): \mathbb{R}^n 	o \mathbb{R}^k$ and $\mathbf{y} = \mathbf{f}(\mathbf{u}): \mathbb{R}^k 	o \mathbb{R}^m$. The Jacobian of the composition $(\mathbf{f} \circ \mathbf{g})$ is the matrix product:</p>
+        <p><strong>Theorem (The Multivariable Chain Rule):</strong> Let $\mathbf{u} = \mathbf{g}(\mathbf{x}): \mathbb{R}^n \to \mathbb{R}^k$ and $\mathbf{y} = \mathbf{f}(\mathbf{u}): \mathbb{R}^k \to \mathbb{R}^m$. The Jacobian of the composition $(\mathbf{f} \circ \mathbf{g})$ is the matrix product:</p>
         <div class="formula-box">
           $$\mathbf{J}_{(\mathbf{f} \circ \mathbf{g})}(\mathbf{x}) = \mathbf{J}_{\mathbf{f}}(\mathbf{g}(\mathbf{x})) \cdot \mathbf{J}_{\mathbf{g}}(\mathbf{x})$$
         </div>
@@ -627,37 +603,34 @@ abla f\| \cos	heta$.</li>
           Let $z = (x + y) \cdot (y - 2)$. Decompose into a DAG and evaluate the forward and backward values at $x = 3, y = 4$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Forward decomposition: $u = x + y = 3 + 4 = 7$; $v = y - 2 = 4 - 2 = 2$; $z = u \cdot v = 7 \cdot 2 = 14$.<br/>
-            2. Seed backward pass: $rac{\partial z}{\partial z} = 1.0$.<br/>
-            3. Backward to intermediates: $rac{\partial z}{\partial u} = rac{\partial z}{\partial z} \cdot v = 1(2) = 2$; $rac{\partial z}{\partial v} = rac{\partial z}{\partial z} \cdot u = 1(7) = 7$.<br/>
-            4. Backward to $x$: $rac{\partial z}{\partial x} = rac{\partial z}{\partial u} rac{\partial u}{\partial x} = 2(1) = 2$.<br/>
-            5. Backward to $y$ (accumulating across both paths!): $rac{\partial z}{\partial y} = rac{\partial z}{\partial u}rac{\partial u}{\partial y} + rac{\partial z}{\partial v}rac{\partial v}{\partial y} = 2(1) + 7(1) = 9$.
+            2. Seed backward pass: $\frac{\partial z}{\partial z} = 1.0$.<br/>
+            3. Backward to intermediates: $\frac{\partial z}{\partial u} = \frac{\partial z}{\partial z} \cdot v = 1(2) = 2$; $\frac{\partial z}{\partial v} = \frac{\partial z}{\partial z} \cdot u = 1(7) = 7$.<br/>
+            4. Backward to $x$: $\frac{\partial z}{\partial x} = \frac{\partial z}{\partial u} \frac{\partial u}{\partial x} = 2(1) = 2$.<br/>
+            5. Backward to $y$ (accumulating across both paths!): $\frac{\partial z}{\partial y} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial y} = 2(1) + 7(1) = 9$.
           </div>
         </div>
 
         <div class="example-step">
           <strong>Example 3.2 (Jacobian of Polar to Cartesian Coordinate Mapping):</strong><br/>
-          Let $\mathbf{f}(r, 	heta) = egin{bmatrix} r \cos	heta \ r \sin	heta \end{bmatrix}$. Compute the Jacobian $\mathbf{J}_{\mathbf{f}}$ and verify its determinant.
+          Let $\mathbf{f}(r, \theta) = \begin{bmatrix} r \cos\theta \ r \sin\theta \end{bmatrix}$. Compute the Jacobian $\mathbf{J}_{\mathbf{f}}$ and verify its determinant.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. $f_1 = r \cos	heta \implies rac{\partial f_1}{\partial r} = \cos	heta, \quad rac{\partial f_1}{\partial 	heta} = -r \sin	heta$.<br/>
-            2. $f_2 = r \sin	heta \implies rac{\partial f_2}{\partial r} = \sin	heta, \quad rac{\partial f_2}{\partial 	heta} = r \cos	heta$.<br/>
-            3. Jacobian matrix: $\mathbf{J}_{\mathbf{f}} = egin{bmatrix} \cos	heta & -r\sin	heta \ \sin	heta & r\cos	heta \end{bmatrix}$.<br/>
-            4. Determinant: $\det(\mathbf{J}_{\mathbf{f}}) = (\cos	heta)(r\cos	heta) - (-r\sin	heta)(\sin	heta) = r\cos^2	heta + r\sin^2	heta = r(\cos^2	heta + \sin^2	heta) = r$.<br/>
-            5. This proves that the infinitesimal area element in polar coordinates is $dx\,dy = |\det \mathbf{J}|\,dr\,d	heta = r\,dr\,d	heta$!
+            1. $f_1 = r \cos\theta \implies \frac{\partial f_1}{\partial r} = \cos\theta, \quad \frac{\partial f_1}{\partial \theta} = -r \sin\theta$.<br/>
+            2. $f_2 = r \sin\theta \implies \frac{\partial f_2}{\partial r} = \sin\theta, \quad \frac{\partial f_2}{\partial \theta} = r \cos\theta$.<br/>
+            3. Jacobian matrix: $\mathbf{J}_{\mathbf{f}} = \begin{bmatrix} \cos\theta & -r\sin\theta \ \sin\theta & r\cos\theta \end{bmatrix}$.<br/>
+            4. Determinant: $\det(\mathbf{J}_{\mathbf{f}}) = (\cos\theta)(r\cos\theta) - (-r\sin\theta)(\sin\theta) = r\cos^2\theta + r\sin^2\theta = r(\cos^2\theta + \sin^2\theta) = r$.<br/>
+            5. This proves that the infinitesimal area element in polar coordinates is $dx\,dy = |\det \mathbf{J}|\,dr\,d\theta = r\,dr\,d\theta$!
           </div>
         </div>
 
         <div class="example-step">
           <strong>Example 3.3 (Softmax + Cross-Entropy Jacobian Multiplication):</strong><br/>
-          For logits $\mathbf{z} \in \mathbb{R}^K$, softmax probabilities $\mathbf{p} = 	ext{softmax}(\mathbf{z})$, and cross-entropy loss $L = -\sum_k y_k \ln p_k$, prove by the multivariable chain rule that $rac{\partial L}{\partial \mathbf{z}} = \mathbf{p} - \mathbf{y}$.
+          For logits $\mathbf{z} \in \mathbb{R}^K$, softmax probabilities $\mathbf{p} = \text{softmax}(\mathbf{z})$, and cross-entropy loss $L = -\sum_k y_k \ln p_k$, prove by the multivariable chain rule that $\frac{\partial L}{\partial \mathbf{z}} = \mathbf{p} - \mathbf{y}$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Upstream loss gradient vector w.r.t probabilities: $rac{\partial L}{\partial \mathbf{p}} = \left[-rac{y_1}{p_1}, \dots, -rac{y_K}{p_K}ight]$.<br/>
-            2. The Softmax Jacobian is $\mathbf{J}_{	ext{softmax}} = 	ext{diag}(\mathbf{p}) - \mathbf{p}\mathbf{p}^T$. Component: $rac{\partial p_j}{\partial z_i} = p_i(\delta_{ij} - p_j)$.<br/>
-            3. VJP product: $rac{\partial L}{\partial z_i} = \sum_j rac{\partial L}{\partial p_j} rac{\partial p_j}{\partial z_i} = \sum_j \left(-rac{y_j}{p_j}ight) p_i(\delta_{ij} - p_j)$.<br/>
-            4. Expand: $= -rac{y_i}{p_i} p_i(1 - p_i) - \sum_{j 
-e i} rac{y_j}{p_j} (-p_j p_i) = -y_i(1 - p_i) + p_i \sum_{j 
-e i} y_j$.<br/>
-            5. Since targets sum to $1$ ($\sum_{j 
-e i} y_j = 1 - y_i$): $= -y_i + y_i p_i + p_i - p_i y_i = p_i - y_i$ (Q.E.D.).
+            1. Upstream loss gradient vector w.r.t probabilities: $\frac{\partial L}{\partial \mathbf{p}} = \left[-\frac{y_1}{p_1}, \dots, -\frac{y_K}{p_K}\right]$.<br/>
+            2. The Softmax Jacobian is $\mathbf{J}_{\text{softmax}} = \text{diag}(\mathbf{p}) - \mathbf{p}\mathbf{p}^T$. Component: $\frac{\partial p_j}{\partial z_i} = p_i(\delta_{ij} - p_j)$.<br/>
+            3. VJP product: $\frac{\partial L}{\partial z_i} = \sum_j \frac{\partial L}{\partial p_j} \frac{\partial p_j}{\partial z_i} = \sum_j \left(-\frac{y_j}{p_j}\right) p_i(\delta_{ij} - p_j)$.<br/>
+            4. Expand: $= -\frac{y_i}{p_i} p_i(1 - p_i) - \sum_{j \ne i} \frac{y_j}{p_j} (-p_j p_i) = -y_i(1 - p_i) + p_i \sum_{j \ne i} y_j$.<br/>
+            5. Since targets sum to $1$ ($\sum_{j \ne i} y_j = 1 - y_i$): $= -y_i + y_i p_i + p_i - p_i y_i = p_i - y_i$ (Q.E.D.).
           </div>
         </div>
       </div>
@@ -712,12 +685,11 @@ print(f"z = {z:.1f} | dz/dx = {dz_dx:.1f} | dz/dy = {dz_dy:.1f}")
         <div class="mistakes-title">⚠️ Common Student Mistakes</div>
         <div class="mistake-item">
           <div class="mistake-name">1. Forgetting to accumulate gradients at branch nodes</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> If variable $y$ flows into both $u$ and $v$, setting $rac{\partial z}{\partial y} = rac{\partial z}{\partial u}rac{\partial u}{\partial y}$ misses the entire second path through $v$. Always sum incoming gradients ($+=$).</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> If variable $y$ flows into both $u$ and $v$, setting $\frac{\partial z}{\partial y} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial y}$ misses the entire second path through $v$. Always sum incoming gradients ($+=$).</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">2. Multiplying Jacobians in the wrong order</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> Matrix multiplication is non-commutative ($\mathbf{A}\mathbf{B} 
-e \mathbf{B}\mathbf{A}$). Reversing order results in dimensional mismatch or invalid derivatives.</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> Matrix multiplication is non-commutative ($\mathbf{A}\mathbf{B} \ne \mathbf{B}\mathbf{A}$). Reversing order results in dimensional mismatch or invalid derivatives.</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">3. Confusing Automatic Differentiation with Symbolic Differentiation</div>
@@ -769,7 +741,7 @@ e \mathbf{B}\mathbf{A}$). Reversing order results in dimensional mismatch or inv
         <div class="learning-objectives-title">🎯 Learning Objectives</div>
         <ul class="learning-objectives-list">
           <li><strong>Trace</strong> an exact numerical forward pass through a 2-layer neural network with explicit weights, biases, and sigmoid activations.</li>
-          <li><strong>Derive</strong> and calculate the exact backpropagation weight gradients $rac{\partial L}{\partial \mathbf{W}_2}, rac{\partial L}{\partial b_2}, rac{\partial L}{\partial \mathbf{W}_1}, rac{\partial L}{\partial \mathbf{b}_1}$ step-by-step.</li>
+          <li><strong>Derive</strong> and calculate the exact backpropagation weight gradients $\frac{\partial L}{\partial \mathbf{W}_2}, \frac{\partial L}{\partial b_2}, \frac{\partial L}{\partial \mathbf{W}_1}, \frac{\partial L}{\partial \mathbf{b}_1}$ step-by-step.</li>
           <li><strong>Implement</strong> a numerical gradient check to verify analytical gradients to within $10^{-7}$ relative error.</li>
         </ul>
       </div>
@@ -793,22 +765,18 @@ e \mathbf{B}\mathbf{A}$). Reversing order results in dimensional mismatch or inv
           <li>Input: $\mathbf{x} = [x_1, x_2]^T \in \mathbb{R}^2$. Target: $y \in \mathbb{R}$.</li>
           <li>Hidden Layer: $\mathbf{z}_1 = \mathbf{W}_1 \mathbf{x} + \mathbf{b}_1 \in \mathbb{R}^2$, with activation $\mathbf{a}_1 = \sigma(\mathbf{z}_1)$.</li>
           <li>Output Layer: $z_2 = \mathbf{W}_2 \mathbf{a}_1 + b_2 \in \mathbb{R}$, with prediction $\hat{y} = \sigma(z_2)$.</li>
-          <li>Loss Function: $L = rac{1}{2}(\hat{y} - y)^2$.</li>
+          <li>Loss Function: $L = \frac{1}{2}(\hat{y} - y)^2$.</li>
         </ul>
         <p><strong>The Exact Backpropagation Equations:</strong></p>
         <div class="formula-box">
-          $$\delta_2 = rac{\partial L}{\partial z_2} = (\hat{y} - y) \cdot \sigma'(z_2) = (\hat{y} - y)\hat{y}(1 - \hat{y})$$
-          $$rac{\partial L}{\partial \mathbf{W}_2} = \delta_2 \mathbf{a}_1^T, \quad rac{\partial L}{\partial b_2} = \delta_2$$
-          $$oldsymbol{\delta}_1 = (\mathbf{W}_2^T \delta_2) \odot \sigma'(\mathbf{z}_1) = (\mathbf{W}_2^T \delta_2) \odot \mathbf{a}_1 \odot (1 - \mathbf{a}_1)$$
-          $$rac{\partial L}{\partial \mathbf{W}_1} = oldsymbol{\delta}_1 \mathbf{x}^T, \quad rac{\partial L}{\partial \mathbf{b}_1} = oldsymbol{\delta}_1$$
+          $$\delta_2 = \frac{\partial L}{\partial z_2} = (\hat{y} - y) \cdot \sigma'(z_2) = (\hat{y} - y)\hat{y}(1 - \hat{y})$$
+          $$\frac{\partial L}{\partial \mathbf{W}_2} = \delta_2 \mathbf{a}_1^T, \quad \frac{\partial L}{\partial b_2} = \delta_2$$
+          $$\boldsymbol{\delta}_1 = (\mathbf{W}_2^T \delta_2) \odot \sigma'(\mathbf{z}_1) = (\mathbf{W}_2^T \delta_2) \odot \mathbf{a}_1 \odot (1 - \mathbf{a}_1)$$
+          $$\frac{\partial L}{\partial \mathbf{W}_1} = \boldsymbol{\delta}_1 \mathbf{x}^T, \quad \frac{\partial L}{\partial \mathbf{b}_1} = \boldsymbol{\delta}_1$$
         </div>
         <p><strong>Gradient Checking Formula (Relative Error):</strong></p>
         <div class="formula-box">
-          $$	ext{RelErr} = rac{\|
-abla_{	ext{num}} - 
-abla_{	ext{analytic}}\|_2}{\|
-abla_{	ext{num}}\|_2 + \|
-abla_{	ext{analytic}}\|_2 + 10^{-8}} < 10^{-7}$$
+          $$\text{RelErr} = \frac{\|\nabla_{\text{num}} - \nabla_{\text{analytic}}\|_2}{\|\nabla_{\text{num}}\|_2 + \|\nabla_{\text{analytic}}\|_2 + 10^{-8}} < 10^{-7}$$
         </div>
       </div>
 
@@ -818,13 +786,13 @@ abla_{	ext{analytic}}\|_2 + 10^{-8}} < 10^{-7}$$
         
         <div class="example-step">
           <strong>Example 4.1 (Complete Forward Pass with Numbers):</strong><br/>
-          Given inputs $\mathbf{x} = [0.05, 0.10]^T$, target $y = 0.50$, initial weights $\mathbf{W}_1 = egin{bmatrix} 0.15 & 0.20 \ 0.25 & 0.30 \end{bmatrix}$, $\mathbf{b}_1 = egin{bmatrix} 0.35 \ 0.35 \end{bmatrix}$, $\mathbf{W}_2 = egin{bmatrix} 0.40 & 0.45 \end{bmatrix}$, and $b_2 = 0.60$.
+          Given inputs $\mathbf{x} = [0.05, 0.10]^T$, target $y = 0.50$, initial weights $\mathbf{W}_1 = \begin{bmatrix} 0.15 & 0.20 \ 0.25 & 0.30 \end{bmatrix}$, $\mathbf{b}_1 = \begin{bmatrix} 0.35 \ 0.35 \end{bmatrix}$, $\mathbf{W}_2 = \begin{bmatrix} 0.40 & 0.45 \end{bmatrix}$, and $b_2 = 0.60$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. $\mathbf{z}_1 = egin{bmatrix} 0.15(0.05) + 0.25(0.10) + 0.35 \ 0.20(0.05) + 0.30(0.10) + 0.35 \end{bmatrix} = egin{bmatrix} 0.0075 + 0.025 + 0.35 \ 0.0100 + 0.030 + 0.35 \end{bmatrix} = egin{bmatrix} 0.3825 \ 0.3900 \end{bmatrix}$.<br/>
-            2. Hidden activations: $\mathbf{a}_1 = egin{bmatrix} \sigma(0.3825) \ \sigma(0.3900) \end{bmatrix} = egin{bmatrix} rac{1}{1 + e^{-0.3825}} \ rac{1}{1 + e^{-0.3900}} \end{bmatrix} = egin{bmatrix} 0.594476 \ 0.596288 \end{bmatrix}$.<br/>
+            1. $\mathbf{z}_1 = \begin{bmatrix} 0.15(0.05) + 0.25(0.10) + 0.35 \ 0.20(0.05) + 0.30(0.10) + 0.35 \end{bmatrix} = \begin{bmatrix} 0.0075 + 0.025 + 0.35 \ 0.0100 + 0.030 + 0.35 \end{bmatrix} = \begin{bmatrix} 0.3825 \ 0.3900 \end{bmatrix}$.<br/>
+            2. Hidden activations: $\mathbf{a}_1 = \begin{bmatrix} \sigma(0.3825) \ \sigma(0.3900) \end{bmatrix} = \begin{bmatrix} \frac{1}{1 + e^{-0.3825}} \ \frac{1}{1 + e^{-0.3900}} \end{bmatrix} = \begin{bmatrix} 0.594476 \ 0.596288 \end{bmatrix}$.<br/>
             3. Output logit: $z_2 = 0.40(0.594476) + 0.45(0.596288) + 0.60 = 0.237790 + 0.268330 + 0.60 = 1.106120$.<br/>
-            4. Prediction: $\hat{y} = \sigma(1.106120) = rac{1}{1 + e^{-1.106120}} = 0.751410$.<br/>
-            5. Total Loss: $L = rac{1}{2}(\hat{y} - y)^2 = rac{1}{2}(0.751410 - 0.50)^2 = rac{1}{2}(0.251410)^2 = 0.031604$.
+            4. Prediction: $\hat{y} = \sigma(1.106120) = \frac{1}{1 + e^{-1.106120}} = 0.751410$.<br/>
+            5. Total Loss: $L = \frac{1}{2}(\hat{y} - y)^2 = \frac{1}{2}(0.751410 - 0.50)^2 = \frac{1}{2}(0.251410)^2 = 0.031604$.
           </div>
         </div>
 
@@ -833,25 +801,25 @@ abla_{	ext{analytic}}\|_2 + 10^{-8}} < 10^{-7}$$
           Compute all weight gradients for the exact numbers from Example 4.1.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Output delta: $\delta_2 = (\hat{y} - y)\hat{y}(1 - \hat{y}) = (0.251410)(0.751410)(1 - 0.751410) = (0.251410)(0.751410)(0.248590) = 0.046964$.<br/>
-            2. Output weights gradients: $rac{\partial L}{\partial \mathbf{W}_2} = \delta_2 \mathbf{a}_1^T = 0.046964 egin{bmatrix} 0.594476 & 0.596288 \end{bmatrix} = egin{bmatrix} 0.027919 & 0.028004 \end{bmatrix}$.<br/>
-            3. Hidden delta $oldsymbol{\delta}_1$:<br/>
+            2. Output weights gradients: $\frac{\partial L}{\partial \mathbf{W}_2} = \delta_2 \mathbf{a}_1^T = 0.046964 \begin{bmatrix} 0.594476 & 0.596288 \end{bmatrix} = \begin{bmatrix} 0.027919 & 0.028004 \end{bmatrix}$.<br/>
+            3. Hidden delta $\boldsymbol{\delta}_1$:<br/>
                &nbsp;&nbsp;$\delta_{1,1} = (\delta_2 \cdot W_{2,1}) a_{1,1}(1 - a_{1,1}) = (0.046964 \cdot 0.40)(0.594476)(0.405524) = (0.018786)(0.241074) = 0.004529$.<br/>
                &nbsp;&nbsp;$\delta_{1,2} = (\delta_2 \cdot W_{2,2}) a_{1,2}(1 - a_{1,2}) = (0.046964 \cdot 0.45)(0.596288)(0.403712) = (0.021134)(0.240728) = 0.005088$.<br/>
-            4. Hidden weight gradients: $rac{\partial L}{\partial \mathbf{W}_1} = oldsymbol{\delta}_1 \mathbf{x}^T$:<br/>
-               &nbsp;&nbsp;$rac{\partial L}{\partial W_{1,11}} = 0.004529 	imes 0.05 = 0.000226, \quad rac{\partial L}{\partial W_{1,21}} = 0.004529 	imes 0.10 = 0.000453$.<br/>
-               &nbsp;&nbsp;$rac{\partial L}{\partial W_{1,12}} = 0.005088 	imes 0.05 = 0.000254, \quad rac{\partial L}{\partial W_{1,22}} = 0.005088 	imes 0.10 = 0.000509$.<br/>
+            4. Hidden weight gradients: $\frac{\partial L}{\partial \mathbf{W}_1} = \boldsymbol{\delta}_1 \mathbf{x}^T$:<br/>
+               &nbsp;&nbsp;$\frac{\partial L}{\partial W_{1,11}} = 0.004529 \times 0.05 = 0.000226, \quad \frac{\partial L}{\partial W_{1,21}} = 0.004529 \times 0.10 = 0.000453$.<br/>
+               &nbsp;&nbsp;$\frac{\partial L}{\partial W_{1,12}} = 0.005088 \times 0.05 = 0.000254, \quad \frac{\partial L}{\partial W_{1,22}} = 0.005088 \times 0.10 = 0.000509$.<br/>
             5. Every single gradient is fully computed and verified by hand arithmetic!
           </div>
         </div>
 
         <div class="example-step">
           <strong>Example 4.3 (Verifying with Finite-Difference Gradient Check):</strong><br/>
-          Check the analytical gradient $rac{\partial L}{\partial W_{2,1}} = 0.027919$ numerically with step $\epsilon = 10^{-5}$.
+          Check the analytical gradient $\frac{\partial L}{\partial W_{2,1}} = 0.027919$ numerically with step $\epsilon = 10^{-5}$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Perturb weight: $W_{2,1}^+ = 0.40 + 10^{-5} = 0.400010$. Run forward pass $\implies L^+ = 0.031604342$.<br/>
             2. Perturb weight: $W_{2,1}^- = 0.40 - 10^{-5} = 0.399990$. Run forward pass $\implies L^- = 0.031603784$.<br/>
-            3. Central difference: $rac{L^+ - L^-}{2 	imes 10^{-5}} = rac{0.000000558}{0.000020} = 0.02791905$.<br/>
-            4. Relative error: $rac{|0.02791905 - 0.02791912|}{0.027919 + 0.027919} pprox 1.2 	imes 10^{-7} < 10^{-5}$ ✓. Verified!
+            3. Central difference: $\frac{L^+ - L^-}{2 \times 10^{-5}} = \frac{0.000000558}{0.000020} = 0.02791905$.<br/>
+            4. Relative error: $\frac{|0.02791905 - 0.02791912|}{0.027919 + 0.027919} \approx 1.2 \times 10^{-7} < 10^{-5}$ ✓. Verified!
           </div>
         </div>
       </div>
@@ -915,7 +883,7 @@ print(f"Loss: {loss:.4f} | dW2[0]: {dW2[0,0]:.6f} | NumCheck: {num_dW2[0,0]:.6f}
         </div>
         <div class="mistake-item">
           <div class="mistake-name">2. Transposing weight matrices backwards during backward propagation</div>
-          <div class="mistake-fix"><strong>Why it fails:</strong> In forward pass $\mathbf{z} = \mathbf{W}\mathbf{x}$. In backward pass, the sensitivity backpropagated to inputs is $\mathbf{W}^T oldsymbol{\delta}$, not $\mathbf{W}oldsymbol{\delta}$.</div>
+          <div class="mistake-fix"><strong>Why it fails:</strong> In forward pass $\mathbf{z} = \mathbf{W}\mathbf{x}$. In backward pass, the sensitivity backpropagated to inputs is $\mathbf{W}^T \boldsymbol{\delta}$, not $\mathbf{W}\boldsymbol{\delta}$.</div>
         </div>
         <div class="mistake-item">
           <div class="mistake-name">3. Running gradient check with dropout or batch normalization active</div>
@@ -931,7 +899,7 @@ print(f"Loss: {loss:.4f} | dW2[0]: {dW2[0,0]:.6f} | NumCheck: {num_dW2[0,0]:.6f}
         <div class="takeaways-title">📌 Key Takeaways</div>
         <ul class="takeaways-list">
           <li>Backpropagation is the multivariable chain rule applied in reverse order to assign error sensitivity to each layer.</li>
-          <li>Weight gradients are outer products between incoming deltas and layer activations ($oldsymbol{\delta} \mathbf{a}^T$).</li>
+          <li>Weight gradients are outer products between incoming deltas and layer activations ($\boldsymbol{\delta} \mathbf{a}^T$).</li>
           <li>Finite-difference gradient checks provide an irrefutable mathematical proof of custom backward implementation correctness.</li>
           <li>Next, we examine when gradient descent is guaranteed to find the global optimum: the theory of Convexity.</li>
         </ul>
@@ -967,8 +935,7 @@ print(f"Loss: {loss:.4f} | dW2[0]: {dW2[0,0]:.6f} | NumCheck: {num_dW2[0,0]:.6f}
         <div class="learning-objectives-title">🎯 Learning Objectives</div>
         <ul class="learning-objectives-list">
           <li><strong>Prove</strong> whether a given set $S \subseteq \mathbb{R}^n$ or function $f(\mathbf{x})$ is convex using line-segment definitions.</li>
-          <li><strong>Apply</strong> the first-order supporting hyperplane condition and the second-order Hessian eigenvalue test $
-abla^2 f(\mathbf{x}) \succeq 0$.</li>
+          <li><strong>Apply</strong> the first-order supporting hyperplane condition and the second-order Hessian eigenvalue test $\nabla^2 f(\mathbf{x}) \succeq 0$.</li>
           <li><strong>Prove</strong> the Fundamental Theorem of Convex Optimisation: every local minimum is a global minimum.</li>
         </ul>
       </div>
@@ -987,26 +954,23 @@ abla^2 f(\mathbf{x}) \succeq 0$.</li>
       <!-- 4. 📐 Formal theory -->
       <div class="phase-card phase-theory">
         <div class="phase-header"><span class="phase-badge">📐 4. Formal Theory</span></div>
-        <p><strong>Definition (Convex Set):</strong> A set $S \subseteq \mathbb{R}^n$ is convex if for all $\mathbf{x}, \mathbf{y} \in S$ and all $	heta \in [0, 1]$:</p>
+        <p><strong>Definition (Convex Set):</strong> A set $S \subseteq \mathbb{R}^n$ is convex if for all $\mathbf{x}, \mathbf{y} \in S$ and all $\theta \in [0, 1]$:</p>
         <div class="formula-box">
-          $$	heta \mathbf{x} + (1 - 	heta) \mathbf{y} \in S$$
+          $$\theta \mathbf{x} + (1 - \theta) \mathbf{y} \in S$$
         </div>
-        <p><strong>Definition (Convex Function):</strong> A function $f: S 	o \mathbb{R}$ defined on a convex set $S$ is convex if for all $\mathbf{x}, \mathbf{y} \in S$ and $	heta \in [0, 1]$:</p>
+        <p><strong>Definition (Convex Function):</strong> A function $f: S \to \mathbb{R}$ defined on a convex set $S$ is convex if for all $\mathbf{x}, \mathbf{y} \in S$ and $\theta \in [0, 1]$:</p>
         <div class="formula-box">
-          $$f(	heta \mathbf{x} + (1 - 	heta)\mathbf{y}) \le 	heta f(\mathbf{x}) + (1 - 	heta) f(\mathbf{y})$$
+          $$f(\theta \mathbf{x} + (1 - \theta)\mathbf{y}) \le \theta f(\mathbf{x}) + (1 - \theta) f(\mathbf{y})$$
         </div>
         <p><strong>First-Order Condition (Supporting Hyperplanes):</strong> $f$ is convex if and only if for all $\mathbf{x}, \mathbf{y} \in S$:</p>
         <div class="formula-box">
-          $$f(\mathbf{y}) \ge f(\mathbf{x}) + 
-abla f(\mathbf{x})^T (\mathbf{y} - \mathbf{x})$$
+          $$f(\mathbf{y}) \ge f(\mathbf{x}) + \nabla f(\mathbf{x})^T (\mathbf{y} - \mathbf{x})$$
         </div>
-        <p><strong>Second-Order Condition (The Hessian Matrix):</strong> The Hessian matrix $\mathbf{H} = 
-abla^2 f(\mathbf{x}) \in \mathbb{R}^{n 	imes n}$ where $H_{ij} = rac{\partial^2 f}{\partial x_i \partial x_j}$. $f$ is convex if and only if the Hessian is positive semi-definite everywhere:</p>
+        <p><strong>Second-Order Condition (The Hessian Matrix):</strong> The Hessian matrix $\mathbf{H} = \nabla^2 f(\mathbf{x}) \in \mathbb{R}^{n \times n}$ where $H_{ij} = \frac{\partial^2 f}{\partial x_i \partial x_j}$. $f$ is convex if and only if the Hessian is positive semi-definite everywhere:</p>
         <div class="formula-box">
-          $$\mathbf{H}(\mathbf{x}) \succeq 0 \iff orall \mathbf{v} 
-e \mathbf{0}, \; \mathbf{v}^T \mathbf{H}(\mathbf{x}) \mathbf{v} \ge 0 \iff 	ext{All eigenvalues } \lambda_i \ge 0$$
+          $$\mathbf{H}(\mathbf{x}) \succeq 0 \iff \forall \mathbf{v} \ne \mathbf{0}, \; \mathbf{v}^T \mathbf{H}(\mathbf{x}) \mathbf{v} \ge 0 \iff \text{All eigenvalues } \lambda_i \ge 0$$
         </div>
-        <p><strong>Fundamental Theorem of Convex Optimisation:</strong> Let $f: S 	o \mathbb{R}$ be a convex function on a convex set $S$. If $\mathbf{x}^* \in S$ is a local minimizer of $f$, then $\mathbf{x}^*$ is a global minimizer of $f$. Furthermore, if $f$ is strictly convex ($\mathbf{H} \succ 0$), the global minimizer is unique!</p>
+        <p><strong>Fundamental Theorem of Convex Optimisation:</strong> Let $f: S \to \mathbb{R}$ be a convex function on a convex set $S$. If $\mathbf{x}^* \in S$ is a local minimizer of $f$, then $\mathbf{x}^*$ is a global minimizer of $f$. Furthermore, if $f$ is strictly convex ($\mathbf{H} \succ 0$), the global minimizer is unique!</p>
       </div>
 
       <!-- 5. ✍️ Worked examples -->
@@ -1017,12 +981,12 @@ e \mathbf{0}, \; \mathbf{v}^T \mathbf{H}(\mathbf{x}) \mathbf{v} \ge 0 \iff 	ext{
           <strong>Example 5.1 (Convexity of a Euclidean Ball):</strong><br/>
           Prove that the closed unit ball $B = \{\mathbf{x} \in \mathbb{R}^n : \|\mathbf{x}\|_2 \le 1\}$ is a convex set.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Let $\mathbf{x}, \mathbf{y} \in B$ and scalar $	heta \in [0, 1]$.<br/>
+            1. Let $\mathbf{x}, \mathbf{y} \in B$ and scalar $\theta \in [0, 1]$.<br/>
             2. By definition of $B$, $\|\mathbf{x}\|_2 \le 1$ and $\|\mathbf{y}\|_2 \le 1$.<br/>
-            3. Consider the combination $\mathbf{z} = 	heta \mathbf{x} + (1 - 	heta)\mathbf{y}$.<br/>
+            3. Consider the combination $\mathbf{z} = \theta \mathbf{x} + (1 - \theta)\mathbf{y}$.<br/>
             4. By the triangle inequality and absolute homogeneity of norms:<br/>
-               &nbsp;&nbsp;$\|\mathbf{z}\|_2 = \|	heta \mathbf{x} + (1 - 	heta)\mathbf{y}\|_2 \le \|	heta \mathbf{x}\|_2 + \|(1 - 	heta)\mathbf{y}\|_2 = 	heta \|\mathbf{x}\|_2 + (1 - 	heta)\|\mathbf{y}\|_2$.<br/>
-            5. Since $\|\mathbf{x}\|_2 \le 1$ and $\|\mathbf{y}\|_2 \le 1$: $\|\mathbf{z}\|_2 \le 	heta(1) + (1 - 	heta)(1) = 1$.<br/>
+               &nbsp;&nbsp;$\|\mathbf{z}\|_2 = \|\theta \mathbf{x} + (1 - \theta)\mathbf{y}\|_2 \le \|\theta \mathbf{x}\|_2 + \|(1 - \theta)\mathbf{y}\|_2 = \theta \|\mathbf{x}\|_2 + (1 - \theta)\|\mathbf{y}\|_2$.<br/>
+            5. Since $\|\mathbf{x}\|_2 \le 1$ and $\|\mathbf{y}\|_2 \le 1$: $\|\mathbf{z}\|_2 \le \theta(1) + (1 - \theta)(1) = 1$.<br/>
             6. Therefore $\mathbf{z} \in B$, proving $B$ is a convex set (Q.E.D.).
           </div>
         </div>
@@ -1033,7 +997,7 @@ e \mathbf{0}, \; \mathbf{v}^T \mathbf{H}(\mathbf{x}) \mathbf{v} \ge 0 \iff 	ext{
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. First partials: $f_x = 4x - 4y + 6, \quad f_y = -4x + 10y - 2$.<br/>
             2. Second partials: $f_{xx} = 4, \quad f_{yy} = 10, \quad f_{xy} = f_{yx} = -4$.<br/>
-            3. Hessian matrix: $\mathbf{H} = egin{bmatrix} 4 & -4 \ -4 & 10 \end{bmatrix}$.<br/>
+            3. Hessian matrix: $\mathbf{H} = \begin{bmatrix} 4 & -4 \ -4 & 10 \end{bmatrix}$.<br/>
             4. Eigenvalues solve $\det(\mathbf{H} - \lambda \mathbf{I}) = (4 - \lambda)(10 - \lambda) - 16 = \lambda^2 - 14\lambda + 24 = (\lambda - 2)(\lambda - 12) = 0$.<br/>
             5. Eigenvalues are $\lambda_1 = 2 > 0$ and $\lambda_2 = 12 > 0$.<br/>
             6. Since all eigenvalues are strictly positive, $\mathbf{H} \succ 0$ everywhere, proving $f$ is strictly convex.
@@ -1044,12 +1008,10 @@ e \mathbf{0}, \; \mathbf{v}^T \mathbf{H}(\mathbf{x}) \mathbf{v} \ge 0 \iff 	ext{
           <strong>Example 5.3 (Convexity of Negative Entropy on Probability Simplex):</strong><br/>
           Prove that the negative entropy function $f(\mathbf{p}) = \sum_{i=1}^n p_i \ln p_i$ is strictly convex on the open probability simplex $\Delta = \{\mathbf{p} \in \mathbb{R}^n : \sum p_i = 1, p_i > 0\}$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. First partial derivatives: $rac{\partial f}{\partial p_i} = \ln p_i + p_i \cdot rac{1}{p_i} = \ln p_i + 1$.<br/>
-            2. Second partial derivatives: $rac{\partial^2 f}{\partial p_i^2} = rac{1}{p_i}$, and for $i 
-e j$: $rac{\partial^2 f}{\partial p_i \partial p_j} = 0$.<br/>
-            3. The Hessian is purely diagonal: $\mathbf{H} = 	ext{diag}\left(rac{1}{p_1}, rac{1}{p_2}, \dots, rac{1}{p_n}ight)$.<br/>
-            4. For any non-zero vector $\mathbf{v} 
-e \mathbf{0}$: $\mathbf{v}^T \mathbf{H} \mathbf{v} = \sum_{i=1}^n rac{v_i^2}{p_i}$.<br/>
+            1. First partial derivatives: $\frac{\partial f}{\partial p_i} = \ln p_i + p_i \cdot \frac{1}{p_i} = \ln p_i + 1$.<br/>
+            2. Second partial derivatives: $\frac{\partial^2 f}{\partial p_i^2} = \frac{1}{p_i}$, and for $i \ne j$: $\frac{\partial^2 f}{\partial p_i \partial p_j} = 0$.<br/>
+            3. The Hessian is purely diagonal: $\mathbf{H} = \text{diag}\left(\frac{1}{p_1}, \frac{1}{p_2}, \dots, \frac{1}{p_n}\right)$.<br/>
+            4. For any non-zero vector $\mathbf{v} \ne \mathbf{0}$: $\mathbf{v}^T \mathbf{H} \mathbf{v} = \sum_{i=1}^n \frac{v_i^2}{p_i}$.<br/>
             5. Since each $p_i > 0$ and $v_i^2 \ge 0$ (with at least one $v_i^2 > 0$), $\mathbf{v}^T \mathbf{H} \mathbf{v} > 0$.<br/>
             6. Thus $\mathbf{H} \succ 0$, proving negative entropy is strictly convex (and Shannon entropy $-f(\mathbf{p})$ is strictly concave!).
           </div>
@@ -1128,8 +1090,7 @@ print(f"Eigenvalues: {eigenvalues} | Convex: {is_strictly_convex} | Condition ka
         <ul class="takeaways-list">
           <li>For convex functions on convex sets, every local minimum is guaranteed to be a global minimum.</li>
           <li>First-order condition: tangent hyperplanes globally underestimate the function everywhere.</li>
-          <li>Second-order condition: the Hessian matrix $
-abla^2 f(\mathbf{x})$ must be positive semi-definite ($\lambda_i \ge 0$).</li>
+          <li>Second-order condition: the Hessian matrix $\nabla^2 f(\mathbf{x})$ must be positive semi-definite ($\lambda_i \ge 0$).</li>
           <li>Next, we study gradient-based algorithms to traverse these loss surfaces efficiently: GD, Momentum, RMSprop, and Adam.</li>
         </ul>
         <div class="takeaways-footer">
@@ -1185,26 +1146,23 @@ abla^2 f(\mathbf{x})$ must be positive semi-definite ($\lambda_i \ge 0$).</li>
         <div class="phase-header"><span class="phase-badge">📐 4. Formal Theory</span></div>
         <p><strong>1. Vanilla Gradient Descent:</strong> Update rule with step size $\eta > 0$:</p>
         <div class="formula-box">
-          $$\mathbf{x}_{t+1} = \mathbf{x}_t - \eta 
-abla f(\mathbf{x}_t)$$
+          $$\mathbf{x}_{t+1} = \mathbf{x}_t - \eta \nabla f(\mathbf{x}_t)$$
         </div>
-        <p><em>Convergence condition for $L$-smooth function ($\|
-abla^2 f\|_2 \le L$):</em> The learning rate must strictly satisfy $0 < \eta < rac{2}{L}$. If $\eta > rac{2}{L}$, iterates diverge to infinity!</p>
+        <p><em>Convergence condition for $L$-smooth function ($\|\nabla^2 f\|_2 \le L$):</em> The learning rate must strictly satisfy $0 < \eta < \frac{2}{L}$. If $\eta > \frac{2}{L}$, iterates diverge to infinity!</p>
 
-        <p><strong>2. Polyak Momentum:</strong> Tracks velocity vector $\mathbf{v}_t$ with decay $eta \in [0.8, 0.99]$:</p>
+        <p><strong>2. Polyak Momentum:</strong> Tracks velocity vector $\mathbf{v}_t$ with decay $\beta \in [0.8, 0.99]$:</p>
         <div class="formula-box">
-          $$\mathbf{v}_{t+1} = eta \mathbf{v}_t + 
-abla f(\mathbf{x}_t), \quad \mathbf{x}_{t+1} = \mathbf{x}_t - \eta \mathbf{v}_{t+1}$$
+          $$\mathbf{v}_{t+1} = \beta \mathbf{v}_t + \nabla f(\mathbf{x}_t), \quad \mathbf{x}_{t+1} = \mathbf{x}_t - \eta \mathbf{v}_{t+1}$$
         </div>
 
         <p><strong>3. The Adam Optimizer (Adaptive Moment Estimation):</strong></p>
         <div class="formula-box">
-          $$\mathbf{m}_t = eta_1 \mathbf{m}_{t-1} + (1 - eta_1)\mathbf{g}_t \quad (	ext{1st Moment: Mean})$$
-          $$\mathbf{v}_t = eta_2 \mathbf{v}_{t-1} + (1 - eta_2)\mathbf{g}_t^{\odot 2} \quad (	ext{2nd Moment: Uncentered Variance})$$
-          $$\hat{\mathbf{m}}_t = rac{\mathbf{m}_t}{1 - eta_1^t}, \quad \hat{\mathbf{v}}_t = rac{\mathbf{v}_t}{1 - eta_2^t} \quad (	ext{Bias Corrections})$$
-          $$\mathbf{x}_{t+1} = \mathbf{x}_t - rac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \odot \hat{\mathbf{m}}_t$$
+          $$\mathbf{m}_t = \beta_1 \mathbf{m}_{t-1} + (1 - \beta_1)\mathbf{g}_t \quad (\text{1st Moment: Mean})$$
+          $$\mathbf{v}_t = \beta_2 \mathbf{v}_{t-1} + (1 - \beta_2)\mathbf{g}_t^{\odot 2} \quad (\text{2nd Moment: Uncentered Variance})$$
+          $$\hat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}, \quad \hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t} \quad (\text{Bias Corrections})$$
+          $$\mathbf{x}_{t+1} = \mathbf{x}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \odot \hat{\mathbf{m}}_t$$
         </div>
-        <p><em>Why bias correction is required:</em> Because $\mathbf{m}_0 = \mathbf{0}$ and $\mathbf{v}_0 = \mathbf{0}$, uncorrected moments are heavily shrunk toward zero in early iterations (e.g. at $t=1$, $\mathbf{m}_1 = (1-eta_1)\mathbf{g}_1 = 0.1 \mathbf{g}_1$). Dividing by $1 - eta_1^t = 0.1$ restores the true unbiased expectation $\mathbb{E}[\hat{\mathbf{m}}_t] = \mathbb{E}[\mathbf{g}_t]$.</p>
+        <p><em>Why bias correction is required:</em> Because $\mathbf{m}_0 = \mathbf{0}$ and $\mathbf{v}_0 = \mathbf{0}$, uncorrected moments are heavily shrunk toward zero in early iterations (e.g. at $t=1$, $\mathbf{m}_1 = (1-\beta_1)\mathbf{g}_1 = 0.1 \mathbf{g}_1$). Dividing by $1 - \beta_1^t = 0.1$ restores the true unbiased expectation $\mathbb{E}[\hat{\mathbf{m}}_t] = \mathbb{E}[\mathbf{g}_t]$.</p>
       </div>
 
       <!-- 5. ✍️ Worked examples -->
@@ -1215,8 +1173,7 @@ abla f(\mathbf{x}_t), \quad \mathbf{x}_{t+1} = \mathbf{x}_t - \eta \mathbf{v}_{t
           <strong>Example 6.1 (Learning Rate Divergence on 1D Quadratic):</strong><br/>
           Let $f(x) = 5x^2$ ($L = 10$). Trace 3 steps of Gradient Descent from $x_0 = 1$ with (a) $\eta = 0.10$ and (b) $\eta = 0.25$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Gradient: $
-abla f(x) = 10x \implies x_{t+1} = x_t - 10\eta x_t = (1 - 10\eta) x_t$.<br/>
+            1. Gradient: $\nabla f(x) = 10x \implies x_{t+1} = x_t - 10\eta x_t = (1 - 10\eta) x_t$.<br/>
             2. Case (a) with $\eta = 0.10$: multiplier is $1 - 10(0.10) = 0 \implies x_1 = 0$ (instant convergence in 1 step!).<br/>
             3. Case (b) with $\eta = 0.25$: multiplier is $1 - 10(0.25) = 1 - 2.5 = -1.5$.<br/>
                &nbsp;&nbsp;Step 1: $x_1 = -1.5(1.0) = -1.50$.<br/>
@@ -1228,12 +1185,12 @@ abla f(x) = 10x \implies x_{t+1} = x_t - 10\eta x_t = (1 - 10\eta) x_t$.<br/>
 
         <div class="example-step">
           <strong>Example 6.2 (Momentum in an Ill-Conditioned Ravine):</strong><br/>
-          Let $f(x, y) = 10x^2 + y^2$. Compute Step 1 and Step 2 of Gradient Descent vs Momentum ($eta = 0.9$) with $\eta = 0.05$ starting from $(1, 1)$.
+          Let $f(x, y) = 10x^2 + y^2$. Compute Step 1 and Step 2 of Gradient Descent vs Momentum ($\beta = 0.9$) with $\eta = 0.05$ starting from $(1, 1)$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Initial gradient at $(1, 1)$: $\mathbf{g}_0 = [20, 2]^T$.<br/>
             2. Vanilla GD Step 1: $\mathbf{x}_1 = [1, 1]^T - 0.05[20, 2]^T = [1 - 1.0, 1 - 0.10]^T = [0.0, 0.90]^T$.<br/>
             3. Gradient at $\mathbf{x}_1$: $\mathbf{g}_1 = [20(0), 2(0.90)]^T = [0, 1.80]^T$.<br/>
-            4. Vanilla GD Step 2: $\mathbf{x}_2 = [0, 0.90]^T - 0.05[0, 1.80]^T = [0, 0.81]^T$. (Notice: $y$ took 2 steps to go from $1.0 	o 0.81$).<br/>
+            4. Vanilla GD Step 2: $\mathbf{x}_2 = [0, 0.90]^T - 0.05[0, 1.80]^T = [0, 0.81]^T$. (Notice: $y$ took 2 steps to go from $1.0 \to 0.81$).<br/>
             5. Momentum Step 1: $\mathbf{v}_1 = [20, 2]^T \implies \mathbf{x}_1 = [0.0, 0.90]^T$.<br/>
             6. Momentum Step 2: $\mathbf{v}_2 = 0.9[20, 2]^T + [0, 1.80]^T = [18.0, 3.60]^T \implies \mathbf{x}_2 = [0, 0.90]^T - 0.05[18.0, 3.60]^T = [-0.90, 0.72]^T$.<br/>
             7. The momentum along the gentle $y$-axis accelerated from $0.10$ to $0.18$ advance!
@@ -1242,13 +1199,13 @@ abla f(x) = 10x \implies x_{t+1} = x_t - 10\eta x_t = (1 - 10\eta) x_t$.<br/>
 
         <div class="example-step">
           <strong>Example 6.3 (Complete Numerical Trace of Step 1 of Adam):</strong><br/>
-          Given initial point $x_0 = 5.0$, loss $f(x) = x^2$, gradient $g_1 = 10.0$. Trace Step 1 of Adam with $eta_1 = 0.9, eta_2 = 0.999, \eta = 0.10, \epsilon = 10^{-8}$.
+          Given initial point $x_0 = 5.0$, loss $f(x) = x^2$, gradient $g_1 = 10.0$. Trace Step 1 of Adam with $\beta_1 = 0.9, \beta_2 = 0.999, \eta = 0.10, \epsilon = 10^{-8}$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. First moment: $m_1 = 0.9(0) + (1 - 0.9)(10.0) = 0.1(10.0) = 1.0$.<br/>
             2. Second moment: $v_1 = 0.999(0) + (1 - 0.999)(10.0^2) = 0.001(100.0) = 0.10$.<br/>
-            3. Bias-corrected first moment: $\hat{m}_1 = rac{1.0}{1 - 0.9^1} = rac{1.0}{0.1} = 10.0$.<br/>
-            4. Bias-corrected second moment: $\hat{v}_1 = rac{0.10}{1 - 0.999^1} = rac{0.10}{0.001} = 100.0$.<br/>
-            5. Parameter update: $\Delta x_1 = -\eta rac{\hat{m}_1}{\sqrt{\hat{v}_1} + \epsilon} = -0.10 rac{10.0}{\sqrt{100.0}} = -0.10 rac{10.0}{10.0} = -0.10$.<br/>
+            3. Bias-corrected first moment: $\hat{m}_1 = \frac{1.0}{1 - 0.9^1} = \frac{1.0}{0.1} = 10.0$.<br/>
+            4. Bias-corrected second moment: $\hat{v}_1 = \frac{0.10}{1 - 0.999^1} = \frac{0.10}{0.001} = 100.0$.<br/>
+            5. Parameter update: $\Delta x_1 = -\eta \frac{\hat{m}_1}{\sqrt{\hat{v}_1} + \epsilon} = -0.10 \frac{10.0}{\sqrt{100.0}} = -0.10 \frac{10.0}{10.0} = -0.10$.<br/>
             6. New position: $x_1 = 5.0 - 0.10 = 4.90$. Notice how Adam automatically normalized the raw gradient ($10.0$) so the initial step size exactly matches $\eta = 0.10$!
           </div>
         </div>
@@ -1307,7 +1264,7 @@ for t in range(1, 4):
       <div class="mistakes-box">
         <div class="mistakes-title">⚠️ Common Student Mistakes</div>
         <div class="mistake-item">
-          <div class="mistake-name">1. Omitting bias corrections ($1 - eta^t$) in Adam</div>
+          <div class="mistake-name">1. Omitting bias corrections ($1 - \beta^t$) in Adam</div>
           <div class="mistake-fix"><strong>Why it fails:</strong> Because moments are initialized to zero, early updates without bias correction are orders of magnitude too small, freezing training in early epochs.</div>
         </div>
         <div class="mistake-item">
@@ -1328,7 +1285,7 @@ for t in range(1, 4):
         <div class="takeaways-title">📌 Key Takeaways</div>
         <ul class="takeaways-list">
           <li>Vanilla Gradient Descent struggles in ravines where the Hessian condition number $\kappa \gg 1$.</li>
-          <li>Momentum accumulates velocity across consistent directions, achieving an acceleration factor of $rac{1}{1 - eta}$.</li>
+          <li>Momentum accumulates velocity across consistent directions, achieving an acceleration factor of $\frac{1}{1 - \beta}$.</li>
           <li>Adam combines Momentum and RMSprop with bias corrections, adapting individual step sizes for each coordinate.</li>
           <li>Next, we examine how to optimize models when parameters are restricted by constraints: Lagrange Multipliers and KKT.</li>
         </ul>
@@ -1363,7 +1320,7 @@ for t in range(1, 4):
       <div class="learning-objectives-box">
         <div class="learning-objectives-title">🎯 Learning Objectives</div>
         <ul class="learning-objectives-list">
-          <li><strong>Formulate</strong> equality-constrained optimization problems using the Lagrangian function $\mathcal{L}(\mathbf{x}, oldsymbol{\lambda})$.</li>
+          <li><strong>Formulate</strong> equality-constrained optimization problems using the Lagrangian function $\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda})$.</li>
           <li><strong>State and interpret</strong> all 4 Karush–Kuhn–Tucker (KKT) conditions for inequality-constrained optimization.</li>
           <li><strong>Derive</strong> the dual formulation of Support Vector Machines and explain how complementary slackness reveals the sparse set of support vectors.</li>
         </ul>
@@ -1376,11 +1333,7 @@ for t in range(1, 4):
           Imagine walking across a grassy park trying to go as far North as possible, but you are physically constrained to walk along a curved walking path. Where do you stop?
         </p>
         <p style="margin-top:0.75rem;">
-          You stop at the exact point where the walking path curves and points purely East-West! At that point, any further step along the path would start taking you South. Geometrically, the <strong>direction of desired improvement ($
-abla f$)</strong> points directly perpendicular to the path ($
-abla g$). The gradients become perfectly collinear: $
-abla f = -\lambda 
-abla g$.
+          You stop at the exact point where the walking path curves and points purely East-West! At that point, any further step along the path would start taking you South. Geometrically, the <strong>direction of desired improvement ($\nabla f$)</strong> points directly perpendicular to the path ($\nabla g$). The gradients become perfectly collinear: $\nabla f = -\lambda \nabla g$.
         </p>
       </div>
 
@@ -1390,22 +1343,17 @@ abla g$.
         <p><strong>1. Equality Constraints (Lagrange Multipliers):</strong></p>
         <p>Minimize $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) = 0$ for $i = 1, \dots, m$. The Lagrangian is:</p>
         <div class="formula-box">
-          $$\mathcal{L}(\mathbf{x}, oldsymbol{\lambda}) = f(\mathbf{x}) + \sum_{i=1}^m \lambda_i g_i(\mathbf{x})$$
+          $$\mathcal{L}(\mathbf{x}, \boldsymbol{\lambda}) = f(\mathbf{x}) + \sum_{i=1}^m \lambda_i g_i(\mathbf{x})$$
         </div>
-        <p>Stationarity requires setting all partial derivatives to zero: $
-abla_{\mathbf{x}} \mathcal{L} = \mathbf{0}$ and $
-abla_{oldsymbol{\lambda}} \mathcal{L} = \mathbf{0}$.</p>
+        <p>Stationarity requires setting all partial derivatives to zero: $\nabla_{\mathbf{x}} \mathcal{L} = \mathbf{0}$ and $\nabla_{\boldsymbol{\lambda}} \mathcal{L} = \mathbf{0}$.</p>
 
         <p><strong>2. Inequality Constraints &amp; The KKT Conditions:</strong></p>
-        <p>Minimize $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) = 0$ ($i = 1 \dots m$) and $h_j(\mathbf{x}) \le 0$ ($j = 1 \dots k$). For local minimum $\mathbf{x}^*$, there exist multipliers $oldsymbol{\lambda}, oldsymbol{\mu}$ satisfying:</p>
+        <p>Minimize $f(\mathbf{x})$ subject to $g_i(\mathbf{x}) = 0$ ($i = 1 \dots m$) and $h_j(\mathbf{x}) \le 0$ ($j = 1 \dots k$). For local minimum $\mathbf{x}^*$, there exist multipliers $\boldsymbol{\lambda}, \boldsymbol{\mu}$ satisfying:</p>
         <div class="formula-box">
-          $$	ext{1. Stationarity:} \quad 
-abla f(\mathbf{x}^*) + \sum_{i=1}^m \lambda_i 
-abla g_i(\mathbf{x}^*) + \sum_{j=1}^k \mu_j 
-abla h_j(\mathbf{x}^*) = \mathbf{0}$$
-          $$	ext{2. Primal Feasibility:} \quad g_i(\mathbf{x}^*) = 0, \quad h_j(\mathbf{x}^*) \le 0$$
-          $$	ext{3. Dual Feasibility:} \quad \mu_j \ge 0 \quad (orall j)$$
-          $$	ext{4. Complementary Slackness:} \quad \mu_j \cdot h_j(\mathbf{x}^*) = 0 \quad (orall j)$$
+          $$\text{1. Stationarity:} \quad \nabla f(\mathbf{x}^*) + \sum_{i=1}^m \lambda_i \nabla g_i(\mathbf{x}^*) + \sum_{j=1}^k \mu_j \nabla h_j(\mathbf{x}^*) = \mathbf{0}$$
+          $$\text{2. Primal Feasibility:} \quad g_i(\mathbf{x}^*) = 0, \quad h_j(\mathbf{x}^*) \le 0$$
+          $$\text{3. Dual Feasibility:} \quad \mu_j \ge 0 \quad (\forall j)$$
+          $$\text{4. Complementary Slackness:} \quad \mu_j \cdot h_j(\mathbf{x}^*) = 0 \quad (\forall j)$$
         </div>
         <p style="margin-top:0.75rem;font-size:0.9rem;color:#cbd5e1;">
           <em>Complementary Slackness Intuition:</em> Either the constraint is <strong>active</strong> ($h_j(\mathbf{x}^*) = 0$), in which case its multiplier $\mu_j > 0$ acts as a holding force; or the constraint is <strong>inactive</strong> ($h_j(\mathbf{x}^*) < 0$), in which case the boundary does not restrict the minimum and its multiplier is strictly zero ($\mu_j = 0$).
@@ -1422,10 +1370,10 @@ abla h_j(\mathbf{x}^*) = \mathbf{0}$$
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Lagrangian: $\mathcal{L}(x, y, \lambda) = x^2 + 2y^2 + \lambda(x + y - 3)$.<br/>
             2. Stationarity equations:<br/>
-               &nbsp;&nbsp;$rac{\partial \mathcal{L}}{\partial x} = 2x + \lambda = 0 \implies x = -rac{\lambda}{2}$.<br/>
-               &nbsp;&nbsp;$rac{\partial \mathcal{L}}{\partial y} = 4y + \lambda = 0 \implies y = -rac{\lambda}{4}$.<br/>
-            3. Substitute into constraint: $\left(-rac{\lambda}{2}ight) + \left(-rac{\lambda}{4}ight) = 3 \implies -rac{3\lambda}{4} = 3 \implies \lambda = -4$.<br/>
-            4. Solve coordinates: $x^* = -rac{-4}{2} = 2$, $y^* = -rac{-4}{4} = 1$.<br/>
+               &nbsp;&nbsp;$\frac{\partial \mathcal{L}}{\partial x} = 2x + \lambda = 0 \implies x = -\frac{\lambda}{2}$.<br/>
+               &nbsp;&nbsp;$\frac{\partial \mathcal{L}}{\partial y} = 4y + \lambda = 0 \implies y = -\frac{\lambda}{4}$.<br/>
+            3. Substitute into constraint: $\left(-\frac{\lambda}{2}\right) + \left(-\frac{\lambda}{4}\right) = 3 \implies -\frac{3\lambda}{4} = 3 \implies \lambda = -4$.<br/>
+            4. Solve coordinates: $x^* = -\frac{-4}{2} = 2$, $y^* = -\frac{-4}{4} = 1$.<br/>
             5. Minimum value: $f(2, 1) = 2^2 + 2(1^2) = 4 + 2 = 6$.
           </div>
         </div>
@@ -1436,8 +1384,7 @@ abla h_j(\mathbf{x}^*) = \mathbf{0}$$
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
             1. Rewrite constraint as $h(x) = x - 2 \le 0$. Lagrangian: $\mathcal{L}(x, \mu) = (x - 4)^2 + \mu(x - 2)$.<br/>
             2. KKT conditions: (1) $2(x - 4) + \mu = 0$; (2) $x \le 2$; (3) $\mu \ge 0$; (4) $\mu(x - 2) = 0$.<br/>
-            3. Test Case A (Inactive $\mu = 0$): $2(x - 4) + 0 = 0 \implies x = 4$. But $4 
-ot\le 2$, violating primal feasibility!<br/>
+            3. Test Case A (Inactive $\mu = 0$): $2(x - 4) + 0 = 0 \implies x = 4$. But $4 \not\le 2$, violating primal feasibility!<br/>
             4. Test Case B (Active $x = 2$): $2(2 - 4) + \mu = 0 \implies -4 + \mu = 0 \implies \mu = 4$.<br/>
             5. Since $\mu = 4 \ge 0$, all KKT conditions are satisfied! Minimum is at $x^* = 2$ with cost $f(2) = (2-4)^2 = 4$.
           </div>
@@ -1445,15 +1392,14 @@ ot\le 2$, violating primal feasibility!<br/>
 
         <div class="example-step">
           <strong>Example 7.3 (Support Vector Machine Dual Derivation):</strong><br/>
-          Derive the SVM dual formulation from primal margin maximization $\min_{\mathbf{w}, b} rac{1}{2}\|\mathbf{w}\|^2$ subject to $y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1$.
+          Derive the SVM dual formulation from primal margin maximization $\min_{\mathbf{w}, b} \frac{1}{2}\|\mathbf{w}\|^2$ subject to $y_i(\mathbf{w}^T \mathbf{x}_i + b) \ge 1$.
           <div style="margin-top:0.5rem;color:var(--text-secondary);line-height:1.7;">
-            1. Primal Lagrangian: $\mathcal{L}(\mathbf{w}, b, oldsymbol{lpha}) = rac{1}{2}\|\mathbf{w}\|^2 - \sum_{i=1}^N lpha_i [y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1]$ with $lpha_i \ge 0$.<br/>
-            2. Stationarity w.r.t $\mathbf{w}$: $
-abla_{\mathbf{w}} \mathcal{L} = \mathbf{w} - \sum_i lpha_i y_i \mathbf{x}_i = \mathbf{0} \implies \mathbf{w}^* = \sum_{i=1}^N lpha_i y_i \mathbf{x}_i$.<br/>
-            3. Stationarity w.r.t $b$: $rac{\partial \mathcal{L}}{\partial b} = -\sum_i lpha_i y_i = 0 \implies \sum_{i=1}^N lpha_i y_i = 0$.<br/>
-            4. Substitute $\mathbf{w}^*$ back into $\mathcal{L}$: $rac{1}{2}\left\|\sum_i lpha_i y_i \mathbf{x}_iight\|^2 - \sum_i lpha_i y_i \left(\sum_j lpha_j y_j \mathbf{x}_jight)^T \mathbf{x}_i + \sum_i lpha_i$.<br/>
-            5. Simplifies to the famous SVM Dual Problem: $\max_{oldsymbol{lpha}} \sum_{i=1}^N lpha_i - rac{1}{2} \sum_{i,j} lpha_i lpha_j y_i y_j (\mathbf{x}_i \cdot \mathbf{x}_j)$ subject to $lpha_i \ge 0$ and $\sum lpha_i y_i = 0$.<br/>
-            6. By complementary slackness, only data points directly on the margin boundary have $lpha_i > 0$: these are the **Support Vectors**!
+            1. Primal Lagrangian: $\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) = \frac{1}{2}\|\mathbf{w}\|^2 - \sum_{i=1}^N \alpha_i [y_i(\mathbf{w}^T \mathbf{x}_i + b) - 1]$ with $\alpha_i \ge 0$.<br/>
+            2. Stationarity w.r.t $\mathbf{w}$: $\nabla_{\mathbf{w}} \mathcal{L} = \mathbf{w} - \sum_i \alpha_i y_i \mathbf{x}_i = \mathbf{0} \implies \mathbf{w}^* = \sum_{i=1}^N \alpha_i y_i \mathbf{x}_i$.<br/>
+            3. Stationarity w.r.t $b$: $\frac{\partial \mathcal{L}}{\partial b} = -\sum_i \alpha_i y_i = 0 \implies \sum_{i=1}^N \alpha_i y_i = 0$.<br/>
+            4. Substitute $\mathbf{w}^*$ back into $\mathcal{L}$: $\frac{1}{2}\left\|\sum_i \alpha_i y_i \mathbf{x}_i\right\|^2 - \sum_i \alpha_i y_i \left(\sum_j \alpha_j y_j \mathbf{x}_j\right)^T \mathbf{x}_i + \sum_i \alpha_i$.<br/>
+            5. Simplifies to the famous SVM Dual Problem: $\max_{\boldsymbol{\alpha}} \sum_{i=1}^N \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j (\mathbf{x}_i \cdot \mathbf{x}_j)$ subject to $\alpha_i \ge 0$ and $\sum \alpha_i y_i = 0$.<br/>
+            6. By complementary slackness, only data points directly on the margin boundary have $\alpha_i > 0$: these are the **Support Vectors**!
           </div>
         </div>
       </div>
@@ -1464,9 +1410,7 @@ abla_{\mathbf{w}} \mathcal{L} = \mathbf{w} - \sum_i lpha_i y_i \mathbf{x}_i = \
           <span class="sim-title">🔬 Lab 7: Lagrange Multipliers &amp; Tangency Explorer</span>
         </div>
         <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.75rem;">
-          Minimize $f(x, y) = x^2 + y^2$ subject to linear constraint $x + 2y = 4$. Slide along the constraint line to locate the point where $
-abla f$ aligns with $
-abla g$.
+          Minimize $f(x, y) = x^2 + y^2$ subject to linear constraint $x + 2y = 4$. Slide along the constraint line to locate the point where $\nabla f$ aligns with $\nabla g$.
         </p>
         <div class="sim-controls" style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;">
           <div style="display:flex;align-items:center;gap:0.5rem;">
@@ -1526,9 +1470,7 @@ print(f"Optimal (x, y): ({x_opt:.3f}, {y_opt:.3f}) | Min value: {res.fun:.3f}")
       <div class="takeaways-box">
         <div class="takeaways-title">📌 Key Takeaways</div>
         <ul class="takeaways-list">
-          <li>Equality constraints require gradients to be collinear: $
-abla f = -\lambda 
-abla g$.</li>
+          <li>Equality constraints require gradients to be collinear: $\nabla f = -\lambda \nabla g$.</li>
           <li>The KKT conditions generalize Lagrange multipliers to inequality constraints through primal feasibility, dual feasibility, and complementary slackness.</li>
           <li>Complementary slackness produces sparse models in Support Vector Machines, where only support vectors determine the separating hyperplane.</li>
           <li>This concludes the comprehensive Calculus &amp; Optimisation course for machine learning!</li>
