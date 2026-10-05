@@ -1,0 +1,14 @@
+{
+  "name": "maths-for-all",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static educational website for Maths for All",
+  "type": "module",
+  "scripts": {
+    "check:render": "node scripts/render_check.mjs"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "playwright": "^1.49.1"
+  }
+}
