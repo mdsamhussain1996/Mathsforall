@@ -97,6 +97,8 @@ async function runRenderCheck() {
   try {
     for (const file of htmlFiles) {
       const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+      await page.route('**/*goatcounter*', (route) => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+      await page.route('**/*zgo.at*', (route) => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
       const url = `http://localhost:${port}/${file}`;
 
       try {
