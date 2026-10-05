@@ -152,6 +152,7 @@ function initStatsCountUp() {
 
 // ── SEARCH ──
 const searchData = [
+  // The Maths Behind Everyday Apps
   { title: "The Maths Behind Everyday Apps", desc: "Interactive stories: Google, ChatGPT, Shazam, WhatsApp, Netflix, JPEG", url: "maths-behind.html" },
   { title: "How Google Ranked the Web (PageRank)", desc: "Eigenvectors and random surfer Markov chains", url: "maths-behind/google-pagerank.html" },
   { title: "How ChatGPT Pays Attention", desc: "Query, Key, Value dot products and softmax matrix transformations", url: "maths-behind/chatgpt-attention.html" },
@@ -160,6 +161,7 @@ const searchData = [
   { title: "How Netflix Guesses Your Next Show", desc: "Low-rank SVD and latent factor collaborative filtering", url: "maths-behind/netflix-svd.html" },
   { title: "How JPEG Shrinks Photos", desc: "2D Discrete Cosine Transform (DCT) and perceptual quantization", url: "maths-behind/jpeg-dct.html" },
 
+  // Linear Algebra Master Curriculum
   { title: 'Linear Algebra Master Curriculum', desc: 'Complete 10-chapter curriculum with interactive simulations', url: 'linear-algebra.html' },
   { title: 'Vectors & Vector Operations', desc: 'Displacements, addition, and scaling in ℝⁿ', url: 'linear-algebra.html#topic-1-1' },
   { title: 'Dot Product & Projections', desc: 'Angles, lengths, Cauchy-Schwarz, and orthogonal shadows', url: 'linear-algebra.html#topic-1-2' },
@@ -189,37 +191,105 @@ const searchData = [
   { title: 'Principal Component Analysis (PCA)', desc: 'Maximum variance projections and covariance eigen-decomposition', url: 'linear-algebra.html#topic-10-1' },
   { title: 'Tensors & Self-Attention in Transformers', desc: 'Multilinear arrays and QKᵀ scaled dot-product', url: 'linear-algebra.html#topic-10-2' },
   { title: 'Graph Laplacians & Spectral Clustering', desc: 'Degree, Adjacency, Laplacian L = D - A, and Fiedler vector', url: 'linear-algebra.html#topic-10-3' },
-  { title: 'Gradient Descent', desc: 'Optimization algorithm for ML', url: 'cs-aiml.html#optimization' },
-  { title: 'Bayes Theorem', desc: 'Conditional probability', url: 'cs-aiml.html#probability' },
-  { title: 'Forward Kinematics', desc: 'Robot end-effector position', url: 'robotics.html#kinematics' },
-  { title: 'Rotation Matrix', desc: 'Coordinate frame transforms', url: 'robotics.html#transforms' },
-  { title: 'Lyapunov Stability', desc: 'Stability analysis method', url: 'control.html#stability' },
-  { title: 'State Space', desc: 'System representation', url: 'control.html#state-space' },
-  { title: 'Systems of Linear Equations', desc: 'Graphing, substitution, and elimination', url: 'systems-of-equations.html' },
-  { title: 'Discrete Mathematics for CS', desc: 'Logic, sets, combinatorics, recurrences, graphs and RSA', url: 'discrete-maths.html' },
-  { title: 'Logic, Truth Tables & Induction', desc: 'Propositions, quantifiers and mathematical induction', url: 'discrete-maths.html#ch1' },
-  { title: 'Sets, Relations & Functions', desc: 'Equivalence relations, injective and surjective maps', url: 'discrete-maths.html#ch2' },
-  { title: 'Combinatorics & Pigeonhole Principle', desc: 'Permutations, combinations and counting', url: 'discrete-maths.html#ch3' },
-  { title: 'Recurrences, Big-O & Master Theorem', desc: 'Solving T(n) for divide-and-conquer algorithms', url: 'discrete-maths.html#ch4' },
-  { title: 'Graph Theory: BFS, DFS & Dijkstra', desc: 'Trees, shortest paths and graph colouring', url: 'discrete-maths.html#ch5' },
-  { title: 'Number Theory & RSA', desc: 'Modular arithmetic, GCD and public-key cryptography', url: 'discrete-maths.html#ch6' },
+
+  // Probability & Statistics for CS and AI (Full Curriculum)
+  { title: 'Probability & Statistics for CS and AI', desc: 'Complete 8-chapter curriculum: Bayes, distributions, PCA link, LLN/CLT, MLE, and A/B testing', url: 'probability-statistics.html' },
+  { title: 'Counting, Sample Spaces & The Birthday Paradox', desc: 'Permutations, combinations, Kolmogorov axioms, inclusion-exclusion, and hash collisions', url: 'probability-statistics.html#ch1' },
+  { title: 'Conditional Probability & Bayes’ Theorem', desc: 'Law of total probability, base rate fallacy, and Naive Bayes spam classifiers', url: 'probability-statistics.html#ch2' },
+  { title: 'Random Variables, Linearity of Expectation & Quicksort', desc: 'Indicator variables, expectation linearity, variance, and randomized Quicksort proofs', url: 'probability-statistics.html#ch3' },
+  { title: 'The Key Distributions of Computer Science', desc: 'Bernoulli, Binomial, Poisson, Geometric, Normal, Exponential, and memorylessness', url: 'probability-statistics.html#ch4' },
+  { title: 'Joint Distributions, Covariance & The Link to PCA', desc: 'Joint PMFs/PDFs, covariance matrix, Pearson correlation, and spectral link to PCA', url: 'probability-statistics.html#ch5' },
+  { title: 'Limit Theorems: The Law of Large Numbers & CLT', desc: 'Markov/Chebyshev inequalities, Weak/Strong LLN, Central Limit Theorem, and Monte Carlo', url: 'probability-statistics.html#ch6' },
+  { title: 'Parameter Estimation: MLE, MAP & Cross-Entropy', desc: 'Likelihood, Cross-Entropy as MLE, and Gaussian MAP as L2 weight decay regularization', url: 'probability-statistics.html#ch7' },
+  { title: 'Hypothesis Testing & Tech Industry A/B Testing', desc: 'Null hypotheses, p-values, Type I/II errors, z-test, MDE sample sizing, and peeking trap', url: 'probability-statistics.html#ch8' },
+  { title: 'Placement Corner: Tech Interview Probability Puzzles', desc: 'Reservoir sampling, random walk ruin, coupon collector, and Poisson stream arrivals', url: 'probability-statistics.html#placement' },
+
+  // Calculus & Optimisation for Machine Learning (Full Curriculum)
+  { title: 'Calculus & Optimisation for Machine Learning', desc: 'Complete 7-chapter curriculum: gradients, backpropagation, Hessians, and Adam optimizer', url: 'calculus-optimisation.html' },
+  { title: 'Derivatives Revisited & Linear Approximations', desc: 'Instantaneous rate of change, tangent slopes, first-order linear approximation, and finite differences', url: 'calculus-optimisation.html#ch1' },
+  { title: 'Multivariable Calculus & Gradients', desc: 'Partial derivatives, gradient vector direction of steepest ascent, and directional derivatives', url: 'calculus-optimisation.html#ch2' },
+  { title: 'The Chain Rule & Computational Graphs', desc: 'Multivariate chain rule, computational DAGs, and forward vs reverse-mode autodiff', url: 'calculus-optimisation.html#ch3' },
+  { title: 'Backpropagation by Hand & GradCheck', desc: 'Layer-by-layer reverse pass derivations, weight gradient tensors, and numerical gradcheck', url: 'calculus-optimisation.html#ch4' },
+  { title: 'Convexity & The Hessian Matrix', desc: 'Second derivatives, Hessian curvature matrix, positive definiteness, and saddle points', url: 'calculus-optimisation.html#ch5' },
+  { title: 'Gradient-Based Optimisation & Adam', desc: 'Gradient Descent, Momentum, RMSprop, Adam optimizer adaptive moments, and learning rates', url: 'calculus-optimisation.html#ch6' },
+  { title: 'Constrained Optimisation & KKT Conditions', desc: 'Lagrange multipliers, equality/inequality constraints, primal-dual formulation, and KKT', url: 'calculus-optimisation.html#ch7' },
+
+  // Discrete Mathematics for CS (Full Curriculum)
+  { title: 'Discrete Mathematics for CS', desc: 'Logic, sets, combinatorics, recurrences, graphs, and RSA cryptography', url: 'discrete-maths.html' },
+  { title: 'Logic, Truth Tables & Mathematical Induction', desc: 'Propositions, connectives, quantifiers, and induction proofs for recursive algorithms', url: 'discrete-maths.html#ch1' },
+  { title: 'Sets, Relations & Functions', desc: 'Venn diagrams, Cartesian products, equivalence relations, and injective/surjective maps', url: 'discrete-maths.html#ch2' },
+  { title: 'Combinatorics & The Pigeonhole Principle', desc: 'Permutations, combinations, binomial coefficients, and Dirichlet pigeonhole bounds', url: 'discrete-maths.html#ch3' },
+  { title: 'Recurrences, Big-O & The Master Theorem', desc: 'Asymptotic notation, recursive relation trees, and Master Theorem for divide-and-conquer', url: 'discrete-maths.html#ch4' },
+  { title: 'Graph Theory: BFS, DFS & Dijkstra', desc: 'Adjacency matrices, BFS/DFS traversal, Dijkstra shortest paths, and bipartite matching', url: 'discrete-maths.html#ch5' },
+  { title: 'Number Theory & RSA Cryptography', desc: 'Modular arithmetic, Extended Euclidean GCD, Fermat Little Theorem, and RSA encryption', url: 'discrete-maths.html#ch6' },
+
+  // Associated Hubs & Applications
+  { title: 'AI & Machine Learning Maths Hub', desc: 'Unified pathway connecting linear algebra, probability, and multivariable calculus', url: 'cs-aiml.html' },
+  { title: 'Gradient Descent Optimization', desc: 'Optimization algorithm and loss surfaces for machine learning', url: 'cs-aiml.html#optimization' },
+  { title: 'Bayes Theorem in AI', desc: 'Conditional probability and classification foundations', url: 'cs-aiml.html#probability' },
+  { title: 'Forward Kinematics in Robotics', desc: 'Kinematic chains and robot end-effector positioning', url: 'robotics.html#kinematics' },
+  { title: 'Rotation Matrices & Coordinate Transforms', desc: 'SO(3) frame transformations and orientation in 3D', url: 'robotics.html#transforms' },
+  { title: 'Lyapunov Stability in Control Systems', desc: 'Energy functions and non-linear stability analysis', url: 'control.html#stability' },
+  { title: 'State Space Representation', desc: 'Modern control theory dynamic system modeling', url: 'control.html#state-space' },
+  { title: 'Systems of Linear Equations Lab', desc: 'Interactive graphing, substitution, and elimination visualizer', url: 'systems-of-equations.html' },
+  { title: 'Eigenvalues in AI/ML Deep Dive', desc: 'Interactive lecture on spectral methods, PCA, and PageRank', url: 'eigen-lecture.html' },
+  { title: 'More Branches of Mathematics', desc: 'Topology, abstract algebra, number theory, and dynamical systems', url: 'more.html' },
 ];
+
+// Helper to resolve site-relative URLs correctly from root or subfolders (/maths-behind/, /research/, etc.)
+function getSiteRootPrefix() {
+  // 1. Inspect script tag referencing main.js
+  const script = document.querySelector('script[src*="main.js"]');
+  if (script) {
+    const src = script.getAttribute('src') || '';
+    const idx = src.indexOf('js/main.js');
+    if (idx !== -1) {
+      return src.substring(0, idx);
+    }
+  }
+
+  // 2. Pathname fallback: check depth in /maths-behind/ or /research/
+  const path = (window.location.pathname || '').replace(/\\/g, '/');
+  if (path.includes('/maths-behind/')) {
+    return '../';
+  }
+  if (path.includes('/research/')) {
+    const match = path.match(/\/research(\/.*)?\/[^\/]*$/);
+    const extraDepth = match && match[1] ? match[1].split('/').filter(Boolean).length : 0;
+    return '../' + '../'.repeat(extraDepth);
+  }
+  return '';
+}
+
+function resolveSearchUrl(rawUrl) {
+  if (!rawUrl) return '#';
+  if (/^(https?:)?\/\//i.test(rawUrl)) return rawUrl;
+  const prefix = getSiteRootPrefix();
+  return prefix + rawUrl;
+}
 
 function handleSearch(q) {
   const box = document.getElementById('searchResults');
+  if (!box) return;
   if (!q.trim()) { box.style.display = 'none'; return; }
+  const query = q.toLowerCase();
   const results = searchData.filter(d =>
-    d.title.toLowerCase().includes(q.toLowerCase()) ||
-    d.desc.toLowerCase().includes(q.toLowerCase())
+    d.title.toLowerCase().includes(query) ||
+    d.desc.toLowerCase().includes(query)
   );
-  if (!results.length) { box.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;padding:0.5rem;">No results found.</p>'; box.style.display = 'block'; return; }
-  box.innerHTML = results.slice(0, 6).map(r =>
-    `<a href="${r.url}" style="display:block;padding:0.6rem 0.75rem;border-radius:8px;text-decoration:none;transition:background 0.2s;"
+  if (!results.length) {
+    box.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;padding:0.5rem;">No results found.</p>';
+    box.style.display = 'block';
+    return;
+  }
+  box.innerHTML = results.slice(0, 8).map(r => {
+    const resolvedUrl = resolveSearchUrl(r.url);
+    return `<a href="${resolvedUrl}" style="display:block;padding:0.6rem 0.75rem;border-radius:8px;text-decoration:none;transition:background 0.2s;"
         onmouseover="this.style.background='rgba(30,111,255,0.1)'" onmouseout="this.style.background='none'">
       <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary)">${r.title}</div>
       <div style="font-size:0.78rem;color:var(--text-muted)">${r.desc}</div>
-    </a>`
-  ).join('');
+    </a>`;
+  }).join('');
   box.style.display = 'block';
 }
 

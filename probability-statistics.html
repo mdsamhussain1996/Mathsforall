@@ -104,6 +104,11 @@
       <li><a href="maths-behind.html">The Maths Behind…</a></li>
     </ul>
 
+    <div class="nav-search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Search topics…" oninput="handleSearch(this.value)" autocomplete="off" aria-label="Search maths topics" />
+    </div>
+
     <div class="nav-actions">
       <a href="https://github.com/mdsamhussain1996/Mathsforall" target="_blank" rel="noopener noreferrer" class="btn-github" aria-label="GitHub Repository">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -116,6 +121,9 @@
     </div>
   </div>
 </nav>
+
+<!-- Search Dropdown -->
+<div id="searchResults" style="display:none;position:fixed;top:70px;right:2rem;z-index:999;background:var(--primary-mid);border:1px solid var(--card-border);border-radius:12px;padding:0.75rem;width:300px;box-shadow:0 8px 32px rgba(0,0,0,0.5)"></div>
 
 <!-- ── HERO ── -->
 <header class="la-hero">
