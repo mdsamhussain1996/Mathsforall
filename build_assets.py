@@ -17,17 +17,19 @@ def shot(svg, out, size, transparent=False):
     args.append("file://" + svg)
     subprocess.run(args, check=True, capture_output=True, timeout=60)
 
-fav = open(os.path.join(A, "favicon.svg")).read()
+fav = open(os.path.join(A, "favicon.svg"), "r", encoding="utf-8").read()
 # full-bleed variant (apple-touch-icon must be opaque square; OS rounds it)
 bleed = fav.replace('rx="14"', 'rx="0"')
-bleed_path = os.path.join(TMP, "bleed.svg"); open(bleed_path, "w").write(bleed)
+bleed_path = os.path.join(TMP, "bleed.svg")
+open(bleed_path, "w", encoding="utf-8").write(bleed)
 
 def fit_svg(src, n):
     # make svg fill an n x n window exactly
-    s = open(src).read()
+    s = open(src, "r", encoding="utf-8").read()
     s = re.sub(r'width="64" height="64"', f'width="{n}" height="{n}"', s, count=1)
     p = os.path.join(TMP, f"i{n}_{os.path.basename(src)}")
-    open(p, "w").write(s); return p
+    open(p, "w", encoding="utf-8").write(s)
+    return p
 
 for n in (16, 32, 48, 192, 512):
     shot(fit_svg(os.path.join(A, "favicon.svg"), n), os.path.join(A, f"favicon-{n}.png"), (n, n), True)
